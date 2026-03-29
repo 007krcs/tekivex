@@ -15,8 +15,8 @@ export const pdfToolkitManifest: ProductManifest = {
   accentColor: 'rgba(239, 68, 68, 0.1)',
   iconName: 'file-pdf',
   homePath: '/product/pdf-toolkit',
-  docsRoot: '/docs/guides/pdf-toolkit',
-  primaryDemoPath: '/pdf-viewer/',
+  docsRoot: 'https://grid-data-analytics-explorer.vercel.app/#/docs/guides/pdf-toolkit',
+  primaryDemoPath: 'https://grid-data-analytics-explorer.vercel.app/pdf-viewer/',
   stats: [
     { value: '13',    label: 'Annotation types' },
     { value: '6',     label: 'PDF plugins' },
@@ -32,9 +32,9 @@ export const pdfToolkitManifest: ProductManifest = {
     'AES-256 encryption / password protection',
   ],
   quickLinks: [
-    { label: 'View Demo',       path: '/pdf-viewer/', external: true },
-    { label: 'PDF Toolkit Docs', path: '/docs/guides/pdf-toolkit' },
-    { label: 'Form Fill Guide', path: '/docs/guides/pdf-toolkit' },
+    { label: 'View Demo',        path: 'https://grid-data-analytics-explorer.vercel.app/pdf-viewer/', external: true },
+    { label: 'PDF Toolkit Docs', path: 'https://grid-data-analytics-explorer.vercel.app/#/docs/guides/pdf-toolkit', external: true },
+    { label: 'Form Fill Guide',  path: 'https://grid-data-analytics-explorer.vercel.app/#/docs/guides/pdf-toolkit', external: true },
   ],
   tags: ['WASM', 'Rust', 'Enterprise', 'PDF', 'PII', 'Encryption', 'Digital Signatures'],
   seo: {

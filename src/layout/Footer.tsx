@@ -1,71 +1,75 @@
 import { Icon } from '../icons/Icon';
 
+// GridStorm lives at this URL — all docs/demo links point here
+const GS = 'https://grid-data-analytics-explorer.vercel.app';
+
 const FOOTER_COLS = [
   {
     heading: 'Platform',
     links: [
-      { label: 'All Products',      href: '#/products' },
-      { label: 'GridStorm',         href: '#/product/gridstorm' },
-      { label: 'PDF Toolkit',       href: '#/product/pdf-toolkit' },
-      { label: 'NexaRecruit',       href: '#/product/nexa-recruit' },
-      { label: 'NexaCare',          href: '#/product/nexa-care' },
-      { label: 'Changelog',         href: '#/docs/getting-started/introduction' },
+      { label: 'All Products',  href: '#/products' },
+      { label: 'GridStorm',     href: '#/product/gridstorm' },
+      { label: 'PDF Toolkit',   href: '#/product/pdf-toolkit' },
+      { label: 'NexaRecruit',   href: '#/product/nexa-recruit' },
+      { label: 'NexaCare',      href: '#/product/nexa-care' },
+      { label: 'Platform Repo', href: 'https://github.com/007krcs/tekivex' },
     ],
   },
   {
     heading: 'GridStorm',
     links: [
-      { label: 'Data Grid',         href: '#/docs/core-concepts/architecture' },
-      { label: 'Plugin System',     href: '#/docs/plugins/plugin-system' },
-      { label: 'PDF Toolkit',       href: '#/docs/guides/pdf-toolkit' },
-      { label: 'AI & MCP',          href: '#/docs/core-concepts/architecture' },
-      { label: 'Migration Guide',   href: '#/docs/guides/migration-from-ag-grid' },
+      { label: 'Introduction',    href: `${GS}/#/docs/getting-started/introduction` },
+      { label: 'Plugin System',   href: `${GS}/#/docs/plugins/plugin-system` },
+      { label: 'PDF Toolkit',     href: `${GS}/#/docs/guides/pdf-toolkit` },
+      { label: 'AI & MCP',        href: `${GS}/#/docs/core-concepts/architecture` },
+      { label: 'Migration Guide', href: `${GS}/#/docs/guides/migration-from-ag-grid` },
     ],
   },
   {
     heading: 'Documentation',
     links: [
-      { label: 'Quick Start',       href: '#/docs/getting-started/quick-start' },
-      { label: 'API Reference',     href: '#/docs/api/grid-api' },
-      { label: 'Column Defs',       href: '#/docs/api/column-definitions' },
-      { label: 'Accessibility',     href: '#/docs/plugins/a11y' },
-      { label: 'Contributing',      href: 'https://github.com/007krcs/grid-data/blob/main/CONTRIBUTING.md' },
+      { label: 'Quick Start',   href: `${GS}/#/docs/getting-started/quick-start` },
+      { label: 'API Reference', href: `${GS}/#/docs/api/grid-api` },
+      { label: 'Column Defs',   href: `${GS}/#/docs/api/column-definitions` },
+      { label: 'Accessibility', href: `${GS}/#/docs/plugins/a11y` },
+      { label: 'Contributing',  href: 'https://github.com/007krcs/grid-data/blob/main/CONTRIBUTING.md' },
     ],
   },
   {
     heading: 'Frameworks',
     links: [
-      { label: 'React',   href: '#/docs/frameworks/react' },
-      { label: 'Vue',     href: '#/docs/frameworks/vue' },
-      { label: 'Angular', href: '#/docs/frameworks/angular' },
-      { label: 'Svelte',  href: '#/docs/frameworks/svelte' },
-      { label: 'Vanilla', href: '#/docs/frameworks/vanilla' },
+      { label: 'React',   href: `${GS}/#/docs/frameworks/react` },
+      { label: 'Vue',     href: `${GS}/#/docs/frameworks/vue` },
+      { label: 'Angular', href: `${GS}/#/docs/frameworks/angular` },
+      { label: 'Svelte',  href: `${GS}/#/docs/frameworks/svelte` },
+      { label: 'Vanilla', href: `${GS}/#/docs/frameworks/vanilla` },
     ],
   },
   {
     heading: 'Demos',
     links: [
-      { label: 'Feature Showcase',   href: '/feature-showcase/' },
-      { label: 'Playground',         href: '/playground/' },
-      { label: 'Financial Trading',  href: '/financial-trading/' },
-      { label: 'Analytics Explorer', href: '/analytics-explorer/' },
-      { label: 'PDF Viewer',         href: '/pdf-viewer/' },
+      { label: 'Feature Showcase',   href: `${GS}/feature-showcase/` },
+      { label: 'Playground',         href: `${GS}/playground/` },
+      { label: 'Financial Trading',  href: `${GS}/financial-trading/` },
+      { label: 'Analytics Explorer', href: `${GS}/analytics-explorer/` },
+      { label: 'PDF Viewer',         href: `${GS}/pdf-viewer/` },
     ],
   },
   {
     heading: 'Community',
     links: [
-      { label: 'GitHub',           href: 'https://github.com/007krcs/grid-data' },
-      { label: 'Issues',           href: 'https://github.com/007krcs/grid-data/issues' },
-      { label: 'Discussions',      href: 'https://github.com/007krcs/grid-data/discussions' },
-      { label: 'Security Policy',  href: 'https://github.com/007krcs/grid-data/blob/main/SECURITY.md' },
-      { label: 'Code of Conduct',  href: 'https://github.com/007krcs/grid-data/blob/main/CODE_OF_CONDUCT.md' },
+      { label: 'GitHub',          href: 'https://github.com/007krcs/grid-data' },
+      { label: 'Issues',          href: 'https://github.com/007krcs/grid-data/issues' },
+      { label: 'Discussions',     href: 'https://github.com/007krcs/grid-data/discussions' },
+      { label: 'Security Policy', href: 'https://github.com/007krcs/grid-data/blob/main/SECURITY.md' },
+      { label: 'Code of Conduct', href: 'https://github.com/007krcs/grid-data/blob/main/CODE_OF_CONDUCT.md' },
     ],
   },
 ];
 
 export function Footer() {
-  const isExternal = (href: string) => href.startsWith('http') || href.startsWith('/');
+  // Anything that's not a hash link (#/) is external
+  const isExternal = (href: string) => !href.startsWith('#');
 
   return (
     <footer className="hub-footer-enterprise">
@@ -117,7 +121,7 @@ export function Footer() {
         </div>
         <div className="hub-footer-bottom-links">
           <a href="#/products" className="hub-footer-bottom-link">Products</a>
-          <a href="#/docs/getting-started/introduction" className="hub-footer-bottom-link">Docs</a>
+          <a href={`${GS}/#/docs/getting-started/introduction`} className="hub-footer-bottom-link" target="_blank" rel="noopener noreferrer">Docs</a>
           <a href="https://github.com/007krcs/grid-data/blob/main/SECURITY.md" className="hub-footer-bottom-link" target="_blank" rel="noopener noreferrer">Security</a>
         </div>
         <div className="hub-footer-social">
