@@ -1,29 +1,59 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <defs>
-    <linearGradient id="grad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+    <!-- Front face: blue → violet -->
+    <linearGradient id="gf" x1="5" y1="18" x2="45" y2="52" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#2563eb"/>
       <stop offset="100%" stop-color="#7c3aed"/>
     </linearGradient>
+    <!-- Top face: sky blue highlight -->
+    <linearGradient id="gt" x1="5" y1="10" x2="55" y2="18" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#93c5fd"/>
+    </linearGradient>
+    <!-- Right face: deep shadow -->
+    <linearGradient id="gr" x1="45" y1="10" x2="55" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3730a3"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <!-- Shine overlay -->
+    <linearGradient id="gs" x1="5" y1="18" x2="30" y2="35" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="white" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
   </defs>
 
-  <!-- Rounded square background -->
-  <rect width="64" height="64" rx="13" fill="url(#grad)"/>
+  <!-- ── Top face (light) ──────────────────────────── -->
+  <polygon points="5,18 45,18 55,10 15,10" fill="url(#gt)"/>
 
-  <!-- ── T ──────────────────────────────────────────────────── -->
-  <!-- Top crossbar -->
-  <rect x="7" y="14" width="23" height="6" rx="3" fill="white"/>
-  <!-- Stem -->
-  <rect x="15.5" y="14" width="6" height="23" rx="3" fill="white"/>
+  <!-- ── Right face (dark/shadow) ─────────────────── -->
+  <polygon points="45,18 55,10 55,44 45,52" fill="url(#gr)"/>
 
-  <!-- ── X ──────────────────────────────────────────────────── -->
-  <!-- Diagonal: top-left → bottom-right -->
-  <line x1="35" y1="14" x2="57" y2="37" stroke="white" stroke-width="5.5" stroke-linecap="round"/>
-  <!-- Diagonal: top-right → bottom-left -->
-  <line x1="57" y1="14" x2="35" y2="37" stroke="white" stroke-width="5.5" stroke-linecap="round"/>
+  <!-- ── Front face (main) ─────────────────────────── -->
+  <polygon points="5,18 45,18 45,52 5,52" fill="url(#gf)"/>
 
-  <!-- ── Accent bar ─────────────────────────────────────────── -->
-  <!-- Full track (dim) -->
-  <rect x="7" y="47" width="50" height="3.5" rx="1.75" fill="white" opacity="0.18"/>
-  <!-- Active segment (blue glow) -->
-  <rect x="7" y="47" width="22" height="3.5" rx="1.75" fill="#93c5fd"/>
+  <!-- Subtle shine on front face (top-left quadrant) -->
+  <polygon points="5,18 45,18 45,52 5,52" fill="url(#gs)"/>
+
+  <!-- Edge lines for depth -->
+  <polyline points="5,52 5,18 15,10 55,10 55,44 45,52 5,52"
+            stroke="rgba(0,0,0,0.22)" stroke-width="0.6" fill="none"/>
+  <line x1="45" y1="18" x2="45" y2="52" stroke="rgba(0,0,0,0.22)" stroke-width="0.6"/>
+  <line x1="5"  y1="18" x2="45" y2="18" stroke="rgba(0,0,0,0.12)" stroke-width="0.5"/>
+  <line x1="15" y1="10" x2="45" y2="18" stroke="rgba(0,0,0,0.12)" stroke-width="0.5"/>
+
+  <!-- Top face highlight band -->
+  <polygon points="5,18 45,18 55,10 15,10" fill="white" opacity="0.16"/>
+
+  <!-- ── T on front face ──────────────────────────── -->
+  <!-- T crossbar -->
+  <rect x="8" y="23" width="16" height="4.5" rx="2" fill="white"/>
+  <!-- T stem -->
+  <rect x="13" y="23" width="5" height="16" rx="2" fill="white"/>
+
+  <!-- ── X on front face ──────────────────────────── -->
+  <line x1="30" y1="23" x2="43" y2="39" stroke="white" stroke-width="4.5" stroke-linecap="round"/>
+  <line x1="43" y1="23" x2="30" y2="39" stroke="white" stroke-width="4.5" stroke-linecap="round"/>
+
+  <!-- Corner accent on top-right edge (subtle glint) -->
+  <line x1="45" y1="18" x2="55" y2="10" stroke="rgba(255,255,255,0.35)" stroke-width="0.8"/>
 </svg>
