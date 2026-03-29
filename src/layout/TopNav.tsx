@@ -133,7 +133,9 @@ export function TopNav({ route }: TopNavProps) {
           onClick={(e) => { e.preventDefault(); navigate('/products'); }}
           title={config.name}
         >
-          <div className="top-nav-logo">TX</div>
+          <div className="top-nav-logo">
+            <img src="/favicon.svg" alt="Tekivex" width="28" height="28" style={{ display: 'block', borderRadius: 6 }} />
+          </div>
           <span className="top-nav-name">{config.name}</span>
         </a>
 

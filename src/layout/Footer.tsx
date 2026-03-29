@@ -72,7 +72,9 @@ export function Footer() {
       {/* Top: brand + badges */}
       <div className="hub-footer-top">
         <div className="hub-footer-brand">
-          <div className="hub-footer-logo">TX</div>
+          <div className="hub-footer-logo">
+            <img src="/favicon.svg" alt="Tekivex" width="36" height="36" style={{ display: 'block', borderRadius: 8 }} />
+          </div>
           <div>
             <div className="hub-footer-brand-name">Tekivex</div>
             <div className="hub-footer-brand-tagline">Enterprise software, crafted with skill</div>
