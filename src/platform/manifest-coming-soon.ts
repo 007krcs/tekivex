@@ -32,7 +32,7 @@ export const analyticsStudioManifest: ProductManifest = {
   quickLinks: [],
   tags: ['Coming Soon', 'Analytics', 'BI', 'Charts', 'Pivoting'],
   seo: {
-    title: 'Analytics Studio — Visual BI & Data Analytics | NexaForge',
+    title: 'Analytics Studio — Visual BI & Data Analytics | Tekivex',
     description:
       'Drag-and-drop analytics builder with 20+ chart types, pivot tables, KPI dashboards, ' +
       'and scheduled reports. No SQL required. Powered by GridStorm.',
@@ -44,7 +44,7 @@ export const analyticsStudioManifest: ProductManifest = {
       'pivot table builder',
       'data visualization tool',
       'no-code analytics',
-      'Analytics Studio NexaForge',
+      'Analytics Studio Tekivex',
     ],
     ogImage: '/og-analytics-studio.png',
     jsonLdType: 'SoftwareApplication',
@@ -85,7 +85,7 @@ export const dataFlowManifest: ProductManifest = {
   quickLinks: [],
   tags: ['Coming Soon', 'Streaming', 'Real-time', 'WebSocket', 'Kafka'],
   seo: {
-    title: 'DataFlow — Real-Time Streaming Data Platform | NexaForge',
+    title: 'DataFlow — Real-Time Streaming Data Platform | Tekivex',
     description:
       'Connect live data feeds via WebSocket, SSE, and Kafka directly to GridStorm grids. ' +
       'Sub-10ms update latency, anomaly alerting, and backpressure control.',
@@ -97,7 +97,7 @@ export const dataFlowManifest: ProductManifest = {
       'SSE streaming platform',
       'real-time analytics grid',
       'streaming data software',
-      'DataFlow NexaForge',
+      'DataFlow Tekivex',
     ],
     ogImage: '/og-dataflow.png',
     jsonLdType: 'SoftwareApplication',

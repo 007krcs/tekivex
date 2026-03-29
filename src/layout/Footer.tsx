@@ -72,10 +72,10 @@ export function Footer() {
       {/* Top: brand + badges */}
       <div className="hub-footer-top">
         <div className="hub-footer-brand">
-          <div className="hub-footer-logo">NF</div>
+          <div className="hub-footer-logo">TX</div>
           <div>
-            <div className="hub-footer-brand-name">NexaForge</div>
-            <div className="hub-footer-brand-tagline">Enterprise software, engineered to scale</div>
+            <div className="hub-footer-brand-name">Tekivex</div>
+            <div className="hub-footer-brand-tagline">Enterprise software, crafted with skill</div>
           </div>
         </div>
         <div className="hub-footer-badges">
@@ -111,7 +111,7 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="hub-footer-bottom">
         <div className="hub-footer-copy">
-          &copy; {new Date().getFullYear()} NexaForge. All rights reserved.
+          &copy; {new Date().getFullYear()} Tekivex. All rights reserved.
         </div>
         <div className="hub-footer-bottom-links">
           <a href="#/products" className="hub-footer-bottom-link">Products</a>

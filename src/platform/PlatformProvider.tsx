@@ -4,10 +4,10 @@ import { getAllProducts, getProduct } from './registry';
 import { navigate } from '../App';
 
 const PLATFORM_CONFIG: PlatformConfig = {
-  name: 'NexaForge',
-  tagline: 'Enterprise software, engineered to scale',
-  version: '0.1.2',
-  githubUrl: 'https://github.com/007krcs/grid-data',
+  name: 'Tekivex',
+  tagline: 'Enterprise software, crafted with skill',
+  version: '0.1.0',
+  githubUrl: 'https://github.com/007krcs/tekivex',
 };
 
 const PlatformContext = createContext<PlatformContextValue | null>(null);

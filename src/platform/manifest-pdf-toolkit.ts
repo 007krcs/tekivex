@@ -38,7 +38,7 @@ export const pdfToolkitManifest: ProductManifest = {
   ],
   tags: ['WASM', 'Rust', 'Enterprise', 'PDF', 'PII', 'Encryption', 'Digital Signatures'],
   seo: {
-    title: 'PDF Toolkit — WASM-Powered PDF Processing | NexaForge',
+    title: 'PDF Toolkit — WASM-Powered PDF Processing | Tekivex',
     description:
       'Rust/WASM PDF toolkit with 13 annotation types, smart form auto-fill, ' +
       'PII detection, digital signatures, and AES-256 encryption. Enterprise-grade.',
@@ -51,7 +51,7 @@ export const pdfToolkitManifest: ProductManifest = {
       'AES-256 PDF encryption',
       'browser PDF editor',
       'Rust WASM PDF renderer',
-      'PDF Toolkit NexaForge',
+      'PDF Toolkit Tekivex',
     ],
     ogImage: '/og-pdf-toolkit.png',
     jsonLdType: 'SoftwareApplication',

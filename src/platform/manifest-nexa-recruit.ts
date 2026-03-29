@@ -2,7 +2,7 @@ import type { ProductManifest } from './types';
 
 // ── NexaRecruit ──────────────────────────────────────────────────
 // AI-powered Applicant Tracking System + Resume Builder.
-// Built on NexaForge platform — integrates GridStorm (candidate pipeline),
+// Built on Tekivex platform — integrates GridStorm (candidate pipeline),
 // PDF Toolkit (resume parsing/export), and NexaCare (healthcare hiring).
 
 export const nexaRecruitManifest: ProductManifest = {
@@ -39,10 +39,10 @@ export const nexaRecruitManifest: ProductManifest = {
   quickLinks: [],
   tags: ['Coming Soon', 'ATS', 'HR Tech', 'Recruiting', 'Resume Builder', 'AI Screening'],
   seo: {
-    title: 'NexaRecruit — ATS & Resume Builder | NexaForge',
+    title: 'NexaRecruit — ATS & Resume Builder | Tekivex',
     description:
       'Enterprise applicant tracking system with AI-powered candidate screening, ' +
-      'drag-and-drop resume builder, and interview scheduling. Built on NexaForge.',
+      'drag-and-drop resume builder, and interview scheduling. Built on Tekivex.',
     keywords: [
       'applicant tracking system',
       'ATS software',

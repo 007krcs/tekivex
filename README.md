@@ -1,16 +1,18 @@
-# NexaForge *(name TBD — see renaming note below)*
+# Tekivex
 
-> **Enterprise software, engineered to scale.**
+> **Enterprise software, crafted with skill.**
 > A platform shell that unifies multiple developer tools and enterprise products under one brand, one design system, and one launcher.
+>
+> *Tekivex — from Greek **techne** (craft, skill, art) + **vex** (to drive forward). The driving force of skilled engineering.*
 
 ---
 
 ## What is this?
 
-NexaForge is a **standalone platform shell** — a product launcher and marketing hub for a suite of enterprise software products. Each product is independently deployed and linked from here by URL.
+Tekivex is a **standalone platform shell** — a product launcher and marketing hub for a suite of enterprise software products. Each product is independently deployed and linked from here by URL.
 
 ```
-nexaforge (this repo)          ← platform shell, product catalog, SEO
+tekivex (this repo)            ← platform shell, product catalog, SEO
     └── links to →
          grid-data (GridStorm) ← data grid packages, docs, demos
          pdf-toolkit            ← (future repo)
@@ -63,7 +65,12 @@ export const myProductManifest: ProductManifest = {
   keyFeatures: [...],
   quickLinks: [...],
   tags: [...],
-  seo: { title: '...', description: '...', keywords: [...], jsonLdType: 'SoftwareApplication' },
+  seo: {
+    title: 'My Product — Description | Tekivex',
+    description: '...',
+    keywords: [...],
+    jsonLdType: 'SoftwareApplication',
+  },
 };
 ```
 
@@ -94,7 +101,7 @@ Done. The launcher, nav dropdown, product page, and SEO all pick it up automatic
 | SEO | Dynamic `useSeo` hook — injects `<title>`, OG, Twitter, JSON-LD per route |
 | Deployment | Vercel (SPA catch-all route) |
 
-**No external UI library. No state management library. Zero workspace dependencies** — this repo is fully standalone.
+**No external UI library. No state management library. Zero workspace dependencies** — fully standalone.
 
 ---
 
@@ -102,8 +109,8 @@ Done. The launcher, nav dropdown, product page, and SEO all pick it up automatic
 
 ```bash
 # 1. Clone
-git clone https://github.com/007krcs/nexaforge.git
-cd nexaforge
+git clone https://github.com/007krcs/tekivex.git
+cd tekivex
 
 # 2. Install
 npm install
@@ -120,7 +127,7 @@ npm run build
 ## Project Structure
 
 ```
-nexaforge/
+tekivex/
 ├── index.html               # Static SEO: OG, Twitter, JSON-LD Organization schema
 ├── public/
 │   ├── robots.txt           # Crawl rules + sitemap pointer
@@ -131,11 +138,11 @@ nexaforge/
 │   ├── main.tsx
 │   ├── styles.css
 │   ├── platform/
-│   │   ├── types.ts         # ProductManifest interface + SEO types
-│   │   ├── registry.ts      # Product list + getProduct() + getActiveProductId()
+│   │   ├── types.ts              # ProductManifest interface + SEO types
+│   │   ├── registry.ts           # Product list + getProduct() helpers
 │   │   ├── PlatformProvider.tsx  # React context (config, products, navigate)
-│   │   ├── useSeo.ts        # Dynamic <head> injection hook
-│   │   ├── seoConfig.ts     # Per-route SeoConfig map
+│   │   ├── useSeo.ts             # Dynamic <head> injection hook
+│   │   ├── seoConfig.ts          # Per-route SeoConfig map
 │   │   ├── manifest-gridstorm.ts
 │   │   ├── manifest-pdf-toolkit.ts
 │   │   ├── manifest-nexa-recruit.ts
@@ -145,7 +152,7 @@ nexaforge/
 │   │   ├── PlatformPage.tsx      # /products — product launcher
 │   │   └── ProductHomePage.tsx   # /product/:id — individual product page
 │   ├── layout/
-│   │   ├── TopNav.tsx       # Brand + ProductSwitcher dropdown + contextual links
+│   │   ├── TopNav.tsx       # Brand + ProductSwitcher dropdown
 │   │   └── Footer.tsx       # 6-column footer with all product links
 │   ├── icons/
 │   │   ├── Icon.tsx         # <Icon name="grid" size={20} />
@@ -163,10 +170,11 @@ nexaforge/
 Every route gets unique `<title>`, `<meta description>`, Open Graph, Twitter Card, and a `SoftwareApplication` JSON-LD schema injected dynamically by `useSeo()`:
 
 ```
-/ (home)             → NexaForge Organization schema
-/products            → product catalog page
-/product/gridstorm   → GridStorm SoftwareApplication schema
-/product/nexa-care   → NexaCare SoftwareApplication schema
+/ (home)                  → Tekivex Organization schema
+/products                 → product catalog page
+/product/gridstorm        → GridStorm SoftwareApplication schema
+/product/nexa-recruit     → NexaRecruit SoftwareApplication schema
+/product/nexa-care        → NexaCare SoftwareApplication schema
 ... etc
 ```
 
@@ -176,11 +184,11 @@ Static fallbacks in `index.html` serve crawlers that don't execute JavaScript.
 
 ## Deployment (Vercel)
 
-1. Import `007krcs/nexaforge` in Vercel
+1. Import `007krcs/tekivex` in Vercel
 2. Framework preset: **Other**
 3. Build command: `npm run build`
 4. Output directory: `dist`
-5. Deploy — Vercel uses `vercel.json` to serve all routes from `index.html`
+5. Deploy — `vercel.json` serves all routes from `index.html`
 
 ---
 
@@ -198,7 +206,3 @@ GridStorm's source, docs, and demos live in a separate repo:
 ## License
 
 MIT — see [LICENSE](./LICENSE)
-
----
-
-> **Note on the name:** The brand name is subject to change. If "NexaForge" is replaced with a new unique brand, update `src/platform/PlatformProvider.tsx` (PLATFORM_CONFIG), `index.html` (meta tags), `public/sitemap.xml`, and the GitHub repo name.

@@ -1,5 +1,5 @@
 // ─── Platform Product Registry ───
-// Registers all products known to the NexaForge platform shell.
+// Registers all products known to the Tekivex platform shell.
 //
 // HOW TO ADD A NEW PRODUCT:
 //   1. Create   src/platform/manifest-<product>.ts  (implement ProductManifest)

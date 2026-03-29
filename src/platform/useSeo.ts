@@ -92,7 +92,7 @@ export function seoFromManifest(
     },
     publisher: {
       '@type': 'Organization',
-      name: 'NexaForge',
+      name: 'Tekivex',
       url: baseUrl,
     },
   };
@@ -132,7 +132,7 @@ export function useSeo(config: SeoConfig) {
     setMeta('meta[property="og:type"]', config.ogType ?? 'website');
     setMeta('meta[property="og:title"]', config.ogTitle ?? config.title);
     setMeta('meta[property="og:description"]', config.ogDescription ?? config.description);
-    setMeta('meta[property="og:site_name"]', 'NexaForge');
+    setMeta('meta[property="og:site_name"]', 'Tekivex');
     if (config.ogImage) setMeta('meta[property="og:image"]', config.ogImage);
     if (config.canonical) setMeta('meta[property="og:url"]', config.canonical);
 

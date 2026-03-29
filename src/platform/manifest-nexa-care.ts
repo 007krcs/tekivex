@@ -3,7 +3,7 @@ import type { ProductManifest } from './types';
 // ── NexaCare ─────────────────────────────────────────────────────
 // HIPAA-compliant healthcare data platform & clinical workflow automation.
 // Powered by GridStorm (patient data grids), PDF Toolkit (document vault),
-// and NexaForge platform services (auth, audit trail, encryption).
+// and Tekivex platform services (auth, audit trail, encryption).
 
 export const nexaCareManifest: ProductManifest = {
   id: 'nexa-care',
@@ -39,10 +39,10 @@ export const nexaCareManifest: ProductManifest = {
   quickLinks: [],
   tags: ['Coming Soon', 'Healthcare', 'HIPAA', 'HL7/FHIR', 'EHR Integration', 'Clinical Workflow'],
   seo: {
-    title: 'NexaCare — Healthcare Data Platform | NexaForge',
+    title: 'NexaCare — Healthcare Data Platform | Tekivex',
     description:
       'HIPAA-compliant healthcare platform with HL7/FHIR integration, ' +
-      'clinical workflow automation, and EHR interoperability. Powered by NexaForge.',
+      'clinical workflow automation, and EHR interoperability. Powered by Tekivex.',
     keywords: [
       'healthcare software platform',
       'HIPAA compliant software',

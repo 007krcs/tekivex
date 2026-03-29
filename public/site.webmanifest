@@ -1,7 +1,7 @@
 {
-  "name": "NexaForge",
-  "short_name": "NexaForge",
-  "description": "Enterprise software, engineered to scale. GridStorm, PDF Toolkit, NexaRecruit, NexaCare.",
+  "name": "Tekivex",
+  "short_name": "Tekivex",
+  "description": "Enterprise software, crafted with skill. GridStorm, PDF Toolkit, NexaRecruit, NexaCare.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0f172a",
@@ -30,10 +30,10 @@
       "label": "GridStorm — Enterprise Data Grid"
     },
     {
-      "src": "/og-nexaforge.png",
+      "src": "/og-tekivex.png",
       "sizes": "1200x630",
       "type": "image/png",
-      "label": "NexaForge Platform"
+      "label": "Tekivex Platform"
     }
   ]
 }
