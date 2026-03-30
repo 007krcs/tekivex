@@ -44,9 +44,11 @@ function ProductSwitcher({ currentRoute }: { currentRoute: string }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  // Split by status — "live" = ga or beta, "roadmap" = preview or coming-soon
-  const live      = products.filter(p => p.status === 'ga' || p.status === 'beta');
-  const preview   = products.filter(p => p.status === 'preview');
+  // Split by status:
+  //   live     = ga, beta, preview (has a real demo or repo link)
+  //   comingSoon = no public artefact yet
+  const live      = products.filter(p => p.status === 'ga' || p.status === 'beta' || p.status === 'preview');
+  const preview: typeof products   = []; // merged into live section above
   const comingSoon = products.filter(p => p.status === 'coming-soon');
   const activeProduct = products.find(p => p.id === activeProductId);
 

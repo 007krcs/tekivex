@@ -3,7 +3,7 @@
  *
  * Wraps @mlc-ai/web-llm to run Llama 3.2 locally via WebGPU.
  * - Zero server, zero API key, zero cost
- * - Model is downloaded once and cached in IndexedDB (~1.8 GB for 3B)
+ * - Model is downloaded once and cached in IndexedDB (~870 MB for 1B default)
  * - Falls back gracefully when WebGPU is unavailable
  * - Supports RAG: top KB entries are injected as system context
  */
@@ -30,17 +30,19 @@ export const MODEL_OPTIONS: ModelOption[] = [
     id: 'Llama-3.2-1B-Instruct-q4f16_1-MLC',
     label: 'Llama 3.2 · 1B',
     sizeMb: 870,
-    description: 'Fast · 870 MB · Good for basic Q&A',
+    description: '⚡ Fastest · 870 MB · Recommended',
   },
   {
     id: 'Llama-3.2-3B-Instruct-q4f16_1-MLC',
     label: 'Llama 3.2 · 3B',
     sizeMb: 1820,
-    description: 'Recommended · 1.8 GB · Better answers',
+    description: '🧠 Smarter · 1.8 GB · Slower',
   },
 ];
 
-export const DEFAULT_MODEL_ID = MODEL_OPTIONS[1]!.id;
+// 1B is the default — half the size, ~2× faster on consumer hardware,
+// more than sufficient for product support Q&A
+export const DEFAULT_MODEL_ID = MODEL_OPTIONS[0]!.id;
 
 // ─────────────────────────────────────────────
 // WEBGPU DETECTION
@@ -211,9 +213,10 @@ export async function askLlama(
     const stream = await engine.chat.completions.create({
       messages,
       stream: true,
-      temperature: 0.65,
-      max_tokens: 800,
-      top_p: 0.9,
+      temperature: 0.5,    // lower = more focused, less random wandering
+      max_tokens: 400,     // support answers are concise; 400 is plenty
+      top_p: 0.85,
+      frequency_penalty: 0.1, // discourage repetition / filler padding
     });
 
     let fullText = '';
