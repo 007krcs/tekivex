@@ -1,66 +1,71 @@
-// Analytics Studio has been promoted to Beta and moved to manifest-analytics-studio.ts
-
 import type { ProductManifest } from '../platform/types';
 
-const ANALYTICS_DEMO_URL = 'https://analytics-builder-demo.vercel.app';
-const ANALYTICS_GITHUB   = 'https://github.com/007krcs/analytics-builder';
+const DATAFLOW_URL    = 'https://dataflow-five.vercel.app';
+const DATAFLOW_GITHUB = 'https://github.com/007krcs/dataflow';
 
 export const dataFlowManifest: ProductManifest = {
   id: 'dataflow',
   name: 'DataFlow',
   tagline: 'Real-Time Streaming Data Platform',
   description:
-    'Connect live data feeds (WebSocket, SSE, Kafka) directly to GridStorm grids. ' +
-    'Batched processing, cell change tracking, anomaly alerting, and backpressure control. ' +
-    'The streaming plugin ships inside Analytics Studio — try it live in the demo.',
+    'Zero-dependency streaming engine for live data feeds — WebSocket, SSE, HTTP polling, ' +
+    'and simulated scenarios out of the box. Batched backpressure control, cell change ' +
+    'direction tracking, multi-method anomaly detection (Z-score, IQR, MAD), schema ' +
+    'auto-inference, time-travel replay, and multi-stream join. React, Vue 3, and Svelte 5 ' +
+    'adapters included. MIT-licensed.',
   version: '0.3.0',
-  status: 'preview',
-  tier: 'platform',
+  status: 'beta',
+  tier: 'open-source',
   color: '#22c55e',
   accentColor: 'rgba(34, 197, 94, 0.1)',
   iconName: 'trending-up',
   homePath: '/product/dataflow',
-  docsRoot: `${ANALYTICS_GITHUB}#readme`,
-  primaryDemoPath: `${ANALYTICS_DEMO_URL}`,
-  githubUrl: ANALYTICS_GITHUB,
+  docsRoot: `${DATAFLOW_GITHUB}#readme`,
+  primaryDemoPath: DATAFLOW_URL,
+  playgroundPath: DATAFLOW_URL,
+  githubUrl: DATAFLOW_GITHUB,
   stats: [
-    { value: 'Preview',  label: 'Status' },
-    { value: '5+',       label: 'Adapters' },
-    { value: '<10ms',    label: 'Update latency' },
-    { value: 'Kafka',    label: 'Ready' },
+    { value: 'Beta',   label: 'Status' },
+    { value: '5+',     label: 'Adapters' },
+    { value: '<10ms',  label: 'Update latency' },
+    { value: '4',      label: 'Live demos' },
   ],
   keyFeatures: [
-    'WebSocket / SSE / Kafka / HTTP polling adapters',
-    'Batched cell updates at configurable fps — no UI jank',
+    'WebSocket / SSE / HTTP polling / simulated adapters',
+    'Batched rAF backpressure — configurable fps, oldest/newest/sample drop strategies',
     'Cell change direction tracking (↑↓) with colour flash',
-    'Anomaly alerting with Z-score + IQR threshold rules',
-    'Backpressure control — drops frames, never the UI thread',
-    'Ships as plugin-streaming inside Analytics Studio',
+    'Anomaly alerting — Z-score, IQR, MAD, and static threshold methods',
+    'Schema auto-inference from live row samples',
+    'Time-travel replay — record, seek, variable-speed playback',
+    'Multi-stream join (inner / left / outer) and N-stream merge',
+    'React hooks, Vue 3 composables, and Svelte 5 store factory',
   ],
   quickLinks: [
-    { label: 'See Streaming Demo', path: ANALYTICS_DEMO_URL,  external: true, isNew: true },
-    { label: 'GitHub (plugin-streaming)', path: `${ANALYTICS_GITHUB}/tree/main/packages/plugin-streaming`, external: true },
-    { label: 'Analytics Studio',  path: '/product/analytics-studio' },
+    { label: 'Live Demo',  path: DATAFLOW_URL,                          external: true, isNew: true },
+    { label: 'GitHub',     path: DATAFLOW_GITHUB,                       external: true },
+    { label: 'README',     path: `${DATAFLOW_GITHUB}#readme`,           external: true },
+    { label: 'Financial',  path: `${DATAFLOW_URL}`,                     external: true },
   ],
-  tags: ['Preview', 'Streaming', 'Real-time', 'WebSocket', 'Kafka', 'GridStorm'],
+  tags: ['Beta', 'MIT', 'Streaming', 'Real-time', 'WebSocket', 'React', 'Vue', 'Svelte', 'Anomaly'],
   seo: {
     title: 'DataFlow — Real-Time Streaming Data Platform | Tekivex',
     description:
-      'Connect live data feeds via WebSocket, SSE, and Kafka directly to GridStorm grids. ' +
-      'Sub-10ms update latency, anomaly alerting, and backpressure control.',
+      'Zero-dependency streaming engine with WebSocket, SSE, and simulated adapters. ' +
+      'Anomaly detection, time-travel replay, schema inference, and React/Vue/Svelte adapters. Free, MIT-licensed.',
     keywords: [
       'real-time data streaming',
       'WebSocket data grid',
-      'Kafka dashboard',
       'live data visualization',
       'SSE streaming platform',
-      'real-time analytics grid',
+      'real-time analytics',
       'streaming data software',
+      'anomaly detection',
       'DataFlow Tekivex',
+      'time-travel replay',
     ],
     ogImage: '/og-dataflow.png',
     jsonLdType: 'SoftwareApplication',
-    applicationCategory: 'BusinessApplication',
+    applicationCategory: 'DeveloperApplication',
     operatingSystem: 'All',
   },
 };
