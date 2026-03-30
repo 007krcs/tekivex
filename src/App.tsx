@@ -8,6 +8,7 @@ import { Footer } from './layout/Footer';
 import { getActiveProductId } from './platform/registry';
 import { useSeo } from './platform/useSeo';
 import { getSeoForRoute } from './platform/seoConfig';
+import { AiChatWidget } from './ai-support/AiChat';
 
 function useHashRoute(): string {
   const [hash, setHash] = React.useState(window.location.hash.slice(1) || '/');
@@ -49,6 +50,8 @@ export function App() {
           {page}
           <Footer />
         </div>
+        {/* AI Support Chat — visible on every page */}
+        <AiChatWidget />
       </PlatformProvider>
     </ThemeProvider>
   );
