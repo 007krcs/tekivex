@@ -3,13 +3,14 @@
  *
  * Wraps @mlc-ai/web-llm to run Llama 3.2 locally via WebGPU.
  * - Zero server, zero API key, zero cost
- * - Model is downloaded once and cached in IndexedDB (~870 MB for 1B default)
+ * - Model downloaded once, cached in browser IndexedDB forever
+ * - Auto-restores from cache on next visit — no re-download prompt
  * - Falls back gracefully when WebGPU is unavailable
- * - Supports RAG: top KB entries are injected as system context
+ * - RAG: top KB entries injected into system prompt per query
  */
 
 // web-llm is dynamically imported so it doesn't bloat the initial bundle.
-// It loads only when the user explicitly clicks "Enable AI".
+// It loads only when the user enables AI (or auto-restores from cache).
 import type { MLCEngine, InitProgressReport } from '@mlc-ai/web-llm';
 import { findTopMatches } from './ai-assistant';
 import { KNOWLEDGE_BASE } from './knowledge-base';
@@ -40,9 +41,39 @@ export const MODEL_OPTIONS: ModelOption[] = [
   },
 ];
 
-// 1B is the default — half the size, ~2× faster on consumer hardware,
-// more than sufficient for product support Q&A
+// 1B is the default — half the size, ~2× faster, sufficient for Q&A
 export const DEFAULT_MODEL_ID = MODEL_OPTIONS[0]!.id;
+
+// ─────────────────────────────────────────────
+// PERSISTENT CACHE FLAGS  (localStorage)
+// After the model downloads successfully we set a flag so future visits
+// know the model is already in IndexedDB and can auto-load silently.
+// ─────────────────────────────────────────────
+
+const LS_CACHE_PREFIX   = 'tekivex_llm_cached_';
+const LS_LAST_MODEL_KEY = 'tekivex_llm_model_id';
+
+export function isModelCachedLocally(modelId: string): boolean {
+  try { return localStorage.getItem(LS_CACHE_PREFIX + modelId) === '1'; }
+  catch { return false; }
+}
+
+export function markModelCached(modelId: string): void {
+  try {
+    localStorage.setItem(LS_CACHE_PREFIX + modelId, '1');
+    localStorage.setItem(LS_LAST_MODEL_KEY, modelId);
+  } catch { /* storage quota exceeded — ignore */ }
+}
+
+export function getLastUsedModelId(): string {
+  try { return localStorage.getItem(LS_LAST_MODEL_KEY) ?? DEFAULT_MODEL_ID; }
+  catch { return DEFAULT_MODEL_ID; }
+}
+
+/** True if ANY model variant is already cached locally */
+export function anyModelCached(): boolean {
+  return MODEL_OPTIONS.some((m) => isModelCachedLocally(m.id));
+}
 
 // ─────────────────────────────────────────────
 // WEBGPU DETECTION
@@ -67,6 +98,8 @@ export interface LoadProgress {
   percent: number;
   text: string;
   phase: 'fetching' | 'loading' | 'ready';
+  /** True when restoring from browser cache (no network download) */
+  fromCache?: boolean;
 }
 
 // ─────────────────────────────────────────────
@@ -81,10 +114,13 @@ export async function loadModel(
   modelId: string,
   onProgress: (p: LoadProgress) => void,
 ): Promise<MLCEngine> {
-  // Already loaded with same model
-  if (_engine && _loadedModelId === modelId) return _engine;
+  // Already loaded with the same model — instant return
+  if (_engine && _loadedModelId === modelId) {
+    onProgress({ percent: 100, text: 'Llama 3.2 ready!', phase: 'ready', fromCache: true });
+    return _engine;
+  }
 
-  // Prevent concurrent loads
+  // Prevent concurrent loads — wait for the in-flight load to finish
   if (_loading) {
     await new Promise<void>((resolve) => {
       const check = setInterval(() => {
@@ -94,11 +130,18 @@ export async function loadModel(
     if (_engine && _loadedModelId === modelId) return _engine;
   }
 
+  const fromCache = isModelCachedLocally(modelId);
   _loading = true;
-  try {
-    onProgress({ percent: 0, text: 'Initializing…', phase: 'fetching' });
 
-    // Dynamic import — web-llm (~6MB) only loads when user enables AI
+  try {
+    onProgress({
+      percent: 0,
+      text: fromCache ? 'Restoring from local cache…' : 'Initializing…',
+      phase: 'fetching',
+      fromCache,
+    });
+
+    // Dynamic import — only pulled when AI is first used
     const { CreateMLCEngine } = await import('@mlc-ai/web-llm');
 
     _engine = await CreateMLCEngine(modelId, {
@@ -106,21 +149,26 @@ export async function loadModel(
         const pct = Math.round((report.progress ?? 0) * 100);
         const phase: LoadProgress['phase'] =
           pct < 95 ? 'fetching' : pct < 100 ? 'loading' : 'ready';
-        onProgress({ percent: pct, text: report.text ?? 'Loading model…', phase });
+        onProgress({
+          percent: pct,
+          text: report.text ?? (fromCache ? 'Loading from cache…' : 'Downloading model…'),
+          phase,
+          fromCache,
+        });
       },
     });
 
     _loadedModelId = modelId;
-    onProgress({ percent: 100, text: 'Llama 3.2 ready!', phase: 'ready' });
+    // Persist cache flag so next visit auto-loads silently
+    markModelCached(modelId);
+    onProgress({ percent: 100, text: 'Llama 3.2 ready!', phase: 'ready', fromCache });
     return _engine;
   } finally {
     _loading = false;
   }
 }
 
-export function getLoadedEngine(): MLCEngine | null {
-  return _engine;
-}
+export function getLoadedEngine(): MLCEngine | null { return _engine; }
 
 export function isModelLoaded(modelId?: string): boolean {
   if (!_engine) return false;
@@ -135,11 +183,11 @@ export function unloadModel(): void {
 
 // ─────────────────────────────────────────────
 // SYSTEM PROMPT BUILDER (RAG)
-// Injects top relevant KB entries as context
+// Injects the top KB entries most relevant to the current query.
+// Called fresh for every message so the context always matches.
 // ─────────────────────────────────────────────
 
 function buildSystemPrompt(userQuery: string): string {
-  // Retrieve top 4 KB entries relevant to this query
   const matches = findTopMatches(userQuery, 4);
 
   let contextBlock = '';
@@ -150,7 +198,6 @@ function buildSystemPrompt(userQuery: string): string {
     });
   }
 
-  // Build a product overview summary (always included)
   const productSummary = `
 ## Tekivex Products
 ${KNOWLEDGE_BASE
@@ -165,17 +212,18 @@ ${KNOWLEDGE_BASE
 - Answer questions about Tekivex products: GridStorm, PDF Toolkit, NexaRecruit, NexaCare, Analytics Studio, DataFlow
 - Help with installation, configuration, troubleshooting, pricing, and comparisons
 - Give concise, accurate, developer-friendly answers
-- Use markdown formatting: **bold** for emphasis, \`code\` for code snippets, bullet lists for features
-- If you don't know something, say so and point to GitHub issues or docs
+- Use markdown: **bold** for emphasis, \`code\` for snippets, bullet lists for features
+- If unsure, say so and point to GitHub issues or docs
 
 ## Important Facts
 - GridStorm is MIT-licensed (free forever), no per-developer fees
 - GitHub: https://github.com/007krcs/tekivex
+- Analytics Studio demo: https://analytics-builder-demo.vercel.app
 - Docs: https://grid-data-analytics-explorer.vercel.app/#/docs
-- Enterprise contact: enterprise@tekivex.com
+- Enterprise: enterprise@tekivex.com
 ${productSummary}${contextBlock}
 
-Keep answers focused and practical. Respond in plain markdown.`;
+Keep answers focused and practical. Respond in plain markdown. Be concise.`;
 }
 
 // ─────────────────────────────────────────────
@@ -184,7 +232,7 @@ Keep answers focused and practical. Respond in plain markdown.`;
 
 export interface StreamCallbacks {
   onToken: (token: string, fullText: string) => void;
-  onDone: (fullText: string) => void;
+  onDone:  (fullText: string) => void;
   onError: (err: Error) => void;
 }
 
@@ -194,15 +242,12 @@ export async function askLlama(
   callbacks: StreamCallbacks,
 ): Promise<void> {
   const engine = getLoadedEngine();
-  if (!engine) {
-    callbacks.onError(new Error('Model not loaded'));
-    return;
-  }
+  if (!engine) { callbacks.onError(new Error('Model not loaded')); return; }
 
   const systemPrompt = buildSystemPrompt(query);
 
-  // Build messages array (last 6 messages for context window efficiency)
-  const recentHistory = history.slice(-6);
+  // Send up to last 10 turns so Llama maintains context across the conversation
+  const recentHistory = history.slice(-10);
   const messages: Array<{ role: 'system' | 'user' | 'assistant'; content: string }> = [
     { role: 'system', content: systemPrompt },
     ...recentHistory,
@@ -213,10 +258,10 @@ export async function askLlama(
     const stream = await engine.chat.completions.create({
       messages,
       stream: true,
-      temperature: 0.5,    // lower = more focused, less random wandering
-      max_tokens: 400,     // support answers are concise; 400 is plenty
+      temperature: 0.5,
+      max_tokens: 400,
       top_p: 0.85,
-      frequency_penalty: 0.1, // discourage repetition / filler padding
+      frequency_penalty: 0.1,
     });
 
     let fullText = '';

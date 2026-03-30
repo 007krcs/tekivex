@@ -4828,6 +4828,36 @@ body {
   }
 }
 
+/* ── Auto-restore slim banner (shown during cache reload, not full overlay) ── */
+.ai-restore-banner {
+  position: relative;
+  height: 28px;
+  background: linear-gradient(90deg, rgba(99,102,241,0.08), rgba(59,130,246,0.08));
+  border-bottom: 1px solid var(--hub-border, #e2e8f0);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.ai-restore-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(99,102,241,0.15), rgba(59,130,246,0.15));
+  transition: width 0.3s ease;
+}
+
+.ai-restore-label {
+  position: relative;
+  font-size: 10.5px;
+  color: var(--hub-text-secondary, #475569);
+  font-weight: 500;
+  z-index: 1;
+}
+
 /* ── Llama status dot variants ── */
 .ai-status-dot--llm {
   background: #a78bfa;
