@@ -3,19 +3,39 @@ import { Icon } from '../icons/Icon';
 import { ThemeToggle } from '../theme/ThemeToggle';
 import { navigate } from '../App';
 import { usePlatform } from '../platform/PlatformProvider';
+import type { ProductManifest } from '../platform/types';
 
 interface TopNavProps {
   route: string;
 }
 
-const GRIDSTORM_URL = 'https://grid-data-analytics-explorer.vercel.app';
+// ── Per-product nav link builder ──────────────────────────────────
+// Derives Docs / Demo / Playground / GitHub links from each product manifest.
+// Only links with a real URL are included — no dead links, ever.
 
-// GridStorm external links — docs and demos live in the grid-data deployment
-const GRIDSTORM_EXT_LINKS = [
-  { href: `${GRIDSTORM_URL}/#/docs/getting-started/introduction`, label: 'Docs' },
-  { href: `${GRIDSTORM_URL}/feature-showcase/`,                   label: 'Demos' },
-  { href: `${GRIDSTORM_URL}/playground/`,                        label: 'Playground' },
-];
+interface NavLink {
+  label: string;
+  href: string;
+  isNew?: boolean;
+}
+
+function getProductNavLinks(product: ProductManifest): NavLink[] {
+  const links: NavLink[] = [];
+
+  if (product.docsRoot)
+    links.push({ label: 'Docs', href: product.docsRoot });
+
+  if (product.primaryDemoPath)
+    links.push({ label: 'Demo', href: product.primaryDemoPath });
+
+  if (product.playgroundPath && product.playgroundPath !== product.primaryDemoPath)
+    links.push({ label: 'Playground', href: product.playgroundPath });
+
+  if (product.githubUrl)
+    links.push({ label: 'GitHub', href: product.githubUrl });
+
+  return links;
+}
 
 // ── Product Switcher Dropdown ──────────────────────────────────────
 
@@ -24,11 +44,12 @@ function ProductSwitcher({ currentRoute }: { currentRoute: string }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const launched = products.filter(p => p.status !== 'coming-soon');
+  // Split by status — "live" = ga or beta, "roadmap" = preview or coming-soon
+  const live      = products.filter(p => p.status === 'ga' || p.status === 'beta');
+  const preview   = products.filter(p => p.status === 'preview');
   const comingSoon = products.filter(p => p.status === 'coming-soon');
   const activeProduct = products.find(p => p.id === activeProductId);
 
-  // Close on outside click
   useEffect(() => {
     const onClickOutside = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
@@ -39,7 +60,13 @@ function ProductSwitcher({ currentRoute }: { currentRoute: string }) {
     return () => document.removeEventListener('mousedown', onClickOutside);
   }, []);
 
-  const isOnPlatformHome = currentRoute === '/products';
+  const isOnPlatformHome = currentRoute === '/' || currentRoute === '/products';
+
+  const statusBadge = (p: ProductManifest) => {
+    if (p.status === 'beta')    return <span className="ps-badge ps-badge--beta">Beta</span>;
+    if (p.status === 'preview') return <span className="ps-badge ps-badge--preview">Preview</span>;
+    return null;
+  };
 
   return (
     <div className="ps-wrap" ref={ref}>
@@ -65,8 +92,9 @@ function ProductSwitcher({ currentRoute }: { currentRoute: string }) {
 
       {open && (
         <div className="ps-dropdown" role="listbox">
+          {/* Live products */}
           <div className="ps-section-label">Live</div>
-          {launched.map(p => (
+          {live.map(p => (
             <button
               key={p.id}
               className={`ps-item${activeProductId === p.id ? ' ps-item-active' : ''}`}
@@ -80,10 +108,37 @@ function ProductSwitcher({ currentRoute }: { currentRoute: string }) {
                 <span className="ps-item-name">{p.name}</span>
                 <span className="ps-item-tag">{p.tagline.split('—')[0]?.trim()}</span>
               </span>
+              {statusBadge(p)}
               {activeProductId === p.id && <Icon name="check" size={13} />}
             </button>
           ))}
 
+          {/* Preview products */}
+          {preview.length > 0 && (
+            <>
+              <div className="ps-divider" />
+              <div className="ps-section-label">Preview</div>
+              {preview.map(p => (
+                <button
+                  key={p.id}
+                  className={`ps-item${activeProductId === p.id ? ' ps-item-active' : ''}`}
+                  style={{ '--ps-color': p.color } as React.CSSProperties}
+                  onClick={() => { navigate(p.homePath); setOpen(false); }}
+                  role="option"
+                  aria-selected={activeProductId === p.id}
+                >
+                  <span className="ps-item-dot" style={{ background: p.color }} />
+                  <span className="ps-item-text">
+                    <span className="ps-item-name">{p.name}</span>
+                    <span className="ps-item-tag">{p.tagline.split('—')[0]?.trim()}</span>
+                  </span>
+                  {statusBadge(p)}
+                </button>
+              ))}
+            </>
+          )}
+
+          {/* Roadmap (coming soon) */}
           {comingSoon.length > 0 && (
             <>
               <div className="ps-divider" />
@@ -119,9 +174,13 @@ function ProductSwitcher({ currentRoute }: { currentRoute: string }) {
 
 export function TopNav({ route }: TopNavProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { config } = usePlatform();
+  const { config, products, activeProductId } = usePlatform();
 
-  const isGridStormArea = route === '/' || route.startsWith('/product/gridstorm');
+  // Get the manifest for the currently active product (if on a product page)
+  const activeProduct = products.find(p => p.id === activeProductId) ?? null;
+
+  // Build contextual nav links from the active product's manifest
+  const productNavLinks: NavLink[] = activeProduct ? getProductNavLinks(activeProduct) : [];
 
   return (
     <nav className="top-nav">
@@ -153,35 +212,43 @@ export function TopNav({ route }: TopNavProps) {
 
         {/* Contextual nav links */}
         <div className={`top-nav-links${mobileMenuOpen ? ' open' : ''}`}>
-          {/* Platform home link always visible */}
+          {/* Platform home */}
           <a
             href="#/products"
-            className={`top-nav-link ${route === '/products' ? 'active' : ''}`}
+            className={`top-nav-link ${!activeProductId ? 'active' : ''}`}
             onClick={(e) => { e.preventDefault(); navigate('/products'); setMobileMenuOpen(false); }}
           >
             Platform
           </a>
 
-          {/* GridStorm external links — open in the grid-data deployment */}
-          {isGridStormArea && GRIDSTORM_EXT_LINKS.map(link => (
+          {/* Product-specific links — derived from the active product manifest */}
+          {productNavLinks.map(link => (
             <a
               key={link.href}
               href={link.href}
-              className="top-nav-link"
+              className={`top-nav-link${link.isNew ? ' top-nav-link--new' : ''}`}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
             >
               {link.label}
+              {link.isNew && <span className="top-nav-new-dot" aria-hidden="true" />}
             </a>
           ))}
+
+          {/* "Coming Soon" indicator when on a roadmap product with no links */}
+          {activeProduct && productNavLinks.length === 0 && activeProduct.status === 'coming-soon' && (
+            <span className="top-nav-link top-nav-link--muted">
+              Coming {activeProduct.stats[0]?.value ?? 'Soon'}
+            </span>
+          )}
         </div>
       </div>
 
       <div className="top-nav-right">
         <ThemeToggle />
         <a
-          href={config.githubUrl}
+          href={activeProduct?.githubUrl ?? config.githubUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="btn-github"

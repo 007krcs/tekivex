@@ -4,10 +4,14 @@ import type { ProductManifest } from './types';
 // All demo and docs links are external to the grid-data deployment.
 const GRIDSTORM_URL = 'https://grid-data-analytics-explorer.vercel.app';
 
+const GRIDSTORM_GITHUB = 'https://github.com/007krcs/analytics-builder';
+
 export const gridstormManifest: ProductManifest = {
   id: 'gridstorm',
   name: 'GridStorm',
   tagline: 'Enterprise Data Grid — 35 composable plugins',
+  githubUrl: GRIDSTORM_GITHUB,
+  playgroundPath: `${GRIDSTORM_URL}/playground/`,
   description:
     'Headless data grid engine with virtual scrolling, WCAG 2.1 AA accessibility, ' +
     '42 Excel-compatible formula functions, Excel copy/paste, and a full plugin ' +

@@ -1,57 +1,6 @@
-import type { ProductManifest } from '../platform/types';
+// Analytics Studio has been promoted to Beta and moved to manifest-analytics-studio.ts
 
-export const analyticsStudioManifest: ProductManifest = {
-  id: 'analytics-studio',
-  name: 'Analytics Studio',
-  tagline: 'Visual Data Analytics & BI',
-  description:
-    'Drag-and-drop analytics builder on top of GridStorm. Create pivot tables, ' +
-    'interactive charts, KPI dashboards, and scheduled reports — no SQL required.',
-  version: '0.2.0',
-  status: 'coming-soon',
-  tier: 'enterprise',
-  color: '#06b6d4',
-  accentColor: 'rgba(6, 182, 212, 0.1)',
-  iconName: 'bar-chart',
-  homePath: '/product/analytics-studio',
-  docsRoot: null,
-  primaryDemoPath: null,
-  stats: [
-    { value: 'Q3 2026', label: 'Target GA' },
-    { value: '20+',     label: 'Chart types' },
-    { value: 'No SQL',  label: 'Required' },
-    { value: 'GridStorm', label: 'Powered by' },
-  ],
-  keyFeatures: [
-    'Drag-and-drop pivot builder',
-    '20+ chart types (bar, line, scatter, heatmap)',
-    'KPI dashboard with auto-refresh',
-    'Scheduled report export (PDF / Excel)',
-    'Built on GridStorm grid engine',
-  ],
-  quickLinks: [],
-  tags: ['Coming Soon', 'Analytics', 'BI', 'Charts', 'Pivoting'],
-  seo: {
-    title: 'Analytics Studio — Visual BI & Data Analytics | Tekivex',
-    description:
-      'Drag-and-drop analytics builder with 20+ chart types, pivot tables, KPI dashboards, ' +
-      'and scheduled reports. No SQL required. Powered by GridStorm.',
-    keywords: [
-      'business intelligence software',
-      'visual analytics platform',
-      'drag drop BI tool',
-      'KPI dashboard software',
-      'pivot table builder',
-      'data visualization tool',
-      'no-code analytics',
-      'Analytics Studio Tekivex',
-    ],
-    ogImage: '/og-analytics-studio.png',
-    jsonLdType: 'SoftwareApplication',
-    applicationCategory: 'BusinessApplication',
-    operatingSystem: 'All',
-  },
-};
+import type { ProductManifest } from '../platform/types';
 
 export const dataFlowManifest: ProductManifest = {
   id: 'dataflow',

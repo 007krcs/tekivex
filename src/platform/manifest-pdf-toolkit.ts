@@ -4,6 +4,7 @@ export const pdfToolkitManifest: ProductManifest = {
   id: 'pdf-toolkit',
   name: 'PDF Toolkit',
   tagline: 'WASM-Powered PDF Processing',
+  githubUrl: 'https://github.com/007krcs/analytics-builder',
   description:
     'Rust-compiled WASM PDF renderer with GPU-accelerated canvas output. ' +
     '13 annotation types, smart form auto-fill, PII detection and masking, ' +

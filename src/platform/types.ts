@@ -31,6 +31,10 @@ export interface ProductManifest {
   homePath: string;
   docsRoot: string | null;
   primaryDemoPath: string | null;
+  /** Optional playground / interactive sandbox URL */
+  playgroundPath?: string | null;
+  /** Product-specific GitHub repo URL (overrides platform-level githubUrl in nav) */
+  githubUrl?: string | null;
   stats: ProductStat[];
   keyFeatures: string[];
   quickLinks: ProductQuickLink[];
