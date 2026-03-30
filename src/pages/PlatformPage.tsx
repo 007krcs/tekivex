@@ -152,7 +152,7 @@ function ProductCard3D({ product }: { product: ProductManifest }) {
 // ── Hero 3D Floating Stack ────────────────────────────────────────────
 
 function HeroStack({ products }: { products: ProductManifest[] }) {
-  const stack = products.slice(0, 3);
+  const stack = products.slice(0, 4);
   return (
     <div className="tx-hero-vis" aria-hidden="true">
       <div className="tx-float-scene">

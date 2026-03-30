@@ -3833,7 +3833,7 @@ body {
 .tx-hero-vis {
   flex: 0 0 360px;
   perspective: 1400px;
-  height: 320px;
+  height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3842,7 +3842,7 @@ body {
 .tx-float-scene {
   position: relative;
   width: 300px;
-  height: 280px;
+  height: 360px;
   transform-style: preserve-3d;
   animation: tx-scene-drift 20s ease-in-out infinite;
 }
@@ -3868,19 +3868,25 @@ body {
 }
 .tx-float-card:nth-child(1) {
   top: 0;
-  transform: translateZ(56px);
+  transform: translateZ(60px);
   box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
 }
 .tx-float-card:nth-child(2) {
-  top: 90px;
-  transform: translateZ(0px);
+  top: 76px;
+  transform: translateZ(20px);
   box-shadow: 0 8px 28px rgba(0,0,0,0.4);
 }
 .tx-float-card:nth-child(3) {
-  top: 180px;
-  transform: translateZ(-56px);
+  top: 152px;
+  transform: translateZ(-20px);
   box-shadow: 0 4px 14px rgba(0,0,0,0.3);
-  opacity: 0.65;
+  opacity: 0.80;
+}
+.tx-float-card:nth-child(4) {
+  top: 228px;
+  transform: translateZ(-60px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  opacity: 0.55;
 }
 
 .tx-float-icon {
@@ -4230,7 +4236,7 @@ body {
   .tx-products-grid { grid-template-columns: 1fr; }
   .tx-section { padding: 0 16px; }
   .tx-cta-card { padding: 32px 20px; }
-  .tx-float-scene { width: 260px; }
+  .tx-float-scene { width: 260px; height: 320px; }
   .tx-float-card  { width: 240px; }
 }
 
