@@ -1,12 +1,13 @@
 {
   "name": "Tekivex",
   "short_name": "Tekivex",
-  "description": "Enterprise software, crafted with skill. GridStorm, PDF Toolkit, NexaRecruit, NexaCare.",
+  "description": "Enterprise developer tools — GridStorm, Analytics Studio, DataFlow, PDF Toolkit. MIT-licensed.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#3b82f6",
   "lang": "en",
+  "scope": "/",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -24,16 +25,10 @@
   "categories": ["business", "developer", "productivity"],
   "screenshots": [
     {
-      "src": "/og-gridstorm.png",
-      "sizes": "1200x630",
-      "type": "image/png",
-      "label": "GridStorm — Enterprise Data Grid"
-    },
-    {
       "src": "/og-tekivex.png",
       "sizes": "1200x630",
       "type": "image/png",
-      "label": "Tekivex Platform"
+      "label": "Tekivex — Enterprise Developer Tools Platform"
     }
   ]
 }

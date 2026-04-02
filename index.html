@@ -5,31 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ── Primary Meta ──────────────────────────────────────────────────── -->
-  <title>Tekivex — Enterprise Software, Crafted with Skill</title>
-  <meta name="description" content="Tekivex builds enterprise-grade developer tools: GridStorm (open-source data grid), PDF Toolkit (WASM PDF processing), NexaRecruit (ATS), and NexaCare (healthcare platform)." />
-  <meta name="keywords" content="enterprise software platform, developer tools, data grid, PDF toolkit, ATS software, healthcare software, GridStorm, Tekivex, open source enterprise" />
+  <title>Tekivex — Enterprise Developer Tools Platform</title>
+  <meta name="description" content="Tekivex builds open-source enterprise developer tools: GridStorm (high-performance data grid, 35 plugins), Analytics Studio (26+ charts, drag-drop BI), DataFlow (real-time streaming), and PDF Toolkit (WASM renderer). MIT-licensed. Free forever." />
+  <meta name="keywords" content="enterprise software platform, open source developer tools, data grid library, react data grid, analytics dashboard, real-time streaming, PDF toolkit, GridStorm, Tekivex, TypeScript enterprise, AG Grid alternative" />
   <meta name="author" content="Tekivex" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="theme-color" content="#0f172a" />
-  <link rel="canonical" href="https://tekivex.dev/" />
+  <link rel="canonical" href="https://tekivex.com/" />
 
   <!-- ── Open Graph ─────────────────────────────────────────────────────── -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Tekivex" />
-  <meta property="og:title" content="Tekivex — Enterprise Software, Crafted with Skill" />
-  <meta property="og:description" content="Open-source and enterprise developer tools built to production quality. GridStorm, PDF Toolkit, NexaRecruit, NexaCare, and more." />
-  <meta property="og:image" content="https://tekivex.dev/og-tekivex.png" />
+  <meta property="og:title" content="Tekivex — Enterprise Developer Tools Platform" />
+  <meta property="og:description" content="Open-source enterprise developer tools built to production quality. GridStorm data grid, Analytics Studio, DataFlow streaming engine, and PDF Toolkit — MIT-licensed, free forever." />
+  <meta property="og:image" content="https://tekivex.com/og-tekivex.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:url" content="https://tekivex.dev/" />
+  <meta property="og:image:alt" content="Tekivex — Enterprise Developer Tools Platform" />
+  <meta property="og:url" content="https://tekivex.com/" />
   <meta property="og:locale" content="en_US" />
 
   <!-- ── Twitter Card ───────────────────────────────────────────────────── -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tekivex" />
-  <meta name="twitter:title" content="Tekivex — Enterprise Software, Crafted with Skill" />
-  <meta name="twitter:description" content="GridStorm data grid, WASM PDF Toolkit, ATS, and healthcare platform — one engineering team." />
-  <meta name="twitter:image" content="https://tekivex.dev/og-tekivex.png" />
+  <meta name="twitter:creator" content="@tekivex" />
+  <meta name="twitter:title" content="Tekivex — Enterprise Developer Tools Platform" />
+  <meta name="twitter:description" content="GridStorm data grid, Analytics Studio, DataFlow streaming, PDF Toolkit — one platform, all open source." />
+  <meta name="twitter:image" content="https://tekivex.com/og-tekivex.png" />
+  <meta name="twitter:image:alt" content="Tekivex Platform Overview" />
 
   <!-- ── Icons & Manifest ───────────────────────────────────────────────── -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -49,11 +52,32 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Tekivex",
-    "url": "https://tekivex.dev",
-    "logo": "https://tekivex.dev/logo.svg",
-    "description": "Tekivex builds enterprise-grade developer tools including GridStorm, PDF Toolkit, NexaRecruit, and NexaCare.",
-    "sameAs": ["https://github.com/007krcs/tekivex"],
-    "foundingDate": "2024"
+    "url": "https://tekivex.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://tekivex.com/logo.svg",
+      "width": 200,
+      "height": 60
+    },
+    "description": "Tekivex builds open-source enterprise developer tools — GridStorm, Analytics Studio, DataFlow, and PDF Toolkit. All MIT-licensed.",
+    "sameAs": [
+      "https://github.com/007krcs/tekivex",
+      "https://github.com/007krcs/grid-data",
+      "https://github.com/007krcs/analytics-builder",
+      "https://github.com/007krcs/dataflow"
+    ],
+    "foundingDate": "2024",
+    "knowsAbout": [
+      "Data Grids",
+      "Business Intelligence",
+      "Real-time Data Streaming",
+      "PDF Processing",
+      "Enterprise Software",
+      "TypeScript",
+      "React",
+      "Vue",
+      "Svelte"
+    ]
   }
   </script>
 
@@ -63,9 +87,89 @@
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Tekivex",
-    "url": "https://tekivex.dev",
-    "description": "Enterprise software platform — GridStorm, PDF Toolkit, NexaRecruit, NexaCare.",
-    "publisher": { "@type": "Organization", "name": "Tekivex" }
+    "url": "https://tekivex.com",
+    "description": "Enterprise developer tools platform — GridStorm, Analytics Studio, DataFlow, PDF Toolkit.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tekivex",
+      "url": "https://tekivex.com"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://tekivex.com/#/products?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- ── JSON-LD: SoftwareApplication — GridStorm ───────────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "GridStorm",
+    "description": "Open-source enterprise data grid with virtual scrolling (100K+ rows at 60fps), WCAG 2.1 AA accessibility, 42 Excel formula functions, and 35 composable plugins. MIT-licensed, free forever.",
+    "url": "https://gridstorm.tekivex.com",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    },
+    "publisher": { "@type": "Organization", "name": "Tekivex", "url": "https://tekivex.com" },
+    "softwareVersion": "0.2.1",
+    "license": "https://opensource.org/licenses/MIT",
+    "featureList": [
+      "Virtual scrolling — 100K+ rows at 60fps",
+      "WCAG 2.1 AA accessibility",
+      "42 Excel-compatible formula functions",
+      "35 composable plugins",
+      "React, Vue, Svelte, Angular adapters"
+    ]
+  }
+  </script>
+
+  <!-- ── JSON-LD: ItemList — Product Suite ──────────────────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Tekivex Product Suite",
+    "description": "Enterprise developer tools built by Tekivex",
+    "url": "https://tekivex.com/#/products",
+    "numberOfItems": 4,
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "GridStorm",
+        "description": "Open-source enterprise data grid — virtual scrolling, 35 plugins, MIT-licensed",
+        "url": "https://gridstorm.tekivex.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Analytics Studio",
+        "description": "Drag-and-drop BI platform — 26+ charts, in-browser SQL, KPI dashboards",
+        "url": "https://analytics.tekivex.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "PDF Toolkit",
+        "description": "WASM-powered PDF processing — annotations, form fill, PII detection, AES-256 encryption",
+        "url": "https://tekivex.com/#/product/pdf-toolkit"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "DataFlow",
+        "description": "Real-time streaming engine — WebSocket, SSE, anomaly detection, time-travel replay",
+        "url": "https://dataflow.tekivex.com"
+      }
+    ]
   }
   </script>
 </head>
