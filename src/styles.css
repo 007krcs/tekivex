@@ -5180,12 +5180,12 @@ body {
 .about-tile-name {
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--hub-text);
+  color: var(--hub-text, #f1f5f9);
   margin-top: 0.25rem;
 }
 .about-tile-desc {
   font-size: 0.875rem;
-  color: var(--hub-text-muted);
+  color: var(--hub-text-muted, #94a3b8);
   line-height: 1.6;
   flex: 1;
 }
@@ -5218,12 +5218,12 @@ body {
 .about-value-title {
   font-size: 0.95rem;
   font-weight: 700;
-  color: var(--hub-text);
+  color: var(--hub-text, #f1f5f9);
   margin: 0;
 }
 .about-value-body {
   font-size: 0.875rem;
-  color: var(--hub-text-muted);
+  color: var(--hub-text-muted, #94a3b8);
   line-height: 1.65;
   margin: 0;
 }
@@ -5240,14 +5240,14 @@ body {
 .about-stack-label {
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--hub-text-muted);
+  color: var(--hub-text-muted, #94a3b8);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 .about-stack-value {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--hub-text);
+  color: var(--hub-text, #f1f5f9);
 }
 
 @media (max-width: 640px) {

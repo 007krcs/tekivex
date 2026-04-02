@@ -29,6 +29,11 @@ export function App() {
   const route = useHashRoute();
   const activeProductId = getActiveProductId(route);
 
+  // Scroll to top on every route change
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [route]);
+
   useSeo(getSeoForRoute(route));
 
   let page: React.ReactNode;
