@@ -9,19 +9,13 @@
 import type { ProductManifest } from './types';
 import { gridstormManifest } from './manifest-gridstorm';
 import { pdfToolkitManifest } from './manifest-pdf-toolkit';
-import { nexaRecruitManifest } from './manifest-nexa-recruit';
-import { nexaCareManifest } from './manifest-nexa-care';
 import { analyticsStudioManifest } from './manifest-analytics-studio';
-import { dataFlowManifest } from './manifest-coming-soon';
 
 /** Ordered list — determines display order in launcher + nav */
 const PRODUCT_MANIFESTS: ProductManifest[] = [
   gridstormManifest,        // GA   — Data Grid
-  analyticsStudioManifest,  // Beta — Analytics Studio (live demo!)
+  analyticsStudioManifest,  // Beta — Analytics Studio
   pdfToolkitManifest,       // Beta — PDF Toolkit
-  nexaRecruitManifest,      // Soon — ATS & Resume Builder
-  nexaCareManifest,         // Soon — Healthcare Platform
-  dataFlowManifest,         // Soon — Real-time Streaming
 ];
 
 export function getAllProducts(): readonly ProductManifest[] {
