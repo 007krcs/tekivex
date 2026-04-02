@@ -41,7 +41,7 @@ const PRODUCTS = [
 
 const VALUES = [
   {
-    icon: 'lock-open',
+    icon: 'lock',
     title: 'Open-Source First',
     body: 'Core packages are MIT-licensed — forever. No lock-in, no per-developer license fees, no surprise paywalls.',
   },
@@ -236,7 +236,7 @@ export function AboutPage() {
           { val: '57',     lbl: 'npm packages' },
           { val: '1,899+', lbl: 'Tests' },
           { val: 'MIT',    lbl: 'License' },
-          { val: '2024',   lbl: 'Founded' },
+          { val: '2025',   lbl: 'Founded' },
         ].map(s => (
           <div key={s.lbl} className="tx-stats-item">
             <span className="tx-stats-val">{s.val}</span>

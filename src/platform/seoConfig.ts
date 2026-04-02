@@ -39,7 +39,7 @@ const HOME_SEO: SeoConfig = {
     description:
       'Tekivex builds enterprise-grade developer tools including GridStorm, PDF Toolkit, NexaRecruit, and NexaCare.',
     sameAs: ['https://github.com/007krcs/tekivex'],
-    foundingDate: '2024',
+    foundingDate: '2025',
     knowsAbout: ['Data Grids', 'PDF Processing', 'Healthcare Software', 'Applicant Tracking Systems'],
   },
 };
@@ -93,7 +93,7 @@ const ABOUT_SEO: SeoConfig = {
     logo: `${BASE_URL}/favicon.svg`,
     description:
       'Tekivex builds enterprise-grade developer tools: GridStorm data grid, Analytics Studio, PDF Toolkit, and DataFlow.',
-    foundingDate: '2024',
+    foundingDate: '2025',
     sameAs: [
       'https://github.com/007krcs/tekivex',
       'https://github.com/007krcs/grid-data',
