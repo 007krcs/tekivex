@@ -1,6 +1,6 @@
 import type { ProductManifest } from '../platform/types';
 
-const DATAFLOW_URL    = 'https://dataflow-five.vercel.app';
+const DATAFLOW_URL    = 'https://dataflow.tekivex.com';
 const DATAFLOW_GITHUB = 'https://github.com/007krcs/dataflow';
 
 export const dataFlowManifest: ProductManifest = {

@@ -171,7 +171,7 @@ import { GridStorm } from '@gridstorm/react';
 />
 \`\`\`
 
-See the [full documentation](https://grid-data-analytics-explorer.vercel.app/#/docs/getting-started/introduction) for plugin setup, theming, and advanced configuration.`,
+See the [full documentation](https://gridstorm.tekivex.com/#/docs/getting-started/introduction) for plugin setup, theming, and advanced configuration.`,
     tags: ['install', 'npm', 'setup', 'quickstart', 'getting started'],
   },
 
@@ -396,7 +396,7 @@ document.documentElement.setAttribute('data-gs-density', 'compact');
 }
 \`\`\`
 
-All 80+ tokens are documented in the [theme reference](https://grid-data-analytics-explorer.vercel.app/#/docs).`,
+All 80+ tokens are documented in the [theme reference](https://gridstorm.tekivex.com/#/docs).`,
     tags: ['theme', 'dark mode', 'CSS', 'styling', 'customize', 'appearance'],
   },
 
@@ -499,7 +499,7 @@ grid.dispatch('charts:open', {
 
 **Current status:** Beta (v0.1.2) — production-ready for most use cases.
 
-[View Demo](https://grid-data-analytics-explorer.vercel.app/pdf-viewer/) | [Documentation](https://grid-data-analytics-explorer.vercel.app/#/docs/guides/pdf-toolkit)`,
+[View Demo](https://gridstorm.tekivex.com/pdf-viewer/) | [Documentation](https://gridstorm.tekivex.com/#/docs/guides/pdf-toolkit)`,
     tags: ['PDF', 'WASM', 'Rust', 'annotation', 'form fill', 'encryption'],
   },
 
@@ -729,8 +729,8 @@ For enterprise licensing, SLAs, or volume discounts, contact **enterprise@tekive
 
 1. **Choose your product** — visit the [product hub](/) to see all available products
 2. **GridStorm** (most popular) — \`npm install @gridstorm/core @gridstorm/react\`
-3. **Read the docs** — [grid-data-analytics-explorer.vercel.app/#/docs](https://grid-data-analytics-explorer.vercel.app/#/docs)
-4. **Try the demo** — [Live Feature Showcase](https://grid-data-analytics-explorer.vercel.app/feature-showcase/)
+3. **Read the docs** — [gridstorm.tekivex.com/#/docs](https://gridstorm.tekivex.com/#/docs)
+4. **Try the demo** — [Live Feature Showcase](https://gridstorm.tekivex.com/feature-showcase/)
 
 **5-minute quickstart for GridStorm:**
 \`\`\`bash
@@ -979,10 +979,10 @@ grid.on('cell:valueChanged', ({ rowId, columnId, newValue, oldValue }) => {
 [github.com/007krcs/tekivex/issues](https://github.com/007krcs/tekivex/issues)
 
 📖 **Documentation**
-[grid-data-analytics-explorer.vercel.app/#/docs](https://grid-data-analytics-explorer.vercel.app/#/docs)
+[gridstorm.tekivex.com/#/docs](https://gridstorm.tekivex.com/#/docs)
 
 🎮 **Live Demo & Playground**
-[grid-data-analytics-explorer.vercel.app/feature-showcase/](https://grid-data-analytics-explorer.vercel.app/feature-showcase/)
+[gridstorm.tekivex.com/feature-showcase/](https://gridstorm.tekivex.com/feature-showcase/)
 
 💼 **Enterprise inquiries**
 enterprise@tekivex.com

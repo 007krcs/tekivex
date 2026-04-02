@@ -270,7 +270,7 @@ export function ask(query: string): AssistantResponse {
     return {
       answer: `I couldn't find a specific answer to your question. Here's how to get help:
 
-- 📖 **Documentation:** [grid-data-analytics-explorer.vercel.app/#/docs](https://grid-data-analytics-explorer.vercel.app/#/docs)
+- 📖 **Documentation:** [gridstorm.tekivex.com/#/docs](https://gridstorm.tekivex.com/#/docs)
 - 🐛 **GitHub Issues:** [github.com/007krcs/tekivex/issues](https://github.com/007krcs/tekivex/issues)
 - 💼 **Enterprise:** enterprise@tekivex.com
 

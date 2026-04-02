@@ -218,8 +218,8 @@ ${KNOWLEDGE_BASE
 ## Important Facts
 - GridStorm is MIT-licensed (free forever), no per-developer fees
 - GitHub: https://github.com/007krcs/tekivex
-- Analytics Studio demo: https://analytics-builder-demo.vercel.app
-- Docs: https://grid-data-analytics-explorer.vercel.app/#/docs
+- Analytics Studio demo: https://analytics.tekivex.com
+- Docs: https://gridstorm.tekivex.com/#/docs
 - Enterprise: enterprise@tekivex.com
 ${productSummary}${contextBlock}
 

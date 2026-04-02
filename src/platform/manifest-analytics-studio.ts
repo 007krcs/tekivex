@@ -1,6 +1,6 @@
 import type { ProductManifest } from './types';
 
-const ANALYTICS_DEMO_URL = 'https://analytics-builder-demo.vercel.app';
+const ANALYTICS_DEMO_URL = 'https://analytics.tekivex.com';
 const ANALYTICS_GITHUB    = 'https://github.com/007krcs/analytics-builder';
 
 export const analyticsStudioManifest: ProductManifest = {

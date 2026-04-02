@@ -1,18 +1,18 @@
 import { Icon } from '../icons/Icon';
 
 // GridStorm lives at this URL — all docs/demo links point here
-const GS = 'https://grid-data-analytics-explorer.vercel.app';
+const GS = 'https://gridstorm.tekivex.com';
 
 const FOOTER_COLS = [
   {
     heading: 'Platform',
     links: [
-      { label: 'All Products',  href: '#/products' },
-      { label: 'GridStorm',     href: '#/product/gridstorm' },
-      { label: 'PDF Toolkit',   href: '#/product/pdf-toolkit' },
-      { label: 'NexaRecruit',   href: '#/product/nexa-recruit' },
-      { label: 'NexaCare',      href: '#/product/nexa-care' },
-      { label: 'Platform Repo', href: 'https://github.com/007krcs/tekivex' },
+      { label: 'All Products',       href: '#/products' },
+      { label: 'GridStorm',          href: '#/product/gridstorm' },
+      { label: 'Analytics Studio',   href: '#/product/analytics-studio' },
+      { label: 'PDF Toolkit',        href: '#/product/pdf-toolkit' },
+      { label: 'DataFlow',           href: '#/product/dataflow' },
+      { label: 'Platform Repo',      href: 'https://github.com/007krcs/tekivex' },
     ],
   },
   {

@@ -2,7 +2,7 @@ import type { ProductManifest } from './types';
 
 // GridStorm is deployed at its own Vercel URL.
 // All demo and docs links are external to the grid-data deployment.
-const GRIDSTORM_URL = 'https://grid-data-analytics-explorer.vercel.app';
+const GRIDSTORM_URL = 'https://gridstorm.tekivex.com';
 
 const GRIDSTORM_GITHUB = 'https://github.com/007krcs/analytics-builder';
 
