@@ -3,6 +3,7 @@ import { ThemeProvider } from './theme/ThemeProvider';
 import { PlatformProvider } from './platform/PlatformProvider';
 import { PlatformPage } from './pages/PlatformPage';
 import { ProductHomePage } from './pages/ProductHomePage';
+import { AboutPage } from './pages/AboutPage';
 import { TopNav } from './layout/TopNav';
 import { Footer } from './layout/Footer';
 import { getActiveProductId } from './platform/registry';
@@ -35,6 +36,8 @@ export function App() {
   if (route.startsWith('/product/')) {
     const productId = route.slice('/product/'.length).split('/')[0];
     page = <ProductHomePage productId={productId ?? ''} />;
+  } else if (route === '/about') {
+    page = <AboutPage />;
   } else {
     // Default: platform product launcher
     page = <PlatformPage />;

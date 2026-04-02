@@ -223,6 +223,15 @@ export function TopNav({ route }: TopNavProps) {
             Platform
           </a>
 
+          {/* About */}
+          <a
+            href="#/about"
+            className={`top-nav-link${route === '/about' ? ' active' : ''}`}
+            onClick={(e) => { e.preventDefault(); navigate('/about'); setMobileMenuOpen(false); }}
+          >
+            About
+          </a>
+
           {/* Product-specific links — derived from the active product manifest */}
           {productNavLinks.map(link => (
             <a

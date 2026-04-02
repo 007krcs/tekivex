@@ -8,6 +8,7 @@ const FOOTER_COLS = [
     heading: 'Platform',
     links: [
       { label: 'All Products',       href: '#/products' },
+      { label: 'About Us',           href: '#/about' },
       { label: 'GridStorm',          href: '#/product/gridstorm' },
       { label: 'Analytics Studio',   href: '#/product/analytics-studio' },
       { label: 'PDF Toolkit',        href: '#/product/pdf-toolkit' },

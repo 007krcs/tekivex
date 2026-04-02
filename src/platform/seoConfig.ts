@@ -2,7 +2,7 @@
 import { type SeoConfig, seoFromManifest } from './useSeo';
 import { getProduct } from './registry';
 
-const BASE_URL = 'https://tekivex.dev';
+const BASE_URL = 'https://tekivex.com';
 
 const HOME_SEO: SeoConfig = {
   title: 'Tekivex — Enterprise Software, Crafted with Skill',
@@ -28,7 +28,7 @@ const HOME_SEO: SeoConfig = {
   ogType: 'website',
   twitterTitle: 'Tekivex — Enterprise Software, Crafted with Skill',
   twitterDescription:
-    'GridStorm data grid, WASM PDF Toolkit, ATS, and healthcare platform — one engineering team.',
+    'GridStorm data grid, Analytics Studio, WASM PDF Toolkit, DataFlow streaming — one engineering team.',
   twitterImage: `${BASE_URL}/og-tekivex.png`,
   jsonLd: {
     '@context': 'https://schema.org',
@@ -61,14 +61,56 @@ const PRODUCTS_SEO: SeoConfig = {
   ogType: 'website',
   twitterTitle: 'Tekivex Product Suite',
   twitterDescription:
-    'GridStorm, PDF Toolkit, NexaRecruit, NexaCare — enterprise tools for every team.',
+    'GridStorm, Analytics Studio, PDF Toolkit, DataFlow — enterprise tools for every team.',
   twitterImage: `${BASE_URL}/og-tekivex.png`,
   jsonLd: null,
+};
+
+const ABOUT_SEO: SeoConfig = {
+  title: 'About Us — Tekivex',
+  description:
+    'Tekivex is an independent developer tools company building open-source enterprise software — ' +
+    'GridStorm data grid, Analytics Studio, PDF Toolkit, and DataFlow streaming engine. All MIT-licensed.',
+  keywords: [
+    'about Tekivex', 'Tekivex company', 'open-source developer tools', 'GridStorm team',
+    'enterprise software company', 'MIT licensed tools', 'TypeScript developer tools',
+  ],
+  canonical: `${BASE_URL}/about`,
+  ogTitle: 'About Tekivex — Enterprise Software, Crafted with Skill',
+  ogDescription:
+    'We build open-source enterprise developer tools. 4 products, 57 packages, 1,899+ tests, MIT license.',
+  ogImage: `${BASE_URL}/og-tekivex.png`,
+  ogType: 'website',
+  twitterTitle: 'About Tekivex',
+  twitterDescription:
+    'The team behind GridStorm, Analytics Studio, PDF Toolkit, and DataFlow — all MIT-licensed.',
+  twitterImage: `${BASE_URL}/og-tekivex.png`,
+  jsonLd: {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Tekivex',
+    url: BASE_URL,
+    logo: `${BASE_URL}/favicon.svg`,
+    description:
+      'Tekivex builds enterprise-grade developer tools: GridStorm data grid, Analytics Studio, PDF Toolkit, and DataFlow.',
+    foundingDate: '2024',
+    sameAs: [
+      'https://github.com/007krcs/tekivex',
+      'https://github.com/007krcs/grid-data',
+      'https://github.com/007krcs/analytics-builder',
+      'https://github.com/007krcs/dataflow',
+    ],
+    knowsAbout: ['Data Grids', 'PDF Processing', 'Business Intelligence', 'Real-time Streaming', 'TypeScript'],
+  },
 };
 
 export function getSeoForRoute(route: string): SeoConfig {
   if (route === '/' || route === '' || route === '/products') {
     return route === '/products' ? PRODUCTS_SEO : HOME_SEO;
+  }
+
+  if (route === '/about') {
+    return ABOUT_SEO;
   }
 
   if (route.startsWith('/product/')) {
