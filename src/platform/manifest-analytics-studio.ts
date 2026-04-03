@@ -40,7 +40,6 @@ export const analyticsStudioManifest: ProductManifest = {
   ],
   quickLinks: [
     { label: 'Open Demo',  path: ANALYTICS_DEMO_URL,       external: true, isNew: true },
-    { label: 'GitHub',     path: ANALYTICS_GITHUB,          external: true },
     { label: 'README',     path: `${ANALYTICS_GITHUB}#readme`, external: true },
   ],
   tags: ['Beta', 'Analytics', 'BI', 'Charts', 'SQL', 'Pivot', 'KPI', 'GridStorm'],

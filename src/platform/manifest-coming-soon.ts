@@ -42,7 +42,6 @@ export const dataFlowManifest: ProductManifest = {
   ],
   quickLinks: [
     { label: 'Live Demo',  path: DATAFLOW_URL,                          external: true, isNew: true },
-    { label: 'GitHub',     path: DATAFLOW_GITHUB,                       external: true },
     { label: 'README',     path: `${DATAFLOW_GITHUB}#readme`,           external: true },
     { label: 'Financial',  path: `${DATAFLOW_URL}`,                     external: true },
   ],

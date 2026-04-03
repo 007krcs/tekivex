@@ -246,10 +246,6 @@ export function PlatformPage() {
             >
               Explore Products
             </button>
-            <a href={config.githubUrl} className="tx-ghost-btn" target="_blank" rel="noopener noreferrer">
-              <Icon name="github" size={16} />
-              GitHub
-            </a>
           </div>
         </div>
 
@@ -308,12 +304,6 @@ export function PlatformPage() {
             <code className="tx-inline-code">productRegistry.register()</code>, and your
             product appears in the launcher, nav, and routing automatically.
           </p>
-          <div className="tx-cta-actions">
-            <a href={config.githubUrl} className="tx-cta-btn" target="_blank" rel="noopener noreferrer">
-              <Icon name="github" size={16} />
-              View on GitHub
-            </a>
-          </div>
         </div>
       </section>
 
