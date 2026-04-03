@@ -20,7 +20,7 @@ function isValidTheme(value: string | null): value is HubTheme {
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<HubTheme>(() => {
     const stored = localStorage.getItem(THEME_KEY);
-    return isValidTheme(stored) ? stored : 'light';
+    return isValidTheme(stored) ? stored : 'dark';
   });
 
   useEffect(() => {

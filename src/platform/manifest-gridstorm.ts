@@ -16,7 +16,7 @@ export const gridstormManifest: ProductManifest = {
     'Headless data grid engine with virtual scrolling, WCAG 2.1 AA accessibility, ' +
     '42 Excel-compatible formula functions, Excel copy/paste, and a full plugin ' +
     'ecosystem. MIT-licensed. No per-dev license fees.',
-  version: '0.1.2',
+  version: '0.1.3',
   status: 'ga',
   tier: 'open-source',
   color: '#3b82f6',
