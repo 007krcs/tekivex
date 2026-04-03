@@ -31,8 +31,6 @@ function getProductNavLinks(product: ProductManifest): NavLink[] {
   if (product.playgroundPath && product.playgroundPath !== product.primaryDemoPath)
     links.push({ label: 'Playground', href: product.playgroundPath });
 
-  if (product.githubUrl)
-    links.push({ label: 'GitHub', href: product.githubUrl });
 
   return links;
 }
@@ -258,15 +256,6 @@ export function TopNav({ route }: TopNavProps) {
 
       <div className="top-nav-right">
         <ThemeToggle />
-        <a
-          href={activeProduct?.githubUrl ?? config.githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-github"
-        >
-          <Icon name="github" size={18} />
-          <span>GitHub</span>
-        </a>
       </div>
     </nav>
   );
