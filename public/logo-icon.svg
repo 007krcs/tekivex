@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="tekivex icon">
+  <title>tekivex</title>
+  <defs>
+    <!-- Hex fill gradient: indigo to cyan, top-left to bottom-right -->
+    <linearGradient id="hexGrad" x1="4" y1="7.8" x2="60" y2="56.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <!-- Drop shadow -->
+    <filter id="hexShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#6366f1" flood-opacity="0.40"/>
+    </filter>
+  </defs>
+
+  <!-- ═══════════════════════════════ ICON ═══════════════════════════════ -->
+  <!-- Flat-top hexagon, center (32,32), radius 28 -->
+  <polygon
+    points="60,32 46,56.2 18,56.2 4,32 18,7.8 46,7.8"
+    fill="url(#hexGrad)"
+    filter="url(#hexShadow)"
+  />
+
+  <!-- T crossbar (horizontal bar) -->
+  <rect x="14" y="22" width="36" height="5.5" rx="2.75" fill="white"/>
+
+  <!-- T stem (vertical bar) -->
+  <rect x="29.25" y="27.5" width="5.5" height="18" rx="2.75" fill="white"/>
+
+  <!-- Data-row dots (right side, suggesting grid rows) -->
+  <circle cx="43" cy="24.75" r="2.5" fill="white" opacity="0.7"/>
+  <circle cx="43" cy="33"    r="2.5" fill="white" opacity="0.5"/>
+  <circle cx="43" cy="41"    r="2.5" fill="white" opacity="0.3"/>
+</svg>
