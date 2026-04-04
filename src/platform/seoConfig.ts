@@ -4,81 +4,132 @@ import { getProduct } from './registry';
 
 const BASE_URL = 'https://tekivex.com';
 
+// ── Home ──────────────────────────────────────────────────────────────────
 const HOME_SEO: SeoConfig = {
-  title: 'Tekivex — Enterprise Software, Crafted with Skill',
+  title: 'Tekivex — Enterprise Developer Tools Platform',
   description:
-    'Tekivex builds enterprise-grade developer tools: GridStorm (open-source data grid), ' +
-    'PDF Toolkit (WASM PDF processing), NexaRecruit (ATS), and NexaCare (healthcare platform).',
+    'Tekivex builds open-source enterprise developer tools: GridStorm (high-performance data grid, ' +
+    '35 plugins), Analytics Studio (26+ charts, drag-drop BI), DataFlow (real-time streaming), and ' +
+    'PDF Toolkit (WASM renderer). MIT-licensed. Free forever.',
   keywords: [
-    'enterprise software platform',
-    'developer tools',
-    'data grid',
-    'PDF toolkit',
-    'ATS software',
-    'Tekivex',
-    'open source enterprise',
+    'enterprise developer tools',
+    'open source data grid',
+    'react data grid',
+    'AG Grid alternative',
+    'data grid library',
+    'analytics dashboard builder',
+    'real-time streaming engine',
+    'PDF toolkit WASM',
     'GridStorm',
+    'Tekivex',
+    'TypeScript enterprise',
+    'open source enterprise software',
+    'MIT license developer tools',
+    'headless data grid',
+    'virtual scrolling grid',
   ],
   canonical: BASE_URL,
-  ogTitle: 'Tekivex — Enterprise Software, Crafted with Skill',
+  ogTitle: 'Tekivex — Enterprise Developer Tools Platform',
   ogDescription:
-    'Open-source and enterprise developer tools built to production quality. ' +
-    'GridStorm, PDF Toolkit, NexaRecruit, NexaCare, and more.',
+    'Open-source enterprise developer tools: GridStorm data grid, Analytics Studio, DataFlow streaming, ' +
+    'PDF Toolkit — MIT-licensed, free forever.',
   ogImage: `${BASE_URL}/og-tekivex.png`,
   ogType: 'website',
-  twitterTitle: 'Tekivex — Enterprise Software, Crafted with Skill',
+  twitterTitle: 'Tekivex — Enterprise Developer Tools Platform',
   twitterDescription:
-    'GridStorm data grid, Analytics Studio, WASM PDF Toolkit, DataFlow streaming — one engineering team.',
+    'GridStorm data grid, Analytics Studio, DataFlow streaming, PDF Toolkit — one platform, all open source.',
   twitterImage: `${BASE_URL}/og-tekivex.png`,
   jsonLd: {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Tekivex',
     url: BASE_URL,
-    logo: `${BASE_URL}/logo.svg`,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${BASE_URL}/logo.svg`,
+      width: 200,
+      height: 60,
+    },
     description:
-      'Tekivex builds enterprise-grade developer tools including GridStorm, PDF Toolkit, NexaRecruit, and NexaCare.',
-    sameAs: ['https://github.com/007krcs/tekivex'],
+      'Tekivex builds open-source enterprise developer tools — GridStorm, Analytics Studio, DataFlow, and PDF Toolkit. All MIT-licensed.',
+    sameAs: [
+      'https://github.com/007krcs/tekivex',
+      'https://github.com/007krcs/grid-data',
+      'https://github.com/007krcs/analytics-builder',
+      'https://github.com/007krcs/dataflow',
+    ],
     foundingDate: '2025',
-    knowsAbout: ['Data Grids', 'PDF Processing', 'Healthcare Software', 'Applicant Tracking Systems'],
+    knowsAbout: [
+      'Data Grids', 'Business Intelligence', 'Real-time Streaming',
+      'PDF Processing', 'Enterprise Software', 'TypeScript', 'React', 'Vue', 'Svelte',
+    ],
   },
 };
 
+// ── Products ──────────────────────────────────────────────────────────────
 const PRODUCTS_SEO: SeoConfig = {
-  title: 'All Products — Tekivex Platform',
+  title: 'Products — Tekivex Enterprise Developer Tools',
   description:
-    'Explore all Tekivex products: GridStorm enterprise data grid, WASM PDF Toolkit, ' +
-    'NexaRecruit ATS, NexaCare healthcare platform, Analytics Studio, and DataFlow.',
+    'Explore Tekivex products: GridStorm enterprise data grid (35 plugins, 100K+ rows), ' +
+    'Analytics Studio (26+ charts, in-browser SQL), DataFlow (real-time streaming, WebSocket/SSE), ' +
+    'and PDF Toolkit (WASM renderer, AES-256). All MIT-licensed.',
   keywords: [
-    'Tekivex products', 'enterprise software suite', 'GridStorm',
-    'PDF Toolkit', 'NexaRecruit', 'NexaCare', 'product catalog',
+    'GridStorm data grid', 'Analytics Studio BI', 'DataFlow streaming',
+    'PDF Toolkit WASM', 'open source enterprise tools', 'Tekivex products',
+    'developer software suite', 'TypeScript libraries', 'React data grid',
+    'Vue data grid', 'Svelte data grid',
   ],
-  canonical: `${BASE_URL}/products`,
-  ogTitle: 'All Products — Tekivex Platform',
+  canonical: `${BASE_URL}/#/products`,
+  ogTitle: 'Products — Tekivex Developer Tools Suite',
   ogDescription:
-    'Enterprise software suite: data grids, PDF processing, ATS, healthcare, analytics, and streaming.',
+    'GridStorm, Analytics Studio, DataFlow, PDF Toolkit — enterprise developer tools, MIT-licensed, free forever.',
   ogImage: `${BASE_URL}/og-tekivex.png`,
   ogType: 'website',
   twitterTitle: 'Tekivex Product Suite',
   twitterDescription:
-    'GridStorm, Analytics Studio, PDF Toolkit, DataFlow — enterprise tools for every team.',
+    'GridStorm, Analytics Studio, DataFlow, PDF Toolkit — enterprise tools for every team.',
   twitterImage: `${BASE_URL}/og-tekivex.png`,
-  jsonLd: null,
+  jsonLd: {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Tekivex Product Suite',
+    description: 'Enterprise developer tools built by Tekivex',
+    url: `${BASE_URL}/#/products`,
+    numberOfItems: 4,
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'GridStorm',
+        description: 'Open-source enterprise data grid — virtual scrolling, 35 plugins, MIT-licensed',
+        url: `${BASE_URL}/#/product/gridstorm` },
+      { '@type': 'ListItem', position: 2, name: 'Analytics Studio',
+        description: 'Drag-and-drop BI platform — 26+ charts, in-browser SQL, KPI dashboards',
+        url: `${BASE_URL}/#/product/analytics-studio` },
+      { '@type': 'ListItem', position: 3, name: 'PDF Toolkit',
+        description: 'WASM-powered PDF processing — annotations, form fill, PII detection, AES-256',
+        url: `${BASE_URL}/#/product/pdf-toolkit` },
+      { '@type': 'ListItem', position: 4, name: 'DataFlow',
+        description: 'Real-time streaming engine — WebSocket, SSE, anomaly detection, time-travel replay',
+        url: `${BASE_URL}/#/product/dataflow` },
+    ],
+  },
 };
 
+// ── About ─────────────────────────────────────────────────────────────────
 const ABOUT_SEO: SeoConfig = {
-  title: 'About Us — Tekivex',
+  title: 'About Tekivex — Open-Source Enterprise Developer Tools',
   description:
     'Tekivex is an independent developer tools company building open-source enterprise software — ' +
-    'GridStorm data grid, Analytics Studio, PDF Toolkit, and DataFlow streaming engine. All MIT-licensed.',
+    'GridStorm data grid, Analytics Studio, PDF Toolkit, and DataFlow streaming engine. ' +
+    '4 products, 57 npm packages, 1,899+ tests. All MIT-licensed. Founded 2025.',
   keywords: [
-    'about Tekivex', 'Tekivex company', 'open-source developer tools', 'GridStorm team',
-    'enterprise software company', 'MIT licensed tools', 'TypeScript developer tools',
+    'about Tekivex', 'Tekivex company', 'open-source developer tools company',
+    'GridStorm team', 'enterprise software company', 'MIT licensed tools',
+    'TypeScript developer tools', 'independent software developer',
+    'open source business', 'developer tools startup',
   ],
-  canonical: `${BASE_URL}/about`,
+  canonical: `${BASE_URL}/#/about`,
   ogTitle: 'About Tekivex — Enterprise Software, Crafted with Skill',
   ogDescription:
-    'We build open-source enterprise developer tools. 4 products, 57 packages, 1,899+ tests, MIT license.',
+    '4 products, 57 packages, 1,899+ tests, MIT license. We build open-source enterprise developer tools. Founded 2025.',
   ogImage: `${BASE_URL}/og-tekivex.png`,
   ogType: 'website',
   twitterTitle: 'About Tekivex',
@@ -90,7 +141,7 @@ const ABOUT_SEO: SeoConfig = {
     '@type': 'Organization',
     name: 'Tekivex',
     url: BASE_URL,
-    logo: `${BASE_URL}/favicon.svg`,
+    logo: { '@type': 'ImageObject', url: `${BASE_URL}/favicon.svg` },
     description:
       'Tekivex builds enterprise-grade developer tools: GridStorm data grid, Analytics Studio, PDF Toolkit, and DataFlow.',
     foundingDate: '2025',
@@ -100,34 +151,93 @@ const ABOUT_SEO: SeoConfig = {
       'https://github.com/007krcs/analytics-builder',
       'https://github.com/007krcs/dataflow',
     ],
-    knowsAbout: ['Data Grids', 'PDF Processing', 'Business Intelligence', 'Real-time Streaming', 'TypeScript'],
+    knowsAbout: [
+      'Data Grids', 'PDF Processing', 'Business Intelligence',
+      'Real-time Streaming', 'TypeScript', 'React', 'Vue', 'Svelte',
+    ],
   },
 };
 
+// ── Platform hub ──────────────────────────────────────────────────────────
+const PLATFORM_SEO: SeoConfig = {
+  title: 'Platform — Tekivex Developer Tools Hub',
+  description:
+    'The Tekivex platform hub — launch GridStorm, Analytics Studio, DataFlow, and PDF Toolkit ' +
+    'from a single dashboard. All products are MIT-licensed and production-ready.',
+  keywords: [
+    'Tekivex platform', 'developer tools hub', 'GridStorm',
+    'Analytics Studio', 'DataFlow', 'PDF Toolkit', 'enterprise software platform',
+  ],
+  canonical: `${BASE_URL}/#/platform`,
+  ogTitle: 'Tekivex Platform Hub',
+  ogDescription:
+    'Launch all Tekivex products from one place — GridStorm, Analytics Studio, DataFlow, PDF Toolkit.',
+  ogImage: `${BASE_URL}/og-tekivex.png`,
+  ogType: 'website',
+  jsonLd: null,
+};
+
+// ── Route resolver ────────────────────────────────────────────────────────
 export function getSeoForRoute(route: string): SeoConfig {
   if (route === '/' || route === '' || route === '/products') {
     return route === '/products' ? PRODUCTS_SEO : HOME_SEO;
   }
-
-  if (route === '/about') {
-    return ABOUT_SEO;
-  }
+  if (route === '/about') return ABOUT_SEO;
+  if (route === '/platform') return PLATFORM_SEO;
 
   if (route.startsWith('/product/')) {
     const id = route.slice('/product/'.length).split('/')[0];
     const product = id ? getProduct(id) : undefined;
-    if (product?.seo) return seoFromManifest(product.seo, BASE_URL, route);
+
+    if (product?.seo) {
+      const config = seoFromManifest(product.seo, BASE_URL, route);
+      const breadcrumb = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
+          { '@type': 'ListItem', position: 2, name: 'Products', item: `${BASE_URL}/#/products` },
+          { '@type': 'ListItem', position: 3, name: product.name, item: `${BASE_URL}/#${route}` },
+        ],
+      };
+      return { ...config, jsonLd: [config.jsonLd, breadcrumb] as any };
+    }
+
     if (product) {
       return {
         title: `${product.name} — Tekivex`,
         description: product.description,
-        keywords: product.tags,
-        canonical: `${BASE_URL}${route}`,
+        keywords: [...product.tags, 'open source', 'MIT license', 'enterprise software', 'Tekivex', 'TypeScript'],
+        canonical: `${BASE_URL}/#${route}`,
         ogTitle: `${product.name} — Tekivex`,
         ogDescription: product.description,
         ogImage: `${BASE_URL}/og-tekivex.png`,
         ogType: 'website',
-        jsonLd: null,
+        twitterTitle: `${product.name} — Tekivex`,
+        twitterDescription: product.description,
+        twitterImage: `${BASE_URL}/og-tekivex.png`,
+        jsonLd: [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            name: product.name,
+            description: product.description,
+            url: `${BASE_URL}/#${route}`,
+            applicationCategory: 'DeveloperApplication',
+            operatingSystem: 'All',
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
+            publisher: { '@type': 'Organization', name: 'Tekivex', url: BASE_URL },
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
+              { '@type': 'ListItem', position: 2, name: 'Products', item: `${BASE_URL}/#/products` },
+              { '@type': 'ListItem', position: 3, name: product.name, item: `${BASE_URL}/#${route}` },
+            ],
+          },
+        ] as any,
       };
     }
   }

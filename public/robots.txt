@@ -1,13 +1,19 @@
 User-agent: *
 Allow: /
 
-# Sitemap
+# Sitemaps
 Sitemap: https://tekivex.com/sitemap.xml
+Sitemap: https://gridstorm.tekivex.com/sitemap.xml
 
-# Crawl-delay
-Crawl-delay: 1
+# Allow Googlebot full access
+User-agent: Googlebot
+Allow: /
 
-# Block AI training crawlers
+# Allow Bingbot full access
+User-agent: Bingbot
+Allow: /
+
+# Block AI training crawlers (content not licensed for training)
 User-agent: GPTBot
 Disallow: /
 
@@ -21,4 +27,10 @@ User-agent: anthropic-ai
 Disallow: /
 
 User-agent: Google-Extended
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: Amazonbot
 Disallow: /

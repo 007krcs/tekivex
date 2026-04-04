@@ -18,15 +18,16 @@ export interface SeoConfig {
   twitterTitle?: string;
   twitterDescription?: string;
   twitterImage?: string;
-  jsonLd?: object | null;
+  /** Single object or array of JSON-LD objects (e.g. [SoftwareApplication, BreadcrumbList]) */
+  jsonLd?: object | object[] | null;
 }
 
-// ── Helper: set or create a <meta> tag ────────────────────────────────────
+// ── Helpers ───────────────────────────────────────────────────────────────
+
 function setMeta(selector: string, value: string) {
   let el = document.head.querySelector<HTMLMetaElement>(selector);
   if (!el) {
     el = document.createElement('meta');
-    // Parse selector to set the right attribute
     const nameMatch = selector.match(/name="([^"]+)"/);
     const propMatch = selector.match(/property="([^"]+)"/);
     if (nameMatch) el.setAttribute('name', nameMatch[1]);
@@ -46,34 +47,32 @@ function setLink(rel: string, href: string) {
   el.setAttribute('href', href);
 }
 
-function setJsonLd(data: object | null) {
-  const id = '__nexaforge-jsonld__';
-  let el = document.getElementById(id) as HTMLScriptElement | null;
-  if (!data) {
-    el?.remove();
-    return;
-  }
-  if (!el) {
-    el = document.createElement('script');
-    el.id = id;
-    el.type = 'application/ld+json';
+/** Inject one or multiple JSON-LD blocks tracked via data-seo-jsonld attribute. */
+function setJsonLd(data: object | object[] | null) {
+  document.head.querySelectorAll('script[data-seo-jsonld]').forEach((el) => el.remove());
+  if (!data) return;
+  const blocks = Array.isArray(data) ? data : [data];
+  blocks.forEach((block, idx) => {
+    const el = document.createElement('script');
+    el.setAttribute('type', 'application/ld+json');
+    el.setAttribute('data-seo-jsonld', String(idx));
+    el.textContent = JSON.stringify(block, null, 2);
     document.head.appendChild(el);
-  }
-  el.textContent = JSON.stringify(data, null, 2);
+  });
 }
 
 // ── Build SeoConfig from a ProductSeoMeta manifest entry ─────────────────
 export function seoFromManifest(
   seo: ProductSeoMeta,
-  baseUrl = 'https://nexaforge.dev',
+  baseUrl = 'https://tekivex.com',
   route = '/',
 ): SeoConfig {
-  const canonical = `${baseUrl}/${route.replace(/^\//, '')}`;
+  const canonical = `${baseUrl}/#${route.startsWith('/') ? route : '/' + route}`;
   const ogImage = seo.ogImage
     ? seo.ogImage.startsWith('http')
       ? seo.ogImage
       : `${baseUrl}${seo.ogImage}`
-    : `${baseUrl}/og-default.png`;
+    : `${baseUrl}/og-tekivex.png`;
 
   const jsonLd: Record<string, unknown> = {
     '@context': 'https://schema.org',
@@ -82,7 +81,7 @@ export function seoFromManifest(
     description: seo.description,
     url: canonical,
     image: ogImage,
-    applicationCategory: seo.applicationCategory ?? 'BusinessApplication',
+    applicationCategory: seo.applicationCategory ?? 'DeveloperApplication',
     operatingSystem: seo.operatingSystem ?? 'All',
     offers: {
       '@type': 'Offer',
@@ -100,7 +99,10 @@ export function seoFromManifest(
   return {
     title: seo.title,
     description: seo.description,
-    keywords: seo.keywords,
+    keywords: [
+      ...(seo.keywords ?? []),
+      'open source', 'MIT license', 'Tekivex', 'enterprise software',
+    ],
     canonical,
     ogTitle: seo.title,
     ogDescription: seo.description,
@@ -121,28 +123,42 @@ export function useSeo(config: SeoConfig) {
 
     // Basic meta
     setMeta('meta[name="description"]', config.description);
+    setMeta('meta[name="robots"]', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
     if (config.keywords?.length) {
       setMeta('meta[name="keywords"]', config.keywords.join(', '));
     }
 
-    // Canonical
-    if (config.canonical) setLink('canonical', config.canonical);
+    // Canonical (points to the hash URL so search engines follow the right page)
+    if (config.canonical) {
+      setLink('canonical', config.canonical);
+    }
 
     // Open Graph
     setMeta('meta[property="og:type"]', config.ogType ?? 'website');
     setMeta('meta[property="og:title"]', config.ogTitle ?? config.title);
     setMeta('meta[property="og:description"]', config.ogDescription ?? config.description);
     setMeta('meta[property="og:site_name"]', 'Tekivex');
-    if (config.ogImage) setMeta('meta[property="og:image"]', config.ogImage);
+    setMeta('meta[property="og:locale"]', 'en_US');
     if (config.canonical) setMeta('meta[property="og:url"]', config.canonical);
+    if (config.ogImage) {
+      setMeta('meta[property="og:image"]', config.ogImage);
+      setMeta('meta[property="og:image:width"]', '1200');
+      setMeta('meta[property="og:image:height"]', '630');
+      setMeta('meta[property="og:image:alt"]', config.ogTitle ?? config.title);
+    }
 
     // Twitter Card
     setMeta('meta[name="twitter:card"]', 'summary_large_image');
+    setMeta('meta[name="twitter:site"]', '@tekivex');
+    setMeta('meta[name="twitter:creator"]', '@tekivex');
     setMeta('meta[name="twitter:title"]', config.twitterTitle ?? config.title);
     setMeta('meta[name="twitter:description"]', config.twitterDescription ?? config.description);
-    if (config.twitterImage) setMeta('meta[name="twitter:image"]', config.twitterImage);
+    if (config.twitterImage) {
+      setMeta('meta[name="twitter:image"]', config.twitterImage);
+      setMeta('meta[name="twitter:image:alt"]', config.twitterTitle ?? config.title);
+    }
 
-    // JSON-LD
+    // JSON-LD (supports single object or array of multiple schemas)
     setJsonLd(config.jsonLd ?? null);
   }, [
     config.title,

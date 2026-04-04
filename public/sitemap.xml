@@ -4,52 +4,118 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
           http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-  <!-- ── Platform home ──────────────────────────────────────────── -->
+  <!-- ── tekivex.com — Platform home ───────────────────────────────── -->
   <url>
     <loc>https://tekivex.com/</loc>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- ── Products launcher ──────────────────────────────────────── -->
+  <!-- ── Products launcher ──────────────────────────────────────────── -->
   <url>
     <loc>https://tekivex.com/#/products</loc>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- ── GridStorm (GA) ─────────────────────────────────────────── -->
+  <!-- ── About ──────────────────────────────────────────────────────── -->
+  <url>
+    <loc>https://tekivex.com/#/about</loc>
+    <lastmod>2026-04-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ── GridStorm (GA, v0.1.3) ─────────────────────────────────────── -->
   <url>
     <loc>https://tekivex.com/#/product/gridstorm</loc>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- ── Analytics Studio (Beta) ───────────────────────────────── -->
+  <!-- ── Analytics Studio (Beta) ───────────────────────────────────── -->
   <url>
     <loc>https://tekivex.com/#/product/analytics-studio</loc>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- ── PDF Toolkit (Beta) ─────────────────────────────────────── -->
+  <!-- ── PDF Toolkit (Beta) ─────────────────────────────────────────── -->
   <url>
     <loc>https://tekivex.com/#/product/pdf-toolkit</loc>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- ── DataFlow (Beta) ────────────────────────────────────────── -->
+  <!-- ── DataFlow (Beta) ────────────────────────────────────────────── -->
   <url>
     <loc>https://tekivex.com/#/product/dataflow</loc>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <!-- ── GridStorm Hub ──────────────────────────────────────────────── -->
+  <url>
+    <loc>https://gridstorm.tekivex.com/</loc>
+    <lastmod>2026-04-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- ── GridStorm Example Apps ─────────────────────────────────────── -->
+  <url>
+    <loc>https://gridstorm.tekivex.com/react-demo/</loc>
+    <lastmod>2026-04-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://gridstorm.tekivex.com/analytics-explorer/</loc>
+    <lastmod>2026-04-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://gridstorm.tekivex.com/financial-trading/</loc>
+    <lastmod>2026-04-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://gridstorm.tekivex.com/feature-showcase/</loc>
+    <lastmod>2026-04-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://gridstorm.tekivex.com/cookbook/</loc>
+    <lastmod>2026-04-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://gridstorm.tekivex.com/spreadsheet/</loc>
+    <lastmod>2026-04-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://gridstorm.tekivex.com/playground/</loc>
+    <lastmod>2026-04-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://gridstorm.tekivex.com/pdf-viewer/</loc>
+    <lastmod>2026-04-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 
 </urlset>
