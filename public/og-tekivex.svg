@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="hexG" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="softglow">
+      <feGaussianBlur stdDeviation="40" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Glow blobs -->
+  <ellipse cx="200" cy="200" rx="300" ry="200" fill="#6366f1" opacity="0.08" filter="url(#softglow)"/>
+  <ellipse cx="1050" cy="480" rx="280" ry="180" fill="#06b6d4" opacity="0.07" filter="url(#softglow)"/>
+
+  <!-- Top accent line -->
+  <rect x="0" y="0" width="1200" height="4" fill="url(#accent)"/>
+
+  <!-- ── ICON (hex + T mark) ── centered left block ── -->
+  <!-- Flat-top hexagon scaled 4× from 64px → 256px, centered at (200, 315) -->
+  <!-- Original hex center (32,32) r=28 → scaled 4× → center (128,128) r=112 -->
+  <!-- Shifted to (200, 315): offset = (200-128, 315-128) = (72, 187) -->
+  <!-- Original points: 60,32 46,56.2 18,56.2 4,32 18,7.8 46,7.8 -->
+  <!-- Scaled 4×: 240,128 184,224.8 72,224.8 16,128 72,31.2 184,31.2 -->
+  <!-- Shifted by (72,187): 312,315 256,411.8 144,411.8 88,315 144,218.2 256,218.2 -->
+  <polygon
+    points="312,315 256,411.8 144,411.8 88,315 144,218.2 256,218.2"
+    fill="#6366f1"
+    fill-opacity="0.15"
+    stroke="url(#accent)"
+    stroke-width="3"
+  />
+  <!-- Filled gradient hex (inner, slightly smaller, ~3.6× = r=100.8) -->
+  <!-- Points scaled 3.6×, shifted to center (200,315): -->
+  <!-- 3.6×: 216,115.2 165.6,201.5 64.8,201.5 14.4,115.2 64.8,28.1 165.6,28.1 -->
+  <!-- offset (200-115.2, 315-115.2)=(84.8, 199.8) → center approx -->
+  <!-- Let me just scale directly centered at (200,315): -->
+  <!-- hex center at (200,315), r=105 flat-top -->
+  <!-- 0°: (305,315), 60°: (252.5,315+90.9)=(252.5,405.9), 120°: (147.5,405.9) -->
+  <!-- 180°: (95,315), 240°: (147.5,224.1), 300°: (252.5,224.1) -->
+  <polygon
+    points="305,315 252.5,405.9 147.5,405.9 95,315 147.5,224.1 252.5,224.1"
+    fill="url(#hexG)"
+    opacity="0.9"
+  />
+
+  <!-- T crossbar, scaled for this hex (width ~210, at ~35% height from top) -->
+  <!-- crossbar: x from 120 to 280, y=280, height=20, rx=10 -->
+  <rect x="118" y="278" width="164" height="21" rx="10.5" fill="white"/>
+  <!-- T stem: x centered at 200, y=299 to 370, width=21 -->
+  <rect x="189.5" y="299" width="21" height="68" rx="10.5" fill="white"/>
+  <!-- Data dots -->
+  <circle cx="258" cy="288.5" r="9" fill="white" opacity="0.65"/>
+  <circle cx="258" cy="320" r="9" fill="white" opacity="0.45"/>
+  <circle cx="258" cy="351" r="9" fill="white" opacity="0.25"/>
+
+  <!-- ── WORDMARK ── -->
+  <text
+    x="360" y="295"
+    font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    font-size="96"
+    font-weight="800"
+    fill="url(#accent)"
+    letter-spacing="-3"
+  >tekivex</text>
+
+  <!-- Tagline -->
+  <text
+    x="362" y="355"
+    font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    font-size="28"
+    font-weight="400"
+    fill="#94a3b8"
+    letter-spacing="0.5"
+  >Enterprise Developer Tools Platform</text>
+
+  <!-- Divider line -->
+  <rect x="362" y="390" width="600" height="2" fill="url(#accent)" opacity="0.4" rx="1"/>
+
+  <!-- Product pills -->
+  <!-- GridStorm pill -->
+  <rect x="362" y="415" width="160" height="40" rx="20" fill="#6366f1" fill-opacity="0.2" stroke="#6366f1" stroke-opacity="0.5" stroke-width="1.5"/>
+  <text x="442" y="440" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#a5b4fc">GridStorm</text>
+
+  <!-- PDF Toolkit pill -->
+  <rect x="538" y="415" width="155" height="40" rx="20" fill="#06b6d4" fill-opacity="0.15" stroke="#06b6d4" stroke-opacity="0.4" stroke-width="1.5"/>
+  <text x="615" y="440" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#67e8f9">PDF Toolkit</text>
+
+  <!-- Analytics pill -->
+  <rect x="709" y="415" width="180" height="40" rx="20" fill="#8b5cf6" fill-opacity="0.15" stroke="#8b5cf6" stroke-opacity="0.4" stroke-width="1.5"/>
+  <text x="799" y="440" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#c4b5fd">Analytics Studio</text>
+
+  <!-- DataFlow pill -->
+  <rect x="905" y="415" width="140" height="40" rx="20" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-opacity="0.4" stroke-width="1.5"/>
+  <text x="975" y="440" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#6ee7b7">DataFlow</text>
+
+  <!-- Domain watermark -->
+  <text
+    x="600" y="590"
+    text-anchor="middle"
+    font-family="Inter, sans-serif"
+    font-size="20"
+    font-weight="500"
+    fill="#475569"
+    letter-spacing="1"
+  >tekivex.com</text>
+
+  <!-- Bottom accent line -->
+  <rect x="0" y="626" width="1200" height="4" fill="url(#accent)" opacity="0.5"/>
+</svg>
