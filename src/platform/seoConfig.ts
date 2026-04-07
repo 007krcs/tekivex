@@ -95,7 +95,7 @@ const PRODUCTS_SEO: SeoConfig = {
     name: 'Tekivex Product Suite',
     description: 'Enterprise developer tools built by Tekivex',
     url: `${BASE_URL}/#/products`,
-    numberOfItems: 4,
+    numberOfItems: 5,
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'GridStorm',
         description: 'Open-source enterprise data grid — virtual scrolling, 35 plugins, MIT-licensed',
@@ -109,6 +109,9 @@ const PRODUCTS_SEO: SeoConfig = {
       { '@type': 'ListItem', position: 4, name: 'DataFlow',
         description: 'Real-time streaming engine — WebSocket, SSE, anomaly detection, time-travel replay',
         url: `${BASE_URL}/#/product/dataflow` },
+      { '@type': 'ListItem', position: 5, name: 'Tekivex UI',
+        description: 'Enterprise component library — 50+ accessible components for React, Vue & Svelte',
+        url: `${BASE_URL}/#/product/tekivex-ui` },
     ],
   },
 };
@@ -118,8 +121,8 @@ const ABOUT_SEO: SeoConfig = {
   title: 'About Tekivex — Open-Source Enterprise Developer Tools',
   description:
     'Tekivex is an independent developer tools company building open-source enterprise software — ' +
-    'GridStorm data grid, Analytics Studio, PDF Toolkit, and DataFlow streaming engine. ' +
-    '4 products, 57 npm packages, 1,899+ tests. All MIT-licensed. Founded 2025.',
+    'GridStorm data grid, Analytics Studio, PDF Toolkit, DataFlow streaming engine, and Tekivex UI component library. ' +
+    '5 products, 57 npm packages, 1,899+ tests. All MIT-licensed. Founded 2025.',
   keywords: [
     'about Tekivex', 'Tekivex company', 'open-source developer tools company',
     'GridStorm team', 'enterprise software company', 'MIT licensed tools',
