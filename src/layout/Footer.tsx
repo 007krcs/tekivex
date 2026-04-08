@@ -13,7 +13,7 @@ const FOOTER_COLS = [
       { label: 'Analytics Studio',   href: '#/product/analytics-studio' },
       { label: 'PDF Toolkit',        href: '#/product/pdf-toolkit' },
       { label: 'DataFlow',           href: '#/product/dataflow' },
-      { label: 'Platform Repo',      href: 'https://github.com/007krcs/tekivex' },
+      { label: 'Report an Issue',     href: 'https://github.com/novaai0401-ui/tekivex-issue-report/issues' },
     ],
   },
   {
@@ -33,7 +33,7 @@ const FOOTER_COLS = [
       { label: 'API Reference', href: `${GS}/#/docs/api/grid-api` },
       { label: 'Column Defs',   href: `${GS}/#/docs/api/column-definitions` },
       { label: 'Accessibility', href: `${GS}/#/docs/plugins/a11y` },
-      { label: 'Contributing',  href: 'https://github.com/007krcs/grid-data/blob/main/CONTRIBUTING.md' },
+      { label: 'Contributing',  href: `${GS}/#/docs/getting-started/introduction` },
     ],
   },
   {
@@ -59,11 +59,9 @@ const FOOTER_COLS = [
   {
     heading: 'Community',
     links: [
-      { label: 'GitHub',          href: 'https://github.com/007krcs/grid-data' },
-      { label: 'Issues',          href: 'https://github.com/007krcs/grid-data/issues' },
-      { label: 'Discussions',     href: 'https://github.com/007krcs/grid-data/discussions' },
-      { label: 'Security Policy', href: 'https://github.com/007krcs/grid-data/blob/main/SECURITY.md' },
-      { label: 'Code of Conduct', href: 'https://github.com/007krcs/grid-data/blob/main/CODE_OF_CONDUCT.md' },
+      { label: 'Report an Issue', href: 'https://github.com/novaai0401-ui/tekivex-issue-report/issues' },
+      { label: 'Tutorials',       href: '#/tutorials' },
+      { label: 'About Us',        href: '#/about' },
     ],
   },
 ];
@@ -123,15 +121,15 @@ export function Footer() {
         <div className="hub-footer-bottom-links">
           <a href="#/products" className="hub-footer-bottom-link">Products</a>
           <a href={`${GS}/#/docs/getting-started/introduction`} className="hub-footer-bottom-link" target="_blank" rel="noopener noreferrer">Docs</a>
-          <a href="https://github.com/007krcs/grid-data/blob/main/SECURITY.md" className="hub-footer-bottom-link" target="_blank" rel="noopener noreferrer">Security</a>
+          <a href="https://github.com/novaai0401-ui/tekivex-issue-report/issues" className="hub-footer-bottom-link" target="_blank" rel="noopener noreferrer">Report Issue</a>
         </div>
         <div className="hub-footer-social">
           <a
-            href="https://github.com/007krcs/grid-data"
+            href="https://github.com/novaai0401-ui/tekivex-issue-report/issues"
             target="_blank"
             rel="noopener noreferrer"
             className="hub-footer-social-link"
-            aria-label="GitHub"
+            aria-label="Report Issue"
           >
             <Icon name="github" size={18} />
           </a>

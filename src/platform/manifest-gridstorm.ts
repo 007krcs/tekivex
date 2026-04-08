@@ -4,7 +4,7 @@ import type { ProductManifest } from './types';
 // All demo and docs links are external to the grid-data deployment.
 const GRIDSTORM_URL = 'https://gridstorm.tekivex.com';
 
-const GRIDSTORM_GITHUB = 'https://github.com/007krcs/analytics-builder';
+const GRIDSTORM_GITHUB = 'https://github.com/novaai0401-ui/tekivex-issue-report/issues';
 
 export const gridstormManifest: ProductManifest = {
   id: 'gridstorm',

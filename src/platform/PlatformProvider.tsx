@@ -7,7 +7,7 @@ const PLATFORM_CONFIG: PlatformConfig = {
   name: 'Tekivex',
   tagline: 'Enterprise software, crafted with skill',
   version: '0.1.0',
-  githubUrl: 'https://github.com/007krcs/tekivex',
+  githubUrl: 'https://github.com/novaai0401-ui/tekivex-issue-report/issues',
 };
 
 const PlatformContext = createContext<PlatformContextValue | null>(null);

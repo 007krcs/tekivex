@@ -102,7 +102,7 @@ Visit each product page for demos, docs, and quick-start guides.`,
 
 Upcoming products (NexaRecruit, NexaCare, Analytics Studio) will follow the same open-core model: free community edition + optional enterprise features.
 
-All source code is on GitHub at **github.com/007krcs/tekivex**.`,
+Report issues at **github.com/novaai0401-ui/tekivex-issue-report/issues**.`,
     tags: ['license', 'MIT', 'free', 'open source', 'cost', 'pricing'],
   },
 
@@ -794,7 +794,7 @@ import { sortingPlugin } from '@gridstorm/plugin-sorting';
 plugins={[sortingPlugin()]}
 \`\`\`
 
-Still stuck? [Open a GitHub issue](https://github.com/007krcs/tekivex/issues).`,
+Still stuck? [Open an issue](https://github.com/novaai0401-ui/tekivex-issue-report/issues).`,
     tags: ['error', 'build', 'TypeScript', 'import', 'troubleshoot'],
   },
 
@@ -975,8 +975,8 @@ grid.on('cell:valueChanged', ({ rowId, columnId, newValue, oldValue }) => {
     ],
     answer: `**Tekivex Support Channels:**
 
-📋 **GitHub Issues** (recommended for bugs & features)
-[github.com/007krcs/tekivex/issues](https://github.com/007krcs/tekivex/issues)
+📋 **Report an Issue** (recommended for bugs & features)
+[github.com/novaai0401-ui/tekivex-issue-report/issues](https://github.com/novaai0401-ui/tekivex-issue-report/issues)
 
 📖 **Documentation**
 [gridstorm.tekivex.com/#/docs](https://gridstorm.tekivex.com/#/docs)

@@ -53,10 +53,7 @@ const HOME_SEO: SeoConfig = {
     description:
       'Tekivex builds open-source enterprise developer tools — GridStorm, Analytics Studio, DataFlow, and PDF Toolkit. All MIT-licensed.',
     sameAs: [
-      'https://github.com/007krcs/tekivex',
-      'https://github.com/007krcs/grid-data',
-      'https://github.com/007krcs/analytics-builder',
-      'https://github.com/007krcs/dataflow',
+      'https://github.com/novaai0401-ui/tekivex-issue-report',
     ],
     foundingDate: '2025',
     knowsAbout: [
@@ -149,10 +146,7 @@ const ABOUT_SEO: SeoConfig = {
       'Tekivex builds enterprise-grade developer tools: GridStorm data grid, Analytics Studio, PDF Toolkit, and DataFlow.',
     foundingDate: '2025',
     sameAs: [
-      'https://github.com/007krcs/tekivex',
-      'https://github.com/007krcs/grid-data',
-      'https://github.com/007krcs/analytics-builder',
-      'https://github.com/007krcs/dataflow',
+      'https://github.com/novaai0401-ui/tekivex-issue-report',
     ],
     knowsAbout: [
       'Data Grids', 'PDF Processing', 'Business Intelligence',

@@ -1,7 +1,7 @@
 import type { ProductManifest } from '../platform/types';
 
 const DATAFLOW_URL    = 'https://dataflow.tekivex.com';
-const DATAFLOW_GITHUB = 'https://github.com/007krcs/dataflow';
+const DATAFLOW_GITHUB = 'https://github.com/novaai0401-ui/tekivex-issue-report/issues';
 
 export const dataFlowManifest: ProductManifest = {
   id: 'dataflow',

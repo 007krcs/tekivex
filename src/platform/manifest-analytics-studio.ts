@@ -1,7 +1,7 @@
 import type { ProductManifest } from './types';
 
 const ANALYTICS_DEMO_URL = 'https://analytics.tekivex.com';
-const ANALYTICS_GITHUB    = 'https://github.com/007krcs/analytics-builder';
+const ANALYTICS_GITHUB    = 'https://github.com/novaai0401-ui/tekivex-issue-report/issues';
 
 export const analyticsStudioManifest: ProductManifest = {
   id: 'analytics-studio',

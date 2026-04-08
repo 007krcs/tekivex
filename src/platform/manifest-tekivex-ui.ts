@@ -1,7 +1,7 @@
 import type { ProductManifest } from '../platform/types';
 
 const UI_URL    = 'https://ui.tekivex.com';
-const UI_GITHUB = 'https://github.com/007krcs/tekivex-ui';
+const UI_GITHUB = 'https://github.com/novaai0401-ui/tekivex-issue-report/issues';
 
 export const tekivexUiManifest: ProductManifest = {
   id: 'tekivex-ui',

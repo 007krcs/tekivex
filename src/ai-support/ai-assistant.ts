@@ -271,7 +271,7 @@ export function ask(query: string): AssistantResponse {
       answer: `I couldn't find a specific answer to your question. Here's how to get help:
 
 - 📖 **Documentation:** [gridstorm.tekivex.com/#/docs](https://gridstorm.tekivex.com/#/docs)
-- 🐛 **GitHub Issues:** [github.com/007krcs/tekivex/issues](https://github.com/007krcs/tekivex/issues)
+- 🐛 **Report an Issue:** [github.com/novaai0401-ui/tekivex-issue-report/issues](https://github.com/novaai0401-ui/tekivex-issue-report/issues)
 - 💼 **Enterprise:** enterprise@tekivex.com
 
 Try rephrasing your question, or ask about:

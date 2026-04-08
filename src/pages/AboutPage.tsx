@@ -111,13 +111,13 @@ export function AboutPage() {
           </p>
           <div className="tx-hero-ctas">
             <a
-              href="https://github.com/007krcs/tekivex"
+              href="https://github.com/novaai0401-ui/tekivex-issue-report/issues"
               className="tx-cta-btn"
               target="_blank"
               rel="noopener noreferrer"
             >
               <Icon name="github" size={16} />
-              View on GitHub
+              Report an Issue
             </a>
             <a href="#/products" className="tx-ghost-btn">
               Explore Products
@@ -259,21 +259,16 @@ export function AboutPage() {
           </p>
           <div className="tx-cta-actions">
             <a
-              href="https://github.com/007krcs/grid-data/discussions"
+              href="https://github.com/novaai0401-ui/tekivex-issue-report/issues"
               className="tx-cta-btn"
               target="_blank"
               rel="noopener noreferrer"
             >
               <Icon name="message-circle" size={16} />
-              GitHub Discussions
-            </a>
-            <a
-              href="https://github.com/007krcs/grid-data/issues"
-              className="tx-ghost-btn"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
               Report an Issue
+            </a>
+            <a href="#/products" className="tx-ghost-btn">
+              Explore Products
             </a>
           </div>
         </div>

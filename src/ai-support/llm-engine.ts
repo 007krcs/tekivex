@@ -217,7 +217,7 @@ ${KNOWLEDGE_BASE
 
 ## Important Facts
 - GridStorm is MIT-licensed (free forever), no per-developer fees
-- GitHub: https://github.com/007krcs/tekivex
+- Issues: https://github.com/novaai0401-ui/tekivex-issue-report/issues
 - Analytics Studio demo: https://analytics.tekivex.com
 - Docs: https://gridstorm.tekivex.com/#/docs
 - Enterprise: enterprise@tekivex.com
