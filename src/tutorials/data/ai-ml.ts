@@ -2053,142 +2053,718 @@ board.subscribe('analyst', (entry) => {
         },
 
         // ──────────────────────────────────────────────────────────
-        // 19. MCP Protocol
+        // 19. MCP Protocol — Complete Guide
         // ──────────────────────────────────────────────────────────
         {
           slug: 'mcp-protocol',
-          title: 'Model Context Protocol (MCP)',
-          description: 'How MCP connects AI models to tools — client/server architecture, tool registration, and practical implementation.',
-          keywords: ['mcp', 'model context protocol', 'tool use', 'claude code', 'ai tools', 'server', 'client'],
-          difficulty: 'intermediate',
-          estimatedMinutes: 16,
+          title: 'Model Context Protocol (MCP) — Complete Guide',
+          description: 'Master MCP from basics to production: architecture deep-dive, building servers and clients, transports, resources, prompts, security, debugging SOPs, and the MCP ecosystem.',
+          keywords: ['mcp', 'model context protocol', 'mcp server', 'mcp client', 'tool use', 'claude code', 'ai tools', 'stdio transport', 'sse transport', 'mcp resources', 'mcp prompts', 'mcp debugging', 'mcp security', 'mcp ecosystem', 'build mcp server', 'claude desktop config'],
+          difficulty: 'advanced',
+          estimatedMinutes: 35,
           prerequisites: ['what-is-ai-agent'],
           content: [
-            { type: 'heading', level: 2, text: 'What is MCP?', id: 'what-is-mcp' },
-            { type: 'paragraph', html: 'The <strong>Model Context Protocol (MCP)</strong> is an open standard for connecting AI models to external tools and data sources. Think of it as a <strong>USB-C for AI</strong> — a universal interface that lets any AI model talk to any tool through a standardized protocol.' },
-            { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> Before USB, every device had its own connector. MCP does for AI tools what USB did for peripherals — one standard protocol that lets any AI model use any tool, regardless of who built either one.' },
+            // ── Section 1: What is MCP and WHY ──
+            { type: 'heading', level: 2, text: 'What is MCP and Why Does It Exist?', id: 'what-is-mcp' },
+            { type: 'paragraph', html: 'The <strong>Model Context Protocol (MCP)</strong> is an open standard created by Anthropic for connecting AI models to external tools, data sources, and services. Think of it as a <strong>USB-C for AI</strong> — a universal interface that lets any AI model talk to any tool through a single standardized protocol.' },
+            { type: 'paragraph', html: 'Before MCP, every AI application needed custom integration code for every tool it wanted to use. If you had <strong>N AI models</strong> and <strong>M tools</strong>, you needed <strong>N × M</strong> custom integrations — an explosion of bespoke glue code. MCP reduces this to <strong>N + M</strong>: each model implements one MCP client, each tool implements one MCP server, and they all interoperate automatically.' },
 
-            { type: 'heading', level: 3, text: 'The MCP Architecture', id: 'mcp-architecture' },
-            { type: 'flow', steps: [
-              { label: 'AI Model', desc: 'LLM that needs to use tools', color: '#6366f1' },
-              { label: 'MCP Client', desc: 'Translates model requests to MCP protocol', color: '#8b5cf6' },
-              { label: 'MCP Server', desc: 'Hosts tools and handles requests', color: '#f59e0b' },
-              { label: 'Tool Execution', desc: 'Runs the actual function/API call', color: '#22c55e' },
-              { label: 'Result', desc: 'Structured response back to model', color: '#06b6d4' },
-            ]},
-            { type: 'paragraph', html: 'The architecture has three key components:' },
+            { type: 'heading', level: 3, text: 'The N×M Problem MCP Solves', id: 'nxm-problem' },
+            { type: 'comparison', left: { title: 'Before MCP (N×M)', color: '#ef4444', items: [
+              'Custom integration for each tool × each model',
+              '3 models × 5 tools = 15 custom integrations',
+              'Every new tool requires code in every AI app',
+              'Duplicated auth, error handling, serialization',
+              'Fragile, hard to maintain, vendor lock-in',
+            ]}, right: { title: 'With MCP (N+M)', color: '#22c55e', items: [
+              'Each model: 1 MCP client. Each tool: 1 MCP server',
+              '3 models + 5 tools = 8 implementations total',
+              'New tool works with ALL AI apps automatically',
+              'Standardized protocol handles communication',
+              'Modular, composable, vendor-neutral',
+            ]}},
+
+            { type: 'heading', level: 3, text: 'When to Build an MCP Server', id: 'when-to-build-mcp' },
+            { type: 'paragraph', html: 'Not everything needs an MCP server. Here is when MCP is the right choice:' },
             { type: 'list', ordered: false, items: [
-              '<strong>MCP Client:</strong> Lives alongside the AI model. Discovers available servers, sends tool requests, receives results. Examples: Claude Desktop, Claude Code, IDE extensions.',
-              '<strong>MCP Server:</strong> Exposes tools and data to clients. Can be local (filesystem, git) or remote (APIs, databases). Lightweight — typically a single-purpose process.',
-              '<strong>Transport:</strong> Communication layer between client and server. Supports stdio (local) and HTTP/SSE (remote).',
+              '<strong>You have a tool or API</strong> you want AI models (Claude, GPT, etc.) to call directly',
+              '<strong>You have private data</strong> (databases, filesystems, internal APIs) that should be queryable by AI',
+              '<strong>You want reusability</strong> — one implementation works across Claude Desktop, Claude Code, Cursor, and any MCP-compatible client',
+              '<strong>You need structured tool schemas</strong> — MCP enforces typed parameters with Zod/JSON Schema, reducing hallucinated arguments',
+              '<strong>You want composability</strong> — users can mix-and-match your MCP server with others in a single AI session',
+            ]},
+            { type: 'callout', variant: 'tip', html: '<strong>Rule of thumb:</strong> If you are building a REST API and want AI models to use it, wrap it in an MCP server. The server acts as a typed, discoverable bridge between your API and any AI model.' },
+
+            { type: 'divider' },
+
+            // ── Section 2: Architecture Deep-Dive ──
+            { type: 'heading', level: 2, text: 'MCP Architecture Deep-Dive', id: 'mcp-architecture' },
+            { type: 'paragraph', html: 'MCP follows a <strong>client-server architecture</strong> with four key components: <strong>Host</strong>, <strong>Client</strong>, <strong>Server</strong>, and <strong>Transport</strong>. Understanding each component is critical for building production MCP systems.' },
+
+            { type: 'flow', steps: [
+              { label: 'Host', desc: 'AI application (Claude Desktop, IDE)', color: '#6366f1' },
+              { label: 'MCP Client', desc: 'Manages server connections', color: '#8b5cf6' },
+              { label: 'Transport', desc: 'stdio or HTTP+SSE', color: '#a855f7' },
+              { label: 'MCP Server', desc: 'Exposes tools, resources, prompts', color: '#f59e0b' },
+              { label: 'External Service', desc: 'Database, API, filesystem', color: '#22c55e' },
             ]},
 
-            { type: 'heading', level: 3, text: 'How Claude Code Uses MCP', id: 'claude-code-mcp' },
-            { type: 'paragraph', html: 'Claude Code connects to MCP servers to extend its capabilities. Each server provides specialized tools:' },
-            { type: 'table', headers: ['MCP Server', 'Tools Provided', 'Example Use'], rows: [
-              ['Filesystem', 'read_file, write_file, list_dir', 'Reading and editing code files'],
-              ['Git', 'git_status, git_diff, git_commit', 'Version control operations'],
-              ['Browser', 'navigate, screenshot, click', 'Web automation and testing'],
-              ['Database', 'query, insert, update', 'Database operations'],
-              ['Search', 'web_search, semantic_search', 'Finding information'],
+            { type: 'table', headers: ['Component', 'Role', 'Examples'], rows: [
+              ['<strong>Host</strong>', 'The AI application that the user interacts with. Creates and manages MCP clients.', 'Claude Desktop, Claude Code, Cursor, Windsurf'],
+              ['<strong>Client</strong>', 'Protocol handler inside the host. Maintains 1:1 connection with a server. Handles initialization, capability negotiation, tool discovery.', 'Built into the host — one client per server connection'],
+              ['<strong>Server</strong>', 'Lightweight process that exposes capabilities (tools, resources, prompts) via the MCP protocol.', 'filesystem server, GitHub server, Postgres server'],
+              ['<strong>Transport</strong>', 'Communication layer between client and server. Handles message serialization and delivery.', 'stdio (local), HTTP + SSE (remote), custom'],
+            ]},
+            { type: 'callout', variant: 'note', html: '<strong>Key insight:</strong> A single Host can connect to <strong>multiple MCP servers simultaneously</strong>. Claude Desktop might connect to a filesystem server, a GitHub server, and a database server all at once — each through its own Client instance.' },
+
+            { type: 'divider' },
+
+            // ── Section 3: Protocol Lifecycle ──
+            { type: 'heading', level: 2, text: 'Protocol Lifecycle', id: 'protocol-lifecycle' },
+            { type: 'paragraph', html: 'Every MCP session follows a structured lifecycle. Understanding this flow is essential for debugging connection issues and building reliable servers.' },
+            { type: 'flow', steps: [
+              { label: '1. Initialize', desc: 'Client sends capabilities, server responds with its capabilities', color: '#6366f1' },
+              { label: '2. List Tools', desc: 'Client requests available tools from server', color: '#8b5cf6' },
+              { label: '3. User Prompt', desc: 'User asks AI something that needs a tool', color: '#a855f7' },
+              { label: '4. Call Tool', desc: 'Client sends tool name + args to server', color: '#f59e0b' },
+              { label: '5. Execute', desc: 'Server runs the tool logic', color: '#ef4444' },
+              { label: '6. Response', desc: 'Server returns structured result to client', color: '#22c55e' },
+              { label: '7. AI Uses Result', desc: 'Model incorporates tool output into its response', color: '#06b6d4' },
             ]},
 
-            { type: 'heading', level: 3, text: 'Building an MCP Server', id: 'mcp-server-code' },
-            { type: 'paragraph', html: 'An MCP server is surprisingly simple to build. It registers tools with their schemas and handles incoming requests:' },
-            { type: 'code', language: 'typescript', title: 'mcp-server.ts', code: `import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+            { type: 'code', language: 'typescript', title: 'protocol-messages.ts', code: `// 1. Initialize — Client → Server
+{
+  jsonrpc: "2.0",
+  method: "initialize",
+  params: {
+    protocolVersion: "2024-11-05",
+    clientInfo: { name: "claude-desktop", version: "1.0.0" },
+    capabilities: { tools: {}, resources: {} }
+  }
+}
+
+// 2. Initialize Response — Server → Client
+{
+  jsonrpc: "2.0",
+  result: {
+    protocolVersion: "2024-11-05",
+    serverInfo: { name: "weather-server", version: "1.0.0" },
+    capabilities: {
+      tools: { listChanged: true },
+      resources: { subscribe: true }
+    }
+  }
+}
+
+// 3. List Tools — Client → Server
+{ jsonrpc: "2.0", method: "tools/list" }
+
+// 4. List Tools Response — Server → Client
+{
+  jsonrpc: "2.0",
+  result: {
+    tools: [{
+      name: "get_weather",
+      description: "Get current weather for a city",
+      inputSchema: {
+        type: "object",
+        properties: {
+          city: { type: "string", description: "City name" },
+          units: { type: "string", enum: ["celsius", "fahrenheit"] }
+        },
+        required: ["city"]
+      }
+    }]
+  }
+}
+
+// 5. Call Tool — Client → Server
+{
+  jsonrpc: "2.0",
+  method: "tools/call",
+  params: {
+    name: "get_weather",
+    arguments: { city: "Tokyo", units: "celsius" }
+  }
+}
+
+// 6. Tool Result — Server → Client
+{
+  jsonrpc: "2.0",
+  result: {
+    content: [{
+      type: "text",
+      text: '{"city":"Tokyo","temperature":22,"condition":"sunny"}'
+    }]
+  }
+}` },
+
+            { type: 'divider' },
+
+            // ── Section 4: Transport Types ──
+            { type: 'heading', level: 2, text: 'Transport Types: stdio vs HTTP+SSE', id: 'transport-types' },
+            { type: 'paragraph', html: 'MCP supports two transport mechanisms. Your choice depends on whether the server runs locally or remotely.' },
+
+            { type: 'comparison', left: { title: 'stdio Transport (Local)', color: '#6366f1', items: [
+              'Server runs as a child process of the host',
+              'Communication via stdin/stdout pipes',
+              'Zero network configuration needed',
+              'Best for local tools: filesystem, git, local DB',
+              'Fastest — no HTTP overhead',
+              'Server lifecycle managed by the host',
+            ]}, right: { title: 'HTTP + SSE Transport (Remote)', color: '#f59e0b', items: [
+              'Server runs as a standalone HTTP service',
+              'Client connects over the network',
+              'Supports authentication (API keys, OAuth)',
+              'Best for cloud APIs, shared services, SaaS tools',
+              'Can serve multiple clients simultaneously',
+              'Server lifecycle managed independently',
+            ]}},
+
+            { type: 'code', language: 'typescript', title: 'transports.ts', code: `// ── stdio transport (local server) ──
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { z } from "zod";
 
-// Create MCP server
-const server = new McpServer({
-  name: "weather-server",
-  version: "1.0.0",
+const server = new McpServer({ name: "local-server", version: "1.0.0" });
+// ... register tools ...
+
+const transport = new StdioServerTransport();
+await server.connect(transport);
+// Server communicates via stdin/stdout — host spawns this process
+
+
+// ── HTTP + SSE transport (remote server) ──
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
+import express from "express";
+
+const app = express();
+const server = new McpServer({ name: "remote-server", version: "1.0.0" });
+// ... register tools ...
+
+app.get("/sse", async (req, res) => {
+  const transport = new SSEServerTransport("/messages", res);
+  await server.connect(transport);
 });
 
-// Register a tool with typed parameters
+app.post("/messages", async (req, res) => {
+  // Handle incoming messages from client
+  await transport.handlePostMessage(req, res);
+});
+
+app.listen(3001, () => console.log("MCP server on http://localhost:3001"));` },
+
+            { type: 'divider' },
+
+            // ── Section 5: MCP Capabilities — Tools, Resources, Prompts ──
+            { type: 'heading', level: 2, text: 'MCP Capabilities: Tools, Resources, and Prompts', id: 'mcp-capabilities' },
+            { type: 'paragraph', html: 'MCP servers can expose three types of capabilities. <strong>Tools</strong> are functions the AI can call. <strong>Resources</strong> are data the AI can read. <strong>Prompts</strong> are reusable prompt templates.' },
+
+            { type: 'table', headers: ['Capability', 'Purpose', 'Analogy', 'Example'], rows: [
+              ['<strong>Tools</strong>', 'Actions the AI can perform', 'Functions / API endpoints', 'get_weather(), create_issue(), query_db()'],
+              ['<strong>Resources</strong>', 'Data the AI can read', 'GET endpoints / file reads', 'file://config.json, db://users/123'],
+              ['<strong>Prompts</strong>', 'Reusable prompt templates', 'Stored procedures / macros', 'code-review, summarize-doc, debug-error'],
+            ]},
+
+            { type: 'heading', level: 3, text: 'Tools — Functions the AI Can Call', id: 'mcp-tools' },
+            { type: 'code', language: 'typescript', title: 'mcp-tools-example.ts', code: `import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { z } from "zod";
+
+const server = new McpServer({ name: "demo-server", version: "1.0.0" });
+
+// Tool with typed parameters via Zod
 server.tool(
-  "get_weather",
-  "Get current weather for a city",
+  "search_users",
+  "Search for users by name or email",
   {
-    city: z.string().describe("City name (e.g., 'Tokyo')"),
-    units: z.enum(["celsius", "fahrenheit"]).default("celsius"),
+    query: z.string().describe("Search query"),
+    limit: z.number().min(1).max(100).default(10).describe("Max results"),
+    active_only: z.boolean().default(true).describe("Only active users"),
   },
-  async ({ city, units }) => {
-    // In production, call a real weather API
-    const temp = units === "celsius" ? 22 : 72;
+  async ({ query, limit, active_only }) => {
+    // Your logic here — call a database, API, etc.
+    const users = await db.users.search({ query, limit, active_only });
     return {
       content: [{
         type: "text",
-        text: JSON.stringify({
-          city,
-          temperature: temp,
-          units,
-          condition: "sunny",
-          humidity: 65,
-        }),
+        text: JSON.stringify(users, null, 2),
       }],
     };
   }
 );
 
-// Register another tool
+// Tool that returns an image
 server.tool(
-  "get_forecast",
-  "Get 5-day weather forecast",
+  "generate_chart",
+  "Generate a chart image from data",
   {
-    city: z.string().describe("City name"),
-    days: z.number().min(1).max(7).default(5),
+    data: z.array(z.object({ label: z.string(), value: z.number() })),
+    chart_type: z.enum(["bar", "line", "pie"]),
   },
-  async ({ city, days }) => {
-    const forecast = Array.from({ length: days }, (_, i) => ({
-      day: i + 1,
-      high: 20 + Math.floor(Math.random() * 10),
-      low: 10 + Math.floor(Math.random() * 8),
-      condition: ["sunny", "cloudy", "rainy"][i % 3],
-    }));
+  async ({ data, chart_type }) => {
+    const imageBuffer = await renderChart(data, chart_type);
     return {
-      content: [{ type: "text", text: JSON.stringify(forecast) }],
+      content: [{
+        type: "image",
+        data: imageBuffer.toString("base64"),
+        mimeType: "image/png",
+      }],
+    };
+  }
+);` },
+
+            { type: 'heading', level: 3, text: 'Resources — Data the AI Can Read', id: 'mcp-resources' },
+            { type: 'paragraph', html: '<strong>Resources</strong> expose data sources that the AI model can read. Unlike tools (which perform actions), resources are read-only and represent data that exists — files, database records, API responses, etc.' },
+            { type: 'code', language: 'typescript', title: 'mcp-resources-example.ts', code: `// Expose a static resource
+server.resource(
+  "config",                          // unique resource name
+  "app://config",                    // URI for the resource
+  "Application configuration file",  // description
+  async () => ({
+    contents: [{
+      uri: "app://config",
+      text: JSON.stringify(appConfig, null, 2),
+      mimeType: "application/json",
+    }],
+  })
+);
+
+// Expose a dynamic resource with a template URI
+server.resource(
+  "user-profile",
+  "db://users/{userId}",
+  "User profile from database",
+  async (uri) => {
+    const userId = uri.pathname.split("/").pop();
+    const user = await db.users.findById(userId);
+    return {
+      contents: [{
+        uri: uri.toString(),
+        text: JSON.stringify(user, null, 2),
+        mimeType: "application/json",
+      }],
+    };
+  }
+);` },
+
+            { type: 'heading', level: 3, text: 'Prompts — Reusable Prompt Templates', id: 'mcp-prompts' },
+            { type: 'paragraph', html: '<strong>Prompts</strong> let MCP servers define reusable, parameterized prompt templates. When a user selects a prompt, the client fills in the parameters and sends the assembled messages to the AI model.' },
+            { type: 'code', language: 'typescript', title: 'mcp-prompts-example.ts', code: `// Register a prompt template
+server.prompt(
+  "code-review",
+  "Review code for bugs, security issues, and best practices",
+  {
+    code: z.string().describe("The code to review"),
+    language: z.string().default("typescript").describe("Programming language"),
+    focus: z.enum(["bugs", "security", "performance", "all"]).default("all"),
+  },
+  async ({ code, language, focus }) => ({
+    messages: [
+      {
+        role: "user",
+        content: {
+          type: "text",
+          text: \`Review this \${language} code. Focus on: \${focus}.
+
+\\\`\\\`\\\`\${language}
+\${code}
+\\\`\\\`\\\`
+
+Provide specific feedback with line references.\`,
+        },
+      },
+    ],
+  })
+);` },
+
+            { type: 'divider' },
+
+            // ── Section 6: Building a Complete MCP Server ──
+            { type: 'heading', level: 2, text: 'Building a Complete MCP Server', id: 'building-mcp-server' },
+            { type: 'paragraph', html: 'Let us build a complete, production-ready MCP server step by step — a <strong>notes manager</strong> that Claude can use to create, search, and organize notes.' },
+
+            { type: 'code', language: 'typescript', title: 'notes-mcp-server.ts', code: `import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
+import fs from "fs/promises";
+import path from "path";
+
+// ── Configuration ──
+const NOTES_DIR = path.join(process.env.HOME || "~", ".notes");
+
+// Ensure notes directory exists
+await fs.mkdir(NOTES_DIR, { recursive: true });
+
+// ── Create MCP Server ──
+const server = new McpServer({
+  name: "notes-manager",
+  version: "1.0.0",
+  description: "Manage personal notes — create, search, list, and delete.",
+});
+
+// ── Tool: Create a note ──
+server.tool(
+  "create_note",
+  "Create a new note with a title and content",
+  {
+    title: z.string().min(1).max(200).describe("Note title (used as filename)"),
+    content: z.string().describe("Note content (Markdown supported)"),
+    tags: z.array(z.string()).default([]).describe("Tags for categorization"),
+  },
+  async ({ title, content, tags }) => {
+    const filename = title.replace(/[^a-zA-Z0-9-_ ]/g, "").replace(/\\s+/g, "-").toLowerCase();
+    const filepath = path.join(NOTES_DIR, \`\${filename}.md\`);
+
+    const frontmatter = \`---
+title: \${title}
+tags: [\${tags.join(", ")}]
+created: \${new Date().toISOString()}
+---
+
+\${content}\`;
+
+    await fs.writeFile(filepath, frontmatter, "utf-8");
+    return {
+      content: [{ type: "text", text: \`Note created: \${filepath}\` }],
     };
   }
 );
 
-// Start server with stdio transport
+// ── Tool: Search notes ──
+server.tool(
+  "search_notes",
+  "Search notes by keyword in title or content",
+  {
+    query: z.string().describe("Search query"),
+    tag: z.string().optional().describe("Filter by tag"),
+  },
+  async ({ query, tag }) => {
+    const files = await fs.readdir(NOTES_DIR);
+    const results: Array<{ title: string; preview: string }> = [];
+
+    for (const file of files) {
+      if (!file.endsWith(".md")) continue;
+      const content = await fs.readFile(path.join(NOTES_DIR, file), "utf-8");
+      const matchesQuery = content.toLowerCase().includes(query.toLowerCase());
+      const matchesTag = !tag || content.includes(\`tags: [\` + tag);
+
+      if (matchesQuery && matchesTag) {
+        results.push({
+          title: file.replace(".md", ""),
+          preview: content.slice(0, 200) + "...",
+        });
+      }
+    }
+
+    return {
+      content: [{
+        type: "text",
+        text: results.length > 0
+          ? JSON.stringify(results, null, 2)
+          : "No notes found matching your query.",
+      }],
+    };
+  }
+);
+
+// ── Tool: List all notes ──
+server.tool(
+  "list_notes",
+  "List all saved notes with their titles and tags",
+  {},
+  async () => {
+    const files = await fs.readdir(NOTES_DIR);
+    const notes = files.filter(f => f.endsWith(".md")).map(f => f.replace(".md", ""));
+    return {
+      content: [{ type: "text", text: JSON.stringify(notes, null, 2) }],
+    };
+  }
+);
+
+// ── Resource: Read a specific note ──
+server.resource(
+  "note",
+  "notes://{filename}",
+  "Read the full content of a note",
+  async (uri) => {
+    const filename = uri.pathname.replace(/^\\/\\//, "") + ".md";
+    const content = await fs.readFile(path.join(NOTES_DIR, filename), "utf-8");
+    return {
+      contents: [{ uri: uri.toString(), text: content, mimeType: "text/markdown" }],
+    };
+  }
+);
+
+// ── Start the server ──
 const transport = new StdioServerTransport();
 await server.connect(transport);
-console.error("Weather MCP server running on stdio");` },
+console.error("Notes MCP server running on stdio");` },
 
-            { type: 'heading', level: 3, text: 'Tool Registration Flow', id: 'tool-registration' },
-            { type: 'flow', steps: [
-              { label: 'Define Tool', desc: 'Name, description, parameter schema', color: '#6366f1' },
-              { label: 'Register', desc: 'Server adds tool to its registry', color: '#8b5cf6' },
-              { label: 'Discovery', desc: 'Client asks server for available tools', color: '#a855f7' },
-              { label: 'Tool List', desc: 'Server returns tool names + schemas', color: '#f59e0b' },
-              { label: 'AI Sees Tools', desc: 'Tools appear in model\'s system prompt', color: '#22c55e' },
-              { label: 'Model Calls Tool', desc: 'AI decides to invoke a tool with args', color: '#06b6d4' },
+            { type: 'divider' },
+
+            // ── Section 7: SOP for Building an MCP Server ──
+            { type: 'heading', level: 2, text: 'SOP: Building an MCP Server (Step-by-Step)', id: 'sop-building-mcp' },
+            { type: 'callout', variant: 'tip', html: '<strong>Standard Operating Procedure</strong> — Follow these steps in order to build and deploy any MCP server from scratch.' },
+            { type: 'list', ordered: true, items: [
+              '<strong>Step 1 — Define your tools:</strong> List the operations your server will expose. For each tool, define: name, description, input parameters (with types), and what it returns. Start with 2-3 tools maximum.',
+              '<strong>Step 2 — Choose your transport:</strong> Use <code>stdio</code> for local servers (filesystem, git, local DB). Use <code>HTTP+SSE</code> for remote/shared servers (cloud APIs, SaaS integrations). Most servers start with stdio.',
+              '<strong>Step 3 — Scaffold the project:</strong> Run <code>npm init -y && npm install @modelcontextprotocol/sdk zod</code>. Create your server file. Use TypeScript for type safety.',
+              '<strong>Step 4 — Implement tool handlers:</strong> Register each tool with <code>server.tool(name, description, schema, handler)</code>. Each handler receives validated arguments and returns <code>{ content: [{ type: "text", text: "..." }] }</code>.',
+              '<strong>Step 5 — Add error handling:</strong> Wrap handler logic in try/catch. Return user-friendly error messages. Use <code>isError: true</code> in the result to signal failures to the AI model.',
+              '<strong>Step 6 — Test locally:</strong> Run your server directly: <code>npx tsx server.ts</code>. Use the MCP Inspector tool (<code>npx @modelcontextprotocol/inspector</code>) to test tools interactively.',
+              '<strong>Step 7 — Register in Claude Desktop:</strong> Add your server to <code>claude_desktop_config.json</code> (see config example below). Restart Claude Desktop.',
+              '<strong>Step 8 — Test with Claude:</strong> Open Claude Desktop and ask it to use your tools. Verify tool discovery, argument passing, and result formatting work correctly.',
             ]},
 
-            { type: 'heading', level: 3, text: 'MCP vs Direct API Integration', id: 'mcp-vs-direct' },
-            { type: 'comparison', left: { title: 'Direct API Integration', color: '#6366f1', items: [
-              'Custom code for each tool/API',
+            { type: 'code', language: 'json', title: 'claude_desktop_config.json', code: `{
+  "mcpServers": {
+    "notes-manager": {
+      "command": "npx",
+      "args": ["tsx", "/path/to/notes-mcp-server.ts"],
+      "env": {
+        "NOTES_DIR": "/Users/you/notes"
+      }
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_TOKEN": "ghp_your_token_here"
+      }
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+        "DATABASE_URL": "postgresql://user:pass@localhost:5432/mydb"
+      }
+    }
+  }
+}` },
+
+            { type: 'divider' },
+
+            // ── Section 8: SOP for Debugging MCP ──
+            { type: 'heading', level: 2, text: 'SOP: Debugging MCP Servers', id: 'sop-debugging-mcp' },
+            { type: 'callout', variant: 'caution', html: '<strong>Debugging MCP</strong> can be tricky because the server runs as a subprocess. Use these systematic steps to diagnose and fix common issues.' },
+
+            { type: 'table', headers: ['Error', 'Cause', 'Fix'], rows: [
+              ['<strong>Connection refused</strong>', 'Server process failed to start or crashed on init', 'Check server logs with <code>npx @modelcontextprotocol/inspector</code>. Verify the command/args in config are correct. Check for missing dependencies.'],
+              ['<strong>Tool not found</strong>', 'Tool name mismatch between registration and call', 'Verify tool names exactly match. Run <code>tools/list</code> via Inspector to see registered tools. Check for typos.'],
+              ['<strong>Timeout</strong>', 'Tool handler takes too long or hangs', 'Add timeouts to external API calls. Check for unresolved promises. Use <code>AbortController</code> for cancellation.'],
+              ['<strong>Schema mismatch</strong>', 'AI sends arguments that do not match the Zod schema', 'Make parameter descriptions more specific. Add <code>.describe()</code> to every Zod field. Test with Inspector.'],
+              ['<strong>Permission denied</strong>', 'Server process lacks access to files/APIs', 'Check file permissions. Verify environment variables (API keys, tokens) are set in the config.'],
+              ['<strong>Server crashes silently</strong>', 'Unhandled exception in tool handler', 'Wrap all handlers in try/catch. Log errors to stderr (<code>console.error</code>). Never throw from handlers — return error content.'],
+            ]},
+
+            { type: 'heading', level: 3, text: 'Debugging Workflow', id: 'debug-workflow' },
+            { type: 'flow', steps: [
+              { label: '1. Check Logs', desc: 'stderr output from server process', color: '#6366f1' },
+              { label: '2. Use Inspector', desc: 'npx @modelcontextprotocol/inspector', color: '#8b5cf6' },
+              { label: '3. Test Tool', desc: 'Call each tool manually with test args', color: '#a855f7' },
+              { label: '4. Check Schema', desc: 'Verify Zod schemas match expected input', color: '#f59e0b' },
+              { label: '5. Check Config', desc: 'Validate claude_desktop_config.json', color: '#22c55e' },
+            ]},
+
+            { type: 'code', language: 'typescript', title: 'error-handling-pattern.ts', code: `// Best practice: wrap every tool handler with error handling
+server.tool(
+  "risky_operation",
+  "An operation that might fail",
+  { input: z.string() },
+  async ({ input }) => {
+    try {
+      const result = await someExternalAPI(input);
+      return {
+        content: [{ type: "text", text: JSON.stringify(result) }],
+      };
+    } catch (error) {
+      // Log to stderr (visible in host logs, not sent to AI)
+      console.error("risky_operation failed:", error);
+
+      // Return error content to the AI model
+      return {
+        content: [{
+          type: "text",
+          text: \`Error: \${error instanceof Error ? error.message : "Unknown error"}\`,
+        }],
+        isError: true,  // Signals to the AI that this tool call failed
+      };
+    }
+  }
+);` },
+
+            { type: 'divider' },
+
+            // ── Section 9: Advanced — Building an MCP Client ──
+            { type: 'heading', level: 2, text: 'Advanced: Building an MCP Client', id: 'mcp-client' },
+            { type: 'paragraph', html: 'Most developers build MCP <em>servers</em>. But if you are building an AI application (a Host), you need an MCP <em>client</em> to connect to servers and relay tool calls. Here is how to build one from scratch.' },
+
+            { type: 'code', language: 'typescript', title: 'mcp-client.ts', code: `import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+
+// Create a client that connects to a server via stdio
+const transport = new StdioClientTransport({
+  command: "npx",
+  args: ["tsx", "./notes-mcp-server.ts"],
+});
+
+const client = new Client(
+  { name: "my-ai-app", version: "1.0.0" },
+  { capabilities: { tools: {} } }
+);
+
+// Connect to the server
+await client.connect(transport);
+
+// Discover available tools
+const { tools } = await client.listTools();
+console.log("Available tools:", tools.map(t => t.name));
+// => ["create_note", "search_notes", "list_notes"]
+
+// Call a tool
+const result = await client.callTool({
+  name: "search_notes",
+  arguments: { query: "meeting", tag: "work" },
+});
+console.log("Result:", result.content);
+
+// List available resources
+const { resources } = await client.listResources();
+console.log("Resources:", resources.map(r => r.name));
+
+// Read a resource
+const resource = await client.readResource({ uri: "notes://weekly-standup" });
+console.log("Note content:", resource.contents[0].text);
+
+// Graceful shutdown
+await client.close();` },
+
+            { type: 'divider' },
+
+            // ── Section 10: Advanced — Multi-Tool Servers & Middleware ──
+            { type: 'heading', level: 2, text: 'Advanced: Multi-Tool Servers and Middleware', id: 'advanced-patterns' },
+            { type: 'paragraph', html: 'Production MCP servers often need shared logic across multiple tools — authentication, logging, rate limiting, caching. Use middleware patterns to keep tool handlers clean.' },
+
+            { type: 'code', language: 'typescript', title: 'middleware-pattern.ts', code: `// Middleware pattern for MCP tool handlers
+type ToolHandler = (args: Record<string, unknown>) => Promise<{ content: Array<{ type: string; text: string }> }>;
+
+// Logging middleware — wraps any tool handler
+function withLogging(toolName: string, handler: ToolHandler): ToolHandler {
+  return async (args) => {
+    const start = Date.now();
+    console.error(\`[\${toolName}] called with:\`, JSON.stringify(args));
+    try {
+      const result = await handler(args);
+      console.error(\`[\${toolName}] completed in \${Date.now() - start}ms\`);
+      return result;
+    } catch (error) {
+      console.error(\`[\${toolName}] FAILED after \${Date.now() - start}ms:\`, error);
+      throw error;
+    }
+  };
+}
+
+// Rate limiting middleware
+function withRateLimit(maxPerMinute: number, handler: ToolHandler): ToolHandler {
+  const calls: number[] = [];
+  return async (args) => {
+    const now = Date.now();
+    // Remove calls older than 1 minute
+    while (calls.length > 0 && calls[0] < now - 60_000) calls.shift();
+    if (calls.length >= maxPerMinute) {
+      return {
+        content: [{ type: "text", text: "Rate limit exceeded. Try again in a minute." }],
+        isError: true,
+      } as any;
+    }
+    calls.push(now);
+    return handler(args);
+  };
+}
+
+// Usage: compose middleware
+server.tool("expensive_query", "...", { sql: z.string() },
+  withLogging("expensive_query",
+    withRateLimit(10,
+      async ({ sql }) => {
+        const rows = await db.query(sql);
+        return { content: [{ type: "text", text: JSON.stringify(rows) }] };
+      }
+    )
+  )
+);` },
+
+            { type: 'divider' },
+
+            // ── Section 11: Security Considerations ──
+            { type: 'heading', level: 2, text: 'Security Considerations', id: 'mcp-security' },
+            { type: 'callout', variant: 'caution', html: '<strong>MCP servers execute code on your machine.</strong> A malicious or poorly written server can read your files, make network requests, or execute arbitrary commands. Always review servers before installing them.' },
+
+            { type: 'list', ordered: false, items: [
+              '<strong>Sandboxing:</strong> Run untrusted MCP servers in containers (Docker) or VMs. Limit filesystem access to specific directories.',
+              '<strong>Input validation:</strong> Always validate tool arguments with Zod schemas. Never pass raw user input to shell commands or SQL queries without sanitization.',
+              '<strong>Permission scoping:</strong> Follow the principle of least privilege. A GitHub MCP server should only have repo-level tokens, not org-admin tokens.',
+              '<strong>Environment variables:</strong> Store secrets (API keys, tokens) in env vars, never hardcoded in server code. Use <code>env</code> in <code>claude_desktop_config.json</code>.',
+              '<strong>Remote server auth:</strong> For HTTP+SSE servers, implement authentication (API keys, OAuth, mTLS). Never expose MCP servers to the public internet without auth.',
+              '<strong>Audit logging:</strong> Log all tool calls with timestamps and arguments to stderr. This helps detect misuse and debug issues.',
+            ]},
+
+            { type: 'divider' },
+
+            // ── Section 12: MCP Ecosystem ──
+            { type: 'heading', level: 2, text: 'The MCP Ecosystem', id: 'mcp-ecosystem' },
+            { type: 'paragraph', html: 'The MCP ecosystem is growing rapidly. Here are some popular, production-ready MCP servers you can use today:' },
+
+            { type: 'table', headers: ['Server', 'Provider', 'What It Does', 'Transport'], rows: [
+              ['<strong>filesystem</strong>', 'Anthropic', 'Read/write files, search directories', 'stdio'],
+              ['<strong>github</strong>', 'Anthropic', 'Issues, PRs, repos, code search', 'stdio'],
+              ['<strong>postgres</strong>', 'Anthropic', 'SQL queries against PostgreSQL databases', 'stdio'],
+              ['<strong>slack</strong>', 'Anthropic', 'Read/send messages, list channels', 'stdio'],
+              ['<strong>brave-search</strong>', 'Anthropic', 'Web search via Brave Search API', 'stdio'],
+              ['<strong>google-drive</strong>', 'Community', 'Read/search Google Drive files', 'stdio'],
+              ['<strong>notion</strong>', 'Community', 'Read/write Notion pages and databases', 'stdio'],
+              ['<strong>puppeteer</strong>', 'Community', 'Browser automation, screenshots, scraping', 'stdio'],
+              ['<strong>sqlite</strong>', 'Community', 'SQLite database operations', 'stdio'],
+              ['<strong>memory</strong>', 'Anthropic', 'Persistent knowledge graph for AI context', 'stdio'],
+            ]},
+
+            { type: 'callout', variant: 'note', html: 'Find more servers at <strong>github.com/modelcontextprotocol/servers</strong> (official) and <strong>mcp.so</strong> (community directory). Anyone can build and publish an MCP server.' },
+
+            { type: 'divider' },
+
+            // ── Section 13: MCP vs Direct API Integration ──
+            { type: 'heading', level: 2, text: 'MCP vs Direct API Integration', id: 'mcp-vs-direct' },
+            { type: 'comparison', left: { title: 'Direct API Integration', color: '#ef4444', items: [
+              'Custom code for each tool per AI model',
               'Tightly coupled to specific AI provider',
-              'Must handle auth, retries, errors manually',
+              'Must handle auth, retries, serialization manually',
               'Hard to reuse across different AI models',
+              'No standardized tool discovery or schema',
+              'Difficult for end-users to extend',
             ]}, right: { title: 'MCP Protocol', color: '#22c55e', items: [
-              'Standardized interface for all tools',
+              'One standardized interface for all tools',
               'Works with any MCP-compatible AI client',
-              'Protocol handles communication details',
-              'Build once, use with any AI model',
+              'Protocol handles communication and serialization',
+              'Build once, use with Claude, GPT, Gemini, etc.',
+              'Typed schemas with automatic validation',
+              'Users install servers with zero code changes',
             ]}},
 
-            { type: 'callout', variant: 'note', html: 'MCP is actively developed by Anthropic and is used by Claude Desktop, Claude Code, and third-party tools. The ecosystem includes servers for filesystems, databases, GitHub, Slack, Google Drive, and hundreds more.' },
+            { type: 'divider' },
 
-            { type: 'heading', level: 3, text: 'Key Takeaways', id: 'mcp-takeaways' },
+            // ── Section 14: Key Takeaways ──
+            { type: 'heading', level: 2, text: 'Key Takeaways', id: 'mcp-takeaways' },
             { type: 'list', ordered: true, items: [
-              'MCP is a universal protocol connecting AI models to tools — like USB-C for AI',
-              'Architecture: AI Model → MCP Client → MCP Server → Tool Execution → Result',
-              'MCP servers are lightweight, single-purpose processes that expose tools',
-              'Tools are registered with name, description, and typed parameter schema',
-              'Build an MCP server once, and any MCP-compatible AI client can use it',
+              'MCP is a universal open protocol that solves the N×M integration problem — reducing it to N+M',
+              'Architecture: Host (AI app) → Client (protocol handler) → Transport (stdio/HTTP) → Server (tools/resources/prompts) → External Service',
+              'Three capability types: <strong>Tools</strong> (actions), <strong>Resources</strong> (data), <strong>Prompts</strong> (templates)',
+              'Two transports: <strong>stdio</strong> for local servers, <strong>HTTP+SSE</strong> for remote/shared servers',
+              'Protocol lifecycle: initialize → list tools → call tool → return result (JSON-RPC 2.0)',
+              'Build servers with <code>@modelcontextprotocol/sdk</code>, validate inputs with Zod, handle errors gracefully',
+              'Register servers in <code>claude_desktop_config.json</code> for Claude Desktop / Claude Code',
+              'Debug with <code>@modelcontextprotocol/inspector</code> — test tools interactively before deploying',
+              'Security: sandbox untrusted servers, validate inputs, scope permissions, use env vars for secrets',
+              'Growing ecosystem: 100+ community servers for filesystems, databases, APIs, and SaaS tools',
             ]},
           ],
         },
