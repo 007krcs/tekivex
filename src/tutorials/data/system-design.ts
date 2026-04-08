@@ -3158,6 +3158,3321 @@ CREATE TABLE clicks_2025_01 PARTITION OF clicks
         },
       ],
     },
+
+    // ================================================================
+    // SECTION: Networking
+    // ================================================================
+    {
+      title: 'Networking',
+      topics: [
+        // ────────────────────────────────────────────────────────────
+        // Understanding IP Addresses
+        // ────────────────────────────────────────────────────────────
+        {
+          slug: 'understanding-ip-addresses',
+          title: 'Understanding IP Addresses',
+          description:
+            'IPv4 vs IPv6, public vs private addresses, subnetting basics, and how IP addresses are used in distributed system design.',
+          keywords: ['ip address', 'ipv4', 'ipv6', 'subnetting', 'networking', 'cidr'],
+          difficulty: 'beginner',
+          estimatedMinutes: 19,
+          content: [
+            { type: 'heading', level: 2, text: 'What Is an IP Address?', id: 'what-is-ip' },
+            {
+              type: 'paragraph',
+              html: 'An <strong>IP address</strong> (Internet Protocol address) is a unique numerical label assigned to every device on a network. Think of it as a postal address for your server — without it, packets have no idea where to go.',
+            },
+            {
+              type: 'callout',
+              variant: 'tip',
+              html: 'Every request your users make travels through a chain of IP addresses: their device → ISP router → your load balancer → your server. Understanding this path is essential for diagnosing latency and security issues.',
+            },
+            { type: 'heading', level: 2, text: 'IPv4 vs IPv6', id: 'ipv4-vs-ipv6' },
+            {
+              type: 'comparison',
+              left: {
+                title: 'IPv4',
+                color: '#6366f1',
+                items: [
+                  '32-bit address (e.g. 192.168.1.1)',
+                  '~4.3 billion unique addresses',
+                  'Exhausted — NAT required',
+                  'Widely supported everywhere',
+                  'Simpler header (20 bytes)',
+                ],
+              },
+              right: {
+                title: 'IPv6',
+                color: '#22c55e',
+                items: [
+                  '128-bit address (e.g. 2001:db8::1)',
+                  '340 undecillion unique addresses',
+                  'No NAT needed — direct routing',
+                  'Growing adoption (40%+ traffic)',
+                  'Built-in IPSec, auto-configuration',
+                ],
+              },
+            },
+            { type: 'heading', level: 2, text: 'Public vs Private IPs', id: 'public-private' },
+            {
+              type: 'paragraph',
+              html: '<strong>Private IP ranges</strong> (RFC 1918) are non-routable on the public internet. They are used inside data centers and VPCs. <strong>NAT</strong> (Network Address Translation) maps private IPs to a single public IP for outbound traffic.',
+            },
+            {
+              type: 'table',
+              headers: ['Range', 'CIDR', 'Addresses', 'Use'],
+              rows: [
+                ['10.0.0.0 – 10.255.255.255', '10.0.0.0/8', '16.7M', 'Large enterprise / cloud VPC'],
+                ['172.16.0.0 – 172.31.255.255', '172.16.0.0/12', '1M', 'Docker default bridge'],
+                ['192.168.0.0 – 192.168.255.255', '192.168.0.0/16', '65K', 'Home / office networks'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'CIDR and Subnetting', id: 'cidr' },
+            {
+              type: 'paragraph',
+              html: '<strong>CIDR</strong> (Classless Inter-Domain Routing) notation like <code>10.0.1.0/24</code> specifies a network by its base address and prefix length. The prefix length (24) tells you how many bits are the network portion — the remaining bits (8) are for hosts, giving 256 addresses (254 usable).',
+            },
+            {
+              type: 'code',
+              language: 'text',
+              title: 'CIDR Quick Reference',
+              code: `/32  →   1 address   (single host)
+/31  →   2 addresses  (point-to-point link)
+/30  →   4 addresses  (2 usable — small link)
+/28  →  16 addresses  (14 usable)
+/24  → 256 addresses  (254 usable — typical subnet)
+/16  → 65,536 addresses (AWS VPC default)
+/8   → 16.7M addresses (large private block)`,
+            },
+            { type: 'heading', level: 2, text: 'IP Addresses in System Design', id: 'ip-in-system-design' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Anycast</strong> — same IP announced from multiple PoPs; BGP routes to the nearest (used by Cloudflare, DNS resolvers)',
+                '<strong>Elastic IP / Static IP</strong> — reserve a fixed public IP for your load balancer or NAT gateway',
+                '<strong>VPC CIDR planning</strong> — choose non-overlapping ranges if you\'ll ever peer VPCs or connect to on-premise',
+                '<strong>Security groups / ACLs</strong> — IP-based firewall rules are the first line of defense',
+                '<strong>IP allowlisting</strong> — restrict admin APIs to office/VPN CIDR ranges',
+              ],
+            },
+            {
+              type: 'callout',
+              variant: 'caution',
+              html: 'Never hard-code IP addresses in application code. IPs change during scaling events. Use DNS names or service discovery instead.',
+            },
+          ],
+        },
+
+        // ────────────────────────────────────────────────────────────
+        // How DNS Works
+        // ────────────────────────────────────────────────────────────
+        {
+          slug: 'how-dns-works',
+          title: 'How DNS Works',
+          description:
+            'DNS resolution from browser to root servers, record types, TTL, caching, and using DNS for traffic routing and failover.',
+          keywords: ['dns', 'domain name system', 'a record', 'cname', 'ttl', 'dns failover'],
+          difficulty: 'beginner',
+          estimatedMinutes: 18,
+          content: [
+            { type: 'heading', level: 2, text: 'What Is DNS?', id: 'what-is-dns' },
+            {
+              type: 'paragraph',
+              html: 'The <strong>Domain Name System</strong> is the internet\'s phone book. It translates human-readable domain names like <code>api.tekivex.dev</code> into IP addresses like <code>104.21.5.10</code> that routers understand. Without DNS, you would need to remember an IP for every service you use.',
+            },
+            { type: 'heading', level: 2, text: 'DNS Resolution Step by Step', id: 'dns-resolution' },
+            {
+              type: 'flow',
+              steps: [
+                { label: 'Browser Cache', desc: 'Check local cache — if TTL not expired, return immediately', color: '#6366f1' },
+                { label: 'OS Resolver', desc: 'Check OS /etc/hosts and local resolver cache', color: '#8b5cf6' },
+                { label: 'Recursive Resolver', desc: 'ISP or 8.8.8.8 — queries on your behalf if not cached', color: '#a855f7' },
+                { label: 'Root Name Server', desc: 'Returns NS records for the TLD (.dev, .com, etc.)', color: '#ec4899' },
+                { label: 'TLD Name Server', desc: 'Returns NS records for the authoritative name server', color: '#f59e0b' },
+                { label: 'Authoritative NS', desc: 'Returns the actual A/AAAA record — final answer', color: '#22c55e' },
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Common DNS Record Types', id: 'record-types' },
+            {
+              type: 'table',
+              headers: ['Record', 'Purpose', 'Example'],
+              rows: [
+                ['A', 'Maps hostname → IPv4 address', 'api.example.com → 1.2.3.4'],
+                ['AAAA', 'Maps hostname → IPv6 address', 'api.example.com → 2001:db8::1'],
+                ['CNAME', 'Alias to another hostname', 'www → example.com (no bare domain!)'],
+                ['MX', 'Mail server for domain', 'example.com → mail.example.com (priority 10)'],
+                ['TXT', 'Arbitrary text (SPF, DKIM, verification)', '"v=spf1 include:sendgrid.net ~all"'],
+                ['NS', 'Authoritative name servers for zone', 'example.com → ns1.cloudflare.com'],
+                ['SRV', 'Service location (host + port)', '_grpc._tcp.api.example.com'],
+                ['PTR', 'Reverse lookup (IP → hostname)', '4.3.2.1.in-addr.arpa → api.example.com'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'TTL and Caching', id: 'ttl' },
+            {
+              type: 'paragraph',
+              html: '<strong>TTL</strong> (Time To Live) is how long a resolver caches the answer (in seconds). Low TTL (60s) means faster propagation of changes but more DNS queries and latency. High TTL (86400s = 24h) reduces load but slows failovers.',
+            },
+            {
+              type: 'callout',
+              variant: 'tip',
+              html: '<strong>Pre-lower TTL before migrations:</strong> If you plan to move an IP, lower the TTL to 60s 24–48h before the change. After the change propagates, raise it back to 3600s or higher.',
+            },
+            { type: 'heading', level: 2, text: 'DNS for System Design', id: 'dns-system-design' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Round-robin DNS</strong> — return multiple A records; client picks one (crude load balancing)',
+                '<strong>Geo-routing</strong> — Route53 / Cloudflare return different IPs based on client location',
+                '<strong>Health-check failover</strong> — Route53 removes unhealthy endpoints automatically',
+                '<strong>Blue/green via DNS</strong> — switch CNAME or A record to cut over traffic with TTL control',
+                '<strong>Service discovery</strong> — Consul, CoreDNS power internal DNS for microservices',
+              ],
+            },
+            {
+              type: 'code',
+              language: 'bash',
+              title: 'Useful DNS Debugging Commands',
+              code: `# Resolve with specific resolver
+dig api.example.com @8.8.8.8
+
+# Trace full resolution chain
+dig +trace api.example.com
+
+# Check TTL remaining
+dig api.example.com | grep "ANSWER SECTION" -A5
+
+# Reverse lookup
+dig -x 1.2.3.4
+
+# Check all record types
+dig api.example.com ANY`,
+            },
+          ],
+        },
+
+        // ────────────────────────────────────────────────────────────
+        // Client-Server Model
+        // ────────────────────────────────────────────────────────────
+        {
+          slug: 'client-server-model',
+          title: 'Client-Server Model Explained',
+          description:
+            'How clients and servers communicate, the request-response cycle, stateless vs stateful servers, and practical implications for distributed system design.',
+          keywords: ['client server', 'request response', 'stateless', 'stateful', 'http', 'tcp'],
+          difficulty: 'beginner',
+          estimatedMinutes: 22,
+          content: [
+            { type: 'heading', level: 2, text: 'The Client-Server Model', id: 'client-server' },
+            {
+              type: 'paragraph',
+              html: 'In the <strong>client-server model</strong>, clients initiate requests and servers respond with data or actions. The client knows the server\'s address; the server does not need to know the client\'s address in advance. This asymmetry is the foundation of web architecture.',
+            },
+            { type: 'heading', level: 2, text: 'The Request-Response Cycle', id: 'request-response' },
+            {
+              type: 'flow',
+              steps: [
+                { label: 'DNS Lookup', desc: 'Resolve hostname to IP address', color: '#6366f1' },
+                { label: 'TCP Handshake', desc: 'SYN → SYN-ACK → ACK (3-way handshake)', color: '#8b5cf6' },
+                { label: 'TLS Handshake', desc: 'Certificate exchange, cipher negotiation (HTTPS)', color: '#a855f7' },
+                { label: 'HTTP Request', desc: 'Client sends GET/POST with headers and body', color: '#ec4899' },
+                { label: 'Server Processing', desc: 'Auth, business logic, DB query, response assembly', color: '#f59e0b' },
+                { label: 'HTTP Response', desc: 'Status code, headers, body returned to client', color: '#22c55e' },
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Stateless vs Stateful Servers', id: 'stateless-stateful' },
+            {
+              type: 'comparison',
+              left: {
+                title: 'Stateless Server',
+                color: '#22c55e',
+                items: [
+                  'No session data stored locally',
+                  'Any server can handle any request',
+                  'Horizontal scaling is trivial',
+                  'State lives in DB / Redis / JWT',
+                  'REST APIs, microservices',
+                ],
+              },
+              right: {
+                title: 'Stateful Server',
+                color: '#f59e0b',
+                items: [
+                  'Session data held in memory',
+                  'Sticky sessions required',
+                  'Harder to scale horizontally',
+                  'Faster for in-memory ops',
+                  'WebSocket servers, game servers',
+                ],
+              },
+            },
+            {
+              type: 'callout',
+              variant: 'tip',
+              html: '<strong>Design stateless by default.</strong> Move session state to a shared store (Redis) so any server replica can serve any request. This is the single biggest enabler of horizontal scaling.',
+            },
+            { type: 'heading', level: 2, text: 'Thin vs Thick Clients', id: 'thin-thick' },
+            {
+              type: 'table',
+              headers: ['Model', 'Logic Location', 'Examples', 'Tradeoffs'],
+              rows: [
+                ['Thin client', 'Server-side rendering, minimal JS', 'Traditional web, server-side React', 'Simple client; server under load; less offline capability'],
+                ['Thick client', 'Heavy client-side processing', 'SPAs, mobile apps, Electron', 'Rich UX, offline-capable; harder to update, security exposure'],
+                ['Hybrid', 'Split by concern', 'React + REST API, Flutter + gRPC', 'Best of both; most common modern architecture'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Connection Types', id: 'connection-types' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Short-lived (HTTP/1.1)</strong> — new TCP connection per request (or pooled with keep-alive)',
+                '<strong>Persistent (HTTP/2)</strong> — single TCP connection multiplexes many requests simultaneously',
+                '<strong>Long-polling</strong> — client holds request open; server responds when data is ready',
+                '<strong>WebSocket</strong> — full-duplex; either side can push at any time after upgrade handshake',
+                '<strong>Server-Sent Events (SSE)</strong> — one-way push from server to client over HTTP',
+              ],
+            },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'Simple HTTP Client-Server (Node.js)',
+              code: `// server.ts
+import http from 'http';
+
+const server = http.createServer((req, res) => {
+  // Stateless — no memory of previous requests
+  const url = new URL(req.url!, 'http://localhost');
+  const name = url.searchParams.get('name') ?? 'World';
+
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({ message: \`Hello, \${name}!\` }));
+});
+
+server.listen(3000, () => console.log('Server on :3000'));
+
+// client.ts
+const res = await fetch('http://localhost:3000?name=Tekivex');
+const data = await res.json();
+console.log(data.message); // "Hello, Tekivex!"`,
+            },
+          ],
+        },
+
+        // ────────────────────────────────────────────────────────────
+        // Forward Proxy vs Reverse Proxy
+        // ────────────────────────────────────────────────────────────
+        {
+          slug: 'forward-proxy-vs-reverse-proxy',
+          title: 'Forward Proxy vs. Reverse Proxy',
+          description:
+            'The critical difference between forward and reverse proxies, when to use each, and how reverse proxies power load balancing, TLS termination, and caching.',
+          keywords: ['proxy', 'reverse proxy', 'forward proxy', 'nginx', 'load balancer', 'tls termination'],
+          difficulty: 'beginner',
+          estimatedMinutes: 10,
+          content: [
+            { type: 'heading', level: 2, text: 'What Is a Proxy?', id: 'what-is-proxy' },
+            {
+              type: 'paragraph',
+              html: 'A <strong>proxy</strong> sits between two parties and forwards traffic on their behalf. The key question is: whose side is the proxy on? This determines whether it\'s a forward proxy or a reverse proxy.',
+            },
+            { type: 'heading', level: 2, text: 'Forward Proxy', id: 'forward-proxy' },
+            {
+              type: 'paragraph',
+              html: 'A <strong>forward proxy</strong> sits in front of <em>clients</em> and forwards their requests to the internet. The server sees the proxy\'s IP, not the client\'s. The client is aware of the proxy.',
+            },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Privacy / anonymity</strong> — hide client IP from destination server (VPNs, Tor)',
+                '<strong>Content filtering</strong> — corporate proxies block social media or malicious sites',
+                '<strong>Geo-bypass</strong> — access content restricted to a different region',
+                '<strong>Caching</strong> — cache responses so repeated requests don\'t hit the internet',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Reverse Proxy', id: 'reverse-proxy' },
+            {
+              type: 'paragraph',
+              html: 'A <strong>reverse proxy</strong> sits in front of <em>servers</em> and forwards client requests to the appropriate backend. Clients are unaware — they think they\'re talking directly to the server.',
+            },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Load balancing</strong> — distribute traffic across multiple backend instances',
+                '<strong>TLS termination</strong> — decrypt HTTPS at the edge; plain HTTP to backends (simpler certs)',
+                '<strong>Caching</strong> — serve cached responses without hitting upstream servers',
+                '<strong>Compression</strong> — gzip/brotli at the edge; save bandwidth',
+                '<strong>Security</strong> — WAF, DDoS protection, rate limiting before traffic reaches your app',
+                '<strong>Canary deployments</strong> — route 5% of traffic to new version',
+              ],
+            },
+            {
+              type: 'comparison',
+              left: {
+                title: 'Forward Proxy',
+                color: '#6366f1',
+                items: [
+                  'Client-side proxy',
+                  'Client knows about proxy',
+                  'Server sees proxy IP',
+                  'VPN, Squid, corporate filter',
+                  'Protects / controls clients',
+                ],
+              },
+              right: {
+                title: 'Reverse Proxy',
+                color: '#22c55e',
+                items: [
+                  'Server-side proxy',
+                  'Client unaware of proxy',
+                  'Client sees proxy IP',
+                  'Nginx, HAProxy, Cloudflare',
+                  'Protects / scales servers',
+                ],
+              },
+            },
+            {
+              type: 'code',
+              language: 'nginx',
+              title: 'Nginx as a Reverse Proxy',
+              code: `server {
+    listen 443 ssl;
+    server_name api.example.com;
+
+    # TLS termination here
+    ssl_certificate     /etc/nginx/certs/cert.pem;
+    ssl_certificate_key /etc/nginx/certs/key.pem;
+
+    location / {
+        # Forward to backend pool (plain HTTP internally)
+        proxy_pass         http://backend_pool;
+        proxy_set_header   Host $host;
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+    }
+}
+
+upstream backend_pool {
+    least_conn;
+    server 10.0.1.10:3000;
+    server 10.0.1.11:3000;
+    server 10.0.1.12:3000;
+}`,
+            },
+            {
+              type: 'callout',
+              variant: 'note',
+              html: 'Always pass <code>X-Forwarded-For</code> so your application can see the real client IP for logging, rate limiting, and geolocation — not the proxy\'s IP.',
+            },
+          ],
+        },
+
+        // ────────────────────────────────────────────────────────────
+        // API Gateway
+        // ────────────────────────────────────────────────────────────
+        {
+          slug: 'api-gateway',
+          title: 'What Is an API Gateway?',
+          description:
+            'API gateways as a single entry point for microservices: routing, auth, rate limiting, protocol translation, and observability — with design trade-offs.',
+          keywords: ['api gateway', 'kong', 'aws api gateway', 'rate limiting', 'auth', 'microservices'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 18,
+          content: [
+            { type: 'heading', level: 2, text: 'What Is an API Gateway?', id: 'what-is-api-gateway' },
+            {
+              type: 'paragraph',
+              html: 'An <strong>API Gateway</strong> is a server that acts as the single entry point for all client requests in a microservices architecture. Rather than clients knowing about dozens of internal services, they talk to one gateway that routes, transforms, and enforces policies.',
+            },
+            {
+              type: 'callout',
+              variant: 'tip',
+              html: 'Think of an API Gateway as a <strong>reverse proxy on steroids</strong> — it not only routes traffic but also handles auth, rate limiting, logging, circuit breaking, and protocol translation.',
+            },
+            { type: 'heading', level: 2, text: 'Core Responsibilities', id: 'responsibilities' },
+            {
+              type: 'table',
+              headers: ['Responsibility', 'Description', 'Example'],
+              rows: [
+                ['Request routing', 'Map path/method to backend service', 'GET /users/* → user-service:3001'],
+                ['Authentication', 'Validate JWT, API key, or OAuth token', 'Reject requests without valid Bearer token'],
+                ['Rate limiting', 'Enforce per-client or global quotas', '1000 req/min per API key'],
+                ['SSL/TLS termination', 'Decrypt HTTPS; plain HTTP to backends', 'Centralize cert management'],
+                ['Protocol translation', 'REST ↔ gRPC, HTTP/1.1 ↔ HTTP/2', 'Mobile REST client → gRPC backend'],
+                ['Request/response transform', 'Add headers, reshape payloads', 'Inject correlation IDs, filter sensitive fields'],
+                ['Observability', 'Centralized logging, metrics, tracing', 'All requests logged with latency/status'],
+                ['Circuit breaking', 'Stop forwarding to unhealthy services', 'Open circuit after 50% error rate'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'API Gateway vs Load Balancer vs Reverse Proxy', id: 'comparison' },
+            {
+              type: 'table',
+              headers: ['Concern', 'Reverse Proxy', 'Load Balancer', 'API Gateway'],
+              rows: [
+                ['Traffic distribution', '✓ basic', '✓ advanced algorithms', '✓ service routing'],
+                ['Auth / authz', '✗', '✗', '✓ native'],
+                ['Rate limiting', '✗ (plugin)', '✗', '✓ native'],
+                ['Protocol transform', '✗', '✗', '✓'],
+                ['Request rewriting', 'Limited', '✗', '✓'],
+                ['Observability', 'Logs only', 'Health checks', '✓ full tracing'],
+                ['Operates at', 'L7', 'L4/L7', 'L7 application'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Popular API Gateways', id: 'popular-gateways' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>AWS API Gateway</strong> — fully managed; tight integration with Lambda, Cognito, WAF',
+                '<strong>Kong</strong> — open-source, plugin ecosystem, Kubernetes-native (Kong Ingress Controller)',
+                '<strong>Nginx</strong> — lightweight; handles gateway patterns via Lua/NJS scripting',
+                '<strong>Traefik</strong> — auto-discovers services from Docker/K8s labels; great for self-hosted',
+                '<strong>Envoy</strong> — high-performance proxy; base of Istio service mesh',
+                '<strong>Apigee</strong> — Google\'s enterprise API management with full lifecycle tools',
+              ],
+            },
+            {
+              type: 'code',
+              language: 'yaml',
+              title: 'Kong Declarative Config (kong.yml)',
+              code: `_format_version: "3.0"
+
+services:
+  - name: user-service
+    url: http://user-service:3001
+    routes:
+      - name: users-route
+        paths: [/api/users]
+        methods: [GET, POST]
+    plugins:
+      - name: jwt           # Validate JWT on every request
+      - name: rate-limiting
+        config:
+          minute: 1000
+          policy: redis
+
+  - name: order-service
+    url: http://order-service:3002
+    routes:
+      - name: orders-route
+        paths: [/api/orders]
+    plugins:
+      - name: jwt
+      - name: request-transformer
+        config:
+          add:
+            headers: ["X-Correlation-ID:$(uuid)"]`,
+            },
+            {
+              type: 'callout',
+              variant: 'caution',
+              html: '<strong>The gateway is a potential SPOF and bottleneck.</strong> Run multiple instances behind a load balancer, use async plugins where possible, and keep the gateway stateless so it scales horizontally.',
+            },
+          ],
+        },
+      ],
+    },
+
+    // ================================================================
+    // SECTION: Protocols
+    // ================================================================
+    {
+      title: 'Protocols',
+      topics: [
+        // ────────────────────────────────────────────────────────────
+        // TCP & UDP
+        // ────────────────────────────────────────────────────────────
+        {
+          slug: 'tcp-and-udp',
+          title: 'TCP & UDP',
+          description:
+            'How TCP and UDP differ, when to choose each transport protocol, and the implications for reliability, ordering, and latency in distributed systems.',
+          keywords: ['tcp', 'udp', 'transport layer', 'reliability', 'latency', 'three-way handshake'],
+          difficulty: 'beginner',
+          estimatedMinutes: 14,
+          content: [
+            { type: 'heading', level: 2, text: 'The Transport Layer', id: 'transport-layer' },
+            {
+              type: 'paragraph',
+              html: 'TCP and UDP are <strong>Layer 4 protocols</strong> in the OSI model — they sit above IP (which provides addressing) and below application protocols like HTTP. Your choice between them is one of the most consequential decisions in system design.',
+            },
+            { type: 'heading', level: 2, text: 'TCP: Reliability First', id: 'tcp' },
+            {
+              type: 'paragraph',
+              html: '<strong>TCP</strong> (Transmission Control Protocol) guarantees delivery, ordering, and error checking. Before any data flows, TCP performs a <strong>three-way handshake</strong> to establish a connection.',
+            },
+            {
+              type: 'flow',
+              steps: [
+                { label: 'SYN', desc: 'Client sends SYN (synchronize) with initial sequence number', color: '#6366f1' },
+                { label: 'SYN-ACK', desc: 'Server acknowledges and sends its own SYN', color: '#8b5cf6' },
+                { label: 'ACK', desc: 'Client acknowledges — connection established, data can flow', color: '#22c55e' },
+              ],
+            },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Guaranteed delivery</strong> — lost packets are retransmitted automatically',
+                '<strong>Ordered delivery</strong> — packets arrive in the order sent',
+                '<strong>Flow control</strong> — receiver advertises window size; sender won\'t overwhelm it',
+                '<strong>Congestion control</strong> — TCP backs off when the network is congested (AIMD)',
+                '<strong>Error detection</strong> — checksum on every segment',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'UDP: Speed First', id: 'udp' },
+            {
+              type: 'paragraph',
+              html: '<strong>UDP</strong> (User Datagram Protocol) is connectionless and fire-and-forget. There is no handshake, no retransmission, no ordering guarantee — just fast delivery. This makes it ideal when <strong>low latency matters more than perfect reliability</strong>.',
+            },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>No connection overhead</strong> — send immediately, no handshake',
+                '<strong>No retransmission</strong> — lost packets are gone (application handles it if needed)',
+                '<strong>No ordering</strong> — packets may arrive out of sequence',
+                '<strong>Lower latency</strong> — no congestion control delays',
+                '<strong>Broadcast/multicast</strong> — one packet to many receivers',
+              ],
+            },
+            {
+              type: 'comparison',
+              left: {
+                title: 'Use TCP when…',
+                color: '#6366f1',
+                items: [
+                  'Data integrity is critical',
+                  'File transfers (HTTP, FTP)',
+                  'Database connections',
+                  'Email (SMTP, IMAP)',
+                  'Order matters (e.g. messages)',
+                ],
+              },
+              right: {
+                title: 'Use UDP when…',
+                color: '#f59e0b',
+                items: [
+                  'Latency beats reliability',
+                  'Live video / audio streaming',
+                  'Online gaming (position updates)',
+                  'DNS queries (quick, retried by app)',
+                  'IoT sensor data (stale = useless)',
+                ],
+              },
+            },
+            {
+              type: 'callout',
+              variant: 'note',
+              html: '<strong>QUIC</strong> (used by HTTP/3) is built on UDP but implements its own reliability and multiplexing in user space. It gets UDP\'s speed benefits while supporting ordered, reliable streams — eliminating TCP\'s head-of-line blocking.',
+            },
+            {
+              type: 'table',
+              headers: ['Property', 'TCP', 'UDP'],
+              rows: [
+                ['Connection', 'Connection-oriented (3-way handshake)', 'Connectionless'],
+                ['Reliability', 'Guaranteed delivery + retransmit', 'Best-effort, no retransmit'],
+                ['Ordering', 'In-order delivery guaranteed', 'No ordering guarantee'],
+                ['Speed', 'Slower (overhead)', 'Faster (no overhead)'],
+                ['Header size', '20–60 bytes', '8 bytes'],
+                ['Flow control', 'Yes (window size)', 'No'],
+                ['Congestion control', 'Yes (AIMD)', 'No (application responsibility)'],
+                ['Use cases', 'HTTP, SSH, DB, SMTP', 'DNS, Video, Gaming, QUIC'],
+              ],
+            },
+          ],
+        },
+
+        // ────────────────────────────────────────────────────────────
+        // HTTP - The Backbone of the Web
+        // ────────────────────────────────────────────────────────────
+        {
+          slug: 'http-backbone-of-the-web',
+          title: 'HTTP — The Backbone of the Web',
+          description:
+            'HTTP request/response structure, status codes, HTTP/1.1 vs HTTP/2 vs HTTP/3, headers, methods, and HTTPS — the protocol every system designer must know cold.',
+          keywords: ['http', 'https', 'http2', 'http3', 'status codes', 'request response', 'headers'],
+          difficulty: 'beginner',
+          estimatedMinutes: 19,
+          content: [
+            { type: 'heading', level: 2, text: 'HTTP Fundamentals', id: 'http-fundamentals' },
+            {
+              type: 'paragraph',
+              html: '<strong>HTTP</strong> (HyperText Transfer Protocol) is a stateless, application-layer protocol that defines how clients and servers exchange messages. Every web request you\'ve ever made — loading a page, calling an API, uploading a file — runs over HTTP.',
+            },
+            { type: 'heading', level: 2, text: 'HTTP Request Structure', id: 'request-structure' },
+            {
+              type: 'code',
+              language: 'http',
+              title: 'HTTP Request',
+              code: `POST /api/users HTTP/1.1
+Host: api.tekivex.dev
+Content-Type: application/json
+Authorization: Bearer eyJhbGci...
+Content-Length: 47
+Accept: application/json
+
+{"name": "Alice", "email": "alice@example.com"}`,
+            },
+            { type: 'heading', level: 2, text: 'HTTP Response Structure', id: 'response-structure' },
+            {
+              type: 'code',
+              language: 'http',
+              title: 'HTTP Response',
+              code: `HTTP/1.1 201 Created
+Content-Type: application/json
+Location: /api/users/42
+X-Request-ID: a1b2c3d4
+Cache-Control: no-store
+
+{"id": 42, "name": "Alice", "email": "alice@example.com"}`,
+            },
+            { type: 'heading', level: 2, text: 'HTTP Methods', id: 'methods' },
+            {
+              type: 'table',
+              headers: ['Method', 'Purpose', 'Idempotent?', 'Body?'],
+              rows: [
+                ['GET', 'Retrieve resource', 'Yes', 'No'],
+                ['POST', 'Create resource / trigger action', 'No', 'Yes'],
+                ['PUT', 'Replace resource entirely', 'Yes', 'Yes'],
+                ['PATCH', 'Partial update', 'No', 'Yes'],
+                ['DELETE', 'Remove resource', 'Yes', 'No'],
+                ['HEAD', 'Like GET but no body (check existence/metadata)', 'Yes', 'No'],
+                ['OPTIONS', 'CORS preflight / discover allowed methods', 'Yes', 'No'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Status Codes', id: 'status-codes' },
+            {
+              type: 'table',
+              headers: ['Range', 'Category', 'Common Codes'],
+              rows: [
+                ['2xx', 'Success', '200 OK, 201 Created, 204 No Content'],
+                ['3xx', 'Redirection', '301 Moved Permanently, 302 Found, 304 Not Modified'],
+                ['4xx', 'Client Error', '400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 429 Too Many Requests'],
+                ['5xx', 'Server Error', '500 Internal Server Error, 502 Bad Gateway, 503 Service Unavailable, 504 Gateway Timeout'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'HTTP/1.1 vs HTTP/2 vs HTTP/3', id: 'versions' },
+            {
+              type: 'table',
+              headers: ['Feature', 'HTTP/1.1', 'HTTP/2', 'HTTP/3'],
+              rows: [
+                ['Transport', 'TCP', 'TCP', 'QUIC (UDP)'],
+                ['Multiplexing', 'No (one req/conn)', 'Yes (streams)', 'Yes (no HoL blocking)'],
+                ['Header compression', 'No', 'HPACK', 'QPACK'],
+                ['Server push', 'No', 'Yes', 'Limited'],
+                ['TLS', 'Optional', 'Required (de facto)', 'Required (built-in)'],
+                ['Head-of-line blocking', 'Yes (connection level)', 'Yes (TCP level)', 'No'],
+                ['Adoption (2024)', 'Legacy', '~65% traffic', '~30% and growing'],
+              ],
+            },
+            {
+              type: 'callout',
+              variant: 'tip',
+              html: 'Most CDNs and reverse proxies (Cloudflare, Nginx, Caddy) transparently upgrade connections to HTTP/2 or HTTP/3. You rarely need to configure this manually — just enable TLS and the proxy handles it.',
+            },
+            { type: 'heading', level: 2, text: 'Key Headers for System Design', id: 'headers' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<code>Cache-Control: max-age=3600</code> — tell clients and CDNs how long to cache',
+                '<code>ETag</code> / <code>If-None-Match</code> — conditional requests to avoid downloading unchanged content',
+                '<code>Authorization: Bearer &lt;token&gt;</code> — carry auth credentials',
+                '<code>X-Request-ID</code> — propagate trace IDs for distributed tracing',
+                '<code>Retry-After</code> — tell rate-limited clients when to retry',
+                '<code>Content-Encoding: gzip</code> — compressed response body',
+                '<code>Strict-Transport-Security</code> — force HTTPS for future requests (HSTS)',
+              ],
+            },
+          ],
+        },
+
+        // ────────────────────────────────────────────────────────────
+        // Real-Time Communication Protocols
+        // ────────────────────────────────────────────────────────────
+        {
+          slug: 'real-time-communication-protocols',
+          title: 'Real-Time Communication Protocols',
+          description:
+            'WebSockets, Server-Sent Events, long polling, and WebRTC — how each works, when to choose them, and their scalability implications.',
+          keywords: ['websocket', 'sse', 'server-sent events', 'long polling', 'webrtc', 'real-time'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 17,
+          content: [
+            { type: 'heading', level: 2, text: 'Why Real-Time Matters', id: 'why-real-time' },
+            {
+              type: 'paragraph',
+              html: 'Standard HTTP is <strong>pull-based</strong> — clients ask, servers answer. Real-time systems need <strong>push-based</strong> communication where the server initiates data delivery. There are four major approaches, each with different trade-offs.',
+            },
+            { type: 'heading', level: 2, text: 'Long Polling', id: 'long-polling' },
+            {
+              type: 'paragraph',
+              html: 'The client sends a request; the server <strong>holds it open</strong> until it has data (or times out). The client immediately sends another request on response. This emulates push using standard HTTP.',
+            },
+            {
+              type: 'comparison',
+              left: {
+                title: 'Pros',
+                color: '#22c55e',
+                items: [
+                  'Works everywhere (plain HTTP)',
+                  'Firewall/proxy friendly',
+                  'Simple to implement',
+                  'No special server support',
+                ],
+              },
+              right: {
+                title: 'Cons',
+                color: '#ef4444',
+                items: [
+                  'High latency per message',
+                  'Many open connections on server',
+                  'Overhead of repeated HTTP handshakes',
+                  'Hard to scale beyond 10K connections',
+                ],
+              },
+            },
+            { type: 'heading', level: 2, text: 'Server-Sent Events (SSE)', id: 'sse' },
+            {
+              type: 'paragraph',
+              html: '<strong>SSE</strong> is a one-way push channel over a persistent HTTP connection. The server streams <code>text/event-stream</code> data; the client uses the native <code>EventSource</code> API. Reconnection is automatic.',
+            },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'SSE Server (Node.js)',
+              code: `// server
+app.get('/events', (req, res) => {
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+
+  const send = (data: object) =>
+    res.write(\`data: \${JSON.stringify(data)}\\n\\n\`);
+
+  const interval = setInterval(() => send({ ts: Date.now() }), 1000);
+  req.on('close', () => clearInterval(interval));
+});
+
+// client
+const es = new EventSource('/events');
+es.onmessage = (e) => console.log(JSON.parse(e.data));`,
+            },
+            { type: 'heading', level: 2, text: 'WebSockets', id: 'websockets' },
+            {
+              type: 'paragraph',
+              html: '<strong>WebSocket</strong> provides a <strong>full-duplex</strong> channel over a single TCP connection. After an HTTP upgrade handshake, either side can send frames at any time with very low overhead (~2 bytes per frame vs ~800 bytes for HTTP headers).',
+            },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'WebSocket Server (ws library)',
+              code: `import { WebSocketServer } from 'ws';
+
+const wss = new WebSocketServer({ port: 8080 });
+
+wss.on('connection', (ws) => {
+  ws.on('message', (msg) => {
+    // Echo to all connected clients
+    wss.clients.forEach((client) => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(msg);
+      }
+    });
+  });
+});`,
+            },
+            { type: 'heading', level: 2, text: 'WebRTC', id: 'webrtc' },
+            {
+              type: 'paragraph',
+              html: '<strong>WebRTC</strong> enables <strong>peer-to-peer</strong> audio, video, and data directly between browsers — no server relay once the connection is established. A <strong>signaling server</strong> (any protocol) is still needed for connection negotiation.',
+            },
+            { type: 'heading', level: 2, text: 'Choosing the Right Protocol', id: 'choosing' },
+            {
+              type: 'table',
+              headers: ['Protocol', 'Direction', 'Best For', 'Scale Challenge'],
+              rows: [
+                ['Long Polling', 'Bi-directional', 'Legacy browsers, simple notifications', 'Server threads per connection'],
+                ['SSE', 'Server → Client only', 'Live feeds, dashboards, progress', 'One connection per client, HTTP/2 mitigates'],
+                ['WebSocket', 'Full-duplex', 'Chat, gaming, collaborative editing', 'Sticky sessions required, horizontal scaling via pub/sub (Redis)'],
+                ['WebRTC', 'Peer-to-peer', 'Video calls, file sharing, low-latency gaming', 'Signaling server + STUN/TURN infrastructure'],
+              ],
+            },
+            {
+              type: 'callout',
+              variant: 'caution',
+              html: 'WebSocket connections are <strong>stateful and sticky</strong>. For horizontal scaling, use a pub/sub broker (Redis Pub/Sub, NATS) so any server can receive and broadcast messages to clients connected to other servers.',
+            },
+          ],
+        },
+
+        // ────────────────────────────────────────────────────────────
+        // Modern API Protocols Beyond REST
+        // ────────────────────────────────────────────────────────────
+        {
+          slug: 'modern-api-protocols',
+          title: 'Modern API Protocols — Beyond REST',
+          description:
+            'GraphQL, gRPC, tRPC, and AsyncAPI: when REST isn\'t enough and how these protocols solve over-fetching, contract enforcement, and real-time APIs.',
+          keywords: ['graphql', 'grpc', 'trpc', 'asyncapi', 'protobuf', 'rest alternatives'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 12,
+          content: [
+            { type: 'heading', level: 2, text: 'REST\'s Limitations', id: 'rest-limits' },
+            {
+              type: 'paragraph',
+              html: 'REST is simple and ubiquitous, but it shows cracks at scale: <strong>over-fetching</strong> (getting fields you don\'t need), <strong>under-fetching</strong> (needing multiple requests), <strong>no type safety</strong> across language boundaries, and <strong>no contract</strong> that clients and servers must agree on.',
+            },
+            { type: 'heading', level: 2, text: 'GraphQL', id: 'graphql' },
+            {
+              type: 'paragraph',
+              html: '<strong>GraphQL</strong> lets clients specify exactly what data they need in a single request. The server exposes a typed schema; clients query it like a SQL SELECT. No more over/under-fetching.',
+            },
+            {
+              type: 'code',
+              language: 'graphql',
+              title: 'GraphQL Query — Request Only What You Need',
+              code: `# Fetch user with only the fields needed for a profile card
+query GetUserCard($id: ID!) {
+  user(id: $id) {
+    name
+    avatarUrl
+    followersCount
+    recentPosts(limit: 3) {
+      title
+      publishedAt
+    }
+  }
+}`,
+            },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Single endpoint</strong> — all queries/mutations go to <code>POST /graphql</code>',
+                '<strong>Introspection</strong> — clients can query the schema itself; auto-generates docs',
+                '<strong>Subscriptions</strong> — real-time updates via WebSocket',
+                '<strong>N+1 problem</strong> — use DataLoader to batch DB queries',
+                '<strong>Best for</strong> — mobile clients (limited bandwidth), public APIs, complex joins',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'gRPC', id: 'grpc' },
+            {
+              type: 'paragraph',
+              html: '<strong>gRPC</strong> uses <strong>Protocol Buffers</strong> (binary schema + serialization) over HTTP/2. It generates type-safe client/server code from <code>.proto</code> files in 10+ languages. Used internally at Google, Netflix, and most large microservice architectures.',
+            },
+            {
+              type: 'code',
+              language: 'protobuf',
+              title: 'user.proto',
+              code: `syntax = "proto3";
+
+service UserService {
+  rpc GetUser (GetUserRequest) returns (User);
+  rpc ListUsers (ListUsersRequest) returns (stream User); // server streaming
+  rpc CreateUser (User) returns (User);
+}
+
+message GetUserRequest { string id = 1; }
+message ListUsersRequest { int32 limit = 1; }
+
+message User {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  int64 created_at = 4;
+}`,
+            },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>~7x faster</strong> than JSON/REST for binary payloads',
+                '<strong>Streaming</strong> — unary, server-streaming, client-streaming, bidirectional',
+                '<strong>Strict contract</strong> — proto schema is the source of truth; breaking changes detected at compile time',
+                '<strong>Best for</strong> — internal microservice comms, mobile → server (bandwidth-sensitive), polyglot teams',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'tRPC', id: 'trpc' },
+            {
+              type: 'paragraph',
+              html: '<strong>tRPC</strong> gives you end-to-end type safety between a TypeScript server and client without schemas or code generation. The client\'s TypeScript types are <em>derived directly</em> from the server\'s router definition.',
+            },
+            {
+              type: 'callout',
+              variant: 'note',
+              html: 'tRPC is ideal for <strong>full-stack TypeScript monorepos</strong> (Next.js, T3 Stack). For polyglot or public APIs, use gRPC or GraphQL instead.',
+            },
+            { type: 'heading', level: 2, text: 'Protocol Comparison', id: 'comparison' },
+            {
+              type: 'table',
+              headers: ['Protocol', 'Format', 'Type Safety', 'Streaming', 'Best For'],
+              rows: [
+                ['REST', 'JSON', 'Manual/OpenAPI', 'No (SSE workaround)', 'Public APIs, simplicity'],
+                ['GraphQL', 'JSON', 'Schema-based', 'Subscriptions (WS)', 'Flexible queries, mobile, public'],
+                ['gRPC', 'Protobuf (binary)', 'Proto schema', 'Native (4 modes)', 'Internal microservices, performance'],
+                ['tRPC', 'JSON', 'TypeScript native', 'Via subscriptions', 'Full-stack TS, monorepos'],
+                ['AsyncAPI', 'JSON/YAML', 'Schema + events', 'Event-driven native', 'Documenting async/event APIs'],
+              ],
+            },
+          ],
+        },
+      ],
+    },
+
+    // ================================================================
+    // SECTION: Web Concepts
+    // ================================================================
+    {
+      title: 'Web Concepts',
+      topics: [
+        // ────────────────────────────────────────────────────────────
+        // Web Sessions
+        // ────────────────────────────────────────────────────────────
+        {
+          slug: 'web-sessions-managing-state',
+          title: 'Web Sessions: Managing State in Web Applications',
+          description:
+            'Cookies, session tokens, JWTs, and distributed session stores — how to maintain user state across stateless HTTP requests at scale.',
+          keywords: ['session', 'cookie', 'jwt', 'redis session', 'stateless auth', 'token'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 15,
+          content: [
+            { type: 'heading', level: 2, text: 'The Statefulness Problem', id: 'statefulness-problem' },
+            {
+              type: 'paragraph',
+              html: 'HTTP is <strong>stateless</strong> — each request is independent. Yet users expect continuity: stay logged in, maintain a shopping cart, remember preferences. <strong>Sessions</strong> are the mechanism that grafts statefulness onto stateless HTTP.',
+            },
+            { type: 'heading', level: 2, text: 'Session Storage Approaches', id: 'session-approaches' },
+            {
+              type: 'table',
+              headers: ['Approach', 'Where State Lives', 'Pros', 'Cons'],
+              rows: [
+                ['Server-side session + cookie', 'DB or Redis; cookie holds session ID only', 'Revoke instantly, small cookie', 'DB lookup every request, sticky sessions or shared store'],
+                ['JWT (stateless token)', 'Encoded in the token itself (client-side)', 'No DB lookup, scales horizontally', 'Cannot revoke before expiry, larger payload'],
+                ['Cookie-only (encrypted)', 'Encrypted in the cookie (e.g. Rails cookie store)', 'Zero DB, simple', 'Cannot revoke, size limit (4KB)'],
+                ['localStorage/sessionStorage', 'Browser JavaScript storage', 'Easy to use in SPAs', 'XSS vulnerable — never store sensitive tokens here'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Cookie Attributes', id: 'cookie-attributes' },
+            {
+              type: 'code',
+              language: 'http',
+              title: 'Secure Cookie Response Header',
+              code: `Set-Cookie: session_id=abc123;
+  HttpOnly;          // JS cannot read — prevents XSS theft
+  Secure;            // HTTPS only
+  SameSite=Strict;   // No cross-site sending — prevents CSRF
+  Path=/;
+  Max-Age=86400;     // Expires in 24h`,
+            },
+            { type: 'heading', level: 2, text: 'JWT (JSON Web Token)', id: 'jwt' },
+            {
+              type: 'paragraph',
+              html: 'A JWT has three base64url-encoded parts: <code>header.payload.signature</code>. The server signs the payload with a secret (HMAC) or private key (RSA/ECDSA). Any server with the public key or secret can verify it — no DB needed.',
+            },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'JWT Issue and Verify',
+              code: `import jwt from 'jsonwebtoken';
+
+const SECRET = process.env.JWT_SECRET!;
+
+// Issue — on login
+export function issueToken(userId: string): string {
+  return jwt.sign(
+    { sub: userId, role: 'user' },
+    SECRET,
+    { expiresIn: '1h', algorithm: 'HS256' }
+  );
+}
+
+// Verify — on every protected request
+export function verifyToken(token: string): jwt.JwtPayload {
+  return jwt.verify(token, SECRET) as jwt.JwtPayload;
+  // throws JsonWebTokenError if tampered or expired
+}`,
+            },
+            {
+              type: 'callout',
+              variant: 'caution',
+              html: '<strong>JWT revocation is hard.</strong> Once issued, a JWT is valid until expiry. For logout/revoke: use short expiry (15 min) + refresh tokens, or maintain a token blocklist in Redis (defeats the stateless benefit, but adds revocation).',
+            },
+            { type: 'heading', level: 2, text: 'Distributed Session Store', id: 'distributed-sessions' },
+            {
+              type: 'paragraph',
+              html: 'When you run multiple server instances, session data stored in process memory isn\'t shared. Use a <strong>shared session store</strong> (Redis, Memcached) so any instance can serve any user\'s request.',
+            },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'Express + Redis Session Store',
+              code: `import session from 'express-session';
+import RedisStore from 'connect-redis';
+import { createClient } from 'redis';
+
+const redis = createClient({ url: process.env.REDIS_URL });
+await redis.connect();
+
+app.use(session({
+  store: new RedisStore({ client: redis }),
+  secret: process.env.SESSION_SECRET!,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'strict',
+    maxAge: 24 * 60 * 60 * 1000, // 24h
+  },
+}));`,
+            },
+          ],
+        },
+
+        // ────────────────────────────────────────────────────────────
+        // Serialization
+        // ────────────────────────────────────────────────────────────
+        {
+          slug: 'serialization-data-exchange-formats',
+          title: 'Serialization: Data Exchange & Storage Formats',
+          description:
+            'JSON, MessagePack, Protobuf, Avro, and Parquet — when to choose binary vs text formats, schema evolution, and performance implications.',
+          keywords: ['serialization', 'json', 'protobuf', 'messagepack', 'avro', 'parquet', 'schema'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 13,
+          content: [
+            { type: 'heading', level: 2, text: 'What Is Serialization?', id: 'what-is-serialization' },
+            {
+              type: 'paragraph',
+              html: '<strong>Serialization</strong> converts in-memory data structures into a format that can be transmitted over a network or persisted to storage. <strong>Deserialization</strong> is the reverse. Your choice of format affects payload size, parsing speed, schema evolution, and human readability.',
+            },
+            { type: 'heading', level: 2, text: 'Text Formats', id: 'text-formats' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>JSON</strong> — universal, human-readable, no schema required. Verbose. No dates, no bytes, no integers > 2^53. Default choice for REST APIs.',
+                '<strong>XML</strong> — verbose, namespace support, XSLT transforms. Legacy enterprise, SOAP, SVG.',
+                '<strong>YAML</strong> — superset of JSON, human-friendly config. Never use for data interchange (insecure parser, slow).',
+                '<strong>CSV</strong> — flat tabular data, Excel-compatible. No types, no nesting, no schema.',
+                '<strong>TOML</strong> — config files. Better than YAML for simple hierarchies.',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Binary Formats', id: 'binary-formats' },
+            {
+              type: 'table',
+              headers: ['Format', 'Schema?', 'Size vs JSON', 'Speed vs JSON', 'Best For'],
+              rows: [
+                ['MessagePack', 'No (schema-less)', '~40% smaller', '~2x faster', 'Drop-in JSON replacement, WebSockets'],
+                ['Protocol Buffers', 'Yes (.proto)', '~70% smaller', '~5–10x faster', 'gRPC, internal microservices'],
+                ['Apache Avro', 'Yes (JSON schema)', '~60% smaller', '~4x faster', 'Kafka messages, data pipelines'],
+                ['Apache Parquet', 'Yes', '~90% smaller*', 'Fast for columns', 'Analytics, data lake storage (columnar)'],
+                ['FlatBuffers', 'Yes (.fbs)', '~70% smaller', 'Zero-copy', 'Games, embedded, mobile'],
+              ],
+            },
+            {
+              type: 'callout',
+              variant: 'note',
+              html: '<strong>Parquet</strong> is columnar — it stores all values of a column together. This makes it very fast for analytical queries (read only the columns you need) but slow for row-level inserts. Use it for batch analytics, not OLTP.',
+            },
+            { type: 'heading', level: 2, text: 'Schema Evolution', id: 'schema-evolution' },
+            {
+              type: 'paragraph',
+              html: 'Real systems evolve over time. Fields get added, renamed, or removed. Schema evolution rules determine whether old and new versions of code can still communicate.',
+            },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Backward compatible</strong> — new reader can read old data (add optional fields only)',
+                '<strong>Forward compatible</strong> — old reader can read new data (ignore unknown fields)',
+                '<strong>Full compatible</strong> — both directions work simultaneously',
+                '<strong>JSON</strong> — no built-in enforcement; discipline required',
+                '<strong>Protobuf</strong> — field numbers are the contract; never reuse a number',
+                '<strong>Avro</strong> — schema registry enforces compatibility rules (Confluent)',
+              ],
+            },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'JSON Size vs MessagePack Comparison',
+              code: `import msgpack from 'msgpackr';
+
+const data = {
+  id: 12345,
+  name: 'Alice',
+  scores: [98.5, 87.2, 92.1],
+  active: true,
+  meta: { region: 'us-east-1', tier: 2 },
+};
+
+const json = JSON.stringify(data);
+const packed = msgpack.pack(data);
+
+console.log('JSON bytes:', Buffer.byteLength(json));     // ~105 bytes
+console.log('MsgPack bytes:', packed.byteLength);        // ~65 bytes (~38% smaller)`,
+            },
+          ],
+        },
+
+        // ────────────────────────────────────────────────────────────
+        // CORS
+        // ────────────────────────────────────────────────────────────
+        {
+          slug: 'cors-cross-origin-resource-sharing',
+          title: 'CORS: Cross-Origin Resource Sharing & Web Security',
+          description:
+            'How the Same-Origin Policy protects users, why CORS exists, preflight requests, and configuring CORS correctly without opening security holes.',
+          keywords: ['cors', 'same-origin policy', 'preflight', 'access-control', 'web security', 'options request'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 13,
+          content: [
+            { type: 'heading', level: 2, text: 'The Same-Origin Policy', id: 'same-origin-policy' },
+            {
+              type: 'paragraph',
+              html: 'The <strong>Same-Origin Policy</strong> (SOP) is a browser security rule: JavaScript on <code>https://app.com</code> cannot make requests to <code>https://api.other.com</code> and read the response. Two URLs have the same origin only if <strong>protocol + host + port</strong> are all identical.',
+            },
+            {
+              type: 'callout',
+              variant: 'note',
+              html: 'SOP protects <em>users</em> from malicious sites silently reading their banking data or emails via cross-origin requests. <strong>CORS is the controlled exception</strong> — a way for servers to opt-in to cross-origin access.',
+            },
+            { type: 'heading', level: 2, text: 'How CORS Works', id: 'how-cors-works' },
+            {
+              type: 'paragraph',
+              html: 'When a browser detects a cross-origin request, it checks whether the server allows it by looking for <code>Access-Control-Allow-Origin</code> in the response. If the header is missing or doesn\'t match, the browser blocks the response (the request still hits the server — only the response is blocked).',
+            },
+            { type: 'heading', level: 2, text: 'Simple vs Preflighted Requests', id: 'preflight' },
+            {
+              type: 'comparison',
+              left: {
+                title: 'Simple Request (no preflight)',
+                color: '#22c55e',
+                items: [
+                  'Method: GET, POST, HEAD only',
+                  'Content-Type: text/plain, multipart/form-data, application/x-www-form-urlencoded',
+                  'No custom headers',
+                  'Browser sends request directly',
+                  'Checks CORS headers in response',
+                ],
+              },
+              right: {
+                title: 'Preflighted Request',
+                color: '#f59e0b',
+                items: [
+                  'Method: PUT, DELETE, PATCH',
+                  'Content-Type: application/json',
+                  'Any custom header (Authorization, X-*)',
+                  'Browser sends OPTIONS first',
+                  'Checks if server allows it before sending real request',
+                ],
+              },
+            },
+            {
+              type: 'code',
+              language: 'http',
+              title: 'CORS Preflight Exchange',
+              code: `// 1. Browser sends OPTIONS preflight
+OPTIONS /api/users HTTP/1.1
+Origin: https://app.tekivex.dev
+Access-Control-Request-Method: POST
+Access-Control-Request-Headers: Content-Type, Authorization
+
+// 2. Server responds (must include these headers)
+HTTP/1.1 204 No Content
+Access-Control-Allow-Origin: https://app.tekivex.dev
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+Access-Control-Allow-Headers: Content-Type, Authorization
+Access-Control-Max-Age: 86400   // Cache preflight for 24h
+
+// 3. Browser sends the actual request
+POST /api/users HTTP/1.1
+Origin: https://app.tekivex.dev
+Content-Type: application/json
+Authorization: Bearer ...`,
+            },
+            { type: 'heading', level: 2, text: 'Configuring CORS Correctly', id: 'config' },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'Express CORS Middleware',
+              code: `import cors from 'cors';
+
+const ALLOWED_ORIGINS = new Set([
+  'https://app.tekivex.dev',
+  'https://admin.tekivex.dev',
+  // Never add '*' for authenticated APIs
+]);
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow same-origin requests (Postman, server-to-server)
+    if (!origin || ALLOWED_ORIGINS.has(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(\`CORS blocked for origin: \${origin}\`));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Request-ID'],
+  credentials: true,      // Allow cookies / auth headers
+  maxAge: 86400,          // Cache preflight 24h
+}));`,
+            },
+            {
+              type: 'callout',
+              variant: 'caution',
+              html: '<strong>Never use <code>Access-Control-Allow-Origin: *</code> with <code>Access-Control-Allow-Credentials: true</code></strong> — browsers block it. And never whitelist <code>*</code> on authenticated endpoints — any website could silently act on behalf of your logged-in users.',
+            },
+            { type: 'heading', level: 2, text: 'Common CORS Mistakes', id: 'mistakes' },
+            {
+              type: 'table',
+              headers: ['Mistake', 'Risk', 'Fix'],
+              rows: [
+                ['Allow-Origin: *', 'Unauthenticated APIs leak publicly', 'Fine for public read-only assets only'],
+                ['Reflect request Origin blindly', 'Any site can act as allowed origin', 'Validate against allowlist'],
+                ['Skip HTTPS check', 'Allow http:// origins → downgrade attack', 'Enforce https:// in allowlist'],
+                ['Forget credentials: true on client', 'Cookies not sent cross-origin', 'Set credentials: \'include\' on fetch()'],
+                ['Long Max-Age with rotating origins', 'Stale preflight cache blocks new origins', 'Keep Max-Age ≤ 3600 during rollouts'],
+              ],
+            },
+          ],
+        },
+      ],
+    },
+
+    // ================================================================
+    // SECTION: Storage & Databases
+    // ================================================================
+    {
+      title: 'Storage & Databases',
+      topics: [
+        {
+          slug: 'storage-in-system-design-cap-theorem',
+          title: 'Introduction to Storage in System Design + CAP Theorem',
+          description:
+            'The storage landscape: block, file, and object storage. CAP theorem and why you can never have consistency, availability, and partition tolerance all at once.',
+          keywords: ['storage', 'cap theorem', 'consistency', 'availability', 'partition tolerance', 'block storage', 'object storage'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 19,
+          content: [
+            { type: 'heading', level: 2, text: 'The Storage Landscape', id: 'storage-landscape' },
+            {
+              type: 'table',
+              headers: ['Type', 'Abstraction', 'Access', 'Examples', 'Best For'],
+              rows: [
+                ['Block Storage', 'Raw blocks (like a disk)', 'Low-level, OS mounts as filesystem', 'AWS EBS, GCP Persistent Disk', 'Database volumes, VMs, high IOPS'],
+                ['File Storage', 'Files in a directory tree', 'NFS/SMB protocol', 'AWS EFS, Azure Files, NFS', 'Shared files, home dirs, legacy apps'],
+                ['Object Storage', 'Flat key-value blobs', 'HTTP REST API', 'S3, GCS, Azure Blob', 'Images, videos, backups, data lakes'],
+                ['In-Memory', 'Key-value in RAM', 'Sub-millisecond access', 'Redis, Memcached', 'Caching, session store, leaderboards'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'CAP Theorem', id: 'cap-theorem' },
+            {
+              type: 'paragraph',
+              html: '<strong>CAP Theorem</strong> (Brewer, 2000) states that a distributed system can guarantee at most <strong>two of three</strong> properties simultaneously: <strong>C</strong>onsistency, <strong>A</strong>vailability, and <strong>P</strong>artition Tolerance.',
+            },
+            {
+              type: 'table',
+              headers: ['Property', 'Meaning'],
+              rows: [
+                ['Consistency (C)', 'Every read receives the most recent write or an error — no stale reads'],
+                ['Availability (A)', 'Every request gets a (non-error) response — even if data may be stale'],
+                ['Partition Tolerance (P)', 'System continues operating even when network partitions drop messages between nodes'],
+              ],
+            },
+            {
+              type: 'callout',
+              variant: 'note',
+              html: '<strong>P is not optional in real distributed systems</strong> — network partitions happen. So the practical choice is <strong>CP</strong> (sacrifice availability during a partition) or <strong>AP</strong> (sacrifice consistency during a partition).',
+            },
+            {
+              type: 'comparison',
+              left: {
+                title: 'CP Systems',
+                color: '#6366f1',
+                items: [
+                  'Reject requests during partition',
+                  'Never return stale data',
+                  'HBase, Zookeeper, MongoDB (w/ majority writes)',
+                  'Banks, inventory, distributed locks',
+                  'Prioritise correctness over uptime',
+                ],
+              },
+              right: {
+                title: 'AP Systems',
+                color: '#22c55e',
+                items: [
+                  'Return best available (possibly stale) data',
+                  'Stay available during partition',
+                  'Cassandra, DynamoDB, CouchDB',
+                  'Shopping carts, DNS, social feeds',
+                  'Prioritise uptime over perfect accuracy',
+                ],
+              },
+            },
+            { type: 'heading', level: 2, text: 'PACELC — Beyond CAP', id: 'pacelc' },
+            {
+              type: 'paragraph',
+              html: '<strong>PACELC</strong> extends CAP: even when there is <strong>no partition</strong>, you still must choose between <strong>latency</strong> and <strong>consistency</strong>. DynamoDB defaults to eventual consistency (low latency) but offers strong consistency reads at higher cost. Most real design decisions are on this P → latency/consistency axis.',
+            },
+          ],
+        },
+
+        {
+          slug: 'database-models-sql-vs-nosql',
+          title: 'Understanding Database Models: SQL vs. NoSQL',
+          description:
+            'Relational vs document, columnar, key-value, and graph databases — data models, query patterns, scaling characteristics, and how to choose the right one.',
+          keywords: ['sql', 'nosql', 'postgresql', 'mongodb', 'cassandra', 'redis', 'database selection'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 17,
+          content: [
+            { type: 'heading', level: 2, text: 'Relational Databases (SQL)', id: 'sql' },
+            {
+              type: 'paragraph',
+              html: 'Relational databases store data in <strong>tables with rows and columns</strong>, enforce a schema, and use SQL for queries. They provide <strong>ACID</strong> transactions: Atomicity, Consistency, Isolation, Durability.',
+            },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Strengths:</strong> complex joins, strong consistency, mature tooling, flexible queries',
+                '<strong>Weaknesses:</strong> schema changes are painful; vertical scaling hits limits; not great for hierarchical or unstructured data',
+                '<strong>Examples:</strong> PostgreSQL (OLTP + OLAP), MySQL, SQLite, CockroachDB (distributed SQL)',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'NoSQL Database Types', id: 'nosql-types' },
+            {
+              type: 'table',
+              headers: ['Type', 'Data Model', 'Strengths', 'Examples'],
+              rows: [
+                ['Document', 'JSON/BSON documents', 'Flexible schema, rich queries, nested data', 'MongoDB, Firestore, CouchDB'],
+                ['Key-Value', 'key → opaque value', 'Sub-ms reads/writes, simple, infinitely scalable', 'Redis, DynamoDB, Riak'],
+                ['Wide-Column', 'Rows with dynamic columns', 'Write-heavy workloads, time-series, IoT', 'Cassandra, HBase, ScyllaDB'],
+                ['Graph', 'Nodes and edges', 'Relationship traversal, fraud detection, recommendations', 'Neo4j, Amazon Neptune, TigerGraph'],
+                ['Time-Series', 'Timestamped data points', 'Metrics, monitoring, fast range queries', 'InfluxDB, TimescaleDB, Prometheus'],
+                ['Search', 'Inverted index', 'Full-text search, facets, ranking', 'Elasticsearch, OpenSearch, Typesense'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Choosing a Database', id: 'choosing' },
+            {
+              type: 'table',
+              headers: ['Question', 'SQL', 'NoSQL'],
+              rows: [
+                ['Need ACID transactions?', '✓ Native', 'Varies (DynamoDB: single-item; MongoDB: multi-doc)'],
+                ['Schema known upfront?', '✓ Required', '✓ Optional — evolve freely'],
+                ['Complex joins / reporting?', '✓ Efficient', '✗ Expensive or impossible'],
+                ['Horizontal scale needed?', 'Hard (Citus, Vitess)', '✓ Built-in partitioning'],
+                ['Write throughput > 100K/s?', 'Difficult', '✓ Cassandra, DynamoDB'],
+                ['Graph relationships?', '✗ Many joins', '✓ Graph DB (Neo4j)'],
+              ],
+            },
+            {
+              type: 'callout',
+              variant: 'tip',
+              html: '<strong>Most production systems use both.</strong> PostgreSQL for orders and users (ACID), Redis for caching and sessions, Elasticsearch for search, S3 for files. Use the right tool for each access pattern.',
+            },
+          ],
+        },
+
+        {
+          slug: 'sharding-replication-polyglot',
+          title: 'Advanced Database Topics: Sharding, Replication & Polyglot Persistence',
+          description:
+            'Horizontal partitioning strategies, replication topologies, and multi-database architectures for high-scale production systems.',
+          keywords: ['sharding', 'replication', 'polyglot persistence', 'consistent hashing', 'read replica', 'leader follower'],
+          difficulty: 'advanced',
+          estimatedMinutes: 16,
+          content: [
+            { type: 'heading', level: 2, text: 'Database Replication', id: 'replication' },
+            {
+              type: 'paragraph',
+              html: '<strong>Replication</strong> copies data to multiple nodes for availability and read scaling. The primary node accepts writes; replicas (followers) receive the write log.',
+            },
+            {
+              type: 'table',
+              headers: ['Topology', 'Writes', 'Reads', 'Consistency', 'Use Case'],
+              rows: [
+                ['Single Primary', 'Primary only', 'Primary + replicas', 'Strong on primary, eventual on replicas', 'Most OLTP systems'],
+                ['Multi-Primary', 'Any node', 'Any node', 'Eventual (conflict resolution needed)', 'Multi-region writes, CRDTs'],
+                ['Synchronous replication', 'Primary waits for replica ACK', 'Replica reads = consistent', 'Strong', 'Financial systems, <2 nodes'],
+                ['Asynchronous replication', 'Primary doesn\'t wait', 'Replica reads may be stale', 'Eventual', 'Most common — better performance'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Sharding (Horizontal Partitioning)', id: 'sharding' },
+            {
+              type: 'paragraph',
+              html: '<strong>Sharding</strong> splits data across multiple database nodes. Each shard holds a subset. The application (or a proxy) routes each query to the correct shard.',
+            },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Range sharding</strong> — shard by ID range (0–1M on shard 1, 1M–2M on shard 2). Simple; hot spots when new data concentrates on one shard.',
+                '<strong>Hash sharding</strong> — <code>shard = hash(key) % N</code>. Even distribution; resharding when N changes is expensive.',
+                '<strong>Consistent hashing</strong> — place nodes on a ring; keys route to next node clockwise. Only K/N keys reroute when a node is added/removed. Used by Cassandra, DynamoDB.',
+                '<strong>Directory-based</strong> — lookup table maps key → shard. Flexible; the lookup table becomes a bottleneck.',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Polyglot Persistence', id: 'polyglot' },
+            {
+              type: 'paragraph',
+              html: '<strong>Polyglot persistence</strong> uses multiple database technologies in one system — each chosen for the specific access pattern it serves best.',
+            },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'Polyglot Architecture — E-Commerce Example',
+              code: `// Users & orders → PostgreSQL (ACID, complex queries)
+const user = await pg.query('SELECT * FROM users WHERE id = $1', [userId]);
+
+// Product catalog → MongoDB (flexible schema, nested attributes)
+const product = await mongo.collection('products').findOne({ _id: productId });
+
+// Sessions & cart → Redis (TTL, fast reads/writes)
+await redis.setex(\`cart:\${userId}\`, 3600, JSON.stringify(cart));
+
+// Search → Elasticsearch (full-text, facets)
+const results = await es.search({ index: 'products', query: { match: { name: q } } });
+
+// Images/videos → S3 (object storage, CDN-friendly)
+const url = s3.getSignedUrl('getObject', { Bucket: 'media', Key: imageKey });
+
+// Analytics → ClickHouse (columnar, fast aggregation)
+await ch.query(\`INSERT INTO events VALUES (\${userId}, '\${event}', now())\`);`,
+            },
+          ],
+        },
+
+        {
+          slug: 'object-storage-modern-systems',
+          title: 'Object Storage in Modern Systems',
+          description:
+            'How S3-compatible object storage works, consistency models, lifecycle policies, pre-signed URLs, and multi-region replication for media-heavy applications.',
+          keywords: ['s3', 'object storage', 'blob storage', 'presigned url', 'bucket', 'lifecycle policy'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 13,
+          content: [
+            { type: 'heading', level: 2, text: 'What Is Object Storage?', id: 'object-storage' },
+            {
+              type: 'paragraph',
+              html: 'Object storage treats data as <strong>immutable blobs</strong> identified by a key (like a filename). Unlike block or file storage, there is no directory tree — just flat namespaces called <strong>buckets</strong>. Access is via HTTP REST (GET/PUT/DELETE).',
+            },
+            { type: 'heading', level: 2, text: 'Key Features', id: 'key-features' },
+            {
+              type: 'table',
+              headers: ['Feature', 'Description'],
+              rows: [
+                ['Infinite scale', 'Petabytes stored without pre-provisioning capacity'],
+                ['Durability', '11 nines (99.999999999%) — data replicated across ≥3 AZs'],
+                ['Eventual consistency', 'Strong read-after-write for new objects; eventually consistent for overwrite/delete'],
+                ['Versioning', 'Keep all versions; never accidentally delete production data'],
+                ['Lifecycle policies', 'Auto-transition to cheaper tiers (S3 → S3-IA → Glacier) after N days'],
+                ['Presigned URLs', 'Time-limited signed URLs for secure direct browser upload/download'],
+                ['Multipart upload', 'Upload large files in parallel chunks; resume on failure'],
+              ],
+            },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'Presigned Upload URL (AWS SDK v3)',
+              code: `import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+
+const s3 = new S3Client({ region: 'us-east-1' });
+
+// Generate a presigned URL valid for 5 minutes
+// Client uploads directly to S3 — your server never touches the bytes
+export async function getUploadUrl(key: string, contentType: string) {
+  const command = new PutObjectCommand({
+    Bucket: process.env.MEDIA_BUCKET!,
+    Key: key,
+    ContentType: contentType,
+    // Enforce max file size via Content-Length condition
+  });
+
+  return getSignedUrl(s3, command, { expiresIn: 300 }); // 5 min
+}
+
+// After upload, client calls your API to confirm
+// You then serve the object via CloudFront (CDN), not S3 directly`,
+            },
+            {
+              type: 'callout',
+              variant: 'tip',
+              html: '<strong>Never serve objects directly from S3.</strong> Put CloudFront (or any CDN) in front of S3. This gives you edge caching, HTTPS, custom domains, and shields S3 from direct traffic — cutting egress costs by 60–90%.',
+            },
+          ],
+        },
+
+        {
+          slug: 'file-systems-and-distributed-storage',
+          title: 'File Systems and Distributed Storage',
+          description:
+            'Local filesystems, NFS/NAS, distributed filesystems (HDFS, GlusterFS, Ceph), and how storage is architected in large-scale data platforms.',
+          keywords: ['hdfs', 'distributed filesystem', 'nfs', 'ceph', 'glusterfs', 'storage nodes'],
+          difficulty: 'advanced',
+          estimatedMinutes: 11,
+          content: [
+            { type: 'heading', level: 2, text: 'Storage Hierarchy', id: 'storage-hierarchy' },
+            {
+              type: 'table',
+              headers: ['Layer', 'Latency', 'Size', 'Examples'],
+              rows: [
+                ['CPU registers', '<1 ns', 'Bytes', 'In-chip'],
+                ['L1/L2/L3 Cache', '1–30 ns', 'KB–MB', 'In-chip SRAM'],
+                ['RAM', '100 ns', 'GB', 'DDR5'],
+                ['NVMe SSD', '100 µs', 'TB', 'Local SSD, AWS GP3'],
+                ['SATA SSD / HDD', '1–10 ms', 'TB–PB', 'Object storage backends'],
+                ['Distributed storage', '1–100 ms', 'Exabytes', 'HDFS, Ceph, S3'],
+                ['Tape / Archive', 'Hours', 'Unlimited', 'Glacier, LTO tape'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'HDFS (Hadoop Distributed File System)', id: 'hdfs' },
+            {
+              type: 'paragraph',
+              html: 'HDFS stores very large files across many commodity machines by splitting them into 128 MB blocks. A <strong>NameNode</strong> (metadata) tracks where each block lives. Multiple <strong>DataNodes</strong> store the actual blocks with a 3x replication factor.',
+            },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                'Designed for <strong>write-once, read-many</strong> access patterns',
+                '<strong>Data locality</strong> — MapReduce/Spark moves computation to the data node, not vice versa',
+                '<strong>Rack awareness</strong> — replicas placed across racks for fault tolerance',
+                'NameNode is a SPOF — use High-Availability NameNode with Zookeeper in production',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Ceph', id: 'ceph' },
+            {
+              type: 'paragraph',
+              html: '<strong>Ceph</strong> is an open-source, unified distributed storage system that provides <strong>object storage</strong> (compatible with S3), <strong>block storage</strong> (RBD for VMs), and <strong>file storage</strong> (CephFS). Used by OpenStack, Kubernetes, and many cloud providers.',
+            },
+            {
+              type: 'callout',
+              variant: 'note',
+              html: 'Ceph\'s CRUSH algorithm maps data to storage devices deterministically without a central lookup table — removing the single-point-of-failure bottleneck that plagues other distributed filesystems.',
+            },
+          ],
+        },
+
+        {
+          slug: 'big-data-fundamentals',
+          title: 'Big Data Fundamentals',
+          description:
+            'The 5 Vs, batch vs stream processing, Lambda and Kappa architectures, and the modern data lakehouse — how hyperscalers process petabytes.',
+          keywords: ['big data', 'lambda architecture', 'kappa architecture', 'data lakehouse', 'spark', 'kafka', 'flink'],
+          difficulty: 'advanced',
+          estimatedMinutes: 12,
+          content: [
+            { type: 'heading', level: 2, text: 'The 5 Vs of Big Data', id: '5-vs' },
+            {
+              type: 'table',
+              headers: ['V', 'Meaning', 'Example Challenge'],
+              rows: [
+                ['Volume', 'Terabytes to petabytes', 'Can\'t fit in a single machine\'s RAM or disk'],
+                ['Velocity', 'High rate of data arrival', 'Millions of events/second from IoT sensors'],
+                ['Variety', 'Structured, semi-structured, unstructured', 'JSON logs + CSV exports + video files'],
+                ['Veracity', 'Data quality and accuracy', 'Missing values, duplicate events, schema drift'],
+                ['Value', 'Business insight from data', 'Actionable analytics that justify storage costs'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Batch vs Stream Processing', id: 'batch-vs-stream' },
+            {
+              type: 'comparison',
+              left: {
+                title: 'Batch Processing',
+                color: '#6366f1',
+                items: [
+                  'Process a finite dataset all at once',
+                  'High throughput, high latency (hours)',
+                  'Apache Spark, Hadoop MapReduce',
+                  'ETL jobs, ML training, monthly reports',
+                  'Cheaper to run, simpler to debug',
+                ],
+              },
+              right: {
+                title: 'Stream Processing',
+                color: '#22c55e',
+                items: [
+                  'Process events as they arrive',
+                  'Low latency (ms to seconds)',
+                  'Apache Kafka + Flink, Spark Streaming',
+                  'Real-time dashboards, fraud detection',
+                  'More complex, more infrastructure',
+                ],
+              },
+            },
+            { type: 'heading', level: 2, text: 'Lambda Architecture', id: 'lambda' },
+            {
+              type: 'paragraph',
+              html: 'Lambda architecture runs <strong>two processing paths</strong>: a <strong>batch layer</strong> (accurate, slow) and a <strong>speed layer</strong> (approximate, fast). A <strong>serving layer</strong> merges results. The downside: you maintain two codebases.',
+            },
+            { type: 'heading', level: 2, text: 'Modern Data Lakehouse', id: 'lakehouse' },
+            {
+              type: 'paragraph',
+              html: 'The <strong>Data Lakehouse</strong> (Databricks Delta Lake, Apache Iceberg, Apache Hudi) unifies the cheap storage of a data lake (S3/GCS) with the ACID transactions and schema enforcement of a data warehouse. One system, one codebase, one truth.',
+            },
+            {
+              type: 'table',
+              headers: ['Layer', 'Technology', 'Role'],
+              rows: [
+                ['Ingestion', 'Kafka, Kinesis, Firehose', 'Stream events from services'],
+                ['Storage', 'S3 + Iceberg/Delta', 'Cheap, durable, queryable'],
+                ['Processing', 'Spark, Flink, dbt', 'Transform raw → curated → aggregated'],
+                ['Query', 'Trino, Athena, BigQuery', 'Ad-hoc SQL on PB-scale data'],
+                ['BI / ML', 'Tableau, Looker, SageMaker', 'Consume insights'],
+              ],
+            },
+          ],
+        },
+      ],
+    },
+
+    // ================================================================
+    // SECTION: Performance
+    // ================================================================
+    {
+      title: 'Performance',
+      topics: [
+        {
+          slug: 'introduction-to-system-performance',
+          title: 'Introduction to System Performance',
+          description:
+            'Latency, throughput, and percentiles — how to measure and reason about performance, identify bottlenecks, and use profiling tools effectively.',
+          keywords: ['performance', 'latency', 'throughput', 'p99', 'bottleneck', 'profiling', 'apdex'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 19,
+          content: [
+            { type: 'heading', level: 2, text: 'The Performance Triangle', id: 'performance-triangle' },
+            {
+              type: 'paragraph',
+              html: 'System performance is measured by three interrelated properties: <strong>Latency</strong> (how fast?), <strong>Throughput</strong> (how many?), and <strong>Resource Utilization</strong> (at what cost?). Optimising one usually affects the others.',
+            },
+            { type: 'heading', level: 2, text: 'Latency Targets', id: 'latency-targets' },
+            {
+              type: 'table',
+              headers: ['Operation', 'Typical Latency', 'Order of Magnitude'],
+              rows: [
+                ['L1 Cache read', '1 ns', '1'],
+                ['L3 Cache read', '10 ns', '10×'],
+                ['RAM read', '100 ns', '100×'],
+                ['SSD random read', '100 µs', '100,000×'],
+                ['Same DC network round-trip', '500 µs', '500,000×'],
+                ['Redis GET (same region)', '1 ms', '1,000,000×'],
+                ['DB query (indexed)', '5–50 ms', '5–50M×'],
+                ['Cross-continent HTTP', '150–250 ms', '150–250M×'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Percentiles Over Averages', id: 'percentiles' },
+            {
+              type: 'paragraph',
+              html: '<strong>Never use average latency alone.</strong> A 10ms average can hide a 2-second p99. Use percentiles: <strong>p50</strong> (median), <strong>p95</strong>, <strong>p99</strong>, <strong>p999</strong>. High-value users often experience the worst latency — they make the most requests.',
+            },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'Measuring p99 Latency',
+              code: `// Using Prometheus histogram (preferred in production)
+import { Histogram, register } from 'prom-client';
+
+const httpLatency = new Histogram({
+  name: 'http_request_duration_ms',
+  help: 'HTTP request latency in milliseconds',
+  labelNames: ['method', 'route', 'status'],
+  // Buckets optimised for web APIs
+  buckets: [1, 5, 10, 25, 50, 100, 250, 500, 1000, 2500],
+});
+
+app.use((req, res, next) => {
+  const end = httpLatency.startTimer();
+  res.on('finish', () =>
+    end({ method: req.method, route: req.route?.path, status: res.statusCode })
+  );
+  next();
+});
+
+// Query p99 in PromQL:
+// histogram_quantile(0.99, rate(http_request_duration_ms_bucket[5m]))`,
+            },
+            { type: 'heading', level: 2, text: 'Finding Bottlenecks (USE Method)', id: 'use-method' },
+            {
+              type: 'paragraph',
+              html: 'Brendan Gregg\'s <strong>USE Method</strong>: for every resource (CPU, memory, network, disk, DB pool), check <strong>Utilization</strong> (% busy), <strong>Saturation</strong> (queue depth), and <strong>Errors</strong>. The first saturated resource is your bottleneck.',
+            },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>CPU</strong> — high user% suggests compute-bound; high sys% suggests syscall overhead',
+                '<strong>Memory</strong> — high swap usage = out of RAM; GC pauses in JVM apps',
+                '<strong>Network</strong> — check bandwidth, packet loss, retransmits',
+                '<strong>DB connection pool</strong> — pool exhausted = requests queue behind DB calls',
+                '<strong>External APIs</strong> — downstream latency directly affects your p99',
+              ],
+            },
+          ],
+        },
+
+        {
+          slug: 'caching-for-speed-optimization',
+          title: 'Caching for Speed Optimization',
+          description:
+            'Cache placement strategies, eviction policies, cache stampede prevention, and when caching hurts more than it helps.',
+          keywords: ['caching', 'redis', 'cache-aside', 'write-through', 'eviction', 'cache stampede', 'ttl'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 15,
+          content: [
+            { type: 'heading', level: 2, text: 'Cache Placement', id: 'cache-placement' },
+            {
+              type: 'table',
+              headers: ['Location', 'Latency', 'Examples', 'Tradeoff'],
+              rows: [
+                ['Client-side (browser)', '0 ms (cache hit)', 'HTTP Cache-Control, Service Worker', 'No control after delivery; stale data risk'],
+                ['CDN / Edge', '1–10 ms', 'Cloudflare, CloudFront', 'Great for static/public content; complexity for personalised'],
+                ['Reverse proxy', '1–5 ms', 'Nginx proxy_cache, Varnish', 'Shared across all clients; good for read-heavy APIs'],
+                ['Application-level', '< 1 ms (in-process)', 'In-memory Map, LRU cache', 'Not shared across instances; per-process memory'],
+                ['Distributed cache', '1–3 ms', 'Redis, Memcached', 'Shared across all servers; network overhead'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Cache Strategies', id: 'cache-strategies' },
+            {
+              type: 'comparison',
+              left: {
+                title: 'Cache-Aside (Lazy Loading)',
+                color: '#6366f1',
+                items: [
+                  'Read: check cache → miss → fetch DB → populate cache',
+                  'Write: update DB, invalidate cache',
+                  'Cache only what is requested',
+                  'Risk: cache stampede on miss',
+                  'Best for: read-heavy, irregular access',
+                ],
+              },
+              right: {
+                title: 'Write-Through',
+                color: '#22c55e',
+                items: [
+                  'Write: update cache AND DB together',
+                  'Read: always from cache (always warm)',
+                  'No stale reads',
+                  'Risk: cache bloat (write-only data cached)',
+                  'Best for: write + read workloads',
+                ],
+              },
+            },
+            { type: 'heading', level: 2, text: 'Cache Stampede Prevention', id: 'stampede' },
+            {
+              type: 'paragraph',
+              html: 'A <strong>cache stampede</strong> occurs when a popular cached item expires and hundreds of concurrent requests all miss simultaneously, all hitting the database at once. Solutions:',
+            },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'Prevent Cache Stampede with Mutex Lock',
+              code: `async function getCachedProduct(id: string) {
+  const cached = await redis.get(\`product:\${id}\`);
+  if (cached) return JSON.parse(cached);
+
+  // Acquire a lock — only one request fetches from DB
+  const lock = await redis.set(\`lock:product:\${id}\`, 1, 'NX', 'PX', 5000);
+
+  if (!lock) {
+    // Another request is fetching — wait and retry
+    await sleep(100);
+    return getCachedProduct(id); // Retry
+  }
+
+  try {
+    const product = await db.products.findOne(id);
+    // Add 5–10% jitter to prevent synchronized expiry across keys
+    const ttl = 300 + Math.floor(Math.random() * 30);
+    await redis.setex(\`product:\${id}\`, ttl, JSON.stringify(product));
+    return product;
+  } finally {
+    await redis.del(\`lock:product:\${id}\`);
+  }
+}`,
+            },
+            { type: 'heading', level: 2, text: 'Eviction Policies', id: 'eviction' },
+            {
+              type: 'table',
+              headers: ['Policy', 'Evicts', 'Best For'],
+              rows: [
+                ['LRU (Least Recently Used)', 'Longest-unused item', 'General-purpose; temporal locality'],
+                ['LFU (Least Frequently Used)', 'Least-accessed item', 'Frequency-based access (product catalog)'],
+                ['FIFO', 'Oldest entry', 'Simple queue-like patterns'],
+                ['TTL-based', 'Expired entries', 'Session tokens, rate limit counters'],
+                ['Random', 'Random item', 'When access pattern is unknown'],
+              ],
+            },
+          ],
+        },
+
+        {
+          slug: 'messaging-queues-for-decoupling',
+          title: 'Messaging & Queues for Decoupling',
+          description:
+            'Message queues vs pub/sub, Kafka vs RabbitMQ vs SQS, delivery guarantees, dead-letter queues, and how async messaging unlocks horizontal scaling.',
+          keywords: ['message queue', 'kafka', 'rabbitmq', 'sqs', 'pub/sub', 'dead letter queue', 'at-least-once'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 16,
+          content: [
+            { type: 'heading', level: 2, text: 'Why Messaging?', id: 'why-messaging' },
+            {
+              type: 'paragraph',
+              html: 'Synchronous service-to-service calls create <strong>tight coupling</strong> — if the downstream service is slow or down, the caller suffers. <strong>Message queues</strong> decouple producers from consumers: the producer writes to a queue and returns immediately; consumers process at their own pace.',
+            },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Temporal decoupling</strong> — producer and consumer don\'t need to be online simultaneously',
+                '<strong>Load leveling</strong> — queue absorbs traffic spikes; consumers process at a steady rate',
+                '<strong>Retry & resilience</strong> — failed messages stay in queue and retry automatically',
+                '<strong>Fan-out</strong> — one event processed by multiple independent consumers',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Message Queue vs Pub/Sub', id: 'queue-vs-pubsub' },
+            {
+              type: 'comparison',
+              left: {
+                title: 'Point-to-Point Queue',
+                color: '#6366f1',
+                items: [
+                  'One message consumed by one consumer',
+                  'Message deleted after ACK',
+                  'Load balancing across consumers natural',
+                  'RabbitMQ, SQS, ActiveMQ',
+                  'Order fulfillment, job processing',
+                ],
+              },
+              right: {
+                title: 'Pub/Sub (Topic)',
+                color: '#22c55e',
+                items: [
+                  'One message delivered to ALL subscribers',
+                  'Message retained for all subscriber groups',
+                  'Fan-out: email + analytics + audit all get it',
+                  'Kafka, SNS, Google Pub/Sub',
+                  'Events: order placed, user signed up',
+                ],
+              },
+            },
+            {
+              type: 'table',
+              headers: ['Feature', 'Kafka', 'RabbitMQ', 'AWS SQS'],
+              rows: [
+                ['Model', 'Log-based pub/sub', 'AMQP queue/exchange', 'Managed point-to-point'],
+                ['Throughput', 'Millions/sec', '50K–100K/sec', 'Thousands/sec'],
+                ['Retention', 'Configurable (days/forever)', 'Until ACK', 'Up to 14 days'],
+                ['Replay', 'Yes — rewind offset', 'No', 'No'],
+                ['Ordering', 'Per partition', 'FIFO queue option', 'FIFO queue option'],
+                ['Best For', 'Event streaming, audit log, CDC', 'Complex routing, RPC, priority queues', 'Serverless, simple async jobs'],
+              ],
+            },
+            {
+              type: 'callout',
+              variant: 'caution',
+              html: '<strong>Design for at-least-once delivery.</strong> All major queues guarantee at-least-once (not exactly-once). Make your consumers <strong>idempotent</strong> — processing the same message twice should be safe. Use a deduplication key or check for prior processing.',
+            },
+          ],
+        },
+
+        {
+          slug: 'concurrency-and-parallelism',
+          title: 'Concurrency & Parallelism',
+          description:
+            'Threads vs async/await vs processes, the event loop, race conditions, locks, optimistic concurrency, and designing systems that safely handle concurrent requests.',
+          keywords: ['concurrency', 'parallelism', 'race condition', 'mutex', 'optimistic locking', 'event loop', 'async'],
+          difficulty: 'advanced',
+          estimatedMinutes: 17,
+          content: [
+            { type: 'heading', level: 2, text: 'Concurrency vs Parallelism', id: 'concurrency-vs-parallelism' },
+            {
+              type: 'comparison',
+              left: {
+                title: 'Concurrency',
+                color: '#6366f1',
+                items: [
+                  'Multiple tasks making progress (interleaved)',
+                  'Single CPU, time-sliced',
+                  'Node.js event loop, goroutines',
+                  'I/O-bound work benefits most',
+                  '"Dealing with many things at once"',
+                ],
+              },
+              right: {
+                title: 'Parallelism',
+                color: '#22c55e',
+                items: [
+                  'Multiple tasks executing simultaneously',
+                  'Multiple CPU cores',
+                  'Worker threads, multi-process, SIMD',
+                  'CPU-bound work benefits most',
+                  '"Doing many things at once"',
+                ],
+              },
+            },
+            { type: 'heading', level: 2, text: 'Race Conditions', id: 'race-conditions' },
+            {
+              type: 'paragraph',
+              html: 'A <strong>race condition</strong> occurs when the correctness of a result depends on the relative timing of concurrent operations. The classic example is two requests both reading a balance, both seeing $100, both debiting $60, and both succeeding — leaving a negative balance.',
+            },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'Fixing a Race Condition with DB-Level Locking',
+              code: `// ❌ Race condition: two requests both read balance = 100
+async function withdrawUnsafe(userId: string, amount: number) {
+  const { balance } = await db.query('SELECT balance FROM accounts WHERE id = $1', [userId]);
+  if (balance < amount) throw new Error('Insufficient funds');
+  await db.query('UPDATE accounts SET balance = balance - $1 WHERE id = $2', [amount, userId]);
+}
+
+// ✅ Option 1: Atomic update with constraint check
+async function withdrawAtomic(userId: string, amount: number) {
+  const result = await db.query(
+    'UPDATE accounts SET balance = balance - $1 WHERE id = $2 AND balance >= $1 RETURNING balance',
+    [amount, userId]
+  );
+  if (result.rowCount === 0) throw new Error('Insufficient funds');
+}
+
+// ✅ Option 2: Optimistic locking with version field
+async function withdrawOptimistic(userId: string, amount: number) {
+  const { balance, version } = await db.query('SELECT balance, version FROM accounts WHERE id = $1', [userId]);
+  if (balance < amount) throw new Error('Insufficient funds');
+  const result = await db.query(
+    'UPDATE accounts SET balance = $1, version = version + 1 WHERE id = $2 AND version = $3',
+    [balance - amount, userId, version]
+  );
+  if (result.rowCount === 0) throw new Error('Concurrent update detected — retry');
+}`,
+            },
+            { type: 'heading', level: 2, text: 'Distributed Locks', id: 'distributed-locks' },
+            {
+              type: 'paragraph',
+              html: 'In distributed systems, a mutex inside one process doesn\'t prevent another server from running the same code. Use <strong>Redis SETNX</strong> (or Redlock) for distributed locking.',
+            },
+            {
+              type: 'callout',
+              variant: 'caution',
+              html: '<strong>Distributed locks are not a silver bullet.</strong> Clock drift, network partitions, and GC pauses can all cause lock expiry before work completes. Prefer <strong>idempotent operations + optimistic concurrency</strong> over distributed locks when possible.',
+            },
+          ],
+        },
+
+        {
+          slug: 'database-performance-optimization',
+          title: 'Database Performance Optimization Techniques',
+          description:
+            'Indexing strategies, query planning, N+1 prevention, connection pooling, read replicas, and EXPLAIN ANALYZE — practical techniques for production databases.',
+          keywords: ['database performance', 'indexing', 'query optimization', 'connection pooling', 'n+1', 'explain analyze'],
+          difficulty: 'advanced',
+          estimatedMinutes: 25,
+          content: [
+            { type: 'heading', level: 2, text: 'Indexing Strategy', id: 'indexing' },
+            {
+              type: 'paragraph',
+              html: 'An <strong>index</strong> is a data structure (usually B-tree) that speeds up reads at the cost of write overhead and storage. The wrong index strategy is the #1 cause of slow production queries.',
+            },
+            {
+              type: 'table',
+              headers: ['Index Type', 'Use Case', 'Example'],
+              rows: [
+                ['B-tree (default)', 'Equality and range queries', 'WHERE created_at > \'2024-01-01\''],
+                ['Hash', 'Equality-only (faster than B-tree)', 'WHERE user_id = $1 (exact match)'],
+                ['Composite', 'Multi-column filters (order matters)', '(tenant_id, created_at) — filter by tenant first'],
+                ['Partial', 'Index a subset of rows', 'WHERE status = \'active\' — don\'t index archived rows'],
+                ['GIN/GiST', 'Full-text, JSON, arrays, geospatial', 'WHERE tags @> ARRAY[\'react\']'],
+                ['Covering', 'All SELECT columns in index (index-only scan)', 'CREATE INDEX ON orders (user_id) INCLUDE (total)'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Reading EXPLAIN ANALYZE', id: 'explain' },
+            {
+              type: 'code',
+              language: 'sql',
+              title: 'EXPLAIN ANALYZE — Find Sequential Scans',
+              code: `EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT)
+SELECT o.id, o.total, u.email
+FROM orders o
+JOIN users u ON o.user_id = u.id
+WHERE o.status = 'pending'
+  AND o.created_at > NOW() - INTERVAL '7 days'
+ORDER BY o.created_at DESC
+LIMIT 100;
+
+-- 🔴 Warning signs to fix:
+--   Seq Scan on orders   → missing index on (status, created_at)
+--   Hash Join (rows=500K) → consider (user_id) index on orders
+--   Buffers: read=50000  → 50K blocks read from disk (slow)
+
+-- ✅ Add composite index:
+CREATE INDEX CONCURRENTLY idx_orders_status_created
+  ON orders (status, created_at DESC)
+  WHERE status = 'pending'; -- partial index`,
+            },
+            { type: 'heading', level: 2, text: 'Connection Pooling', id: 'connection-pooling' },
+            {
+              type: 'paragraph',
+              html: 'Every database connection has overhead (memory, auth, TCP). Opening a new connection per request at high load kills performance. Use a <strong>connection pool</strong> to reuse a fixed number of persistent connections.',
+            },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'PgBouncer + node-postgres Pool Config',
+              code: `import { Pool } from 'pg';
+
+// Application-level pool (connects to PgBouncer in production)
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  max: 20,            // Max connections per app instance
+  idleTimeoutMillis: 10_000,
+  connectionTimeoutMillis: 3_000,
+});
+
+// Rule of thumb: max_connections = (2 * CPU cores) + disk spindles
+// PgBouncer sits between app (many connections) and Postgres (few connections)
+// Transaction-mode pooling: connections released after each transaction`,
+            },
+            {
+              type: 'callout',
+              variant: 'tip',
+              html: 'The <strong>N+1 query problem</strong>: loading 100 users then querying orders for each one = 101 queries. Fix with a JOIN or DataLoader (batch + deduplicate). This single issue is responsible for more production slowdowns than any other.',
+            },
+          ],
+        },
+      ],
+    },
+
+    // ================================================================
+    // SECTION: Reliability, Availability & Disaster Recovery
+    // ================================================================
+    {
+      title: 'Reliability, Availability & Disaster Recovery',
+      topics: [
+        {
+          slug: 'introduction-to-system-reliability',
+          title: 'Introduction to System Reliability',
+          description:
+            'SLAs, SLOs, SLIs, error budgets, and the Site Reliability Engineering (SRE) philosophy — how to define and measure reliability for production systems.',
+          keywords: ['sla', 'slo', 'sli', 'error budget', 'reliability', 'sre', 'uptime', 'nines'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 17,
+          content: [
+            { type: 'heading', level: 2, text: 'SLI, SLO, and SLA', id: 'sli-slo-sla' },
+            {
+              type: 'table',
+              headers: ['Term', 'Meaning', 'Example'],
+              rows: [
+                ['SLI (Service Level Indicator)', 'A measured metric of service behaviour', 'Request success rate = successful_requests / total_requests'],
+                ['SLO (Service Level Objective)', 'Internal target for an SLI', 'Success rate ≥ 99.9% over 30 days'],
+                ['SLA (Service Level Agreement)', 'External contract with penalties for breach', 'If uptime < 99.9%, customer gets 25% credit'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'The Nines', id: 'nines' },
+            {
+              type: 'table',
+              headers: ['Availability', 'Monthly Downtime', 'Yearly Downtime', 'Achievable With'],
+              rows: [
+                ['99% (2 nines)', '7.3 hours', '3.65 days', 'Single server, manual deploys'],
+                ['99.9% (3 nines)', '43.8 min', '8.76 hours', 'Basic HA with load balancer'],
+                ['99.95%', '21.9 min', '4.38 hours', 'Multi-AZ, auto-failover'],
+                ['99.99% (4 nines)', '4.4 min', '52.6 min', 'Active-active multi-region'],
+                ['99.999% (5 nines)', '26 sec', '5.26 min', 'Extremely complex — Google-scale'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Error Budgets', id: 'error-budget' },
+            {
+              type: 'paragraph',
+              html: 'An <strong>error budget</strong> is the amount of unreliability you are allowed before breaching your SLO. If your SLO is 99.9%, you have a 0.1% error budget (43.8 min/month). Teams can spend error budget on risky releases; when it runs out, feature deployments pause until reliability improves.',
+            },
+            {
+              type: 'callout',
+              variant: 'tip',
+              html: 'Error budgets align engineering and product: reliability isn\'t just "ops\' problem" — if product ships too fast and burns the budget, new features pause. This <strong>incentivises reliability at the team level</strong>.',
+            },
+            { type: 'heading', level: 2, text: 'Common SLIs to Measure', id: 'common-slis' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Availability</strong> — % of time the service returns non-5xx responses',
+                '<strong>Latency</strong> — % of requests served in &lt; N ms (e.g. 95% under 200ms)',
+                '<strong>Error rate</strong> — % of requests returning 5xx',
+                '<strong>Saturation</strong> — % CPU / memory / queue depth utilised',
+                '<strong>Freshness</strong> — for data pipelines, how old is the latest processed record?',
+              ],
+            },
+          ],
+        },
+
+        {
+          slug: 'high-availability-fault-tolerance-failover',
+          title: 'High Availability, Fault Tolerance & Failover',
+          description:
+            'Redundancy patterns, active-passive vs active-active, health checks, circuit breakers, and designing systems that survive single and multi-node failures.',
+          keywords: ['high availability', 'fault tolerance', 'failover', 'circuit breaker', 'redundancy', 'active-active'],
+          difficulty: 'advanced',
+          estimatedMinutes: 16,
+          content: [
+            { type: 'heading', level: 2, text: 'HA Design Principles', id: 'ha-principles' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Eliminate single points of failure (SPOF)</strong> — every critical component has at least one standby',
+                '<strong>Design for failure</strong> — assume any component will fail; the system must degrade gracefully',
+                '<strong>Fast detection</strong> — health checks catch failures in seconds, not minutes',
+                '<strong>Fast recovery</strong> — automated failover restores service without human intervention',
+                '<strong>Test failures in production</strong> — Chaos Engineering (Netflix Chaos Monkey)',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Active-Passive vs Active-Active', id: 'active-passive-active' },
+            {
+              type: 'comparison',
+              left: {
+                title: 'Active-Passive',
+                color: '#6366f1',
+                items: [
+                  'One primary handles all traffic',
+                  'Standby ready to take over',
+                  'Failover time: 15–60 seconds',
+                  'Simpler to implement and reason about',
+                  'Primary DB + read replicas',
+                ],
+              },
+              right: {
+                title: 'Active-Active',
+                color: '#22c55e',
+                items: [
+                  'All nodes handle live traffic',
+                  'Instant failover (just stop routing)',
+                  'Failover time: < 1 second',
+                  'Complex conflict resolution needed',
+                  'Multi-region load balanced APIs',
+                ],
+              },
+            },
+            { type: 'heading', level: 2, text: 'Circuit Breaker Pattern', id: 'circuit-breaker' },
+            {
+              type: 'paragraph',
+              html: 'A <strong>circuit breaker</strong> wraps calls to an external service. After N consecutive failures, it <strong>opens</strong> and immediately returns an error without calling the service — protecting it from cascading failures and giving it time to recover.',
+            },
+            {
+              type: 'flow',
+              steps: [
+                { label: 'Closed', desc: 'Normal operation. Calls pass through. Failures counted.', color: '#22c55e' },
+                { label: 'Open', desc: 'Failure threshold exceeded. All calls fail-fast immediately.', color: '#ef4444' },
+                { label: 'Half-Open', desc: 'After timeout, allow one probe request. Success → Close. Fail → Open.', color: '#f59e0b' },
+              ],
+            },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'Simple Circuit Breaker Implementation',
+              code: `class CircuitBreaker {
+  private failures = 0;
+  private state: 'closed' | 'open' | 'half-open' = 'closed';
+  private nextRetry = 0;
+
+  constructor(
+    private threshold = 5,
+    private timeout = 30_000
+  ) {}
+
+  async call<T>(fn: () => Promise<T>): Promise<T> {
+    if (this.state === 'open') {
+      if (Date.now() < this.nextRetry) throw new Error('Circuit open');
+      this.state = 'half-open';
+    }
+    try {
+      const result = await fn();
+      this.onSuccess();
+      return result;
+    } catch (err) {
+      this.onFailure();
+      throw err;
+    }
+  }
+
+  private onSuccess() { this.failures = 0; this.state = 'closed'; }
+  private onFailure() {
+    this.failures++;
+    if (this.failures >= this.threshold) {
+      this.state = 'open';
+      this.nextRetry = Date.now() + this.timeout;
+    }
+  }
+}`,
+            },
+          ],
+        },
+
+        {
+          slug: 'backup-and-recovery-strategies',
+          title: 'Backup & Recovery Strategies',
+          description:
+            'RPO vs RTO, full/incremental/differential backups, point-in-time recovery, backup validation, and the 3-2-1 rule for production data.',
+          keywords: ['backup', 'recovery', 'rpo', 'rto', 'point-in-time recovery', 'pitr', '3-2-1 rule'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 11,
+          content: [
+            { type: 'heading', level: 2, text: 'RPO and RTO', id: 'rpo-rto' },
+            {
+              type: 'comparison',
+              left: {
+                title: 'RPO — Recovery Point Objective',
+                color: '#6366f1',
+                items: [
+                  'How much data can we afford to lose?',
+                  'Measured in time: "max 1 hour of data loss"',
+                  'Determines backup frequency',
+                  'Lower RPO = more frequent backups = higher cost',
+                  'Banking: RPO = 0 (no data loss)',
+                ],
+              },
+              right: {
+                title: 'RTO — Recovery Time Objective',
+                color: '#22c55e',
+                items: [
+                  'How long can the system be down?',
+                  'Measured in time: "restore within 4 hours"',
+                  'Determines recovery infrastructure',
+                  'Lower RTO = warm standby = higher cost',
+                  'E-commerce: RTO = 15 min',
+                ],
+              },
+            },
+            { type: 'heading', level: 2, text: 'Backup Types', id: 'backup-types' },
+            {
+              type: 'table',
+              headers: ['Type', 'What It Copies', 'Speed', 'Restore Speed', 'Storage'],
+              rows: [
+                ['Full', 'Everything', 'Slow', 'Fast (single set)', 'Large'],
+                ['Incremental', 'Changes since last backup (any type)', 'Fast', 'Slow (chain required)', 'Smallest'],
+                ['Differential', 'Changes since last FULL backup', 'Medium', 'Medium (full + diff)', 'Medium'],
+                ['Continuous (PITR)', 'WAL stream / transaction log', 'Continuous', 'Exact point in time', 'Moderate'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'The 3-2-1 Rule', id: '3-2-1' },
+            {
+              type: 'list',
+              ordered: true,
+              items: [
+                '<strong>3 copies</strong> of your data (1 primary + 2 backups)',
+                '<strong>2 different storage media</strong> (e.g. local SSD + cloud object storage)',
+                '<strong>1 offsite copy</strong> (different geographic region — survives fire, flood, datacenter failure)',
+              ],
+            },
+            {
+              type: 'callout',
+              variant: 'caution',
+              html: '<strong>A backup you\'ve never tested is not a backup.</strong> Run restore drills quarterly. The worst time to discover your backup is corrupt or your restore procedure is broken is during an actual incident at 3 AM.',
+            },
+          ],
+        },
+
+        {
+          slug: 'disaster-recovery-in-practice',
+          title: 'Disaster Recovery in Practice',
+          description:
+            'DR strategies from cold standby to active-active, runbooks, failover drills, chaos engineering, and real-world DR decision frameworks.',
+          keywords: ['disaster recovery', 'dr', 'failover', 'chaos engineering', 'runbook', 'multi-region'],
+          difficulty: 'advanced',
+          estimatedMinutes: 9,
+          content: [
+            { type: 'heading', level: 2, text: 'DR Tiers by Cost vs Recovery Speed', id: 'dr-tiers' },
+            {
+              type: 'table',
+              headers: ['Strategy', 'RTO', 'RPO', 'Cost', 'How'],
+              rows: [
+                ['Cold Standby', 'Hours', 'Hours', '$', 'Restore from backup into freshly provisioned infra'],
+                ['Warm Standby', '15–30 min', 'Minutes', '$$$', 'Scaled-down replica running; scale up on failover'],
+                ['Hot Standby (Active-Passive)', '< 5 min', 'Seconds', '$$$$', 'Full-size replica; automated DNS failover'],
+                ['Active-Active', 'Seconds', '~0', '$$$$$', 'Both regions serve live traffic; instant failover'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'DR Runbook Essentials', id: 'runbook' },
+            {
+              type: 'list',
+              ordered: true,
+              items: [
+                '<strong>Declare incident</strong> — who declares, how to communicate',
+                '<strong>Assess blast radius</strong> — which services are affected?',
+                '<strong>Failover database</strong> — promote read replica; update connection strings',
+                '<strong>Redirect DNS</strong> — update Route53/Cloudflare to point to DR region',
+                '<strong>Verify health checks</strong> — confirm all services are green in DR region',
+                '<strong>Notify stakeholders</strong> — status page, customer comms',
+                '<strong>Root cause analysis</strong> — write blameless postmortem within 48h',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Chaos Engineering', id: 'chaos' },
+            {
+              type: 'paragraph',
+              html: '<strong>Chaos Engineering</strong> (pioneered by Netflix) proactively injects failures into production to verify resilience before real incidents expose gaps.',
+            },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Netflix Chaos Monkey</strong> — randomly terminates EC2 instances in production',
+                '<strong>AWS Fault Injection Simulator (FIS)</strong> — inject CPU/memory pressure, network latency, AZ outages',
+                '<strong>Gremlin</strong> — managed chaos platform with resource, network, state attacks',
+                'Start small: kill one instance in staging, then non-peak production, then on-call hours',
+              ],
+            },
+            {
+              type: 'callout',
+              variant: 'tip',
+              html: '<strong>Game Days</strong>: schedule a 4-hour window where a team intentionally causes failures and practices the runbook. This builds muscle memory before a real 3 AM incident.',
+            },
+          ],
+        },
+      ],
+    },
+
+    // ================================================================
+    // SECTION: Security in System Design
+    // ================================================================
+    {
+      title: 'Security in System Design',
+      topics: [
+        {
+          slug: 'introduction-to-security-in-system-design',
+          title: 'Introduction to Security in System Design',
+          description:
+            'Threat modelling, the OWASP Top 10, defence-in-depth, and the security principles every system designer must bake in from day one.',
+          keywords: ['security', 'threat modelling', 'owasp', 'defence in depth', 'zero trust', 'least privilege'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 22,
+          content: [
+            { type: 'heading', level: 2, text: 'Security First, Not Last', id: 'security-first' },
+            {
+              type: 'paragraph',
+              html: 'Security added as an afterthought costs 10–100x more than security built in from the start. The <strong>Shift Left</strong> principle: integrate security into every stage — design, code review, CI/CD, and monitoring.',
+            },
+            { type: 'heading', level: 2, text: 'Core Security Principles', id: 'principles' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Least Privilege</strong> — every component gets only the permissions it needs; nothing more',
+                '<strong>Defence in Depth</strong> — multiple independent security layers; no single point of failure',
+                '<strong>Zero Trust</strong> — never trust, always verify; authenticate every request even from internal services',
+                '<strong>Fail Secure</strong> — when something breaks, default to denying access, not granting it',
+                '<strong>Security by Obscurity alone is not security</strong> — hiding endpoints is no substitute for proper auth',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'OWASP Top 10 (2021)', id: 'owasp' },
+            {
+              type: 'table',
+              headers: ['Rank', 'Vulnerability', 'Example', 'Prevention'],
+              rows: [
+                ['A01', 'Broken Access Control', 'User accesses /admin without admin role', 'Enforce authz server-side on every endpoint'],
+                ['A02', 'Cryptographic Failures', 'Passwords stored as MD5', 'bcrypt/Argon2 for passwords; AES-256 for data at rest'],
+                ['A03', 'Injection (SQLi, XSS)', 'SELECT * FROM users WHERE name = \'$input\'', 'Parameterised queries; output encoding'],
+                ['A04', 'Insecure Design', 'No rate limiting on login endpoint', 'Threat model; build controls into design phase'],
+                ['A05', 'Security Misconfiguration', 'Default credentials, open S3 bucket', 'IaC scanning; secrets management'],
+                ['A06', 'Vulnerable Components', 'Log4Shell in a dependency', 'SCA scanning in CI (Snyk, Dependabot)'],
+                ['A07', 'Auth & Session Failures', 'Session tokens in URL', 'HttpOnly cookies; short-lived JWTs + refresh'],
+                ['A08', 'Software Integrity Failures', 'Unverified npm package', 'Dependency pinning; supply chain signing'],
+                ['A09', 'Logging Failures', 'No audit log of admin actions', 'Log all auth events; tamper-proof audit logs'],
+                ['A10', 'SSRF', 'User-supplied URL fetched by server', 'Allowlist IPs; block private ranges (169.254.x.x)'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Threat Modelling (STRIDE)', id: 'stride' },
+            {
+              type: 'table',
+              headers: ['Letter', 'Threat', 'Example', 'Control'],
+              rows: [
+                ['S', 'Spoofing', 'Attacker impersonates another user', 'Strong authentication'],
+                ['T', 'Tampering', 'Modify data in transit', 'TLS, HMAC signatures, integrity checks'],
+                ['R', 'Repudiation', 'User denies performing an action', 'Tamper-proof audit logs'],
+                ['I', 'Information Disclosure', 'API leaks PII in error messages', 'Generic errors; structured logging'],
+                ['D', 'Denial of Service', 'Flood endpoint to exhaust resources', 'Rate limiting, WAF, auto-scaling'],
+                ['E', 'Elevation of Privilege', 'Regular user gains admin access', 'RBAC; test privilege boundaries'],
+              ],
+            },
+          ],
+        },
+
+        {
+          slug: 'authentication-and-authorization',
+          title: 'Authentication & Authorization',
+          description:
+            'Authentication (who are you?) vs authorization (what can you do?), OAuth 2.0/OIDC flows, RBAC/ABAC, API keys, and MFA patterns.',
+          keywords: ['authentication', 'authorization', 'oauth2', 'oidc', 'jwt', 'rbac', 'mfa', 'api key'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 14,
+          content: [
+            { type: 'heading', level: 2, text: 'Authentication vs Authorization', id: 'authn-vs-authz' },
+            {
+              type: 'comparison',
+              left: {
+                title: 'Authentication (AuthN)',
+                color: '#6366f1',
+                items: [
+                  '"Who are you?"',
+                  'Verify identity',
+                  'Username/password, OAuth, MFA',
+                  'Result: identity token (JWT)',
+                  'Happens first',
+                ],
+              },
+              right: {
+                title: 'Authorization (AuthZ)',
+                color: '#22c55e',
+                items: [
+                  '"What can you do?"',
+                  'Check permissions',
+                  'RBAC, ABAC, ACLs',
+                  'Result: allow or deny',
+                  'Happens after authentication',
+                ],
+              },
+            },
+            { type: 'heading', level: 2, text: 'OAuth 2.0 + OIDC', id: 'oauth-oidc' },
+            {
+              type: 'paragraph',
+              html: '<strong>OAuth 2.0</strong> is an <em>authorization</em> framework — it grants third-party apps limited access to a user\'s resources. <strong>OIDC</strong> (OpenID Connect) layers <em>identity</em> on top: the token also identifies who the user is.',
+            },
+            {
+              type: 'flow',
+              steps: [
+                { label: 'User clicks "Sign in with Google"', desc: 'App redirects to Google with client_id, scope, redirect_uri', color: '#6366f1' },
+                { label: 'User authenticates at Google', desc: 'Google shows consent screen; user approves', color: '#8b5cf6' },
+                { label: 'Redirect with auth code', desc: 'Google redirects to your app with a one-time code', color: '#a855f7' },
+                { label: 'Exchange code for tokens', desc: 'Server-to-server: code + client_secret → access_token + id_token', color: '#ec4899' },
+                { label: 'Use tokens', desc: 'id_token identifies user; access_token used for API calls', color: '#22c55e' },
+              ],
+            },
+            { type: 'heading', level: 2, text: 'RBAC vs ABAC', id: 'rbac-abac' },
+            {
+              type: 'table',
+              headers: ['Model', 'How', 'Pros', 'Cons', 'Examples'],
+              rows: [
+                ['RBAC (Role-Based)', 'User has Role; Role has Permissions', 'Simple, easy to reason about', 'Role explosion at scale', 'admin, editor, viewer'],
+                ['ABAC (Attribute-Based)', 'Policy checks user, resource, and context attributes', 'Fine-grained, dynamic', 'Complex policies, harder to debug', 'User.dept == Resource.dept AND time < 17:00'],
+              ],
+            },
+          ],
+        },
+
+        {
+          slug: 'data-protection-and-secure-communication',
+          title: 'Data Protection & Secure Communication',
+          description:
+            'Encryption at rest and in transit, TLS/mTLS, key management, secrets management, and data classification frameworks for compliant systems.',
+          keywords: ['encryption', 'tls', 'mtls', 'kms', 'secrets management', 'data at rest', 'data in transit'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 17,
+          content: [
+            { type: 'heading', level: 2, text: 'Encryption at Rest', id: 'encryption-at-rest' },
+            {
+              type: 'paragraph',
+              html: 'Data at rest is encrypted so physical theft of a disk reveals nothing. Modern cloud storage (S3, EBS, RDS) encrypts by default using AES-256. Use a <strong>KMS</strong> (Key Management Service) to manage encryption keys — never store keys alongside the data they protect.',
+            },
+            {
+              type: 'table',
+              headers: ['Layer', 'Technology', 'Who Manages Key'],
+              rows: [
+                ['Database', 'RDS TDE, PostgreSQL pgcrypto', 'AWS KMS / Cloud KMS'],
+                ['Object Storage', 'S3 SSE-S3, SSE-KMS, SSE-C', 'AWS-managed or customer-managed'],
+                ['Block Storage', 'EBS encryption, dm-crypt/LUKS', 'AWS KMS / self-managed'],
+                ['Application-level', 'AES-256-GCM in code', 'HSM / secrets manager'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'TLS and mTLS', id: 'tls-mtls' },
+            {
+              type: 'paragraph',
+              html: '<strong>TLS</strong> (Transport Layer Security) encrypts data in transit and authenticates the <em>server</em> to the client. <strong>mTLS</strong> (mutual TLS) requires both server and client to present certificates — used for service-to-service authentication in zero-trust architectures.',
+            },
+            {
+              type: 'callout',
+              variant: 'note',
+              html: 'Service meshes like <strong>Istio</strong> and <strong>Linkerd</strong> automatically provision mTLS certificates for every pod in Kubernetes, removing the burden of certificate management from application code.',
+            },
+            { type: 'heading', level: 2, text: 'Secrets Management', id: 'secrets' },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'Fetch Secrets from AWS Secrets Manager (Never Hardcode)',
+              code: `import { SecretsManagerClient, GetSecretValueCommand } from '@aws-sdk/client-secrets-manager';
+
+const client = new SecretsManagerClient({ region: 'us-east-1' });
+
+// Fetch at startup; cache in memory; never log
+async function getDbCredentials() {
+  const res = await client.send(new GetSecretValueCommand({
+    SecretId: 'prod/api/database',
+  }));
+  return JSON.parse(res.SecretString!) as {
+    host: string; port: number; username: string; password: string;
+  };
+}
+
+// Rotate secrets without redeploying:
+// 1. Secrets Manager rotates the DB password
+// 2. Lambda updates the DB user
+// 3. App fetches fresh credentials on next call`,
+            },
+          ],
+        },
+
+        {
+          slug: 'network-and-infrastructure-security',
+          title: 'Network & Infrastructure Security',
+          description:
+            'VPCs, security groups, WAF, DDoS protection, bastion hosts, VPN/private link, and hardening cloud infrastructure against real-world attack vectors.',
+          keywords: ['vpc', 'security group', 'waf', 'ddos', 'bastion host', 'private subnet', 'network acl'],
+          difficulty: 'advanced',
+          estimatedMinutes: 23,
+          content: [
+            { type: 'heading', level: 2, text: 'Defence in Depth with VPC', id: 'vpc' },
+            {
+              type: 'paragraph',
+              html: 'A <strong>VPC</strong> (Virtual Private Cloud) is an isolated network in the cloud. Layer your infrastructure: public subnets for load balancers, private subnets for application servers, isolated subnets for databases. Traffic flows in only one direction through NAT gateways.',
+            },
+            {
+              type: 'table',
+              headers: ['Layer', 'Component', 'Traffic Allowed'],
+              rows: [
+                ['Internet', 'Route 53, CloudFront', 'Anywhere → CDN edge'],
+                ['Public subnet', 'Load Balancer, NAT GW', 'Internet → LB:443; LB → private'],
+                ['Private subnet', 'App servers, ECS tasks', 'LB → app:3000; app → DB subnet'],
+                ['Isolated subnet', 'RDS, ElastiCache, Kafka', 'Only from app subnet on specific port'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Security Groups vs NACLs', id: 'sg-vs-nacl' },
+            {
+              type: 'comparison',
+              left: {
+                title: 'Security Groups',
+                color: '#6366f1',
+                items: [
+                  'Instance-level firewall (ENI)',
+                  'Stateful — return traffic auto-allowed',
+                  'Allow rules only (no deny)',
+                  'Changes take effect immediately',
+                  'First line of defence per resource',
+                ],
+              },
+              right: {
+                title: 'Network ACLs',
+                color: '#22c55e',
+                items: [
+                  'Subnet-level firewall',
+                  'Stateless — must allow both directions',
+                  'Both allow AND deny rules',
+                  'Rule number order matters (evaluated top-down)',
+                  'Good for subnet-wide blocks (e.g. block a CIDR)',
+                ],
+              },
+            },
+            { type: 'heading', level: 2, text: 'WAF and DDoS Protection', id: 'waf-ddos' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>WAF (Web Application Firewall)</strong> — inspect HTTP requests; block SQLi, XSS, bad user agents, malicious IPs. Deploy at CDN edge (Cloudflare WAF, AWS WAF).',
+                '<strong>DDoS Protection</strong> — absorb volumetric attacks at the network edge before they reach your servers. AWS Shield Standard (free, L3/L4), Shield Advanced (paid, L7 with WAF).',
+                '<strong>Rate limiting</strong> — limit requests per IP/key at the WAF or reverse proxy before they reach your application.',
+                '<strong>Geo-blocking</strong> — block entire countries if you have no legitimate traffic from them.',
+                '<strong>Bot management</strong> — fingerprint and challenge suspicious clients (CAPTCHAs, JavaScript challenges).',
+              ],
+            },
+            {
+              type: 'callout',
+              variant: 'tip',
+              html: 'Never expose database ports (5432, 3306, 6379) to the public internet. <strong>Always use a bastion host or AWS Session Manager</strong> for admin DB access. Security groups should only allow DB connections from your app subnet\'s CIDR.',
+            },
+          ],
+        },
+      ],
+    },
+
+    // ================================================================
+    // SECTION: System Design Approach
+    // ================================================================
+    {
+      title: 'System Design Approach',
+      topics: [
+        {
+          slug: 'four-step-system-design-approach',
+          title: 'The 4-Step System Design Approach: From Problem to Solution',
+          description:
+            'A repeatable framework for tackling any system design problem: clarify requirements, estimate scale, design the architecture, and deep-dive critical components.',
+          keywords: ['system design approach', 'design interview', 'requirements', 'estimation', 'architecture framework'],
+          difficulty: 'intermediate',
+          estimatedMinutes: 15,
+          content: [
+            { type: 'heading', level: 2, text: 'The Framework', id: 'framework' },
+            {
+              type: 'paragraph',
+              html: 'Whether in an interview or a real greenfield design, a structured approach prevents you from jumping straight to solutions before you understand the problem. The <strong>4-step framework</strong> ensures you cover requirements, scale, design, and trade-offs systematically.',
+            },
+            {
+              type: 'flow',
+              steps: [
+                { label: 'Step 1: Clarify Requirements', desc: 'Functional + non-functional requirements; out-of-scope boundaries', color: '#6366f1' },
+                { label: 'Step 2: Estimate Scale', desc: 'DAU, QPS, storage, bandwidth — back-of-envelope calculations', color: '#8b5cf6' },
+                { label: 'Step 3: High-Level Design', desc: 'Core components, data flow, APIs, database schema', color: '#ec4899' },
+                { label: 'Step 4: Deep Dive', desc: 'Zoom in on hard/critical components; discuss trade-offs', color: '#22c55e' },
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Step 1 — Clarify Requirements', id: 'step-1' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Functional:</strong> What must the system do? (user stories, core features)',
+                '<strong>Non-functional:</strong> Scale, availability (SLO?), latency (p99?), consistency, security, compliance',
+                '<strong>Constraints:</strong> Must use existing systems? Specific cloud provider? Budget?',
+                '<strong>Out of scope:</strong> Explicitly state what you are NOT designing',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Step 2 — Estimate Scale', id: 'step-2' },
+            {
+              type: 'code',
+              language: 'text',
+              title: 'Back-of-Envelope Estimation Template',
+              code: `// Example: Design Twitter (1B users, 300M DAU)
+
+// Reads vs Writes (read-heavy: 100:1)
+Write QPS:  300M DAU * 1 tweet/day / 86,400s ≈ 3,500 QPS
+Read QPS:   3,500 * 100                       ≈ 350,000 QPS
+
+// Storage (tweets retained forever)
+Tweet size: 280 chars * 2 bytes + metadata    ≈ 1 KB
+Daily writes: 3,500 QPS * 86,400s            = 300M tweets/day
+Daily storage: 300M * 1 KB                   = 300 GB/day
+5-year storage: 300 GB * 365 * 5             ≈ 550 TB
+
+// Bandwidth
+Read bandwidth: 350,000 QPS * 1 KB           = 350 MB/s  ← need CDN
+Write bandwidth: 3,500 QPS * 1 KB            = 3.5 MB/s  ← manageable`,
+            },
+            { type: 'heading', level: 2, text: 'Step 3 — High-Level Design', id: 'step-3' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                'Draw the main components: clients, load balancers, services, caches, databases, queues',
+                'Define the primary APIs (endpoint, method, request/response)',
+                'Choose database(s) and justify: SQL vs NoSQL, what schema',
+                'Identify the core data flow for the most critical use case (e.g. post tweet, see feed)',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Step 4 — Deep Dive', id: 'step-4' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                'Pick the <strong>hardest 2–3 sub-problems</strong> and solve them in depth',
+                'Common deep-dives: feed generation, search, notifications, chat, storage, consistency',
+                'Discuss trade-offs explicitly: "I chose X over Y because… the downside is…"',
+                'Address bottlenecks identified in estimation: if 350K QPS read, explain how cache + CDN handles it',
+              ],
+            },
+            {
+              type: 'callout',
+              variant: 'tip',
+              html: '<strong>In interviews:</strong> spend 5 min on Step 1, 5 min on Step 2, 15 min on Step 3, and 15 min on Step 4. Interviewers want to see your thought process and trade-off reasoning more than a perfect answer.',
+            },
+          ],
+        },
+      ],
+    },
+
+    // ================================================================
+    // SECTION: Real-World Case Studies
+    // ================================================================
+    {
+      title: 'Real-World Case Studies',
+      topics: [
+        {
+          slug: 'design-ticketing-system',
+          title: 'Design a Ticketing System (BookMyShow)',
+          description:
+            'High-concurrency seat reservation, preventing double-booking, flash sale handling, and payment integration for a real-time event ticketing platform.',
+          keywords: ['ticketing system', 'seat reservation', 'concurrency', 'flash sale', 'booking', 'distributed lock'],
+          difficulty: 'advanced',
+          estimatedMinutes: 26,
+          content: [
+            { type: 'heading', level: 2, text: 'Requirements', id: 'requirements' },
+            {
+              type: 'table',
+              headers: ['Type', 'Requirement'],
+              rows: [
+                ['Functional', 'Browse events and venues; select seats on an interactive map; reserve and purchase tickets'],
+                ['Functional', 'Each seat can only be booked by one user at a time (no double-booking)'],
+                ['Non-functional', '10M DAU; 100K concurrent users during peak (popular event launch)'],
+                ['Non-functional', 'Seat reservation must be consistent — eventual consistency is not acceptable'],
+                ['Non-functional', 'Reserve-to-payment window: 10 minutes (after which the seat is released)'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'The Core Challenge: Seat Reservation', id: 'core-challenge' },
+            {
+              type: 'paragraph',
+              html: 'Ticketing is a classic <strong>high-contention write problem</strong>. At event launch, thousands of users simultaneously try to reserve the same limited seats. Standard optimistic locking at the DB layer will cause massive retry storms.',
+            },
+            {
+              type: 'flow',
+              steps: [
+                { label: 'User selects seat', desc: 'Frontend shows real-time seat availability via WebSocket/SSE', color: '#6366f1' },
+                { label: 'Reserve (10-min hold)', desc: 'Acquire Redis lock on seat ID; write reservation to DB with expiry', color: '#8b5cf6' },
+                { label: 'Payment', desc: 'User completes payment within 10 min; redirect to payment gateway', color: '#ec4899' },
+                { label: 'Confirm or Release', desc: 'Payment webhook: confirm reservation. Timeout: release seat.', color: '#22c55e' },
+              ],
+            },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'Atomic Seat Reservation with Redis + DB',
+              code: `async function reserveSeat(seatId: string, userId: string): Promise<boolean> {
+  // Atomic: SET if Not eXists + 10-min expiry
+  const lockKey = \`seat:lock:\${seatId}\`;
+  const reserved = await redis.set(lockKey, userId, 'NX', 'EX', 600);
+
+  if (!reserved) return false; // Seat already held by someone else
+
+  // Write pending reservation to DB
+  await db.reservations.create({
+    seatId, userId, status: 'pending',
+    expiresAt: new Date(Date.now() + 600_000),
+  });
+
+  // Schedule expiry cleanup (via job queue)
+  await queue.add('release-seat', { seatId }, { delay: 600_000 });
+
+  return true;
+}`,
+            },
+            { type: 'heading', level: 2, text: 'Handling Flash Sales', id: 'flash-sales' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Queue-based admission</strong> — a virtual waiting room queues users; only N are let into the reservation flow at once',
+                '<strong>Pre-shard seats</strong> — partition seats into buckets; each bucket handled by a separate DB instance to reduce contention',
+                '<strong>Read replicas for browsing</strong> — seat availability reads from replicas (with 1–2s staleness acceptable for display)',
+                '<strong>CDN for static content</strong> — venue maps, images served from edge to protect origin',
+              ],
+            },
+          ],
+        },
+
+        {
+          slug: 'design-news-feed',
+          title: 'Design a News Feed (Twitter/Instagram)',
+          description:
+            'Push vs pull feed generation, fan-out on write vs read, celebrity problem, ranking algorithms, and caching strategies for a social media feed at scale.',
+          keywords: ['news feed', 'twitter', 'instagram', 'fan-out', 'feed generation', 'ranking', 'timeline'],
+          difficulty: 'advanced',
+          estimatedMinutes: 43,
+          content: [
+            { type: 'heading', level: 2, text: 'Requirements', id: 'requirements' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Functional:</strong> Post tweets/photos; follow/unfollow users; view personalised home feed with posts from followees',
+                '<strong>Non-functional:</strong> 300M DAU; post QPS ~5K; read QPS ~500K; feed must load in < 500ms (p99)',
+                '<strong>Scale:</strong> Average user follows 300 people; celebrities have 100M+ followers',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'The Core Trade-off: Fan-out on Write vs Read', id: 'fan-out' },
+            {
+              type: 'comparison',
+              left: {
+                title: 'Fan-out on Write (Push)',
+                color: '#6366f1',
+                items: [
+                  'On post: write to every follower\'s feed cache',
+                  'Fast read — feed pre-computed in Redis',
+                  'Slow write — 100M writes for celebrity post',
+                  'Celebrity problem: impractical for >1M followers',
+                  'Good for users with < 10K followers',
+                ],
+              },
+              right: {
+                title: 'Fan-out on Read (Pull)',
+                color: '#22c55e',
+                items: [
+                  'On read: query recent posts from all followees',
+                  'Slow read — N+1 queries at read time',
+                  'Fast write — just one post write',
+                  'Works for celebrities (avoid 100M writes)',
+                  'Heavy read load; need aggressive caching',
+                ],
+              },
+            },
+            { type: 'heading', level: 2, text: 'Hybrid Approach (Twitter\'s Solution)', id: 'hybrid' },
+            {
+              type: 'paragraph',
+              html: 'Twitter uses a <strong>hybrid</strong>: fan-out on write for regular users (≤ 1M followers); fan-out on read for celebrities. When a regular user loads their feed, their pre-computed cache is merged with recent posts from any celebrity they follow.',
+            },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'Feed Service — Hybrid Fan-out',
+              code: `async function getFeed(userId: string, limit = 20): Promise<Post[]> {
+  // 1. Get pre-built feed from Redis (regular users, fan-out-on-write)
+  const cached = await redis.lrange(\`feed:\${userId}\`, 0, limit - 1);
+  const feedPosts = cached.map(id => postCache.get(id)).filter(Boolean);
+
+  // 2. Merge in recent celebrity posts (fan-out-on-read for celebs)
+  const celebrities = await getCelebFollowees(userId); // followers > 1M
+  const celebPosts = await Promise.all(
+    celebrities.map(c => getRecentPosts(c.id, limit))
+  );
+
+  // 3. Rank and merge (recency + engagement score)
+  const allPosts = [...feedPosts, ...celebPosts.flat()];
+  return rankPosts(allPosts).slice(0, limit);
+}`,
+            },
+          ],
+        },
+
+        {
+          slug: 'design-notification-system',
+          title: 'Design a Notification System',
+          description:
+            'Multi-channel notification delivery (push, email, SMS, in-app), retry logic, rate limiting, user preferences, and handling millions of notifications per second.',
+          keywords: ['notification system', 'push notification', 'email', 'sms', 'apns', 'fcm', 'retry', 'rate limit'],
+          difficulty: 'advanced',
+          estimatedMinutes: 36,
+          content: [
+            { type: 'heading', level: 2, text: 'System Overview', id: 'overview' },
+            {
+              type: 'flow',
+              steps: [
+                { label: 'Event Source', desc: 'Services emit events (order placed, mention, follow)', color: '#6366f1' },
+                { label: 'Notification Service', desc: 'Applies user preferences; deduplication; rate limiting', color: '#8b5cf6' },
+                { label: 'Message Queue', desc: 'Kafka topics per channel (push/email/sms)', color: '#a855f7' },
+                { label: 'Channel Workers', desc: 'Per-channel consumers call 3rd party APIs (FCM, SES, Twilio)', color: '#ec4899' },
+                { label: 'Delivery Tracking', desc: 'Track sent/delivered/clicked; retry failed deliveries', color: '#22c55e' },
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Channels and Providers', id: 'channels' },
+            {
+              type: 'table',
+              headers: ['Channel', 'Provider', 'Latency', 'Cost', 'Use Case'],
+              rows: [
+                ['Push (iOS)', 'APNs (Apple Push)', '< 1 sec', 'Free', 'Mobile app alerts'],
+                ['Push (Android)', 'FCM (Firebase)', '< 1 sec', 'Free', 'Mobile app alerts'],
+                ['Email', 'SES, SendGrid, Postmark', '1–60 sec', 'Low', 'Transactional, marketing'],
+                ['SMS', 'Twilio, AWS SNS', '1–10 sec', 'High ($0.01/msg)', 'Auth codes, urgent alerts'],
+                ['In-app', 'WebSocket / SSE', 'ms', 'Free', 'Real-time while app open'],
+                ['Webhook', 'HTTP POST to customer URL', 'ms–sec', 'Low', 'B2B integrations'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Key Design Decisions', id: 'design-decisions' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>User preferences</strong> — store per-user channel + type preferences in a fast-read store (Redis or DynamoDB)',
+                '<strong>Idempotency keys</strong> — deduplicate notifications; same event processed twice must not send twice',
+                '<strong>Exponential backoff</strong> — retry failed deliveries: 1m → 5m → 15m → 1h → dead-letter',
+                '<strong>Rate limiting</strong> — max N notifications per user per day per channel; prevents spam',
+                '<strong>Priority queues</strong> — auth/security notifications bypass rate limits; marketing doesn\'t',
+                '<strong>Template engine</strong> — personalise content with user name, order ID, etc.',
+              ],
+            },
+          ],
+        },
+
+        {
+          slug: 'design-chat-application',
+          title: 'Design a Chat Application (WhatsApp)',
+          description:
+            'Real-time messaging architecture, message ordering, delivery receipts, offline message queuing, group chat fan-out, and end-to-end encryption design.',
+          keywords: ['chat application', 'whatsapp', 'websocket', 'message ordering', 'delivery receipt', 'e2e encryption', 'group chat'],
+          difficulty: 'advanced',
+          estimatedMinutes: 42,
+          content: [
+            { type: 'heading', level: 2, text: 'Requirements', id: 'requirements' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Functional:</strong> 1:1 and group messaging (max 512 members); online presence; delivery/read receipts; media messages (images, video)',
+                '<strong>Non-functional:</strong> 2B users; 100B messages/day; messages delivered in < 100ms; messages must never be lost',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Core Architecture', id: 'architecture' },
+            {
+              type: 'flow',
+              steps: [
+                { label: 'Sender (WebSocket)', desc: 'Client sends message to chat server over persistent WebSocket', color: '#6366f1' },
+                { label: 'Chat Server', desc: 'Assigns message ID (Snowflake); persists to DB; publishes to queue', color: '#8b5cf6' },
+                { label: 'Message Queue', desc: 'Kafka fan-out to recipient\'s chat server(s); handles offline queuing', color: '#a855f7' },
+                { label: 'Recipient Chat Server', desc: 'Push over WebSocket if online; else store in offline queue', color: '#ec4899' },
+                { label: 'Receipt Propagation', desc: 'Delivered/read events flow back to sender the same way', color: '#22c55e' },
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Message Ordering', id: 'ordering' },
+            {
+              type: 'paragraph',
+              html: 'Use a <strong>Snowflake ID</strong> (Twitter-style) for message IDs: 64-bit integer = 41-bit timestamp + 10-bit machine ID + 12-bit sequence. IDs are time-ordered, unique across servers, and reveal no sensitive information.',
+            },
+            { type: 'heading', level: 2, text: 'Group Chat Fan-out', id: 'group-chat' },
+            {
+              type: 'paragraph',
+              html: 'For a group of 512 members, a single sent message becomes 511 delivery operations. Use a <strong>fan-out service</strong> that reads group membership and enqueues one delivery task per member. For large groups, batch deliveries and use async processing.',
+            },
+            {
+              type: 'callout',
+              variant: 'note',
+              html: '<strong>End-to-End Encryption (E2EE):</strong> WhatsApp uses the Signal Protocol. Each device has a key pair; messages are encrypted with the recipient\'s public key on the sender\'s device. The server only ever sees ciphertext — it cannot read messages.',
+            },
+          ],
+        },
+
+        {
+          slug: 'design-cloud-storage',
+          title: 'Design a Cloud Storage Solution (Google Drive / Dropbox)',
+          description:
+            'File chunking, deduplication, versioning, sync protocol, conflict resolution, and sharing — designing a scalable cloud file storage system.',
+          keywords: ['cloud storage', 'google drive', 'dropbox', 'file chunking', 'deduplication', 'sync', 'versioning'],
+          difficulty: 'advanced',
+          estimatedMinutes: 46,
+          content: [
+            { type: 'heading', level: 2, text: 'Requirements', id: 'requirements' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Functional:</strong> Upload/download files; sync across devices; share files/folders; version history',
+                '<strong>Non-functional:</strong> 1B users; 10M daily active; max file size 50 GB; 99.99% availability; strong consistency for metadata',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'File Chunking', id: 'chunking' },
+            {
+              type: 'paragraph',
+              html: 'Split files into <strong>4 MB chunks</strong>. Each chunk is hashed (SHA-256). Benefits: (1) resume interrupted uploads, (2) only upload changed chunks on edits, (3) deduplicate identical chunks across all users.',
+            },
+            {
+              type: 'table',
+              headers: ['Component', 'Technology', 'Role'],
+              rows: [
+                ['Metadata DB', 'PostgreSQL', 'Files, folders, chunks, versions, sharing permissions'],
+                ['Chunk Storage', 'S3 + CDN', 'Store chunk bytes keyed by SHA-256 hash'],
+                ['Block Service', 'Custom service', 'Chunk, hash, upload, deduplicate'],
+                ['Sync Service', 'Long poll / WebSocket', 'Notify devices of remote changes'],
+                ['Cache', 'Redis', 'Hot chunk metadata; delta calculation'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Deduplication', id: 'deduplication' },
+            {
+              type: 'paragraph',
+              html: 'Before uploading a chunk, check if a chunk with that hash already exists in storage. If yes, just record the reference — don\'t upload the bytes. This is <strong>content-addressable storage</strong>. Dropbox reports 40–70% storage savings from cross-user deduplication.',
+            },
+            { type: 'heading', level: 2, text: 'Conflict Resolution', id: 'conflicts' },
+            {
+              type: 'paragraph',
+              html: 'When two devices edit the same file offline, a conflict occurs. Strategy: <strong>last-writer-wins with conflict copy</strong> — accept both edits; create a "Conflicted copy" file so no data is lost; surface the conflict to the user.',
+            },
+          ],
+        },
+
+        {
+          slug: 'design-video-sharing-platform',
+          title: 'Design a Video Sharing Platform (YouTube)',
+          description:
+            'Video upload pipeline, transcoding, adaptive bitrate streaming, CDN architecture, recommendation system, and view count accuracy at billion-user scale.',
+          keywords: ['youtube', 'video platform', 'transcoding', 'hls', 'cdn', 'adaptive bitrate', 'view count'],
+          difficulty: 'advanced',
+          estimatedMinutes: 51,
+          content: [
+            { type: 'heading', level: 2, text: 'Upload & Processing Pipeline', id: 'pipeline' },
+            {
+              type: 'flow',
+              steps: [
+                { label: 'Upload', desc: 'Raw video uploaded directly to S3 via presigned URL (bypass origin)', color: '#6366f1' },
+                { label: 'Message Queue', desc: 'S3 event → SQS → transcoding workers', color: '#8b5cf6' },
+                { label: 'Transcoding', desc: 'FFmpeg generates multiple renditions: 360p, 720p, 1080p, 4K + thumbnail', color: '#a855f7' },
+                { label: 'Packaging', desc: 'Segment into HLS (.m3u8 + .ts chunks) and DASH manifests', color: '#ec4899' },
+                { label: 'CDN Distribution', desc: 'Segments pushed to CloudFront edge PoPs worldwide', color: '#22c55e' },
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Adaptive Bitrate Streaming', id: 'hls' },
+            {
+              type: 'paragraph',
+              html: '<strong>HLS</strong> (HTTP Live Streaming) divides video into 2–10 second segments at multiple quality levels. The player automatically switches quality based on available bandwidth — buffering smooth 360p is better than stalling on 1080p.',
+            },
+            { type: 'heading', level: 2, text: 'View Count at Scale', id: 'view-count' },
+            {
+              type: 'paragraph',
+              html: 'YouTube processes <strong>500 hours of video every minute</strong>. View count accuracy at this scale requires careful design:',
+            },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Redis counter</strong> — increment in Redis on each view event (fast, in-memory)',
+                '<strong>Batch flush</strong> — periodically flush Redis counts to the database (e.g. every 60 seconds)',
+                '<strong>Exactly-once deduplication</strong> — deduplicate repeat views from same user within 24h',
+                '<strong>Lambda Architecture</strong> — real-time count (approx) + batch recount for accuracy',
+              ],
+            },
+          ],
+        },
+
+        {
+          slug: 'design-search-engine',
+          title: 'Design a Search Engine (Google)',
+          description:
+            'Web crawling, inverted index construction, ranking with TF-IDF and PageRank, query processing pipeline, and building a distributed search at web scale.',
+          keywords: ['search engine', 'google', 'inverted index', 'pagerank', 'tf-idf', 'web crawler', 'indexing'],
+          difficulty: 'advanced',
+          estimatedMinutes: 68,
+          content: [
+            { type: 'heading', level: 2, text: 'System Components', id: 'components' },
+            {
+              type: 'table',
+              headers: ['Component', 'Role'],
+              rows: [
+                ['Web Crawler', 'Discover and download web pages (BFS from seed URLs)'],
+                ['Link Extractor', 'Parse HTML; extract URLs; add to frontier queue'],
+                ['Content Store', 'Store raw HTML pages (distributed file store)'],
+                ['Indexer', 'Parse content; build inverted index; compute TF-IDF scores'],
+                ['PageRank', 'Batch job: compute authority scores from link graph'],
+                ['Query Processor', 'Parse query; lookup index; merge + rank results; return top K'],
+                ['Cache', 'Cache results for popular queries (LFU eviction)'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Inverted Index', id: 'inverted-index' },
+            {
+              type: 'paragraph',
+              html: 'An <strong>inverted index</strong> maps each word to a list of documents containing it (called a <em>posting list</em>). This is the core data structure that allows Google to search billions of pages in milliseconds.',
+            },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'Simplified Inverted Index Structure',
+              code: `// inverted_index["system"] → [
+//   { docId: "url1", tf: 0.05, positions: [12, 45] },
+//   { docId: "url2", tf: 0.03, positions: [7]      },
+// ]
+
+// TF-IDF scoring:
+// TF  = (term frequency in doc) / (total terms in doc)
+// IDF = log(total docs / docs containing term)
+// Score = TF * IDF — rare terms in relevant docs rank higher
+
+function score(term: string, docId: string): number {
+  const tf = termFrequency(term, docId);
+  const idf = Math.log(totalDocs / docsContaining(term));
+  const pageRank = getPageRank(docId);
+  return tf * idf * Math.log(1 + pageRank); // Combine relevance + authority
+}`,
+            },
+            { type: 'heading', level: 2, text: 'Web Crawler Design', id: 'crawler' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Frontier queue</strong> — priority queue of URLs to crawl (prioritise fresh/high-PageRank pages)',
+                '<strong>Politeness</strong> — respect robots.txt; rate limit per domain (max 1 req/sec)',
+                '<strong>DNS caching</strong> — cache DNS lookups to avoid per-URL resolution overhead',
+                '<strong>Deduplication</strong> — URL fingerprint (simhash) to skip near-duplicate pages',
+                '<strong>Distributed</strong> — consistent hash assigns URL ranges to crawler workers',
+              ],
+            },
+          ],
+        },
+
+        {
+          slug: 'design-ecommerce-platform',
+          title: 'Design an E-Commerce Platform (Amazon)',
+          description:
+            'Product catalog, inventory management, order processing, payment integration, shopping cart, and flash-sale handling for a large e-commerce system.',
+          keywords: ['ecommerce', 'amazon', 'inventory', 'order processing', 'shopping cart', 'product catalog'],
+          difficulty: 'advanced',
+          estimatedMinutes: 57,
+          content: [
+            { type: 'heading', level: 2, text: 'Core Services', id: 'services' },
+            {
+              type: 'table',
+              headers: ['Service', 'Responsibility', 'Database'],
+              rows: [
+                ['Product Catalog', 'Browse, search, product details', 'Elasticsearch (search) + PostgreSQL (master data)'],
+                ['Inventory', 'Stock levels, reservations, warehouse routing', 'PostgreSQL with row-level locking'],
+                ['Cart', 'Add/remove items, apply coupons', 'Redis (fast, TTL-based cart expiry)'],
+                ['Order', 'Order lifecycle (placed → paid → fulfilled → delivered)', 'PostgreSQL (ACID transactions)'],
+                ['Payment', 'Charge, refund, fraud detection', 'PostgreSQL + Stripe/Adyen'],
+                ['Notification', 'Order confirmation, shipping updates', 'Kafka + email/SMS workers'],
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Order Processing Flow', id: 'order-flow' },
+            {
+              type: 'flow',
+              steps: [
+                { label: 'Place Order', desc: 'Validate cart, reserve inventory (decrement stock with check)', color: '#6366f1' },
+                { label: 'Process Payment', desc: 'Call payment gateway; handle 3DS; wait for webhook confirmation', color: '#8b5cf6' },
+                { label: 'Confirm Order', desc: 'Payment webhook: transition order to CONFIRMED; release reserved stock', color: '#a855f7' },
+                { label: 'Fulfillment', desc: 'Route to nearest warehouse; pick/pack/ship; generate tracking', color: '#ec4899' },
+                { label: 'Delivery', desc: 'Carrier updates status via webhook; notify customer', color: '#22c55e' },
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Inventory Consistency', id: 'inventory' },
+            {
+              type: 'code',
+              language: 'sql',
+              title: 'Atomic Inventory Reservation',
+              code: `-- Reserve stock atomically — prevents overselling
+-- Only succeeds if stock >= requested quantity
+UPDATE inventory
+SET reserved = reserved + :qty,
+    available = available - :qty
+WHERE product_id = :productId
+  AND available >= :qty  -- Constraint: don't go negative
+RETURNING available;
+
+-- available = 0 rows updated → out of stock, abort order
+-- available > 0 → reservation successful`,
+            },
+          ],
+        },
+
+        {
+          slug: 'design-ride-hailing-app',
+          title: 'Design a Taxi Hailing App (Uber)',
+          description:
+            'Real-time driver location tracking, geospatial matching, ETA estimation, surge pricing, trip lifecycle, and handling millions of concurrent location updates.',
+          keywords: ['uber', 'ride hailing', 'geospatial', 'location tracking', 'matching', 'surge pricing', 'eta'],
+          difficulty: 'advanced',
+          estimatedMinutes: 54,
+          content: [
+            { type: 'heading', level: 2, text: 'Core Challenges', id: 'challenges' },
+            {
+              type: 'list',
+              ordered: false,
+              items: [
+                '<strong>Location updates</strong> — drivers send GPS every 4 seconds; 1M drivers = 250K location updates/sec',
+                '<strong>Geospatial queries</strong> — find all drivers within 5km of a rider in < 100ms',
+                '<strong>Matching</strong> — optimally match rider to nearest available driver',
+                '<strong>Real-time ETA</strong> — live traffic-aware routing; update ETA as driver moves',
+              ],
+            },
+            { type: 'heading', level: 2, text: 'Location Tracking Architecture', id: 'location' },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'Driver Location Update — Redis Geo Index',
+              code: `// Driver app sends location every 4 seconds
+app.post('/driver/location', async (req, res) => {
+  const { driverId, lat, lng } = req.body;
+
+  // Redis GEO commands provide geospatial indexing
+  // Uses a sorted set with geohash as score
+  await redis.geoadd('drivers:active', lng, lat, driverId);
+
+  // Expire driver from index if no update in 30 seconds
+  await redis.expire(\`driver:heartbeat:\${driverId}\`, 30);
+
+  res.sendStatus(200);
+});
+
+// Rider requests a ride — find nearby drivers
+async function findNearbyDrivers(riderLat: number, riderLng: number) {
+  // GEORADIUS: find all drivers within 5km
+  return redis.georadius(
+    'drivers:active', riderLng, riderLat,
+    5, 'km', 'WITHCOORD', 'WITHDIST', 'ASC', 'COUNT', 10
+  );
+}`,
+            },
+            { type: 'heading', level: 2, text: 'Matching Algorithm', id: 'matching' },
+            {
+              type: 'paragraph',
+              html: 'Uber uses a matching engine that considers: <strong>proximity</strong>, <strong>driver rating</strong>, <strong>ETA to rider</strong>, and <strong>driver heading</strong> (a driver already moving towards you is preferred). The matching service batches requests every 500ms to find globally optimal assignments.',
+            },
+            { type: 'heading', level: 2, text: 'Surge Pricing', id: 'surge' },
+            {
+              type: 'paragraph',
+              html: 'H3 hexagonal grid divides cities into cells. When the ratio of rider requests to available drivers in a cell exceeds a threshold, surge multiplier is applied. Surge data is precomputed every 30 seconds and cached in Redis — it\'s read-heavy and eventual consistency is acceptable.',
+            },
+          ],
+        },
+
+        {
+          slug: 'design-collaborative-document-editor',
+          title: 'Design a Collaborative Document Editor (Google Docs)',
+          description:
+            'Operational Transformation vs CRDTs, real-time conflict resolution, cursor synchronisation, offline editing, and building concurrent editing at Google Docs scale.',
+          keywords: ['collaborative editing', 'google docs', 'operational transformation', 'crdt', 'conflict resolution', 'real-time sync'],
+          difficulty: 'advanced',
+          estimatedMinutes: 50,
+          content: [
+            { type: 'heading', level: 2, text: 'The Core Problem: Concurrent Edits', id: 'concurrent-edits' },
+            {
+              type: 'paragraph',
+              html: 'When two users edit the same document simultaneously, their operations must be merged without data loss. If User A inserts "Hello" at position 0, and User B inserts "World" at position 0 at the same time, how should these be reconciled?',
+            },
+            { type: 'heading', level: 2, text: 'Operational Transformation (OT)', id: 'ot' },
+            {
+              type: 'paragraph',
+              html: '<strong>OT</strong> (used by Google Docs) transforms each incoming operation based on operations that were applied first. If A inserted at position 0 first, B\'s position-0 insert is transformed to position 5 to account for A\'s characters.',
+            },
+            {
+              type: 'code',
+              language: 'typescript',
+              title: 'Simplified OT Transform',
+              code: `type Op = { type: 'insert' | 'delete'; pos: number; text?: string };
+
+// Transform op2 assuming op1 was already applied
+function transform(op1: Op, op2: Op): Op {
+  if (op1.type === 'insert' && op2.type === 'insert') {
+    // op1 inserted before op2's position — shift op2 right
+    if (op1.pos <= op2.pos) {
+      return { ...op2, pos: op2.pos + (op1.text?.length ?? 0) };
+    }
+  }
+  if (op1.type === 'delete' && op2.type === 'insert') {
+    // op1 deleted before op2's position — shift op2 left
+    if (op1.pos < op2.pos) {
+      return { ...op2, pos: op2.pos - 1 };
+    }
+  }
+  return op2; // No transformation needed
+}`,
+            },
+            { type: 'heading', level: 2, text: 'CRDTs — The Alternative', id: 'crdts' },
+            {
+              type: 'paragraph',
+              html: '<strong>CRDTs</strong> (Conflict-free Replicated Data Types) are data structures that automatically merge concurrent operations without coordination. Used by Figma, Linear, and Notion. They work offline natively and don\'t require a central server to sequence operations.',
+            },
+            { type: 'heading', level: 2, text: 'System Architecture', id: 'architecture' },
+            {
+              type: 'table',
+              headers: ['Component', 'Role'],
+              rows: [
+                ['WebSocket Server', 'Real-time bidirectional channel per document session'],
+                ['OT/CRDT Engine', 'Transform and merge concurrent operations'],
+                ['Document Store', 'PostgreSQL: full document snapshots every N ops'],
+                ['Op Log', 'Append-only log of all operations (Redis Streams or Kafka)'],
+                ['Presence Service', 'Track cursors and active users per document (Redis pub/sub)'],
+                ['Revision History', 'Time-travel to any past version using op replay'],
+              ],
+            },
+          ],
+        },
+      ],
+    },
   ],
 };
 

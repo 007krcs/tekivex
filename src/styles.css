@@ -5502,18 +5502,106 @@ body {
 .code-block-wrapper + .code-block-wrapper { margin-top: 0; }
 .code-block-wrapper pre { border-radius: 0 0 8px 8px; margin-top: 0; }
 
-/* Flow diagrams */
-.tutorial-diagram-wrap {
-  margin: 24px 0;
+/* Flow diagrams (HTML/CSS — proper text wrapping) */
+.tutorial-diagram-wrap { display: none; } /* legacy SVG wrapper — hidden */
+
+/* Horizontal flow */
+.flow-diagram-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+  margin: 28px 0;
+  padding: 20px 16px;
+  background: var(--hub-card-bg, #f8fafc);
+  border: 1px solid var(--hub-border, #e2e8f0);
+  border-radius: 14px;
   overflow-x: auto;
-  text-align: center;
 }
 
-.tutorial-diagram-wrap figcaption {
+.flow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 120px;
+  max-width: 180px;
+  flex: 1 1 120px;
+  padding: 14px 16px;
+  border: 2px solid;
+  border-radius: 12px;
+  text-align: center;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.flow-step-label {
   font-size: 13px;
-  color: var(--hub-text-muted);
-  margin-top: 8px;
-  font-style: italic;
+  font-weight: 700;
+  line-height: 1.3;
+  display: block;
+}
+
+.flow-step-desc {
+  font-size: 11px;
+  color: var(--hub-text-muted, #64748b);
+  line-height: 1.5;
+  display: block;
+}
+
+.flow-arrow {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0 4px;
+}
+
+/* Vertical flow */
+.flow-diagram-vertical-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: 28px auto;
+  max-width: 320px;
+}
+
+.flow-step-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 14px 20px;
+  border: 2px solid;
+  border-radius: 12px;
+  text-align: center;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.flow-arrow-down {
+  display: flex;
+  justify-content: center;
+  padding: 2px 0;
+}
+
+/* Responsive: stack flow steps vertically on small screens */
+@media (max-width: 640px) {
+  .flow-diagram-wrap {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .flow-step {
+    max-width: 100%;
+    flex: none;
+  }
+  .flow-arrow {
+    transform: rotate(90deg);
+    padding: 4px 0;
+    justify-content: center;
+  }
 }
 
 /* Comparison cards */
