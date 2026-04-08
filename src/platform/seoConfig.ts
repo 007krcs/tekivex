@@ -188,6 +188,76 @@ export function getSeoForRoute(route: string): SeoConfig {
   if (route === '/about') return ABOUT_SEO;
   if (route === '/platform') return PLATFORM_SEO;
 
+  // ── Tutorials ──
+  if (route === '/tutorials') {
+    return {
+      title: 'Tutorials — System Design, Architecture, AI/ML & Design Patterns | Tekivex',
+      description: '70 in-depth tutorials covering system design, software architecture, frontend & backend design patterns, and AI/ML from neural networks to LLM agents. Free, with flow diagrams and code examples.',
+      keywords: ['system design tutorial', 'software architecture guide', 'design patterns explained', 'AI machine learning tutorial', 'frontend patterns', 'backend patterns', 'clean architecture', 'microservices tutorial', 'neural network explained', 'LLM agents tutorial', 'MCP protocol', 'LangChain guide', 'SOLID principles', 'React patterns', 'Node.js patterns'],
+      canonical: `${BASE_URL}/#/tutorials`,
+      ogTitle: 'Tutorials — System Design, Architecture, AI/ML & Design Patterns',
+      ogDescription: '70 in-depth tutorials with flow diagrams, code examples, and visual explanations. From system design fundamentals to AI agent architectures.',
+      ogImage: `${BASE_URL}/og-tekivex.png`,
+      ogType: 'website',
+      twitterTitle: 'Tutorials — System Design, Architecture & AI/ML | Tekivex',
+      twitterDescription: '70 free tutorials: system design, architecture patterns, frontend/backend, and AI/ML. Visual diagrams + code examples.',
+      twitterImage: `${BASE_URL}/og-tekivex.png`,
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: 'Tekivex Tutorials',
+        description: '70 in-depth tutorials on system design, software architecture, design patterns, and AI/ML.',
+        url: `${BASE_URL}/#/tutorials`,
+        publisher: { '@type': 'Organization', name: 'Tekivex', url: BASE_URL },
+      },
+    };
+  }
+
+  if (route.startsWith('/tutorials/')) {
+    const parts = route.slice('/tutorials/'.length).split('/');
+    const categoryId = parts[0];
+    const topicSlug = parts[1];
+    const catTitles: Record<string, string> = {
+      'system-design': 'System Design', 'software-architecture': 'Software Architecture',
+      'frontend-patterns': 'Frontend Patterns', 'backend-patterns': 'Backend Patterns', 'ai-ml': 'AI & Machine Learning',
+    };
+    const catTitle = catTitles[categoryId] || categoryId;
+    const title = topicSlug
+      ? `${topicSlug.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ')} — ${catTitle} Tutorial | Tekivex`
+      : `${catTitle} Tutorials | Tekivex`;
+    return {
+      title,
+      description: `Learn ${catTitle.toLowerCase()} with in-depth tutorials, flow diagrams, and code examples. Part of 70 free tutorials on Tekivex.`,
+      keywords: [catTitle.toLowerCase(), 'tutorial', 'guide', 'explained', 'Tekivex', 'design patterns', 'architecture'],
+      canonical: `${BASE_URL}/#${route}`,
+      ogTitle: title,
+      ogDescription: `Learn ${catTitle.toLowerCase()} with visual diagrams and code examples — free on Tekivex.`,
+      ogImage: `${BASE_URL}/og-tekivex.png`,
+      ogType: 'article',
+      twitterTitle: title,
+      twitterDescription: `${catTitle} tutorial with flow diagrams and code examples — free on Tekivex.`,
+      twitterImage: `${BASE_URL}/og-tekivex.png`,
+      jsonLd: [
+        {
+          '@context': 'https://schema.org', '@type': 'Article',
+          headline: title,
+          author: { '@type': 'Organization', name: 'Tekivex', url: BASE_URL },
+          publisher: { '@type': 'Organization', name: 'Tekivex', url: BASE_URL },
+          url: `${BASE_URL}/#${route}`,
+        },
+        {
+          '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
+            { '@type': 'ListItem', position: 2, name: 'Tutorials', item: `${BASE_URL}/#/tutorials` },
+            { '@type': 'ListItem', position: 3, name: catTitle, item: `${BASE_URL}/#/tutorials/${categoryId}` },
+            ...(topicSlug ? [{ '@type': 'ListItem', position: 4, name: topicSlug.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' '), item: `${BASE_URL}/#${route}` }] : []),
+          ],
+        },
+      ] as any,
+    };
+  }
+
   if (route.startsWith('/product/')) {
     const id = route.slice('/product/'.length).split('/')[0];
     const product = id ? getProduct(id) : undefined;

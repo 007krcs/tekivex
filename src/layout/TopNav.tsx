@@ -221,6 +221,15 @@ export function TopNav({ route }: TopNavProps) {
             Platform
           </a>
 
+          {/* Tutorials */}
+          <a
+            href="#/tutorials"
+            className={`top-nav-link${route.startsWith('/tutorials') ? ' active' : ''}`}
+            onClick={(e) => { e.preventDefault(); navigate('/tutorials'); setMobileMenuOpen(false); }}
+          >
+            Tutorials
+          </a>
+
           {/* About */}
           <a
             href="#/about"

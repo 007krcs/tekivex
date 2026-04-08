@@ -10,6 +10,8 @@ import { getActiveProductId } from './platform/registry';
 import { useSeo } from './platform/useSeo';
 import { getSeoForRoute } from './platform/seoConfig';
 import { AiChatWidget } from './ai-support/AiChat';
+import { TutorialLanding } from './tutorials/TutorialLanding';
+import { TutorialLayout } from './tutorials/TutorialLayout';
 
 function useHashRoute(): string {
   const [hash, setHash] = React.useState(window.location.hash.slice(1) || '/');
@@ -38,7 +40,14 @@ export function App() {
 
   let page: React.ReactNode;
 
-  if (route.startsWith('/product/')) {
+  if (route === '/tutorials') {
+    page = <TutorialLanding />;
+  } else if (route.startsWith('/tutorials/')) {
+    const parts = route.slice('/tutorials/'.length).split('/');
+    const categoryId = parts[0];
+    const topicSlug = parts[1] ?? null;
+    page = <TutorialLayout categoryId={categoryId} topicSlug={topicSlug} />;
+  } else if (route.startsWith('/product/')) {
     const productId = route.slice('/product/'.length).split('/')[0];
     page = <ProductHomePage productId={productId ?? ''} />;
   } else if (route === '/about') {
