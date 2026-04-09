@@ -9,7 +9,7 @@ import { Footer } from './layout/Footer';
 import { getActiveProductId } from './platform/registry';
 import { useSeo } from './platform/useSeo';
 import { getSeoForRoute } from './platform/seoConfig';
-import { AiChatWidget } from './ai-support/AiChat';
+
 import { TutorialLanding } from './tutorials/TutorialLanding';
 import { TutorialLayout } from './tutorials/TutorialLayout';
 
@@ -67,8 +67,7 @@ export function App() {
           {page}
           <Footer />
         </div>
-        {/* AI Support Chat — visible on every page */}
-        <AiChatWidget />
+        {/* AI Support Chat — temporarily disabled */}
       </PlatformProvider>
     </ThemeProvider>
   );

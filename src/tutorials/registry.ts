@@ -9,6 +9,10 @@ const loaders: Record<string, CategoryLoader> = {
   'frontend-patterns': () => import('./data/frontend-patterns'),
   'backend-patterns': () => import('./data/backend-patterns'),
   'ai-ml': () => import('./data/ai-ml'),
+  'ai-nlp': () => import('./data/ai-nlp'),
+  'ai-langchain': () => import('./data/ai-langchain'),
+  'ai-speech': () => import('./data/ai-speech'),
+  'ai-ethics': () => import('./data/ai-ethics'),
 };
 
 export const CATEGORY_META: CategoryMeta[] = [
@@ -17,6 +21,10 @@ export const CATEGORY_META: CategoryMeta[] = [
   { id: 'frontend-patterns', title: 'Frontend Patterns', icon: 'layout', color: '#06b6d4', description: 'Component patterns, state management, performance optimization, and testing strategies.', topicCount: 10 },
   { id: 'backend-patterns', title: 'Backend Patterns', icon: 'database', color: '#10b981', description: 'Repository pattern, middleware, dependency injection, auth flows, and API design.', topicCount: 10 },
   { id: 'ai-ml', title: 'AI & Machine Learning', icon: 'cpu', color: '#f59e0b', description: 'Neural networks, transformers, LLMs, fine-tuning, AI agents, MCP, LangChain, and swarm intelligence.', topicCount: 20 },
+  { id: 'ai-nlp', title: 'NLP & Language Models', icon: 'message-square', color: '#8b5cf6', description: 'Natural Language Processing fundamentals, text pipelines, and Large Language Models architecture and fine-tuning.', topicCount: 12 },
+  { id: 'ai-langchain', title: 'LangChain, LangGraph & Vector DBs', icon: 'link', color: '#10b981', description: 'Practical LangChain LCEL chains, LangGraph stateful agents, and Vector Database patterns for RAG applications.', topicCount: 10 },
+  { id: 'ai-speech', title: 'Speech Recognition & LLM Engineering', icon: 'mic', color: '#f97316', description: 'Speech recognition with Whisper, TTS pipelines, prompt engineering, LLM evaluation, and production observability.', topicCount: 12 },
+  { id: 'ai-ethics', title: 'AI Ethics & Regulation', icon: 'shield', color: '#ef4444', description: 'AI ethics, bias, fairness, explainability (XAI), and global AI regulation including the EU AI Act.', topicCount: 6 },
 ];
 
 const cache = new Map<string, TutorialCategory>();
