@@ -1,4 +1,4 @@
-﻿import type { TutorialCategory } from '../types';
+import type { TutorialCategory } from '../types';
 
 const category: TutorialCategory = {
   id: 'ai-langchain',
@@ -7,9 +7,9 @@ const category: TutorialCategory = {
   color: '#10b981',
   description: 'Practical LangChain LCEL chains, LangGraph stateful agents, and Vector Database search patterns for RAG applications.',
   sections: [
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
-    // SECTION 8 â€” LangChain Practical
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // SECTION 8 — LangChain Practical
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     {
       title: 'LangChain Practical',
       topics: [
@@ -43,7 +43,7 @@ const category: TutorialCategory = {
           estimatedMinutes: 10,
           content: [
             { type: 'heading', level: 2, text: 'Understanding Tokens', id: 'tokens' },
-            { type: 'paragraph', html: 'LLMs process <strong>tokens</strong> â€” roughly 4 characters or 0.75 words in English. The word "unbelievable" is one token; "ChatGPT is great!" is 6 tokens.' },
+            { type: 'paragraph', html: 'LLMs process <strong>tokens</strong> — roughly 4 characters or 0.75 words in English. The word "unbelievable" is one token; "ChatGPT is great!" is 6 tokens.' },
             { type: 'code', language: 'python', title: 'count_tokens.py', code: `import tiktoken
 
 enc = tiktoken.encoding_for_model("gpt-4o")
@@ -146,7 +146,7 @@ print(few_shot.format(adjective="bright"))` },
         },
         {
           slug: 'langchain-output-parsers',
-          title: 'Output Parsers â€” Structured LLM Output',
+          title: 'Output Parsers — Structured LLM Output',
           description: 'Force LLMs to return structured JSON, Pydantic models, or lists using LangChain output parsers.',
           keywords: ['output parser', 'json parser', 'pydantic', 'structured output'],
           difficulty: 'intermediate',
@@ -154,7 +154,7 @@ print(few_shot.format(adjective="bright"))` },
           prerequisites: ['langchain-model-inputs'],
           content: [
             { type: 'heading', level: 2, text: 'Why Output Parsers?', id: 'why-output-parsers' },
-            { type: 'paragraph', html: 'Output parsers coerce LLM text into structured Python objects â€” JSON dicts, Pydantic models, lists â€” making LLM outputs directly usable in code.' },
+            { type: 'paragraph', html: 'Output parsers coerce LLM text into structured Python objects — JSON dicts, Pydantic models, lists — making LLM outputs directly usable in code.' },
             { type: 'code', language: 'python', title: 'output_parsers.py', code: `from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import CommaSeparatedListOutputParser
@@ -190,7 +190,7 @@ print(f"Rating: {review.rating}/10 | Recommended: {review.recommended}")` },
         },
         {
           slug: 'lcel',
-          title: 'LCEL â€” LangChain Expression Language',
+          title: 'LCEL — LangChain Expression Language',
           description: 'Compose chains with the pipe operator, use RunnableParallel for concurrent steps, add fallbacks, and stream outputs.',
           keywords: ['lcel', 'runnable', 'pipe operator', 'parallel', 'streaming'],
           difficulty: 'intermediate',
@@ -219,7 +219,7 @@ for chunk in chain.stream({"text": "Python is great for data science..."}):
 # 3. Batch
 results = chain.batch([{"text": "Text 1..."}, {"text": "Text 2..."}])
 
-# 4. Parallel â€” run multiple chains concurrently
+# 4. Parallel — run multiple chains concurrently
 summary_chain  = ChatPromptTemplate.from_messages([("human", "Summarize in 1 sentence: {text}")]) | llm | StrOutputParser()
 keywords_chain = ChatPromptTemplate.from_messages([("human", "Extract 5 keywords: {text}")]) | llm | StrOutputParser()
 
@@ -231,7 +231,7 @@ print(result["keywords"])` },
         },
         {
           slug: 'langchain-rag',
-          title: 'RAG â€” Retrieval-Augmented Generation',
+          title: 'RAG — Retrieval-Augmented Generation',
           description: 'Build a complete RAG pipeline: load documents, chunk, embed to a vector store, retrieve context, and generate grounded answers.',
           keywords: ['rag', 'retrieval augmented generation', 'vector store', 'faiss', 'chroma'],
           difficulty: 'advanced',
@@ -289,24 +289,24 @@ print(rag_chain.invoke("What is the attention mechanism in transformers?"))` },
       ],
     },
 
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
-    // SECTION 9 â€” LangGraph Agents
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // SECTION 9 — LangGraph Agents
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     {
       title: 'LangGraph Agents',
       topics: [
         {
           slug: 'langgraph-intro',
           title: 'Introduction to LangGraph',
-          description: 'What LangGraph adds over LangChain â€” stateful graphs, cycles, conditional edges, and why agent workflows need graph-based orchestration.',
+          description: 'What LangGraph adds over LangChain — stateful graphs, cycles, conditional edges, and why agent workflows need graph-based orchestration.',
           keywords: ['langgraph', 'agent graph', 'stateful', 'cycles'],
           difficulty: 'advanced',
           estimatedMinutes: 14,
           content: [
             { type: 'heading', level: 2, text: 'Why LangGraph?', id: 'why-langgraph' },
-            { type: 'paragraph', html: 'LangChain chains are linear â€” A â†’ B â†’ C. Real agents need <em>loops</em>: call a tool, observe the result, decide to call another tool. LangGraph models this as a directed graph with nodes, edges, conditional routing, and cycles.' },
+            { type: 'paragraph', html: 'LangChain chains are linear — A → B → C. Real agents need <em>loops</em>: call a tool, observe the result, decide to call another tool. LangGraph models this as a directed graph with nodes, edges, conditional routing, and cycles.' },
             { type: 'comparison', left: { title: 'LangChain Chains', color: '#6366f1', items: [
-              'Linear: A â†’ B â†’ C â†’ Output',
+              'Linear: A → B → C → Output',
               'No loops or branching',
               'Stateless between calls',
               'Good for: RAG, simple chatbots',
@@ -372,7 +372,7 @@ print(result["messages"][-1].content)` },
         {
           slug: 'langgraph-components',
           title: 'Graph Components & Agent Implementation',
-          description: 'Build a full ReAct agent with tools â€” tool nodes, conditional routing, tool binding, and error handling.',
+          description: 'Build a full ReAct agent with tools — tool nodes, conditional routing, tool binding, and error handling.',
           keywords: ['react agent', 'tool node', 'tool binding', 'conditional routing'],
           difficulty: 'advanced',
           estimatedMinutes: 22,
@@ -489,7 +489,7 @@ graph = builder.compile()` },
           prerequisites: ['langgraph-message-management'],
           content: [
             { type: 'heading', level: 2, text: 'Thread-Level State Persistence', id: 'thread-persistence' },
-            { type: 'paragraph', html: 'LangGraph\'s checkpointer saves the full graph state after each step. The same <code>thread_id</code> in a future call resumes from where it left off â€” enabling multi-session conversations and human-in-the-loop workflows.' },
+            { type: 'paragraph', html: 'LangGraph\'s checkpointer saves the full graph state after each step. The same <code>thread_id</code> in a future call resumes from where it left off — enabling multi-session conversations and human-in-the-loop workflows.' },
             { type: 'code', language: 'python', title: 'persistence.py', code: `from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.sqlite import SqliteSaver
 from langchain_openai import ChatOpenAI
@@ -517,7 +517,7 @@ config_alice = {"configurable": {"thread_id": "alice-001"}}
 graph.invoke({"messages": [HumanMessage("Hi! My name is Alice.")]}, config=config_alice)
 graph.invoke({"messages": [HumanMessage("I love Python programming.")]}, config=config_alice)
 
-# Resume â€” state auto-loaded from DB
+# Resume — state auto-loaded from DB
 result = graph.invoke(
     {"messages": [HumanMessage("What is my name and what do I like?")]},
     config=config_alice,
@@ -530,9 +530,9 @@ print(result["messages"][-1].content)
       ],
     },
 
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
-    // SECTION 10 â€” Vector Databases
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // SECTION 10 — Vector Databases
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     {
       title: 'Vector Databases',
       topics: [
@@ -552,7 +552,7 @@ print(result["messages"][-1].content)
               'Example: "WHERE tag = \'AI\'"',
             ]}, right: { title: 'Vector Database', color: '#f59e0b', items: [
               'Similarity search (nearest neighbor)',
-              'Dense vectors (384â€“1536 dims)',
+              'Dense vectors (384–1536 dims)',
               'Captures meaning via embeddings',
               'Example: "Find text similar to query"',
             ]}},
@@ -576,9 +576,9 @@ print(result["messages"][-1].content)
           content: [
             { type: 'heading', level: 2, text: 'Similarity Metrics', id: 'similarity-metrics' },
             { type: 'table', headers: ['Metric', 'Formula', 'Best For', 'Range'], rows: [
-              ['Cosine Similarity', 'cos(Î¸) = AÂ·B / (|A||B|)', 'Text embeddings (direction matters)', '-1 to 1'],
-              ['Dot Product', 'AÂ·B = Î£(aáµ¢ Ã— báµ¢)', 'Normalized vectors', 'Unbounded'],
-              ['Euclidean (L2)', 'âˆšÎ£(aáµ¢ - báµ¢)Â²', 'Images, spatial data', '0 to âˆž'],
+              ['Cosine Similarity', 'cos(θ) = A·B / (|A||B|)', 'Text embeddings (direction matters)', '-1 to 1'],
+              ['Dot Product', 'A·B = Σ(aᵢ × bᵢ)', 'Normalized vectors', 'Unbounded'],
+              ['Euclidean (L2)', '√Σ(aᵢ - bᵢ)²', 'Images, spatial data', '0 to ∞'],
             ]},
             { type: 'code', language: 'python', title: 'similarity.py', code: `import numpy as np
 from sentence_transformers import SentenceTransformer
@@ -605,7 +605,7 @@ for doc, score in scores:
             { type: 'table', headers: ['Algorithm', 'Index Type', 'Speed', 'Notes'], rows: [
               ['HNSW', 'Hierarchical graph', 'Very fast', 'Best recall/speed tradeoff; used by Pinecone'],
               ['IVF-Flat', 'Inverted file', 'Fast', 'Partitions space into Voronoi cells'],
-              ['IVF-PQ', 'IVF + Product Quantization', 'Fastest', 'Compresses vectors 4â€“32Ã—'],
+              ['IVF-PQ', 'IVF + Product Quantization', 'Fastest', 'Compresses vectors 4–32×'],
             ]},
           ],
         },
@@ -714,11 +714,12 @@ def rerank(query: str, candidates: list[dict], top_k: int = 3) -> list[dict]:
 query = "How do Python decorators work?"
 results = rerank(query, hybrid_search(query))
 for r in results:
-    print(f"â†’ {r['metadata']['text']}")` },
+    print(f"→ {r['metadata']['text']}")` },
           ],
         },
       ],
     },
+
   ],
 };
 

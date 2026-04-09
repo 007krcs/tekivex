@@ -1,4 +1,4 @@
-﻿import type { TutorialCategory } from '../types';
+import type { TutorialCategory } from '../types';
 
 const category: TutorialCategory = {
   id: 'ai-nlp',
@@ -7,9 +7,9 @@ const category: TutorialCategory = {
   color: '#8b5cf6',
   description: 'Natural Language Processing fundamentals, text pipelines, and deep dives into Large Language Models architecture and fine-tuning.',
   sections: [
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
-    // SECTION 6 â€” Natural Language Processing (NLP)
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // SECTION 6 — Natural Language Processing (NLP)
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     {
       title: 'Natural Language Processing (NLP)',
       topics: [
@@ -22,16 +22,16 @@ const category: TutorialCategory = {
           estimatedMinutes: 12,
           content: [
             { type: 'heading', level: 2, text: 'What is Natural Language Processing?', id: 'what-is-nlp' },
-            { type: 'paragraph', html: '<strong>Natural Language Processing (NLP)</strong> is the branch of AI that gives computers the ability to read, understand, and generate human language. Every time you use a search engine, get an autocomplete suggestion, or ask a voice assistant a question â€” NLP is at work.' },
+            { type: 'paragraph', html: '<strong>Natural Language Processing (NLP)</strong> is the branch of AI that gives computers the ability to read, understand, and generate human language. Every time you use a search engine, get an autocomplete suggestion, or ask a voice assistant a question — NLP is at work.' },
             { type: 'callout', variant: 'tip', html: '<strong>Scale:</strong> Humans produce roughly 2.5 quintillion bytes of text data every day. NLP is the key technology that lets machines make sense of all of it.' },
             { type: 'heading', level: 3, text: 'Core NLP Tasks', id: 'nlp-tasks' },
             { type: 'table', headers: ['Task', 'Description', 'Example'], rows: [
-              ['Tokenization', 'Split text into words/sentences', '"Hello world" â†’ ["Hello", "world"]'],
-              ['POS Tagging', 'Label each word\'s grammatical role', '"Run" â†’ Verb, "fast" â†’ Adverb'],
-              ['NER', 'Identify named entities (people, places)', '"Apple Inc." â†’ ORG'],
-              ['Sentiment Analysis', 'Detect positive/negative/neutral tone', '"Great product!" â†’ Positive'],
+              ['Tokenization', 'Split text into words/sentences', '"Hello world" → ["Hello", "world"]'],
+              ['POS Tagging', 'Label each word\'s grammatical role', '"Run" → Verb, "fast" → Adverb'],
+              ['NER', 'Identify named entities (people, places)', '"Apple Inc." → ORG'],
+              ['Sentiment Analysis', 'Detect positive/negative/neutral tone', '"Great product!" → Positive'],
               ['Text Classification', 'Categorize documents into classes', 'Spam vs. Not Spam'],
-              ['Machine Translation', 'Translate between languages', '"Bonjour" â†’ "Hello"'],
+              ['Machine Translation', 'Translate between languages', '"Bonjour" → "Hello"'],
               ['Question Answering', 'Extract answers from context', 'BERT, RAG pipelines'],
               ['Text Generation', 'Produce coherent text from a prompt', 'GPT-4, LLaMA'],
             ]},
@@ -63,7 +63,7 @@ const category: TutorialCategory = {
           prerequisites: ['intro-to-nlp'],
           content: [
             { type: 'heading', level: 2, text: 'Why Preprocess Text?', id: 'why-preprocess' },
-            { type: 'paragraph', html: 'Raw text is noisy â€” it contains HTML tags, punctuation, inconsistent capitalization, and irrelevant words. Preprocessing transforms messy human language into structured, clean input for models.' },
+            { type: 'paragraph', html: 'Raw text is noisy — it contains HTML tags, punctuation, inconsistent capitalization, and irrelevant words. Preprocessing transforms messy human language into structured, clean input for models.' },
             { type: 'heading', level: 3, text: 'Tokenization', id: 'tokenization' },
             { type: 'code', language: 'python', title: 'tokenization.py', code: `import nltk
 from nltk.tokenize import word_tokenize, sent_tokenize
@@ -78,19 +78,19 @@ print("Words:", words)
 sentences = sent_tokenize(text)
 print("Sentences:", sentences)
 
-# spaCy (smarter â€” handles contractions)
+# spaCy (smarter — handles contractions)
 nlp = spacy.load("en_core_web_sm")
 doc = nlp("I can't believe it's already 2025!")
 print("spaCy tokens:", [token.text for token in doc])` },
             { type: 'heading', level: 3, text: 'Stemming vs Lemmatization', id: 'stemming-lemma' },
             { type: 'comparison', left: { title: 'Stemming', color: '#6366f1', items: [
               'Crude rule-based truncation',
-              '"running" â†’ "run", "studies" â†’ "studi"',
+              '"running" → "run", "studies" → "studi"',
               'Fast, but may produce non-words',
               'Use: search engines, IR systems',
             ]}, right: { title: 'Lemmatization', color: '#22c55e', items: [
               'Uses vocabulary and morphological analysis',
-              '"running" â†’ "run", "better" â†’ "good"',
+              '"running" → "run", "better" → "good"',
               'Slower, always produces real words',
               'Use: sentiment analysis, chatbots',
             ]}},
@@ -125,7 +125,7 @@ print(preprocess("The cats are running quickly across the green field!"))
           prerequisites: ['text-preprocessing'],
           content: [
             { type: 'heading', level: 2, text: 'Part-of-Speech (POS) Tagging', id: 'pos-tagging' },
-            { type: 'paragraph', html: 'POS tagging assigns a grammatical label to each token â€” noun, verb, adjective, etc. It is the foundation for parsing, information extraction, and disambiguation.' },
+            { type: 'paragraph', html: 'POS tagging assigns a grammatical label to each token — noun, verb, adjective, etc. It is the foundation for parsing, information extraction, and disambiguation.' },
             { type: 'table', headers: ['Tag', 'Meaning', 'Example'], rows: [
               ['NN', 'Noun (singular)', '"dog", "city"'],
               ['VB', 'Verb (base)', '"run", "eat"'],
@@ -197,12 +197,12 @@ for review in reviews:
 classifier = pipeline("sentiment-analysis")
 results = classifier(reviews)
 for review, r in zip(reviews, results):
-    print(f"{r['label']} ({r['score']:.3f}) â†’ {review[:50]}")` },
+    print(f"{r['label']} ({r['score']:.3f}) → {review[:50]}")` },
           ],
         },
         {
           slug: 'vectorizing-text',
-          title: 'Vectorizing Text â€” TF-IDF, Word2Vec & GloVe',
+          title: 'Vectorizing Text — TF-IDF, Word2Vec & GloVe',
           description: 'Convert words and documents into numerical vectors that capture semantic meaning.',
           keywords: ['tf-idf', 'word2vec', 'glove', 'embeddings', 'vectorization'],
           difficulty: 'intermediate',
@@ -245,7 +245,7 @@ model = Word2Vec(sentences=tokenized, vector_size=100, window=5, min_count=1, sg
 print(model.wv.similarity('king', 'queen'))   # high
 print(model.wv.similarity('king', 'forest'))  # low
 
-# Analogy: king - man + woman â‰ˆ queen
+# Analogy: king - man + woman ≈ queen
 result = model.wv.most_similar(positive=['king', 'woman'], negative=['man'], topn=1)
 print(f"king - man + woman = {result[0][0]}")` },
             { type: 'comparison', left: { title: 'Word2Vec', color: '#6366f1', items: [
@@ -351,13 +351,13 @@ for name, pipeline in [("Naive Bayes", nb_pipeline), ("Linear SVM", svm_pipeline
     pipeline.fit(train.data, train.target)
     preds = pipeline.predict(test.data)
     acc = accuracy_score(test.target, preds)
-    print(f"\\nâ”€â”€ {name} (Accuracy: {acc:.3f}) â”€â”€")
+    print(f"\\n── {name} (Accuracy: {acc:.3f}) ──")
     print(classification_report(test.target, preds, target_names=categories))` },
           ],
         },
         {
           slug: 'fake-news-detection',
-          title: 'Case Study â€” Detecting Fake News',
+          title: 'Case Study — Detecting Fake News',
           description: 'End-to-end fake news detection: data loading, feature engineering, model training, and ethical considerations.',
           keywords: ['fake news', 'misinformation', 'text classification', 'case study'],
           difficulty: 'intermediate',
@@ -415,22 +415,22 @@ print(predict_news("Federal Reserve raises interest rates by 0.25 basis points")
         {
           slug: 'future-of-nlp',
           title: 'The Future of NLP',
-          description: 'Where NLP is heading â€” multimodal models, real-time translation, AI writing, and the challenges ahead.',
+          description: 'Where NLP is heading — multimodal models, real-time translation, AI writing, and the challenges ahead.',
           keywords: ['future nlp', 'multimodal', 'llm', 'real-time translation'],
           difficulty: 'beginner',
           estimatedMinutes: 10,
           content: [
             { type: 'heading', level: 2, text: 'Where NLP is Heading', id: 'future-nlp' },
             { type: 'list', ordered: false, items: [
-              '<strong>Multimodal Models</strong> â€” GPT-4V, Gemini Ultra understand text + images + audio in one model',
-              '<strong>Real-Time Translation</strong> â€” Near-perfect live translation across 100+ languages',
-              '<strong>Code Generation</strong> â€” GitHub Copilot, Claude Code write production-quality code from natural language',
-              '<strong>AI Agents</strong> â€” LLM agents that read emails, write reports, and take actions in the world',
-              '<strong>Smaller, Faster Models</strong> â€” DistilBERT, TinyLLaMA bring LLM power to edge devices',
+              '<strong>Multimodal Models</strong> — GPT-4V, Gemini Ultra understand text + images + audio in one model',
+              '<strong>Real-Time Translation</strong> — Near-perfect live translation across 100+ languages',
+              '<strong>Code Generation</strong> — GitHub Copilot, Claude Code write production-quality code from natural language',
+              '<strong>AI Agents</strong> — LLM agents that read emails, write reports, and take actions in the world',
+              '<strong>Smaller, Faster Models</strong> — DistilBERT, TinyLLaMA bring LLM power to edge devices',
             ]},
             { type: 'table', headers: ['Challenge', 'Current Status', 'Research Direction'], rows: [
               ['Hallucination', 'LLMs confidently generate false facts', 'RAG, RLHF, factual grounding'],
-              ['Long Context', 'Most models limited to 4Kâ€“128K tokens', '1M+ context (Gemini 1.5)'],
+              ['Long Context', 'Most models limited to 4K–128K tokens', '1M+ context (Gemini 1.5)'],
               ['Reasoning', 'Struggles with multi-step logic', 'Chain-of-thought, process reward models'],
               ['Bias', 'Reflects training data biases', 'Debiasing, RLHF, Constitutional AI'],
             ]},
@@ -439,11 +439,11 @@ print(predict_news("Federal Reserve raises interest rates by 0.25 basis points")
       ],
     },
 
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
-    // SECTION 7 â€” Large Language Models Deep Dive
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // SECTION 7 — Large Language Models Deep Dive
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     {
-      title: 'Large Language Models â€” Deep Dive',
+      title: 'Large Language Models — Deep Dive',
       topics: [
         {
           slug: 'intro-llms',
@@ -471,9 +471,9 @@ print(predict_news("Federal Reserve raises interest rates by 0.25 basis points")
               { label: 'Deployed Model', desc: 'Helpful, harmless, honest assistant', color: '#22c55e' },
             ]},
             { type: 'table', headers: ['Concept', 'Description'], rows: [
-              ['Context Window', 'Maximum number of tokens the model can process at once (4K â†’ 1M+)'],
+              ['Context Window', 'Maximum number of tokens the model can process at once (4K → 1M+)'],
               ['Temperature', 'Randomness in generation (0 = deterministic, 1 = creative)'],
-              ['Top-p Sampling', 'Sample from top p% probability mass â€” controls diversity'],
+              ['Top-p Sampling', 'Sample from top p% probability mass — controls diversity'],
               ['Hallucination', 'Model confidently generates plausible but false information'],
               ['In-Context Learning', 'Adapts to new tasks from examples in the prompt without retraining'],
             ]},
@@ -482,7 +482,7 @@ print(predict_news("Federal Reserve raises interest rates by 0.25 basis points")
         },
         {
           slug: 'transformer-deep-dive',
-          title: 'Transformer Architecture â€” Deep Dive',
+          title: 'Transformer Architecture — Deep Dive',
           description: 'Multi-head self-attention, positional encodings, feed-forward sublayers, layer normalization, and the full encoder-decoder architecture.',
           keywords: ['transformer', 'attention', 'multi-head attention', 'positional encoding', 'layer norm'],
           difficulty: 'advanced',
@@ -547,7 +547,7 @@ print(block(x).shape)  # torch.Size([1, 10, 512])` },
         },
         {
           slug: 'gpt-models',
-          title: 'GPT Models â€” From GPT-1 to GPT-4',
+          title: 'GPT Models — From GPT-1 to GPT-4',
           description: 'How the GPT series evolved from language modelling to instruction-following assistants via RLHF.',
           keywords: ['gpt', 'gpt-3', 'gpt-4', 'rlhf', 'chatgpt'],
           difficulty: 'intermediate',
@@ -556,13 +556,13 @@ print(block(x).shape)  # torch.Size([1, 10, 512])` },
             { type: 'heading', level: 2, text: 'The GPT Evolution', id: 'gpt-evolution' },
             { type: 'table', headers: ['Version', 'Year', 'Params', 'Key Innovation'], rows: [
               ['GPT-1', '2018', '117M', 'Pre-train then fine-tune paradigm established'],
-              ['GPT-2', '2019', '1.5B', 'Zero-shot transfer â€” works on unseen tasks'],
+              ['GPT-2', '2019', '1.5B', 'Zero-shot transfer — works on unseen tasks'],
               ['GPT-3', '2020', '175B', 'Few-shot in-context learning'],
-              ['InstructGPT', '2022', '175B', 'RLHF â€” human feedback alignment'],
+              ['InstructGPT', '2022', '175B', 'RLHF — human feedback alignment'],
               ['ChatGPT', '2022', '~175B', 'Conversational RLHF fine-tuning'],
               ['GPT-4', '2023', '~1.8T MoE', 'Multimodal, advanced reasoning, 128K context'],
             ]},
-            { type: 'heading', level: 3, text: 'RLHF â€” Making GPT Helpful', id: 'rlhf' },
+            { type: 'heading', level: 3, text: 'RLHF — Making GPT Helpful', id: 'rlhf' },
             { type: 'flow', steps: [
               { label: 'SFT', desc: 'Fine-tune on human demonstrations', color: '#6366f1' },
               { label: 'Reward Model', desc: 'Train to predict human preference', color: '#8b5cf6' },
@@ -599,13 +599,13 @@ for chunk in stream:
         {
           slug: 'huggingface-transformers',
           title: 'HuggingFace Transformers Library',
-          description: 'Master the HuggingFace ecosystem â€” pipeline API, tokenizers, AutoModel classes, and fine-tuning with Trainer.',
+          description: 'Master the HuggingFace ecosystem — pipeline API, tokenizers, AutoModel classes, and fine-tuning with Trainer.',
           keywords: ['huggingface', 'transformers', 'pipeline', 'tokenizer', 'automodel', 'trainer'],
           difficulty: 'intermediate',
           estimatedMinutes: 22,
           content: [
             { type: 'heading', level: 2, text: 'The HuggingFace Ecosystem', id: 'hf-ecosystem' },
-            { type: 'paragraph', html: 'HuggingFace provides a unified API to load and use 500,000+ pre-trained models for NLP, vision, audio, and multimodal tasks â€” with just a few lines of code.' },
+            { type: 'paragraph', html: 'HuggingFace provides a unified API to load and use 500,000+ pre-trained models for NLP, vision, audio, and multimodal tasks — with just a few lines of code.' },
             { type: 'code', language: 'python', title: 'hf_pipeline.py', code: `from transformers import pipeline
 
 # Sentiment analysis
@@ -727,7 +727,7 @@ print(extract_answer("What is the length of the Amazon?", context))` },
           estimatedMinutes: 18,
           content: [
             { type: 'heading', level: 2, text: 'What is XLNet?', id: 'what-is-xlnet' },
-            { type: 'paragraph', html: 'XLNet uses <strong>permutation language modelling</strong> â€” it trains on all possible orderings of the input, capturing bidirectional context without BERT\'s masking mismatch.' },
+            { type: 'paragraph', html: 'XLNet uses <strong>permutation language modelling</strong> — it trains on all possible orderings of the input, capturing bidirectional context without BERT\'s masking mismatch.' },
             { type: 'comparison', left: { title: 'BERT', color: '#6366f1', items: [
               'Masked Language Modelling (MLM)',
               '[MASK] token mismatch at inference',
@@ -771,6 +771,7 @@ Trainer(
         },
       ],
     },
+
   ],
 };
 

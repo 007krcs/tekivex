@@ -1,4 +1,4 @@
-﻿import type { TutorialCategory } from '../types';
+import type { TutorialCategory } from '../types';
 
 const category: TutorialCategory = {
   id: 'ai-ethics',
@@ -7,9 +7,9 @@ const category: TutorialCategory = {
   color: '#ef4444',
   description: 'AI ethics, bias, fairness, explainability (XAI), and global AI regulation including the EU AI Act.',
   sections: [
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
-    // SECTION 13 â€” AI Ethics
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // SECTION 13 — AI Ethics
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     {
       title: 'AI Ethics',
       topics: [
@@ -35,7 +35,7 @@ const category: TutorialCategory = {
         {
           slug: 'core-principles-ethical-ai',
           title: 'Core Principles of Ethical AI',
-          description: 'Fairness, accountability, transparency, privacy, safety â€” the five pillars with concrete definitions and engineering implications.',
+          description: 'Fairness, accountability, transparency, privacy, safety — the five pillars with concrete definitions and engineering implications.',
           keywords: ['fairness', 'accountability', 'transparency', 'privacy', 'safety'],
           difficulty: 'intermediate',
           estimatedMinutes: 16,
@@ -72,7 +72,7 @@ def fairness_audit(y_true, y_pred, sensitive_attribute, group_names=None):
     print(audit_df.to_string(index=False, float_format="{:.3f}".format))
     for metric in ["positive_rate", "tpr", "fpr"]:
         gap = audit_df[metric].max() - audit_df[metric].min()
-        print(f"{metric} disparity: {gap:.3f} {'âš ï¸' if gap > 0.1 else 'âœ…'}")
+        print(f"{metric} disparity: {gap:.3f} {'⚠️' if gap > 0.1 else '✅'}")
     return audit_df
 
 np.random.seed(42)
@@ -143,7 +143,7 @@ print(scrub_pii(sample))
 ## Model Details
 - Type: Text classification (BERT fine-tuned)
 - Task: Classify tickets into 5 categories
-- Training data: 50,000 internal tickets (Jan 2022â€“Dec 2023)
+- Training data: 50,000 internal tickets (Jan 2022–Dec 2023)
 
 ## Intended Use
 - Primary: Internal routing of customer support tickets
@@ -190,10 +190,10 @@ print(scrub_pii(sample))
         for group, rate in current.items():
             drift = abs(rate - self.baseline.get(group, 0))
             if drift > 0.05:
-                alerts.append(f"âš ï¸ [{window}] {group} drifted {drift:.1%}")
+                alerts.append(f"⚠️ [{window}] {group} drifted {drift:.1%}")
         parity_gap = max(current.values()) - min(current.values())
         if parity_gap > 0.10:
-            alerts.append(f"âš ï¸ Demographic parity violation: gap={parity_gap:.1%}")
+            alerts.append(f"⚠️ Demographic parity violation: gap={parity_gap:.1%}")
         for a in alerts:
             print(a)
         return alerts
@@ -261,12 +261,12 @@ monitor.check({"group_A": 0.44, "group_B": 0.29})` },
               ['Privacy', 'Sharing confidential info with AI', 'Never input PII, business secrets, or client data'],
               ['Environmental Cost', 'Large models have high energy footprint', 'Use smallest model for the task'],
             ]},
-            { type: 'callout', variant: 'note', html: '<strong>Environmental impact:</strong> A single ChatGPT query uses ~10Ã— more energy than a Google search. Choosing gpt-4o-mini over gpt-4o when appropriate reduces this footprint significantly.' },
+            { type: 'callout', variant: 'note', html: '<strong>Environmental impact:</strong> A single ChatGPT query uses ~10× more energy than a Google search. Choosing gpt-4o-mini over gpt-4o when appropriate reduces this footprint significantly.' },
           ],
         },
         {
           slug: 'regulatory-frameworks',
-          title: 'Regulatory Frameworks â€” GDPR & EU AI Act',
+          title: 'Regulatory Frameworks — GDPR & EU AI Act',
           description: 'Key AI regulations: GDPR\'s impact on AI, EU AI Act risk classification, and building compliance into your AI systems.',
           keywords: ['gdpr', 'eu ai act', 'ai regulation', 'compliance', 'data protection'],
           difficulty: 'intermediate',
@@ -274,17 +274,17 @@ monitor.check({"group_A": 0.44, "group_B": 0.29})` },
           content: [
             { type: 'heading', level: 2, text: 'AI Regulatory Landscape', id: 'ai-regulation' },
             { type: 'table', headers: ['GDPR Article', 'Relevance to AI', 'Practical Implication'], rows: [
-              ['Art. 5 â€” Data minimization', 'Only process data needed for the AI task', 'Don\'t collect 50 features when 5 will do'],
-              ['Art. 17 â€” Right to erasure', 'Delete user data + retrain/update model', 'Machine unlearning is now a compliance requirement'],
-              ['Art. 22 â€” Automated decisions', 'Right to human review of automated decisions', 'Credit, hiring, medical AI must have human oversight'],
-              ['Art. 35 â€” DPIA', 'High-risk AI requires Data Protection Impact Assessment', 'Mandatory for systematic profiling'],
+              ['Art. 5 — Data minimization', 'Only process data needed for the AI task', 'Don\'t collect 50 features when 5 will do'],
+              ['Art. 17 — Right to erasure', 'Delete user data + retrain/update model', 'Machine unlearning is now a compliance requirement'],
+              ['Art. 22 — Automated decisions', 'Right to human review of automated decisions', 'Credit, hiring, medical AI must have human oversight'],
+              ['Art. 35 — DPIA', 'High-risk AI requires Data Protection Impact Assessment', 'Mandatory for systematic profiling'],
             ]},
             { type: 'heading', level: 3, text: 'EU AI Act Summary', id: 'eu-ai-act' },
             { type: 'list', ordered: false, items: [
               '<strong>Prohibited AI (immediate ban):</strong> Social credit scoring, real-time biometric surveillance in public, subliminal manipulation',
               '<strong>High-risk AI (strictest requirements):</strong> Medical devices, employment decisions, credit scoring, law enforcement',
               '<strong>GPAI (GPT-4, Claude, etc.):</strong> Transparency requirements, copyright compliance, systemic risk assessment',
-              '<strong>Penalties:</strong> Up to â‚¬35M or 7% of global annual revenue for prohibited AI violations',
+              '<strong>Penalties:</strong> Up to €35M or 7% of global annual revenue for prohibited AI violations',
             ]},
             { type: 'heading', level: 3, text: 'Compliance Checklist', id: 'compliance-checklist' },
             { type: 'list', ordered: true, items: [

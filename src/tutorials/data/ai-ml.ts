@@ -1,4 +1,4 @@
-﻿import type { TutorialCategory } from '../types';
+import type { TutorialCategory } from '../types';
 
 const category: TutorialCategory = {
   id: 'ai-ml',
@@ -7,15 +7,15 @@ const category: TutorialCategory = {
   color: '#f59e0b',
   description: 'Neural networks, transformers, LLMs, fine-tuning, AI agents, MCP, LangChain, and swarm intelligence.',
   sections: [
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
-    // SECTION 1 â€” Foundations: What is AI?
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // SECTION 1 — Foundations: What is AI?
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     {
-      title: 'Foundations â€” What is AI?',
+      title: 'Foundations — What is AI?',
       topics: [
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 1. Intro to AI/ML
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'intro-to-ai-ml',
           title: 'Introduction to AI & Machine Learning',
@@ -25,20 +25,20 @@ const category: TutorialCategory = {
           estimatedMinutes: 14,
           content: [
             { type: 'heading', level: 2, text: 'What is Artificial Intelligence?', id: 'what-is-ai' },
-            { type: 'paragraph', html: 'Artificial Intelligence (AI) is the science of building machines that can perform tasks that normally require human intelligence â€” things like recognizing images, understanding language, making decisions, and playing games.' },
-            { type: 'paragraph', html: '<strong>Machine Learning (ML)</strong> is a subset of AI. Instead of programming explicit rules, we feed data to an algorithm and let it <em>learn patterns</em> on its own. The more data it sees, the better it gets â€” much like how a child learns by example.' },
+            { type: 'paragraph', html: 'Artificial Intelligence (AI) is the science of building machines that can perform tasks that normally require human intelligence — things like recognizing images, understanding language, making decisions, and playing games.' },
+            { type: 'paragraph', html: '<strong>Machine Learning (ML)</strong> is a subset of AI. Instead of programming explicit rules, we feed data to an algorithm and let it <em>learn patterns</em> on its own. The more data it sees, the better it gets — much like how a child learns by example.' },
             { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> Imagine teaching a child to recognize cats. You don\'t write a rulebook saying "cats have pointed ears, whiskers, and tails." Instead, you show hundreds of cat photos, and the child figures out the pattern. That\'s machine learning.' },
 
             { type: 'heading', level: 3, text: 'The Three Types of Machine Learning', id: 'types-of-ml' },
             { type: 'paragraph', html: 'Machine learning comes in three main flavors, each suited to different kinds of problems:' },
             { type: 'table', headers: ['Type', 'Input', 'Goal', 'Example'], rows: [
-              ['<strong>Supervised</strong>', 'Labeled data (input + correct answer)', 'Learn mapping from input â†’ output', 'Spam detection, image classification'],
+              ['<strong>Supervised</strong>', 'Labeled data (input + correct answer)', 'Learn mapping from input → output', 'Spam detection, image classification'],
               ['<strong>Unsupervised</strong>', 'Unlabeled data (input only)', 'Discover hidden patterns/clusters', 'Customer segmentation, anomaly detection'],
               ['<strong>Reinforcement</strong>', 'Environment + rewards/penalties', 'Learn optimal actions via trial & error', 'Game-playing AI, robotics, self-driving'],
             ]},
 
             { type: 'heading', level: 3, text: 'The ML Pipeline at a Glance', id: 'ml-pipeline-overview' },
-            { type: 'paragraph', html: 'Every ML project follows a similar high-level flow. Data goes in, a model is trained, and predictions come out â€” with a feedback loop to improve over time:' },
+            { type: 'paragraph', html: 'Every ML project follows a similar high-level flow. Data goes in, a model is trained, and predictions come out — with a feedback loop to improve over time:' },
             { type: 'flow', steps: [
               { label: 'Data', desc: 'Collect and clean raw data', color: '#6366f1' },
               { label: 'Model', desc: 'Choose algorithm & architecture', color: '#8b5cf6' },
@@ -49,73 +49,73 @@ const category: TutorialCategory = {
 
             { type: 'heading', level: 3, text: 'Real-World AI Examples', id: 'real-world-examples' },
             { type: 'list', ordered: false, items: [
-              '<strong>Email Spam Filters</strong> â€” Supervised learning classifies incoming emails as spam or not',
-              '<strong>Netflix Recommendations</strong> â€” Unsupervised + collaborative filtering suggests what to watch',
-              '<strong>Self-Driving Cars</strong> â€” Reinforcement learning + computer vision navigates roads',
-              '<strong>Voice Assistants</strong> â€” Natural language processing understands and responds to speech',
-              '<strong>Medical Diagnosis</strong> â€” Image classification detects diseases from X-rays and MRIs',
+              '<strong>Email Spam Filters</strong> — Supervised learning classifies incoming emails as spam or not',
+              '<strong>Netflix Recommendations</strong> — Unsupervised + collaborative filtering suggests what to watch',
+              '<strong>Self-Driving Cars</strong> — Reinforcement learning + computer vision navigates roads',
+              '<strong>Voice Assistants</strong> — Natural language processing understands and responds to speech',
+              '<strong>Medical Diagnosis</strong> — Image classification detects diseases from X-rays and MRIs',
             ]},
 
             { type: 'heading', level: 3, text: 'AI vs ML vs Deep Learning', id: 'ai-vs-ml-vs-dl' },
             { type: 'paragraph', html: 'These terms are often used interchangeably, but they are nested concepts:' },
             { type: 'comparison', left: { title: 'Traditional Programming', color: '#6366f1', items: [
               'Developer writes explicit rules',
-              'Rules + Data â†’ Output',
+              'Rules + Data → Output',
               'Hard to handle edge cases',
-              'Brittle â€” breaks with new patterns',
+              'Brittle — breaks with new patterns',
             ]}, right: { title: 'Machine Learning', color: '#f59e0b', items: [
               'Algorithm learns rules from data',
-              'Data + Output â†’ Rules (learned)',
+              'Data + Output → Rules (learned)',
               'Generalizes to unseen cases',
               'Improves with more data',
             ]}},
 
-            { type: 'callout', variant: 'note', html: '<strong>Deep Learning</strong> is a subset of ML that uses neural networks with many layers. It\'s especially powerful for images, audio, and text â€” but requires more data and compute than simpler ML methods.' },
+            { type: 'callout', variant: 'note', html: '<strong>Deep Learning</strong> is a subset of ML that uses neural networks with many layers. It\'s especially powerful for images, audio, and text — but requires more data and compute than simpler ML methods.' },
 
             { type: 'heading', level: 3, text: 'Key Takeaways', id: 'intro-takeaways' },
             { type: 'list', ordered: true, items: [
               'AI is the broad field; ML is a subset that learns from data',
               'Supervised learning needs labeled data; unsupervised discovers patterns; reinforcement learns via rewards',
-              'The ML pipeline is: Data â†’ Model â†’ Train â†’ Predict â†’ Improve',
+              'The ML pipeline is: Data → Model → Train → Predict → Improve',
               'Deep Learning uses multi-layer neural networks and powers modern AI breakthroughs',
             ]},
           ],
         },
 
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 2. Math Behind ML
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'math-behind-ml',
           title: 'The Math Behind Machine Learning',
-          description: 'Linear algebra, calculus, and probability fundamentals for ML â€” with visual explanations and gradient descent from scratch.',
+          description: 'Linear algebra, calculus, and probability fundamentals for ML — with visual explanations and gradient descent from scratch.',
           keywords: ['linear algebra', 'calculus', 'gradient descent', 'probability', 'bayes theorem', 'vectors', 'matrices'],
           difficulty: 'intermediate',
           estimatedMinutes: 18,
           prerequisites: ['intro-to-ai-ml'],
           content: [
             { type: 'heading', level: 2, text: 'Why Math Matters for ML', id: 'why-math' },
-            { type: 'paragraph', html: 'Machine learning is built on three pillars of mathematics: <strong>linear algebra</strong> (how data is represented), <strong>calculus</strong> (how models learn), and <strong>probability</strong> (how uncertainty is handled). You don\'t need a PhD â€” just an intuitive understanding of the key concepts.' },
+            { type: 'paragraph', html: 'Machine learning is built on three pillars of mathematics: <strong>linear algebra</strong> (how data is represented), <strong>calculus</strong> (how models learn), and <strong>probability</strong> (how uncertainty is handled). You don\'t need a PhD — just an intuitive understanding of the key concepts.' },
 
             { type: 'heading', level: 3, text: 'Linear Algebra Basics', id: 'linear-algebra' },
             { type: 'paragraph', html: 'Data in ML is represented as <strong>vectors</strong> (1D arrays) and <strong>matrices</strong> (2D arrays). Every image, sentence, or data point becomes a vector of numbers that the model can process.' },
             { type: 'table', headers: ['Concept', 'What It Is', 'ML Use Case'], rows: [
               ['Vector', 'A list of numbers [3, 1, 4]', 'A single data point (features)'],
               ['Matrix', 'A 2D grid of numbers', 'Dataset (rows = samples, cols = features)'],
-              ['Dot Product', 'Multiply corresponding elements and sum', 'Neuron computation: wÂ·x + b'],
+              ['Dot Product', 'Multiply corresponding elements and sum', 'Neuron computation: w·x + b'],
               ['Transpose', 'Flip rows and columns', 'Shape alignment in matrix multiplication'],
             ]},
             { type: 'code', language: 'python', title: 'vectors.py', code: `import numpy as np
 
-# Vectors â€” represent a single data point
+# Vectors — represent a single data point
 features = np.array([1.0, 2.0, 3.0])   # e.g., [height, weight, age]
 weights  = np.array([0.5, 0.3, 0.2])   # model weights
 
-# Dot product â€” core of every neuron
+# Dot product — core of every neuron
 output = np.dot(features, weights)  # 1*0.5 + 2*0.3 + 3*0.2 = 1.7
 print(f"Neuron output: {output}")
 
-# Matrix â€” an entire dataset
+# Matrix — an entire dataset
 dataset = np.array([
     [1.0, 2.0, 3.0],   # sample 1
     [4.0, 5.0, 6.0],   # sample 2
@@ -125,14 +125,14 @@ dataset = np.array([
 predictions = dataset @ weights  # shape: (3,)
 print(f"Batch predictions: {predictions}")` },
 
-            { type: 'heading', level: 3, text: 'Calculus â€” How Models Learn', id: 'calculus-basics' },
-            { type: 'paragraph', html: 'Calculus gives us <strong>gradients</strong> â€” the direction and magnitude of change. During training, we compute how much each weight contributes to the error, then adjust weights to reduce that error. This is the heart of learning.' },
+            { type: 'heading', level: 3, text: 'Calculus — How Models Learn', id: 'calculus-basics' },
+            { type: 'paragraph', html: 'Calculus gives us <strong>gradients</strong> — the direction and magnitude of change. During training, we compute how much each weight contributes to the error, then adjust weights to reduce that error. This is the heart of learning.' },
             { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> Imagine you\'re blindfolded on a hilly landscape and want to reach the lowest valley. You feel the slope under your feet (gradient) and take a step downhill. Repeat until you reach the bottom. That\'s gradient descent.' },
             { type: 'list', ordered: false, items: [
-              '<strong>Derivative</strong> â€” Rate of change of a function (slope of the curve)',
-              '<strong>Partial Derivative</strong> â€” Derivative with respect to one variable, holding others constant',
-              '<strong>Gradient</strong> â€” Vector of all partial derivatives (points "uphill")',
-              '<strong>Chain Rule</strong> â€” Compose derivatives of nested functions (critical for backpropagation)',
+              '<strong>Derivative</strong> — Rate of change of a function (slope of the curve)',
+              '<strong>Partial Derivative</strong> — Derivative with respect to one variable, holding others constant',
+              '<strong>Gradient</strong> — Vector of all partial derivatives (points "uphill")',
+              '<strong>Chain Rule</strong> — Compose derivatives of nested functions (critical for backpropagation)',
             ]},
 
             { type: 'heading', level: 3, text: 'Gradient Descent Visualized', id: 'gradient-descent' },
@@ -181,7 +181,7 @@ for epoch in range(50):
 print(f"\\nLearned: y = {w:.2f}x + {b:.2f}  (true: y = 3x + 2)")` },
 
             { type: 'heading', level: 3, text: 'Probability & Bayes Theorem', id: 'probability' },
-            { type: 'paragraph', html: 'Probability tells us how to reason under uncertainty. <strong>Bayes\' Theorem</strong> lets us update our beliefs when we get new evidence â€” this is the foundation of spam filters, medical diagnosis, and many ML models.' },
+            { type: 'paragraph', html: 'Probability tells us how to reason under uncertainty. <strong>Bayes\' Theorem</strong> lets us update our beliefs when we get new evidence — this is the foundation of spam filters, medical diagnosis, and many ML models.' },
             { type: 'code', language: 'python', title: 'bayes.py', code: `# Bayes' Theorem: P(A|B) = P(B|A) * P(A) / P(B)
 #
 # Example: Medical test
@@ -197,11 +197,11 @@ p_positive_given_no_disease = 0.05
 p_positive = (p_positive_given_disease * p_disease +
               p_positive_given_no_disease * (1 - p_disease))
 
-# P(Disease|Positive) â€” what we actually want to know
+# P(Disease|Positive) — what we actually want to know
 p_disease_given_positive = (p_positive_given_disease * p_disease) / p_positive
 
 print(f"P(Disease | Positive test) = {p_disease_given_positive:.2%}")
-# Output: ~16.1% â€” surprisingly low despite 95% test accuracy!` },
+# Output: ~16.1% — surprisingly low despite 95% test accuracy!` },
             { type: 'callout', variant: 'caution', html: 'A 95%-accurate test doesn\'t mean a positive result is 95% likely to be correct! When the base rate is low (1% prevalence), most positives are false positives. This is the <strong>base rate fallacy</strong>, and Bayes\' Theorem reveals the true probability.' },
 
             { type: 'heading', level: 3, text: 'Key Takeaways', id: 'math-takeaways' },
@@ -210,18 +210,18 @@ print(f"P(Disease | Positive test) = {p_disease_given_positive:.2%}")
               'The dot product is the fundamental operation inside every neuron',
               'Gradients tell us which direction to adjust weights to reduce error',
               'Gradient descent iteratively updates weights to minimize loss',
-              'Bayes\' Theorem updates beliefs with new evidence â€” foundational for probabilistic ML',
+              'Bayes\' Theorem updates beliefs with new evidence — foundational for probabilistic ML',
             ]},
           ],
         },
 
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 3. Neural Network Basics
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'neural-network-basics',
           title: 'Neural Network Basics',
-          description: 'How neurons, layers, weights, biases, and activation functions work together â€” with a perceptron from scratch.',
+          description: 'How neurons, layers, weights, biases, and activation functions work together — with a perceptron from scratch.',
           keywords: ['neural network', 'perceptron', 'activation function', 'sigmoid', 'relu', 'weights', 'biases'],
           difficulty: 'beginner',
           estimatedMinutes: 16,
@@ -229,15 +229,15 @@ print(f"P(Disease | Positive test) = {p_disease_given_positive:.2%}")
           content: [
             { type: 'heading', level: 2, text: 'What is a Neural Network?', id: 'what-is-nn' },
             { type: 'paragraph', html: 'A neural network is a computing system inspired by the brain. It\'s made of layers of <strong>neurons</strong> (also called nodes) connected by <strong>weights</strong>. Each neuron takes inputs, multiplies them by weights, adds a bias, and passes the result through an <strong>activation function</strong>.' },
-            { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> Think of a neuron like a judge in a talent show. It receives scores from multiple sources (inputs Ã— weights), adds its own bias, and then makes a decision (activation) â€” "yes, this is good enough to pass through" or "no, not relevant."' },
+            { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> Think of a neuron like a judge in a talent show. It receives scores from multiple sources (inputs × weights), adds its own bias, and then makes a decision (activation) — "yes, this is good enough to pass through" or "no, not relevant."' },
 
             { type: 'heading', level: 3, text: 'Anatomy of a Neuron', id: 'neuron-anatomy' },
-            { type: 'paragraph', html: 'A single artificial neuron performs one operation: <code>output = activation(wâ‚xâ‚ + wâ‚‚xâ‚‚ + ... + wâ‚™xâ‚™ + bias)</code>. The weights control how much each input matters. The bias shifts the decision boundary. The activation function adds non-linearity.' },
+            { type: 'paragraph', html: 'A single artificial neuron performs one operation: <code>output = activation(w₁x₁ + w₂x₂ + ... + wₙxₙ + bias)</code>. The weights control how much each input matters. The bias shifts the decision boundary. The activation function adds non-linearity.' },
             { type: 'table', headers: ['Component', 'Symbol', 'Role'], rows: [
               ['Input', 'x', 'The data flowing in (features)'],
               ['Weight', 'w', 'How important each input is (learned)'],
               ['Bias', 'b', 'Shifts the activation threshold (learned)'],
-              ['Weighted Sum', 'z = wÂ·x + b', 'Linear combination of inputs'],
+              ['Weighted Sum', 'z = w·x + b', 'Linear combination of inputs'],
               ['Activation', 'a = f(z)', 'Adds non-linearity to the output'],
             ]},
 
@@ -251,17 +251,17 @@ print(f"P(Disease | Positive test) = {p_disease_given_positive:.2%}")
             ]},
 
             { type: 'heading', level: 3, text: 'Activation Functions', id: 'activation-functions' },
-            { type: 'paragraph', html: 'Without activation functions, a neural network is just a linear equation â€” no matter how many layers you stack. Activations introduce <strong>non-linearity</strong>, allowing networks to learn complex patterns.' },
+            { type: 'paragraph', html: 'Without activation functions, a neural network is just a linear equation — no matter how many layers you stack. Activations introduce <strong>non-linearity</strong>, allowing networks to learn complex patterns.' },
             { type: 'table', headers: ['Function', 'Formula', 'Range', 'Use Case'], rows: [
-              ['<strong>Sigmoid</strong>', 'Ïƒ(x) = 1 / (1 + eâ»Ë£)', '(0, 1)', 'Binary classification output'],
-              ['<strong>ReLU</strong>', 'f(x) = max(0, x)', '[0, âˆž)', 'Hidden layers (fast, avoids vanishing gradient)'],
-              ['<strong>Tanh</strong>', 'f(x) = (eË£ - eâ»Ë£)/(eË£ + eâ»Ë£)', '(-1, 1)', 'Hidden layers (zero-centered)'],
-              ['<strong>Softmax</strong>', 'eË£â± / Î£eË£Ê²', '(0, 1), sums to 1', 'Multi-class classification output'],
+              ['<strong>Sigmoid</strong>', 'σ(x) = 1 / (1 + e⁻ˣ)', '(0, 1)', 'Binary classification output'],
+              ['<strong>ReLU</strong>', 'f(x) = max(0, x)', '[0, ∞)', 'Hidden layers (fast, avoids vanishing gradient)'],
+              ['<strong>Tanh</strong>', 'f(x) = (eˣ - e⁻ˣ)/(eˣ + e⁻ˣ)', '(-1, 1)', 'Hidden layers (zero-centered)'],
+              ['<strong>Softmax</strong>', 'eˣⁱ / Σeˣʲ', '(0, 1), sums to 1', 'Multi-class classification output'],
             ]},
             { type: 'callout', variant: 'note', html: '<strong>ReLU</strong> (Rectified Linear Unit) is the most popular activation for hidden layers. It\'s simple, fast, and avoids the vanishing gradient problem that plagues sigmoid in deep networks.' },
 
             { type: 'heading', level: 3, text: 'Building a Perceptron from Scratch', id: 'perceptron-code' },
-            { type: 'paragraph', html: 'A <strong>perceptron</strong> is the simplest neural network â€” just one neuron. Let\'s build one that learns to classify points as above or below a line:' },
+            { type: 'paragraph', html: 'A <strong>perceptron</strong> is the simplest neural network — just one neuron. Let\'s build one that learns to classify points as above or below a line:' },
             { type: 'code', language: 'python', title: 'perceptron.py', code: `import numpy as np
 
 class Perceptron:
@@ -277,7 +277,7 @@ class Perceptron:
         return 1.0 / (1.0 + np.exp(-z))
 
     def predict(self, x: np.ndarray) -> float:
-        """Forward pass: weighted sum â†’ activation."""
+        """Forward pass: weighted sum → activation."""
         z = np.dot(self.weights, x) + self.bias
         return self.sigmoid(z)
 
@@ -308,10 +308,10 @@ p = Perceptron(n_inputs=2)
 p.train(X, y, epochs=200)
 
 for xi in X:
-    print(f"{xi} â†’ {p.predict(xi):.3f}  (rounded: {round(p.predict(xi))})")` },
+    print(f"{xi} → {p.predict(xi):.3f}  (rounded: {round(p.predict(xi))})")` },
 
             { type: 'heading', level: 3, text: 'From One Neuron to Deep Networks', id: 'deep-networks-intro' },
-            { type: 'paragraph', html: 'A single perceptron can only learn linear boundaries (like AND). By stacking many neurons into multiple layers, we get a <strong>deep neural network</strong> that can learn arbitrarily complex patterns â€” from recognizing faces to generating text.' },
+            { type: 'paragraph', html: 'A single perceptron can only learn linear boundaries (like AND). By stacking many neurons into multiple layers, we get a <strong>deep neural network</strong> that can learn arbitrarily complex patterns — from recognizing faces to generating text.' },
             { type: 'comparison', left: { title: 'Single Perceptron', color: '#6366f1', items: [
               'One neuron, one decision boundary',
               'Can only learn linear separations',
@@ -326,36 +326,36 @@ for xi in X:
 
             { type: 'heading', level: 3, text: 'Key Takeaways', id: 'nn-takeaways' },
             { type: 'list', ordered: true, items: [
-              'A neuron computes: output = activation(weights Â· inputs + bias)',
+              'A neuron computes: output = activation(weights · inputs + bias)',
               'ReLU is the default activation for hidden layers; softmax for multi-class output',
               'Stacking layers lets networks learn increasingly abstract features',
-              'A perceptron is the simplest network â€” one neuron, one linear boundary',
+              'A perceptron is the simplest network — one neuron, one linear boundary',
             ]},
           ],
         },
       ],
     },
 
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
-    // SECTION 2 â€” Building Models
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // SECTION 2 — Building Models
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     {
       title: 'Building Models',
       topics: [
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 4. First ML Model
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'first-ml-model',
           title: 'Your First ML Model',
-          description: 'Build a complete ML pipeline from scratch â€” data collection through deployment with linear regression in Python.',
+          description: 'Build a complete ML pipeline from scratch — data collection through deployment with linear regression in Python.',
           keywords: ['linear regression', 'ml pipeline', 'training loop', 'data preprocessing', 'model evaluation'],
           difficulty: 'beginner',
           estimatedMinutes: 18,
           prerequisites: ['intro-to-ai-ml', 'math-behind-ml'],
           content: [
             { type: 'heading', level: 2, text: 'The End-to-End ML Pipeline', id: 'ml-pipeline' },
-            { type: 'paragraph', html: 'Building an ML model isn\'t just about the algorithm â€” it\'s a full pipeline from raw data to a deployed, monitored system. Let\'s walk through every step and build a linear regression model from scratch.' },
+            { type: 'paragraph', html: 'Building an ML model isn\'t just about the algorithm — it\'s a full pipeline from raw data to a deployed, monitored system. Let\'s walk through every step and build a linear regression model from scratch.' },
             { type: 'flow', steps: [
               { label: 'Collect Data', desc: 'Gather raw data from sources', color: '#6366f1' },
               { label: 'Clean & Prep', desc: 'Handle missing values, normalize', color: '#8b5cf6' },
@@ -365,25 +365,25 @@ for xi in X:
               { label: 'Deploy', desc: 'Serve predictions in production', color: '#06b6d4' },
             ]},
 
-            { type: 'heading', level: 3, text: 'Step 1 â€” Data Collection & Cleaning', id: 'data-prep' },
+            { type: 'heading', level: 3, text: 'Step 1 — Data Collection & Cleaning', id: 'data-prep' },
             { type: 'paragraph', html: 'Good data is everything in ML. The model can only be as good as the data it trains on. Common data quality issues include missing values, outliers, inconsistent formats, and duplicate records.' },
             { type: 'list', ordered: false, items: [
-              '<strong>Missing values</strong> â€” Drop rows, fill with mean/median, or use interpolation',
-              '<strong>Outliers</strong> â€” Cap at percentiles or remove statistically extreme values',
-              '<strong>Feature scaling</strong> â€” Normalize (0-1) or standardize (mean=0, std=1) numeric features',
-              '<strong>Encoding</strong> â€” Convert categorical text to numbers (one-hot, label encoding)',
+              '<strong>Missing values</strong> — Drop rows, fill with mean/median, or use interpolation',
+              '<strong>Outliers</strong> — Cap at percentiles or remove statistically extreme values',
+              '<strong>Feature scaling</strong> — Normalize (0-1) or standardize (mean=0, std=1) numeric features',
+              '<strong>Encoding</strong> — Convert categorical text to numbers (one-hot, label encoding)',
             ]},
 
-            { type: 'heading', level: 3, text: 'Step 2 â€” Train/Test Split', id: 'train-test-split' },
-            { type: 'paragraph', html: 'We always split data into at least two sets: <strong>training</strong> (what the model learns from) and <strong>test</strong> (what we evaluate on). The test set must be completely unseen during training â€” this simulates real-world performance.' },
+            { type: 'heading', level: 3, text: 'Step 2 — Train/Test Split', id: 'train-test-split' },
+            { type: 'paragraph', html: 'We always split data into at least two sets: <strong>training</strong> (what the model learns from) and <strong>test</strong> (what we evaluate on). The test set must be completely unseen during training — this simulates real-world performance.' },
             { type: 'table', headers: ['Set', 'Typical Size', 'Purpose'], rows: [
               ['Training', '70-80%', 'Model learns patterns from this data'],
               ['Validation', '10-15%', 'Tune hyperparameters, prevent overfitting'],
               ['Test', '10-15%', 'Final unbiased performance evaluation'],
             ]},
-            { type: 'callout', variant: 'caution', html: 'Never tune your model based on test set performance! That causes <strong>data leakage</strong> â€” the model indirectly "sees" the test data. Use a separate validation set for hyperparameter tuning.' },
+            { type: 'callout', variant: 'caution', html: 'Never tune your model based on test set performance! That causes <strong>data leakage</strong> — the model indirectly "sees" the test data. Use a separate validation set for hyperparameter tuning.' },
 
-            { type: 'heading', level: 3, text: 'Step 3 â€” Linear Regression from Scratch', id: 'linear-regression-code' },
+            { type: 'heading', level: 3, text: 'Step 3 — Linear Regression from Scratch', id: 'linear-regression-code' },
             { type: 'paragraph', html: 'Linear regression finds the best line <code>y = wx + b</code> that fits the data. "Best" means minimizing the Mean Squared Error (MSE) between predictions and actual values.' },
             { type: 'code', language: 'python', title: 'linear_regression.py', code: `import numpy as np
 
@@ -452,24 +452,24 @@ print(f"Learned weights: size={model.w[0]:.0f}, bedrooms={model.w[1]:.0f}")` },
             { type: 'paragraph', html: 'The training loop is the engine of ML. Each iteration does three things: predict, measure error, and adjust. After enough iterations, the model converges to a good solution.' },
             { type: 'flow', steps: [
               { label: 'Predict', desc: 'y_pred = X @ w + b', color: '#6366f1' },
-              { label: 'Loss', desc: 'MSE = mean((y_pred - y)Â²)', color: '#ef4444' },
-              { label: 'Gradients', desc: 'dw, db = âˆ‚Loss/âˆ‚w, âˆ‚Loss/âˆ‚b', color: '#f59e0b' },
-              { label: 'Update', desc: 'w -= lr Ã— dw; b -= lr Ã— db', color: '#22c55e' },
+              { label: 'Loss', desc: 'MSE = mean((y_pred - y)²)', color: '#ef4444' },
+              { label: 'Gradients', desc: 'dw, db = ∂Loss/∂w, ∂Loss/∂b', color: '#f59e0b' },
+              { label: 'Update', desc: 'w -= lr × dw; b -= lr × db', color: '#22c55e' },
             ]},
 
             { type: 'heading', level: 3, text: 'Key Takeaways', id: 'first-model-takeaways' },
             { type: 'list', ordered: true, items: [
               'The ML pipeline has 6 stages: collect, clean, split, train, evaluate, deploy',
-              'Always split data into train/validation/test â€” never evaluate on training data',
+              'Always split data into train/validation/test — never evaluate on training data',
               'Feature scaling (normalization) is critical for gradient descent to work well',
-              'The training loop: predict â†’ compute loss â†’ compute gradients â†’ update weights',
+              'The training loop: predict → compute loss → compute gradients → update weights',
             ]},
           ],
         },
 
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 5. Classification & Regression
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'classification-regression',
           title: 'Classification vs Regression',
@@ -491,19 +491,19 @@ print(f"Learned weights: size={model.w[0]:.0f}, bedrooms={model.w[1]:.0f}")` },
               'Predicts continuous numbers (price, temperature)',
               'Output: single numeric value',
               'Loss: mean squared error (MSE)',
-              'Metrics: MSE, RMSE, MAE, RÂ²',
+              'Metrics: MSE, RMSE, MAE, R²',
               'Examples: house prices, stock forecasting, weather prediction',
             ]}},
 
             { type: 'heading', level: 3, text: 'Decision Boundaries', id: 'decision-boundaries' },
-            { type: 'paragraph', html: 'In classification, the model learns a <strong>decision boundary</strong> â€” an invisible line (or surface) that separates different classes. A linear model draws a straight line; neural networks can learn curved, complex boundaries.' },
+            { type: 'paragraph', html: 'In classification, the model learns a <strong>decision boundary</strong> — an invisible line (or surface) that separates different classes. A linear model draws a straight line; neural networks can learn curved, complex boundaries.' },
             { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> A decision boundary is like a fence between two properties. A simple fence is a straight line. A complex fence might curve around trees and gardens. More complex models build more flexible fences.' },
 
             { type: 'heading', level: 3, text: 'The Confusion Matrix', id: 'confusion-matrix' },
             { type: 'paragraph', html: 'For classification, the confusion matrix tells you exactly where the model succeeds and fails:' },
             { type: 'table', headers: ['', 'Predicted Positive', 'Predicted Negative'], rows: [
-              ['<strong>Actually Positive</strong>', 'True Positive (TP) âœ“', 'False Negative (FN) â€” missed it'],
-              ['<strong>Actually Negative</strong>', 'False Positive (FP) â€” false alarm', 'True Negative (TN) âœ“'],
+              ['<strong>Actually Positive</strong>', 'True Positive (TP) ✓', 'False Negative (FN) — missed it'],
+              ['<strong>Actually Negative</strong>', 'False Positive (FP) — false alarm', 'True Negative (TN) ✓'],
             ]},
 
             { type: 'heading', level: 3, text: 'Evaluation Metrics', id: 'eval-metrics' },
@@ -511,7 +511,7 @@ print(f"Learned weights: size={model.w[0]:.0f}, bedrooms={model.w[1]:.0f}")` },
               ['<strong>Accuracy</strong>', '(TP + TN) / Total', 'Balanced classes only'],
               ['<strong>Precision</strong>', 'TP / (TP + FP)', 'When false positives are costly (spam filter)'],
               ['<strong>Recall</strong>', 'TP / (TP + FN)', 'When false negatives are costly (cancer detection)'],
-              ['<strong>F1 Score</strong>', '2 Ã— (P Ã— R) / (P + R)', 'Balance between precision and recall'],
+              ['<strong>F1 Score</strong>', '2 × (P × R) / (P + R)', 'Balance between precision and recall'],
             ]},
             { type: 'callout', variant: 'caution', html: 'Accuracy is misleading with imbalanced data. If 99% of emails are not spam, a model that always predicts "not spam" has 99% accuracy but catches zero spam. Use precision, recall, and F1 instead.' },
 
@@ -576,16 +576,16 @@ print(f"\\nFinal accuracy: {accuracy:.2%}")` },
             { type: 'heading', level: 3, text: 'Key Takeaways', id: 'class-reg-takeaways' },
             { type: 'list', ordered: true, items: [
               'Classification predicts categories; regression predicts numbers',
-              'The confusion matrix shows TP, FP, TN, FN â€” the basis for all classification metrics',
+              'The confusion matrix shows TP, FP, TN, FN — the basis for all classification metrics',
               'Use precision when false positives are costly, recall when false negatives are costly',
-              'Logistic regression = linear model + sigmoid â†’ outputs probability for binary classification',
+              'Logistic regression = linear model + sigmoid → outputs probability for binary classification',
             ]},
           ],
         },
 
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 6. Training Deep Networks
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'training-deep-networks',
           title: 'Training Deep Neural Networks',
@@ -596,7 +596,7 @@ print(f"\\nFinal accuracy: {accuracy:.2%}")` },
           prerequisites: ['neural-network-basics', 'math-behind-ml'],
           content: [
             { type: 'heading', level: 2, text: 'How Deep Networks Learn', id: 'how-dnns-learn' },
-            { type: 'paragraph', html: 'Training a deep network is a four-step dance repeated thousands of times: push data forward through the network, measure the error, flow the error backward to compute gradients, and update the weights. This process â€” <strong>forward pass â†’ loss â†’ backward pass â†’ update</strong> â€” is the foundation of all deep learning.' },
+            { type: 'paragraph', html: 'Training a deep network is a four-step dance repeated thousands of times: push data forward through the network, measure the error, flow the error backward to compute gradients, and update the weights. This process — <strong>forward pass → loss → backward pass → update</strong> — is the foundation of all deep learning.' },
             { type: 'flow', steps: [
               { label: 'Input', desc: 'Feed batch of training data', color: '#6366f1' },
               { label: 'Forward Pass', desc: 'Compute predictions layer by layer', color: '#8b5cf6' },
@@ -606,16 +606,16 @@ print(f"\\nFinal accuracy: {accuracy:.2%}")` },
             ]},
 
             { type: 'heading', level: 3, text: 'The Forward Pass', id: 'forward-pass' },
-            { type: 'paragraph', html: 'Data flows from input to output, layer by layer. Each layer applies: <code>output = activation(weights Ã— input + bias)</code>. The final layer produces the prediction.' },
+            { type: 'paragraph', html: 'Data flows from input to output, layer by layer. Each layer applies: <code>output = activation(weights × input + bias)</code>. The final layer produces the prediction.' },
             { type: 'callout', variant: 'note', html: 'During the forward pass, we save intermediate values (activations) at each layer. These saved values are needed during backpropagation to compute gradients efficiently.' },
 
             { type: 'heading', level: 3, text: 'Loss Functions', id: 'loss-functions' },
             { type: 'paragraph', html: 'The loss function measures how wrong the predictions are. Different tasks use different loss functions:' },
             { type: 'table', headers: ['Loss Function', 'Formula', 'Task', 'Behavior'], rows: [
-              ['<strong>MSE</strong>', '(1/n) Î£(Å· - y)Â²', 'Regression', 'Penalizes large errors quadratically'],
-              ['<strong>MAE</strong>', '(1/n) Î£|Å· - y|', 'Regression', 'Linear penalty, robust to outliers'],
-              ['<strong>Binary Cross-Entropy</strong>', '-[yÂ·log(Å·) + (1-y)Â·log(1-Å·)]', 'Binary classification', 'Heavy penalty for confident wrong predictions'],
-              ['<strong>Categorical Cross-Entropy</strong>', '-Î£ yáµ¢Â·log(Å·áµ¢)', 'Multi-class classification', 'Works with softmax output layer'],
+              ['<strong>MSE</strong>', '(1/n) Σ(ŷ - y)²', 'Regression', 'Penalizes large errors quadratically'],
+              ['<strong>MAE</strong>', '(1/n) Σ|ŷ - y|', 'Regression', 'Linear penalty, robust to outliers'],
+              ['<strong>Binary Cross-Entropy</strong>', '-[y·log(ŷ) + (1-y)·log(1-ŷ)]', 'Binary classification', 'Heavy penalty for confident wrong predictions'],
+              ['<strong>Categorical Cross-Entropy</strong>', '-Σ yᵢ·log(ŷᵢ)', 'Multi-class classification', 'Works with softmax output layer'],
             ]},
 
             { type: 'heading', level: 3, text: 'Backpropagation', id: 'backpropagation' },
@@ -626,10 +626,10 @@ print(f"\\nFinal accuracy: {accuracy:.2%}")` },
 # Simple 2-layer network demonstrating backprop
 np.random.seed(42)
 
-# Network: 2 inputs â†’ 3 hidden â†’ 1 output
-W1 = np.random.randn(2, 3) * 0.5   # input â†’ hidden
+# Network: 2 inputs → 3 hidden → 1 output
+W1 = np.random.randn(2, 3) * 0.5   # input → hidden
 b1 = np.zeros(3)
-W2 = np.random.randn(3, 1) * 0.5   # hidden â†’ output
+W2 = np.random.randn(3, 1) * 0.5   # hidden → output
 b2 = np.zeros(1)
 
 def relu(z):       return np.maximum(0, z)
@@ -694,7 +694,7 @@ print(f"Expected:    {y.flatten()}")` },
 
             { type: 'heading', level: 3, text: 'Key Takeaways', id: 'training-takeaways' },
             { type: 'list', ordered: true, items: [
-              'Training = forward pass â†’ loss â†’ backward pass â†’ update, repeated many times',
+              'Training = forward pass → loss → backward pass → update, repeated many times',
               'Backpropagation uses the chain rule to compute gradients layer by layer',
               'MSE for regression, cross-entropy for classification',
               'Adam optimizer is a great default; SGD+momentum for maximum performance',
@@ -703,9 +703,9 @@ print(f"Expected:    {y.flatten()}")` },
           ],
         },
 
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 7. CNNs
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'cnn',
           title: 'Convolutional Neural Networks (CNNs)',
@@ -716,11 +716,11 @@ print(f"Expected:    {y.flatten()}")` },
           prerequisites: ['training-deep-networks'],
           content: [
             { type: 'heading', level: 2, text: 'Why CNNs for Images?', id: 'why-cnns' },
-            { type: 'paragraph', html: 'A 256Ã—256 color image has 196,608 pixels. If we flatten it and feed it to a fully connected network, the first layer alone would need millions of weights â€” impossibly expensive and prone to overfitting. <strong>CNNs</strong> solve this by using small, shared filters that slide across the image, detecting local patterns like edges, textures, and shapes.' },
-            { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> Imagine examining a painting with a magnifying glass. You slide the glass across the canvas, looking at small patches one at a time. Each position reveals local details â€” edges, colors, textures. A CNN does exactly this, but with learnable "magnifying glasses" (filters).' },
+            { type: 'paragraph', html: 'A 256×256 color image has 196,608 pixels. If we flatten it and feed it to a fully connected network, the first layer alone would need millions of weights — impossibly expensive and prone to overfitting. <strong>CNNs</strong> solve this by using small, shared filters that slide across the image, detecting local patterns like edges, textures, and shapes.' },
+            { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> Imagine examining a painting with a magnifying glass. You slide the glass across the canvas, looking at small patches one at a time. Each position reveals local details — edges, colors, textures. A CNN does exactly this, but with learnable "magnifying glasses" (filters).' },
 
             { type: 'heading', level: 3, text: 'How Convolution Works', id: 'convolution-explained' },
-            { type: 'paragraph', html: 'A <strong>convolution</strong> operation slides a small matrix (called a <strong>filter</strong> or <strong>kernel</strong>, typically 3Ã—3) across the input image. At each position, it computes an element-wise multiplication and sums the result â€” producing one number in the output <strong>feature map</strong>.' },
+            { type: 'paragraph', html: 'A <strong>convolution</strong> operation slides a small matrix (called a <strong>filter</strong> or <strong>kernel</strong>, typically 3×3) across the input image. At each position, it computes an element-wise multiplication and sums the result — producing one number in the output <strong>feature map</strong>.' },
             { type: 'list', ordered: true, items: [
               'Place the filter at the top-left corner of the input',
               'Multiply each filter value by the corresponding input value',
@@ -729,7 +729,7 @@ print(f"Expected:    {y.flatten()}")` },
               'After completing a row, move down and repeat',
             ]},
             { type: 'table', headers: ['Term', 'Description', 'Typical Value'], rows: [
-              ['<strong>Filter/Kernel</strong>', 'Small weight matrix that detects a pattern', '3Ã—3, 5Ã—5'],
+              ['<strong>Filter/Kernel</strong>', 'Small weight matrix that detects a pattern', '3×3, 5×5'],
               ['<strong>Stride</strong>', 'How many pixels the filter moves each step', '1 or 2'],
               ['<strong>Padding</strong>', 'Zeros added around input to control output size', '"same" or "valid"'],
               ['<strong>Feature Map</strong>', 'Output of applying one filter to the input', 'One per filter'],
@@ -740,24 +740,24 @@ print(f"Expected:    {y.flatten()}")` },
             { type: 'comparison', left: { title: 'Max Pooling', color: '#6366f1', items: [
               'Takes the maximum value in each window',
               'Preserves the strongest activations',
-              'Most commonly used (2Ã—2, stride 2)',
-              'Reduces dimensions by 4Ã— (halves H and W)',
+              'Most commonly used (2×2, stride 2)',
+              'Reduces dimensions by 4× (halves H and W)',
             ]}, right: { title: 'Average Pooling', color: '#22c55e', items: [
               'Takes the average value in each window',
               'Smooths the feature map',
               'Often used in final layer (global avg pool)',
-              'Reduces dimensions by 4Ã— (halves H and W)',
+              'Reduces dimensions by 4× (halves H and W)',
             ]}},
 
             { type: 'heading', level: 3, text: 'CNN Architecture', id: 'cnn-architecture' },
             { type: 'paragraph', html: 'A typical CNN stacks convolution + pooling layers to extract features, then flattens the result and feeds it through fully connected layers for classification.' },
             { type: 'flow', steps: [
-              { label: 'Image Input', desc: '224Ã—224Ã—3 RGB image', color: '#6366f1' },
-              { label: 'Conv + ReLU', desc: '32 filters, 3Ã—3 â†’ 224Ã—224Ã—32', color: '#8b5cf6' },
-              { label: 'Max Pool', desc: '2Ã—2 â†’ 112Ã—112Ã—32', color: '#a855f7' },
-              { label: 'Conv + ReLU', desc: '64 filters, 3Ã—3 â†’ 112Ã—112Ã—64', color: '#ec4899' },
-              { label: 'Max Pool', desc: '2Ã—2 â†’ 56Ã—56Ã—64', color: '#ef4444' },
-              { label: 'Flatten', desc: '56Ã—56Ã—64 = 200,704 neurons', color: '#f59e0b' },
+              { label: 'Image Input', desc: '224×224×3 RGB image', color: '#6366f1' },
+              { label: 'Conv + ReLU', desc: '32 filters, 3×3 → 224×224×32', color: '#8b5cf6' },
+              { label: 'Max Pool', desc: '2×2 → 112×112×32', color: '#a855f7' },
+              { label: 'Conv + ReLU', desc: '64 filters, 3×3 → 112×112×64', color: '#ec4899' },
+              { label: 'Max Pool', desc: '2×2 → 56×56×64', color: '#ef4444' },
+              { label: 'Flatten', desc: '56×56×64 = 200,704 neurons', color: '#f59e0b' },
               { label: 'Dense + ReLU', desc: '128 neurons', color: '#22c55e' },
               { label: 'Output', desc: '10 classes (softmax)', color: '#06b6d4' },
             ]},
@@ -767,7 +767,7 @@ print(f"Expected:    {y.flatten()}")` },
 
 class ImageClassifier:
     """
-    Simple CNN: Conv â†’ Pool â†’ Conv â†’ Pool â†’ Flatten â†’ Dense â†’ Output
+    Simple CNN: Conv → Pool → Conv → Pool → Flatten → Dense → Output
     """
     def __init__(self, num_classes=10):
         # Feature extractor (convolutional layers)
@@ -783,18 +783,18 @@ class ImageClassifier:
     def forward(self, x):
         # x shape: (batch, 3, 224, 224)
 
-        # Block 1: Conv â†’ ReLU â†’ Pool
-        x = relu(self.conv1(x))    # â†’ (batch, 32, 224, 224)
-        x = self.pool(x)            # â†’ (batch, 32, 112, 112)
+        # Block 1: Conv → ReLU → Pool
+        x = relu(self.conv1(x))    # → (batch, 32, 224, 224)
+        x = self.pool(x)            # → (batch, 32, 112, 112)
 
-        # Block 2: Conv â†’ ReLU â†’ Pool
-        x = relu(self.conv2(x))    # â†’ (batch, 64, 112, 112)
-        x = self.pool(x)            # â†’ (batch, 64, 56, 56)
+        # Block 2: Conv → ReLU → Pool
+        x = relu(self.conv2(x))    # → (batch, 64, 112, 112)
+        x = self.pool(x)            # → (batch, 64, 56, 56)
 
         # Classifier
-        x = self.flatten(x)         # â†’ (batch, 200704)
-        x = relu(self.fc1(x))       # â†’ (batch, 128)
-        x = softmax(self.fc2(x))    # â†’ (batch, 10)
+        x = self.flatten(x)         # → (batch, 200704)
+        x = relu(self.fc1(x))       # → (batch, 128)
+        x = softmax(self.fc2(x))    # → (batch, 10)
         return x
 
 # Training loop
@@ -817,21 +817,21 @@ for epoch in range(20):
               '<strong>Deeper layers:</strong> Full objects, scenes, complex structures',
             ]},
 
-            { type: 'callout', variant: 'note', html: 'This hierarchical feature learning is why CNNs are so powerful. They automatically discover useful features without manual feature engineering â€” something that took computer vision researchers decades to do by hand.' },
+            { type: 'callout', variant: 'note', html: 'This hierarchical feature learning is why CNNs are so powerful. They automatically discover useful features without manual feature engineering — something that took computer vision researchers decades to do by hand.' },
 
             { type: 'heading', level: 3, text: 'Key Takeaways', id: 'cnn-takeaways' },
             { type: 'list', ordered: true, items: [
               'CNNs use shared filters that slide across images to detect local patterns',
               'Convolution + ReLU detects features; pooling reduces spatial size',
               'Deeper layers learn increasingly complex, abstract features',
-              'The typical architecture: Conv â†’ Pool â†’ Conv â†’ Pool â†’ Flatten â†’ Dense â†’ Output',
+              'The typical architecture: Conv → Pool → Conv → Pool → Flatten → Dense → Output',
             ]},
           ],
         },
 
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 8. RNNs & Sequence Models
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'rnn-sequence-models',
           title: 'RNNs & Sequence Models',
@@ -842,7 +842,7 @@ for epoch in range(20):
           prerequisites: ['training-deep-networks'],
           content: [
             { type: 'heading', level: 2, text: 'Why Sequences Need Special Networks', id: 'why-rnns' },
-            { type: 'paragraph', html: 'Standard neural networks process each input independently â€” they have no memory. But many real-world problems involve <strong>sequences</strong> where order matters: text (word order), time series (temporal patterns), audio (sound over time), and video (frames over time). <strong>Recurrent Neural Networks (RNNs)</strong> solve this by maintaining a hidden state that acts as memory.' },
+            { type: 'paragraph', html: 'Standard neural networks process each input independently — they have no memory. But many real-world problems involve <strong>sequences</strong> where order matters: text (word order), time series (temporal patterns), audio (sound over time), and video (frames over time). <strong>Recurrent Neural Networks (RNNs)</strong> solve this by maintaining a hidden state that acts as memory.' },
             { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> Reading a sentence word by word. When you reach the word "bank," you need context from earlier words to know if it means a river bank or a financial bank. RNNs keep a running summary of everything they\'ve seen so far.' },
 
             { type: 'heading', level: 3, text: 'How RNNs Work', id: 'rnn-mechanics' },
@@ -850,16 +850,16 @@ for epoch in range(20):
             { type: 'flow', steps: [
               { label: 'x(t)', desc: 'Current input (e.g., word embedding)', color: '#6366f1' },
               { label: 'h(t-1)', desc: 'Previous hidden state (memory)', color: '#8b5cf6' },
-              { label: 'RNN Cell', desc: 'h(t) = tanh(W_h Â· h(t-1) + W_x Â· x(t) + b)', color: '#f59e0b' },
-              { label: 'h(t)', desc: 'New hidden state â†’ next step', color: '#22c55e' },
-              { label: 'Output', desc: 'Optional: y(t) = W_y Â· h(t)', color: '#06b6d4' },
+              { label: 'RNN Cell', desc: 'h(t) = tanh(W_h · h(t-1) + W_x · x(t) + b)', color: '#f59e0b' },
+              { label: 'h(t)', desc: 'New hidden state → next step', color: '#22c55e' },
+              { label: 'Output', desc: 'Optional: y(t) = W_y · h(t)', color: '#06b6d4' },
             ]},
 
             { type: 'heading', level: 3, text: 'The Vanishing Gradient Problem', id: 'vanishing-gradient' },
-            { type: 'paragraph', html: 'When sequences are long, gradients must flow backward through many time steps during backpropagation. With each step, gradients get multiplied by the same weight matrix â€” if values are small, gradients <strong>vanish</strong> (approach zero), and the network can\'t learn long-range dependencies.' },
-            { type: 'callout', variant: 'caution', html: 'A vanilla RNN struggles to connect information more than ~10-20 time steps apart. If a sentence starts with "The cat, which ate the fish that was caught by the fisherman who lived near the..." â€” by the time the verb arrives, the RNN has forgotten the subject.' },
+            { type: 'paragraph', html: 'When sequences are long, gradients must flow backward through many time steps during backpropagation. With each step, gradients get multiplied by the same weight matrix — if values are small, gradients <strong>vanish</strong> (approach zero), and the network can\'t learn long-range dependencies.' },
+            { type: 'callout', variant: 'caution', html: 'A vanilla RNN struggles to connect information more than ~10-20 time steps apart. If a sentence starts with "The cat, which ate the fish that was caught by the fisherman who lived near the..." — by the time the verb arrives, the RNN has forgotten the subject.' },
 
-            { type: 'heading', level: 3, text: 'LSTM â€” Long Short-Term Memory', id: 'lstm-explained' },
+            { type: 'heading', level: 3, text: 'LSTM — Long Short-Term Memory', id: 'lstm-explained' },
             { type: 'paragraph', html: 'LSTMs solve the vanishing gradient problem with a clever architecture: they add a <strong>cell state</strong> (long-term memory highway) and three <strong>gates</strong> that control what to remember, what to forget, and what to output.' },
             { type: 'list', ordered: false, items: [
               '<strong>Forget Gate:</strong> Decides what to remove from cell state ("forget this old info")',
@@ -873,20 +873,20 @@ for epoch in range(20):
               ['Memory mechanism', 'Single hidden state', 'Cell state + hidden state', 'Combined hidden state'],
               ['Gates', 'None', '3 (forget, input, output)', '2 (reset, update)'],
               ['Long-range dependencies', 'Poor (vanishing gradient)', 'Good (cell state highway)', 'Good (simpler than LSTM)'],
-              ['Parameters', 'Fewest', 'Most (3 gates Ã— weights)', 'Fewer than LSTM'],
+              ['Parameters', 'Fewest', 'Most (3 gates × weights)', 'Fewer than LSTM'],
               ['Training speed', 'Fast but unstable', 'Slower but stable', 'Middle ground'],
               ['Use when', 'Short sequences only', 'Default choice, long sequences', 'Want LSTM-like perf, fewer params'],
             ]},
 
             { type: 'comparison', left: { title: 'RNN / LSTM / GRU', color: '#6366f1', items: [
               'Process sequences one step at a time',
-              'Inherently sequential â€” hard to parallelize',
+              'Inherently sequential — hard to parallelize',
               'Good for short-to-medium sequences',
               'Established, well-understood',
               'Largely replaced by Transformers for NLP',
             ]}, right: { title: 'Transformers', color: '#f59e0b', items: [
               'Process entire sequence at once (parallel)',
-              'Highly parallelizable â€” faster training',
+              'Highly parallelizable — faster training',
               'Handle very long sequences with attention',
               'State of the art for NLP, vision, audio',
               'Require more data and compute',
@@ -894,11 +894,11 @@ for epoch in range(20):
 
             { type: 'heading', level: 3, text: 'When to Use Sequence Models', id: 'when-to-use-rnns' },
             { type: 'list', ordered: false, items: [
-              '<strong>Time series forecasting</strong> â€” Stock prices, weather, sensor data',
-              '<strong>Text generation</strong> â€” Character or word-level language models',
-              '<strong>Speech recognition</strong> â€” Converting audio waveforms to text',
-              '<strong>Machine translation</strong> â€” Sequence-to-sequence (now mostly Transformers)',
-              '<strong>Music generation</strong> â€” Creating melodies note by note',
+              '<strong>Time series forecasting</strong> — Stock prices, weather, sensor data',
+              '<strong>Text generation</strong> — Character or word-level language models',
+              '<strong>Speech recognition</strong> — Converting audio waveforms to text',
+              '<strong>Machine translation</strong> — Sequence-to-sequence (now mostly Transformers)',
+              '<strong>Music generation</strong> — Creating melodies note by note',
             ]},
 
             { type: 'callout', variant: 'note', html: 'While Transformers have largely replaced RNNs for NLP tasks, LSTMs and GRUs remain useful for time-series data, on-device ML (smaller models), and situations where you need to process data one step at a time.' },
@@ -906,7 +906,7 @@ for epoch in range(20):
             { type: 'heading', level: 3, text: 'Key Takeaways', id: 'rnn-takeaways' },
             { type: 'list', ordered: true, items: [
               'RNNs process sequences by maintaining a hidden state (memory) across time steps',
-              'Vanilla RNNs suffer from vanishing gradients â€” they forget long-range context',
+              'Vanilla RNNs suffer from vanishing gradients — they forget long-range context',
               'LSTMs add cell state + gates to carry information across long sequences',
               'GRUs are a simpler, often equally effective alternative to LSTMs',
               'Transformers have largely replaced RNNs for most modern NLP tasks',
@@ -916,19 +916,19 @@ for epoch in range(20):
       ],
     },
 
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
-    // SECTION 3 â€” Modern AI: Transformers & LLMs
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // SECTION 3 — Modern AI: Transformers & LLMs
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     {
-      title: 'Modern AI â€” Transformers & LLMs',
+      title: 'Modern AI — Transformers & LLMs',
       topics: [
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 9. Attention Mechanism
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'attention-mechanism',
           title: 'The Attention Mechanism',
-          description: 'Self-attention explained simply â€” Query, Key, Value, attention scores, and a code implementation.',
+          description: 'Self-attention explained simply — Query, Key, Value, attention scores, and a code implementation.',
           keywords: ['attention', 'self-attention', 'query key value', 'scaled dot-product', 'transformer'],
           difficulty: 'advanced',
           estimatedMinutes: 18,
@@ -936,14 +936,14 @@ for epoch in range(20):
           content: [
             { type: 'heading', level: 2, text: 'What is Attention?', id: 'what-is-attention' },
             { type: 'paragraph', html: 'Attention is a mechanism that lets a model focus on the <strong>most relevant parts</strong> of its input when making predictions. Instead of compressing an entire sequence into one fixed-size hidden state (like RNNs), attention allows the model to look back at all input positions and weigh their importance dynamically.' },
-            { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> Imagine you\'re in a library looking for information about climate change. Instead of reading every book from cover to cover (RNN), you scan the index, find the relevant chapters, and focus your attention there. That\'s what attention does â€” it lets the model "look up" the most relevant pieces of information.' },
+            { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> Imagine you\'re in a library looking for information about climate change. Instead of reading every book from cover to cover (RNN), you scan the index, find the relevant chapters, and focus your attention there. That\'s what attention does — it lets the model "look up" the most relevant pieces of information.' },
 
-            { type: 'heading', level: 3, text: 'Query, Key, Value â€” The Core Concept', id: 'qkv-concept' },
+            { type: 'heading', level: 3, text: 'Query, Key, Value — The Core Concept', id: 'qkv-concept' },
             { type: 'paragraph', html: 'Attention works like a search engine. Each element in the sequence is transformed into three vectors:' },
             { type: 'list', ordered: false, items: [
-              '<strong>Query (Q):</strong> "What am I looking for?" â€” the current word\'s question',
-              '<strong>Key (K):</strong> "What do I contain?" â€” each word\'s label/descriptor',
-              '<strong>Value (V):</strong> "What information do I hold?" â€” the actual content to retrieve',
+              '<strong>Query (Q):</strong> "What am I looking for?" — the current word\'s question',
+              '<strong>Key (K):</strong> "What do I contain?" — each word\'s label/descriptor',
+              '<strong>Value (V):</strong> "What information do I hold?" — the actual content to retrieve',
             ]},
             { type: 'paragraph', html: 'The attention score between two words is the dot product of the query and key. High score = high relevance. These scores are used to create a weighted sum of the values.' },
 
@@ -951,12 +951,12 @@ for epoch in range(20):
             { type: 'flow', steps: [
               { label: 'Input Embeddings', desc: 'Each token has an embedding vector', color: '#6366f1' },
               { label: 'Compute Q, K, V', desc: 'Multiply by learned weight matrices', color: '#8b5cf6' },
-              { label: 'Attention Scores', desc: 'Q Ã— K^T / âˆšd_k (dot product)', color: '#f59e0b' },
+              { label: 'Attention Scores', desc: 'Q × K^T / √d_k (dot product)', color: '#f59e0b' },
               { label: 'Softmax', desc: 'Normalize scores to probabilities', color: '#ef4444' },
-              { label: 'Weighted Sum', desc: 'Multiply attention weights Ã— V', color: '#22c55e' },
+              { label: 'Weighted Sum', desc: 'Multiply attention weights × V', color: '#22c55e' },
               { label: 'Output', desc: 'Context-aware representation', color: '#06b6d4' },
             ]},
-            { type: 'callout', variant: 'note', html: 'We divide by <code>âˆšd_k</code> (square root of key dimension) to prevent dot products from growing too large, which would push softmax into regions with tiny gradients. This is the "scaled" in "scaled dot-product attention."' },
+            { type: 'callout', variant: 'note', html: 'We divide by <code>√d_k</code> (square root of key dimension) to prevent dot products from growing too large, which would push softmax into regions with tiny gradients. This is the "scaled" in "scaled dot-product attention."' },
 
             { type: 'heading', level: 3, text: 'Self-Attention Example', id: 'self-attention-example' },
             { type: 'paragraph', html: 'Consider the sentence: "The cat sat on the mat because <strong>it</strong> was soft." When processing the word "it," self-attention computes how much each other word relates to "it." The word "mat" gets a high attention score because "it" refers to the mat.' },
@@ -966,7 +966,7 @@ for epoch in range(20):
               ['sat', '0.03', 'Action, not a referent'],
               ['on', '0.01', 'Preposition, irrelevant'],
               ['the', '0.01', 'Article, irrelevant'],
-              ['<strong>mat</strong>', '<strong>0.72</strong>', 'Most likely referent â€” "it" = mat'],
+              ['<strong>mat</strong>', '<strong>0.72</strong>', 'Most likely referent — "it" = mat'],
               ['because', '0.03', 'Conjunction'],
               ['it', '0.05', 'Self-reference'],
               ['was', '0.03', 'Verb'],
@@ -982,9 +982,9 @@ def softmax(x: np.ndarray) -> np.ndarray:
     return exp_x / np.sum(exp_x, axis=-1, keepdims=True)
 
 def scaled_dot_product_attention(
-    Q: np.ndarray,  # (seq_len, d_k) â€” queries
-    K: np.ndarray,  # (seq_len, d_k) â€” keys
-    V: np.ndarray,  # (seq_len, d_v) â€” values
+    Q: np.ndarray,  # (seq_len, d_k) — queries
+    K: np.ndarray,  # (seq_len, d_k) — keys
+    V: np.ndarray,  # (seq_len, d_v) — values
 ) -> tuple[np.ndarray, np.ndarray]:
     """
     Compute scaled dot-product attention.
@@ -1024,46 +1024,46 @@ output, attn_weights = scaled_dot_product_attention(Q, K, V)
 
 print("Attention weights (each row shows what each token attends to):")
 print(np.round(attn_weights, 3))
-print(f"\\nOutput shape: {output.shape}")  # (4, 8) â€” context-aware embeddings` },
+print(f"\\nOutput shape: {output.shape}")  # (4, 8) — context-aware embeddings` },
 
             { type: 'heading', level: 3, text: 'Why Attention Changed Everything', id: 'why-attention-matters' },
             { type: 'comparison', left: { title: 'Without Attention (RNN)', color: '#6366f1', items: [
               'Processes tokens sequentially',
-              'Information bottleneck â€” fixed-size hidden state',
+              'Information bottleneck — fixed-size hidden state',
               'Struggles with long-range dependencies',
               'Cannot parallelize across time steps',
             ]}, right: { title: 'With Attention (Transformer)', color: '#f59e0b', items: [
               'Processes all tokens simultaneously',
-              'No bottleneck â€” attends directly to any position',
+              'No bottleneck — attends directly to any position',
               'Handles long-range dependencies naturally',
-              'Fully parallelizable â€” much faster training',
+              'Fully parallelizable — much faster training',
             ]}},
 
             { type: 'heading', level: 3, text: 'Key Takeaways', id: 'attention-takeaways' },
             { type: 'list', ordered: true, items: [
               'Attention lets models focus on relevant parts of the input dynamically',
               'Q (query), K (key), V (value) are projections of input embeddings',
-              'Attention score = dot product of Q and K, normalized by âˆšd_k, softmaxed',
+              'Attention score = dot product of Q and K, normalized by √d_k, softmaxed',
               'Self-attention allows every token to "look at" every other token in the sequence',
               'This parallel, direct-access mechanism is why Transformers outperform RNNs',
             ]},
           ],
         },
 
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 10. Transformer Architecture
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'transformer-architecture',
           title: 'The Transformer Architecture',
-          description: 'Complete Transformer breakdown â€” encoder, decoder, positional encoding, multi-head attention, and feed-forward networks.',
+          description: 'Complete Transformer breakdown — encoder, decoder, positional encoding, multi-head attention, and feed-forward networks.',
           keywords: ['transformer', 'encoder', 'decoder', 'positional encoding', 'multi-head attention', 'feed-forward'],
           difficulty: 'advanced',
           estimatedMinutes: 20,
           prerequisites: ['attention-mechanism'],
           content: [
             { type: 'heading', level: 2, text: 'The Architecture That Changed AI', id: 'transformer-intro' },
-            { type: 'paragraph', html: 'The Transformer, introduced in the landmark 2017 paper, replaced recurrence entirely with <strong>attention</strong>. It processes entire sequences in parallel, enabling massive speedups and paving the way for GPT, BERT, Claude, and every modern LLM. The key insight: you don\'t need recurrence or convolution â€” attention is all you need.' },
+            { type: 'paragraph', html: 'The Transformer, introduced in the landmark 2017 paper, replaced recurrence entirely with <strong>attention</strong>. It processes entire sequences in parallel, enabling massive speedups and paving the way for GPT, BERT, Claude, and every modern LLM. The key insight: you don\'t need recurrence or convolution — attention is all you need.' },
 
             { type: 'heading', level: 3, text: 'High-Level Architecture', id: 'high-level-arch' },
             { type: 'paragraph', html: 'The original Transformer has two halves: an <strong>Encoder</strong> (understands input) and a <strong>Decoder</strong> (generates output). Modern models often use only one: BERT uses the encoder; GPT/Claude use the decoder.' },
@@ -1079,7 +1079,7 @@ print(f"\\nOutput shape: {output.shape}")  # (4, 8) â€” context-aware embed
 
             { type: 'heading', level: 3, text: 'Positional Encoding', id: 'positional-encoding' },
             { type: 'paragraph', html: 'Since Transformers process all tokens simultaneously (no sequential order), they need a way to know <em>where</em> each token is in the sequence. <strong>Positional encodings</strong> are vectors added to token embeddings that encode position information using sine and cosine waves of different frequencies.' },
-            { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> Positional encoding is like adding a "seat number" to each guest at a dinner table. Without it, the model would see a bag of words with no order â€” "dog bites man" and "man bites dog" would look identical.' },
+            { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> Positional encoding is like adding a "seat number" to each guest at a dinner table. Without it, the model would see a bag of words with no order — "dog bites man" and "man bites dog" would look identical.' },
             { type: 'code', language: 'python', title: 'positional_encoding.py', code: `import numpy as np
 
 def positional_encoding(seq_len: int, d_model: int) -> np.ndarray:
@@ -1103,7 +1103,7 @@ print("Position 0:", np.round(pe[0], 3))
 print("Position 5:", np.round(pe[5], 3))` },
 
             { type: 'heading', level: 3, text: 'Multi-Head Attention', id: 'multi-head-attention' },
-            { type: 'paragraph', html: 'Instead of performing one attention operation, the Transformer runs <strong>multiple attention heads in parallel</strong>. Each head learns to focus on different relationships â€” one might attend to syntax, another to semantics, another to coreference. Their outputs are concatenated and projected.' },
+            { type: 'paragraph', html: 'Instead of performing one attention operation, the Transformer runs <strong>multiple attention heads in parallel</strong>. Each head learns to focus on different relationships — one might attend to syntax, another to semantics, another to coreference. Their outputs are concatenated and projected.' },
             { type: 'list', ordered: true, items: [
               'Split Q, K, V into <code>h</code> heads (e.g., 8 or 12)',
               'Each head performs scaled dot-product attention independently',
@@ -1113,23 +1113,23 @@ print("Position 5:", np.round(pe[5], 3))` },
             { type: 'callout', variant: 'note', html: 'With 8 heads and d_model=512, each head operates on d_k=64 dimensions. This is more expressive than a single head with 512 dimensions because different heads can capture different types of relationships.' },
 
             { type: 'heading', level: 3, text: 'Feed-Forward Network', id: 'ffn' },
-            { type: 'paragraph', html: 'After attention, each position passes through a <strong>feed-forward network</strong> (FFN) â€” two linear layers with a ReLU activation. This processes each position independently and adds non-linearity. The inner dimension is typically 4Ã— the model dimension (e.g., 2048 for d_model=512).' },
+            { type: 'paragraph', html: 'After attention, each position passes through a <strong>feed-forward network</strong> (FFN) — two linear layers with a ReLU activation. This processes each position independently and adds non-linearity. The inner dimension is typically 4× the model dimension (e.g., 2048 for d_model=512).' },
 
             { type: 'heading', level: 3, text: 'Residual Connections & Layer Normalization', id: 'residual-layernorm' },
             { type: 'paragraph', html: 'Two critical techniques make deep Transformers trainable:' },
             { type: 'list', ordered: false, items: [
-              '<strong>Residual Connections:</strong> output = layer(x) + x â€” lets gradients flow directly through the network, preventing vanishing gradients',
+              '<strong>Residual Connections:</strong> output = layer(x) + x — lets gradients flow directly through the network, preventing vanishing gradients',
               '<strong>Layer Normalization:</strong> Normalizes activations to have zero mean and unit variance, stabilizing training',
             ]},
 
             { type: 'heading', level: 3, text: 'Encoder vs Decoder', id: 'encoder-vs-decoder' },
             { type: 'comparison', left: { title: 'Encoder (BERT-style)', color: '#6366f1', items: [
-              'Bidirectional â€” sees full input',
+              'Bidirectional — sees full input',
               'Self-attention attends to all positions',
               'Used for understanding (classification, NER)',
               'Examples: BERT, RoBERTa, DeBERTa',
             ]}, right: { title: 'Decoder (GPT-style)', color: '#f59e0b', items: [
-              'Autoregressive â€” sees only past tokens',
+              'Autoregressive — sees only past tokens',
               'Causal mask prevents looking ahead',
               'Used for generation (text, code)',
               'Examples: GPT-4, Claude, LLaMA',
@@ -1140,13 +1140,13 @@ print("Position 5:", np.round(pe[5], 3))` },
               ['Parallelism', 'Fully parallel (all tokens at once)', 'Sequential (one token at a time)'],
               ['Long-range deps', 'Direct attention to any position', 'Decays with distance'],
               ['Training speed', 'Much faster (GPU-friendly)', 'Slower (sequential bottleneck)'],
-              ['Memory', 'O(nÂ²) for sequence length n', 'O(n) â€” more memory-efficient'],
-              ['Inductive bias', 'None â€” must learn everything from data', 'Sequential bias built in'],
+              ['Memory', 'O(n²) for sequence length n', 'O(n) — more memory-efficient'],
+              ['Inductive bias', 'None — must learn everything from data', 'Sequential bias built in'],
             ]},
 
             { type: 'heading', level: 3, text: 'Key Takeaways', id: 'transformer-takeaways' },
             { type: 'list', ordered: true, items: [
-              'Transformers replace recurrence with self-attention â€” processing all tokens in parallel',
+              'Transformers replace recurrence with self-attention — processing all tokens in parallel',
               'Positional encodings inject sequence order information into the model',
               'Multi-head attention lets the model focus on different relationship types simultaneously',
               'Residual connections + layer norm make deep stacking possible',
@@ -1155,13 +1155,13 @@ print("Position 5:", np.round(pe[5], 3))` },
           ],
         },
 
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 11. Large Language Models
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'large-language-models',
           title: 'Large Language Models (LLMs)',
-          description: 'How GPT and Claude work â€” tokenization, embeddings, transformer blocks, next-token prediction, and sampling strategies.',
+          description: 'How GPT and Claude work — tokenization, embeddings, transformer blocks, next-token prediction, and sampling strategies.',
           keywords: ['llm', 'gpt', 'claude', 'tokenization', 'next-token prediction', 'temperature', 'top-k', 'top-p'],
           difficulty: 'intermediate',
           estimatedMinutes: 16,
@@ -1176,24 +1176,24 @@ print("Position 5:", np.round(pe[5], 3))` },
               { label: 'Input Text', desc: '"The capital of France is"', color: '#6366f1' },
               { label: 'Tokenizer', desc: 'Split into tokens: ["The", " capital", " of", " France", " is"]', color: '#8b5cf6' },
               { label: 'Embeddings', desc: 'Convert tokens to dense vectors', color: '#a855f7' },
-              { label: 'N Transformer Blocks', desc: 'Self-attention + FFN Ã— 96 layers', color: '#f59e0b' },
+              { label: 'N Transformer Blocks', desc: 'Self-attention + FFN × 96 layers', color: '#f59e0b' },
               { label: 'Logits', desc: 'Score for every token in vocabulary', color: '#ef4444' },
               { label: 'Sampling', desc: 'Select next token ("Paris")', color: '#22c55e' },
             ]},
 
             { type: 'heading', level: 3, text: 'Tokenization', id: 'tokenization' },
-            { type: 'paragraph', html: 'LLMs don\'t work with raw characters or whole words. They use <strong>subword tokenization</strong> (like BPE â€” Byte Pair Encoding) that splits text into meaningful chunks. Common words are single tokens; rare words are broken into subwords.' },
+            { type: 'paragraph', html: 'LLMs don\'t work with raw characters or whole words. They use <strong>subword tokenization</strong> (like BPE — Byte Pair Encoding) that splits text into meaningful chunks. Common words are single tokens; rare words are broken into subwords.' },
             { type: 'table', headers: ['Text', 'Tokens', 'Token Count'], rows: [
               ['"Hello world"', '["Hello", " world"]', '2'],
               ['"unbelievable"', '["un", "believ", "able"]', '3'],
               ['"GPT-4 is great!"', '["G", "PT", "-", "4", " is", " great", "!"]', '7'],
-              ['"ã“ã‚“ã«ã¡ã¯"', '["ã“ã‚“", "ã«ã¡", "ã¯"]', '3'],
+              ['"こんにちは"', '["こん", "にち", "は"]', '3'],
             ]},
             { type: 'callout', variant: 'tip', html: 'Typical LLM vocabulary sizes: GPT-4 has ~100,000 tokens. Each token is roughly 3-4 characters in English. This balance lets the model handle any text while keeping sequence lengths manageable.' },
 
             { type: 'heading', level: 3, text: 'Next-Token Prediction', id: 'next-token' },
             { type: 'paragraph', html: 'The training objective is deceptively simple: given all previous tokens, predict the next one. The model outputs a probability distribution over its entire vocabulary, and the loss function (cross-entropy) pushes the model to assign high probability to the correct next token.' },
-            { type: 'paragraph', html: 'During inference, the model generates text one token at a time in an <strong>autoregressive</strong> loop: predict token â†’ append to input â†’ predict next token â†’ repeat.' },
+            { type: 'paragraph', html: 'During inference, the model generates text one token at a time in an <strong>autoregressive</strong> loop: predict token → append to input → predict next token → repeat.' },
 
             { type: 'heading', level: 3, text: 'Sampling Strategies', id: 'sampling-strategies' },
             { type: 'paragraph', html: 'When the model outputs logits (scores for each token), we need to choose which token to actually generate. Different sampling strategies control the creativity and randomness of the output:' },
@@ -1201,12 +1201,12 @@ print("Position 5:", np.round(pe[5], 3))` },
               ['<strong>Greedy</strong>', 'Always pick the highest probability token', 'Deterministic, repetitive, boring'],
               ['<strong>Temperature</strong>', 'Divide logits by T before softmax', 'T < 1: sharper (more focused); T > 1: flatter (more random)'],
               ['<strong>Top-k</strong>', 'Only consider the top k tokens', 'k=10: choose from 10 best candidates'],
-              ['<strong>Top-p (Nucleus)</strong>', 'Consider tokens until cumulative prob â‰¥ p', 'p=0.9: dynamic number of candidates, covers 90% probability mass'],
+              ['<strong>Top-p (Nucleus)</strong>', 'Consider tokens until cumulative prob ≥ p', 'p=0.9: dynamic number of candidates, covers 90% probability mass'],
             ]},
             { type: 'callout', variant: 'tip', html: '<strong>Rule of thumb:</strong> Temperature 0.0-0.3 for factual/code tasks (focused). Temperature 0.7-1.0 for creative writing (varied). Top-p of 0.9-0.95 is a good default for most use cases.' },
 
             { type: 'heading', level: 3, text: 'Scale and Emergent Abilities', id: 'scale-emergence' },
-            { type: 'paragraph', html: 'LLMs exhibit <strong>emergent abilities</strong> â€” capabilities that appear suddenly at certain scales. A model with 1B parameters can\'t do arithmetic, but at 100B+ parameters, it suddenly can. These emergent behaviors include:' },
+            { type: 'paragraph', html: 'LLMs exhibit <strong>emergent abilities</strong> — capabilities that appear suddenly at certain scales. A model with 1B parameters can\'t do arithmetic, but at 100B+ parameters, it suddenly can. These emergent behaviors include:' },
             { type: 'list', ordered: false, items: [
               '<strong>In-context learning:</strong> Learning from examples in the prompt without weight updates',
               '<strong>Chain-of-thought reasoning:</strong> Step-by-step logical reasoning',
@@ -1218,17 +1218,17 @@ print("Position 5:", np.round(pe[5], 3))` },
             { type: 'heading', level: 3, text: 'Key Takeaways', id: 'llm-takeaways' },
             { type: 'list', ordered: true, items: [
               'LLMs are decoder-only Transformers trained on next-token prediction',
-              'Tokenization converts text to subword tokens (BPE) â€” roughly 3-4 chars each',
+              'Tokenization converts text to subword tokens (BPE) — roughly 3-4 chars each',
               'Generation is autoregressive: predict one token, append, repeat',
               'Temperature, top-k, and top-p control the randomness of generated text',
-              'Emergent abilities appear at large scales â€” in-context learning, reasoning, coding',
+              'Emergent abilities appear at large scales — in-context learning, reasoning, coding',
             ]},
           ],
         },
 
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 12. Fine-Tuning & Transfer Learning
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'fine-tuning-transfer',
           title: 'Fine-Tuning & Transfer Learning',
@@ -1238,9 +1238,9 @@ print("Position 5:", np.round(pe[5], 3))` },
           estimatedMinutes: 18,
           prerequisites: ['large-language-models'],
           content: [
-            { type: 'heading', level: 2, text: 'Transfer Learning â€” Standing on Giants\' Shoulders', id: 'transfer-learning-intro' },
-            { type: 'paragraph', html: 'Training an LLM from scratch costs millions of dollars and months of GPU time. <strong>Transfer learning</strong> lets you take a pre-trained model that already understands language and adapt it to your specific task â€” often with a small dataset and a fraction of the cost.' },
-            { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> It\'s like hiring a multilingual expert and teaching them your company\'s jargon. You don\'t need to teach them the entire language â€” just the specialized vocabulary and patterns for your domain.' },
+            { type: 'heading', level: 2, text: 'Transfer Learning — Standing on Giants\' Shoulders', id: 'transfer-learning-intro' },
+            { type: 'paragraph', html: 'Training an LLM from scratch costs millions of dollars and months of GPU time. <strong>Transfer learning</strong> lets you take a pre-trained model that already understands language and adapt it to your specific task — often with a small dataset and a fraction of the cost.' },
+            { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> It\'s like hiring a multilingual expert and teaching them your company\'s jargon. You don\'t need to teach them the entire language — just the specialized vocabulary and patterns for your domain.' },
 
             { type: 'heading', level: 3, text: 'Pre-Training vs Fine-Tuning', id: 'pretrain-vs-finetune' },
             { type: 'flow', steps: [
@@ -1261,20 +1261,20 @@ print("Position 5:", np.round(pe[5], 3))` },
 
             { type: 'heading', level: 3, text: 'Types of Fine-Tuning', id: 'fine-tuning-types' },
             { type: 'list', ordered: false, items: [
-              '<strong>Full Fine-Tuning:</strong> Update all model parameters â€” most expressive but expensive and risks catastrophic forgetting',
-              '<strong>Feature Extraction:</strong> Freeze all layers, only train a new head â€” cheapest but least adaptable',
-              '<strong>PEFT (Parameter-Efficient Fine-Tuning):</strong> Update only a small subset of parameters â€” best balance of cost and performance',
+              '<strong>Full Fine-Tuning:</strong> Update all model parameters — most expressive but expensive and risks catastrophic forgetting',
+              '<strong>Feature Extraction:</strong> Freeze all layers, only train a new head — cheapest but least adaptable',
+              '<strong>PEFT (Parameter-Efficient Fine-Tuning):</strong> Update only a small subset of parameters — best balance of cost and performance',
             ]},
 
-            { type: 'heading', level: 3, text: 'LoRA â€” Low-Rank Adaptation', id: 'lora-explained' },
-            { type: 'paragraph', html: '<strong>LoRA</strong> is the most popular PEFT method. Instead of updating the full weight matrix W (millions of params), it adds two small matrices A and B such that the update is Î”W = A Ã— B. This reduces trainable parameters by 100-1000Ã—.' },
+            { type: 'heading', level: 3, text: 'LoRA — Low-Rank Adaptation', id: 'lora-explained' },
+            { type: 'paragraph', html: '<strong>LoRA</strong> is the most popular PEFT method. Instead of updating the full weight matrix W (millions of params), it adds two small matrices A and B such that the update is ΔW = A × B. This reduces trainable parameters by 100-1000×.' },
             { type: 'code', language: 'python', title: 'lora_concept.py', code: `# Conceptual LoRA implementation
 import numpy as np
 
 class LoRALayer:
     """
-    LoRA: Instead of updating full W (d_in Ã— d_out),
-    learn two small matrices A (d_in Ã— r) and B (r Ã— d_out)
+    LoRA: Instead of updating full W (d_in × d_out),
+    learn two small matrices A (d_in × r) and B (r × d_out)
     where r << d_in, d_out (rank, typically 4-64).
     """
     def __init__(self, d_in: int, d_out: int, rank: int = 8):
@@ -1295,14 +1295,14 @@ class LoRALayer:
         # Original output + low-rank adaptation
         return x @ self.W_frozen + x @ self.A @ self.B
 
-# Example: adapting a 4096 Ã— 4096 layer with rank 8
+# Example: adapting a 4096 × 4096 layer with rank 8
 layer = LoRALayer(4096, 4096, rank=8)
 # Frozen: 16,777,216 params
 # LoRA:   65,536 params (0.4% of original!)` },
 
-            { type: 'heading', level: 3, text: 'QLoRA â€” Quantized LoRA', id: 'qlora' },
-            { type: 'paragraph', html: '<strong>QLoRA</strong> goes further: it quantizes the frozen model to 4-bit precision (reducing memory by 4Ã—) while keeping LoRA adapters in full precision. This lets you fine-tune a 65B parameter model on a single 48GB GPU.' },
-            { type: 'callout', variant: 'note', html: 'QLoRA makes fine-tuning accessible to everyone. A model that would normally need 8Ã— A100 GPUs ($200K+ hardware) can be fine-tuned on a single consumer GPU with QLoRA.' },
+            { type: 'heading', level: 3, text: 'QLoRA — Quantized LoRA', id: 'qlora' },
+            { type: 'paragraph', html: '<strong>QLoRA</strong> goes further: it quantizes the frozen model to 4-bit precision (reducing memory by 4×) while keeping LoRA adapters in full precision. This lets you fine-tune a 65B parameter model on a single 48GB GPU.' },
+            { type: 'callout', variant: 'note', html: 'QLoRA makes fine-tuning accessible to everyone. A model that would normally need 8× A100 GPUs ($200K+ hardware) can be fine-tuned on a single consumer GPU with QLoRA.' },
 
             { type: 'heading', level: 3, text: 'Fine-Tuning vs Prompt Engineering', id: 'finetune-vs-prompt' },
             { type: 'paragraph', html: 'Not every problem needs fine-tuning. Often, clever prompting can achieve similar results at zero cost:' },
@@ -1310,7 +1310,7 @@ layer = LoRALayer(4096, 4096, rank=8)
               'Domain-specific knowledge (medical, legal)',
               'Consistent output format/style needed',
               'Large volume of similar tasks',
-              'Latency-sensitive â€” smaller fine-tuned model',
+              'Latency-sensitive — smaller fine-tuned model',
               'Task requires specialized behavior',
             ]}, right: { title: 'When to Prompt Engineer', color: '#22c55e', items: [
               'General-purpose tasks',
@@ -1331,7 +1331,7 @@ layer = LoRALayer(4096, 4096, rank=8)
 
             { type: 'heading', level: 3, text: 'Key Takeaways', id: 'finetune-takeaways' },
             { type: 'list', ordered: true, items: [
-              'Transfer learning adapts pre-trained models to specific tasks â€” saving time and money',
+              'Transfer learning adapts pre-trained models to specific tasks — saving time and money',
               'LoRA adds small trainable matrices instead of updating all weights (0.1-1% of params)',
               'QLoRA quantizes frozen weights to 4-bit, enabling fine-tuning on consumer GPUs',
               'Fine-tune for domain expertise and consistent behavior; prompt engineer for general tasks',
@@ -1342,19 +1342,19 @@ layer = LoRALayer(4096, 4096, rank=8)
       ],
     },
 
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
-    // SECTION 4 â€” Training & Optimization
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // SECTION 4 — Training & Optimization
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     {
       title: 'Training & Optimization',
       topics: [
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 13. Model Training Pipeline
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'model-training-pipeline',
           title: 'The Model Training Pipeline',
-          description: 'Full production ML pipeline from data collection through deployment and monitoring â€” every step explained.',
+          description: 'Full production ML pipeline from data collection through deployment and monitoring — every step explained.',
           keywords: ['ml pipeline', 'data engineering', 'feature engineering', 'model deployment', 'monitoring', 'data versioning'],
           difficulty: 'intermediate',
           estimatedMinutes: 16,
@@ -1449,39 +1449,39 @@ for k, v in features.items():
             { type: 'list', ordered: true, items: [
               'Production ML is 95% data engineering and infrastructure, 5% model code',
               'Feature engineering can be more impactful than choosing a fancier model',
-              'Always version your data alongside your code â€” reproducibility is critical',
-              'Models degrade over time â€” monitor for data drift and concept drift',
-              'The pipeline is a cycle: deploy â†’ monitor â†’ retrain â†’ redeploy',
+              'Always version your data alongside your code — reproducibility is critical',
+              'Models degrade over time — monitor for data drift and concept drift',
+              'The pipeline is a cycle: deploy → monitor → retrain → redeploy',
             ]},
           ],
         },
 
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 14. Hyperparameter Tuning
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'hyperparameter-tuning',
           title: 'Hyperparameter Tuning',
-          description: 'Learning rate, batch size, and architecture choices â€” grid search, random search, and Bayesian optimization.',
+          description: 'Learning rate, batch size, and architecture choices — grid search, random search, and Bayesian optimization.',
           keywords: ['hyperparameter', 'learning rate', 'batch size', 'grid search', 'random search', 'bayesian optimization'],
           difficulty: 'intermediate',
           estimatedMinutes: 14,
           prerequisites: ['training-deep-networks'],
           content: [
             { type: 'heading', level: 2, text: 'What Are Hyperparameters?', id: 'what-are-hyperparams' },
-            { type: 'paragraph', html: '<strong>Hyperparameters</strong> are settings you choose <em>before</em> training â€” they control how the model learns, not what it learns. Unlike model parameters (weights), hyperparameters aren\'t learned from data; they\'re set by the engineer.' },
+            { type: 'paragraph', html: '<strong>Hyperparameters</strong> are settings you choose <em>before</em> training — they control how the model learns, not what it learns. Unlike model parameters (weights), hyperparameters aren\'t learned from data; they\'re set by the engineer.' },
             { type: 'table', headers: ['Hyperparameter', 'What It Controls', 'Typical Range', 'Impact'], rows: [
-              ['<strong>Learning Rate</strong>', 'Step size for weight updates', '1e-5 to 1e-1', 'Most important â€” too high: diverge, too low: stuck'],
+              ['<strong>Learning Rate</strong>', 'Step size for weight updates', '1e-5 to 1e-1', 'Most important — too high: diverge, too low: stuck'],
               ['<strong>Batch Size</strong>', 'Samples per gradient update', '16 to 512', 'Large: stable but may generalize worse'],
               ['<strong>Epochs</strong>', 'Passes through entire dataset', '10 to 1000', 'Too few: underfit, too many: overfit'],
               ['<strong>Hidden Layers</strong>', 'Network depth', '1 to 100+', 'Deeper = more capacity, harder to train'],
               ['<strong>Neurons per Layer</strong>', 'Layer width', '32 to 4096', 'Wider = more capacity, more memory'],
-              ['<strong>Dropout Rate</strong>', 'Fraction of neurons to randomly disable', '0.1 to 0.5', 'Regularization â€” prevents overfitting'],
+              ['<strong>Dropout Rate</strong>', 'Fraction of neurons to randomly disable', '0.1 to 0.5', 'Regularization — prevents overfitting'],
             ]},
 
-            { type: 'heading', level: 3, text: 'The Learning Rate â€” Most Critical Hyperparameter', id: 'learning-rate' },
+            { type: 'heading', level: 3, text: 'The Learning Rate — Most Critical Hyperparameter', id: 'learning-rate' },
             { type: 'paragraph', html: 'The learning rate controls how much weights change each step. Getting it right is the single most important tuning decision.' },
-            { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> Learning rate is like the stride length when walking down a hill. Too big â€” you overshoot the valley and bounce around. Too small â€” you take forever to reach the bottom. Just right â€” smooth, efficient descent.' },
+            { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> Learning rate is like the stride length when walking down a hill. Too big — you overshoot the valley and bounce around. Too small — you take forever to reach the bottom. Just right — smooth, efficient descent.' },
             { type: 'list', ordered: false, items: [
               '<strong>Too high (0.1+):</strong> Loss oscillates wildly or explodes to NaN',
               '<strong>Too low (1e-6):</strong> Training takes forever, may get stuck in local minima',
@@ -1497,7 +1497,7 @@ for k, v in features.items():
               'Wastes time on unimportant dimensions',
             ]}, right: { title: 'Random Search', color: '#f59e0b', items: [
               'Sample random combinations',
-              'More efficient â€” explores diverse values',
+              'More efficient — explores diverse values',
               'Better for high-dimensional spaces',
               'Finds good solutions faster than grid',
             ]}},
@@ -1508,7 +1508,7 @@ for k, v in features.items():
 from itertools import product
 
 def train_and_evaluate(lr: float, batch_size: int, hidden: int) -> float:
-    """Simulate training â€” returns validation accuracy."""
+    """Simulate training — returns validation accuracy."""
     # In real code, this trains a model and returns val accuracy
     # Here we simulate with a function that has an optimum
     score = (
@@ -1554,10 +1554,10 @@ print(f"Random: 27 trials, best={best_score:.2f}%, params={best_params}")` },
             { type: 'heading', level: 3, text: 'Practical Tuning Tips', id: 'tuning-tips' },
             { type: 'list', ordered: true, items: [
               'Start with published defaults (Adam lr=1e-3, batch=32, dropout=0.1)',
-              'Tune learning rate first â€” it has the biggest impact',
-              'Use random search over grid search â€” more efficient for 3+ hyperparameters',
+              'Tune learning rate first — it has the biggest impact',
+              'Use random search over grid search — more efficient for 3+ hyperparameters',
               'Use a learning rate finder: increase lr exponentially, plot loss, pick the steepest descent',
-              'Monitor validation loss for early stopping â€” stop training when it starts rising',
+              'Monitor validation loss for early stopping — stop training when it starts rising',
               'Use cross-validation for robust estimates, especially with small datasets',
             ]},
 
@@ -1565,7 +1565,7 @@ print(f"Random: 27 trials, best={best_score:.2f}%, params={best_params}")` },
 
             { type: 'heading', level: 3, text: 'Key Takeaways', id: 'tuning-takeaways' },
             { type: 'list', ordered: true, items: [
-              'Hyperparameters control how the model learns â€” learning rate is the most critical',
+              'Hyperparameters control how the model learns — learning rate is the most critical',
               'Grid search is exhaustive but scales poorly; random search is more efficient',
               'Bayesian optimization learns from past trials to find optimal values faster',
               'Start with established defaults, then tune the most impactful hyperparameters first',
@@ -1573,9 +1573,9 @@ print(f"Random: 27 trials, best={best_score:.2f}%, params={best_params}")` },
           ],
         },
 
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 15. Model Evaluation
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'model-evaluation',
           title: 'Model Evaluation & Metrics',
@@ -1586,38 +1586,38 @@ print(f"Random: 27 trials, best={best_score:.2f}%, params={best_params}")` },
           prerequisites: ['classification-regression'],
           content: [
             { type: 'heading', level: 2, text: 'Why Evaluation Matters', id: 'why-evaluation' },
-            { type: 'paragraph', html: 'A model that gets 99% accuracy on training data might perform terribly in production. Proper evaluation tells you how the model will perform on <strong>unseen data</strong> â€” which is all that matters in the real world. Choosing the right metric depends on your problem and what errors cost you.' },
+            { type: 'paragraph', html: 'A model that gets 99% accuracy on training data might perform terribly in production. Proper evaluation tells you how the model will perform on <strong>unseen data</strong> — which is all that matters in the real world. Choosing the right metric depends on your problem and what errors cost you.' },
 
             { type: 'heading', level: 3, text: 'Classification Metrics', id: 'classification-metrics' },
             { type: 'table', headers: ['Metric', 'Formula', 'Range', 'When to Use'], rows: [
               ['<strong>Accuracy</strong>', '(TP+TN) / Total', '0-1', 'Balanced classes only'],
-              ['<strong>Precision</strong>', 'TP / (TP+FP)', '0-1', 'When FP are costly (spam â†’ inbox)'],
+              ['<strong>Precision</strong>', 'TP / (TP+FP)', '0-1', 'When FP are costly (spam → inbox)'],
               ['<strong>Recall (Sensitivity)</strong>', 'TP / (TP+FN)', '0-1', 'When FN are costly (missed cancer)'],
-              ['<strong>F1 Score</strong>', '2Ã—PÃ—R / (P+R)', '0-1', 'Balance precision & recall'],
+              ['<strong>F1 Score</strong>', '2×P×R / (P+R)', '0-1', 'Balance precision & recall'],
               ['<strong>Specificity</strong>', 'TN / (TN+FP)', '0-1', 'True negative rate'],
               ['<strong>AUC-ROC</strong>', 'Area under ROC curve', '0-1', 'Overall model quality, threshold-independent'],
             ]},
 
             { type: 'heading', level: 3, text: 'The ROC Curve', id: 'roc-curve' },
-            { type: 'paragraph', html: 'The <strong>ROC (Receiver Operating Characteristic)</strong> curve plots True Positive Rate vs False Positive Rate at every classification threshold. <strong>AUC (Area Under Curve)</strong> summarizes this into a single number â€” 1.0 is perfect, 0.5 is random guessing.' },
+            { type: 'paragraph', html: 'The <strong>ROC (Receiver Operating Characteristic)</strong> curve plots True Positive Rate vs False Positive Rate at every classification threshold. <strong>AUC (Area Under Curve)</strong> summarizes this into a single number — 1.0 is perfect, 0.5 is random guessing.' },
             { type: 'list', ordered: false, items: [
-              '<strong>AUC = 1.0:</strong> Perfect model â€” separates classes completely',
-              '<strong>AUC = 0.9:</strong> Excellent â€” strong discrimination',
-              '<strong>AUC = 0.7-0.8:</strong> Fair â€” reasonable performance',
-              '<strong>AUC = 0.5:</strong> No discrimination â€” random coin flip',
+              '<strong>AUC = 1.0:</strong> Perfect model — separates classes completely',
+              '<strong>AUC = 0.9:</strong> Excellent — strong discrimination',
+              '<strong>AUC = 0.7-0.8:</strong> Fair — reasonable performance',
+              '<strong>AUC = 0.5:</strong> No discrimination — random coin flip',
             ]},
             { type: 'callout', variant: 'tip', html: 'Use AUC-ROC when you need a threshold-independent measure of model quality. Use F1 when you care about a specific threshold and want to balance precision and recall.' },
 
             { type: 'heading', level: 3, text: 'Regression Metrics', id: 'regression-metrics' },
             { type: 'table', headers: ['Metric', 'Formula', 'Interpretation'], rows: [
-              ['<strong>MSE</strong>', '(1/n) Î£(Å·-y)Â²', 'Average squared error â€” penalizes large errors'],
-              ['<strong>RMSE</strong>', 'âˆšMSE', 'Same units as target â€” more interpretable'],
-              ['<strong>MAE</strong>', '(1/n) Î£|Å·-y|', 'Average absolute error â€” robust to outliers'],
-              ['<strong>RÂ² Score</strong>', '1 - SS_res/SS_tot', 'Fraction of variance explained (1.0 = perfect)'],
+              ['<strong>MSE</strong>', '(1/n) Σ(ŷ-y)²', 'Average squared error — penalizes large errors'],
+              ['<strong>RMSE</strong>', '√MSE', 'Same units as target — more interpretable'],
+              ['<strong>MAE</strong>', '(1/n) Σ|ŷ-y|', 'Average absolute error — robust to outliers'],
+              ['<strong>R² Score</strong>', '1 - SS_res/SS_tot', 'Fraction of variance explained (1.0 = perfect)'],
             ]},
 
             { type: 'heading', level: 3, text: 'Overfitting vs Underfitting', id: 'overfit-underfit' },
-            { type: 'paragraph', html: 'The goal is a model that generalizes well â€” performing similarly on training and test data.' },
+            { type: 'paragraph', html: 'The goal is a model that generalizes well — performing similarly on training and test data.' },
             { type: 'comparison', left: { title: 'Underfitting', color: '#6366f1', items: [
               'Model too simple to capture patterns',
               'High training error AND high test error',
@@ -1637,7 +1637,7 @@ print(f"Random: 27 trials, best={best_score:.2f}%, params={best_params}")` },
               { label: 'Fold 1 as Test', desc: 'Train on folds 2-5, test on fold 1', color: '#8b5cf6' },
               { label: 'Fold 2 as Test', desc: 'Train on folds 1,3-5, test on fold 2', color: '#a855f7' },
               { label: '... Repeat K times', desc: 'Each fold gets a turn as test set', color: '#f59e0b' },
-              { label: 'Average Scores', desc: 'Mean Â± std of K evaluations', color: '#22c55e' },
+              { label: 'Average Scores', desc: 'Mean ± std of K evaluations', color: '#22c55e' },
             ]},
             { type: 'callout', variant: 'note', html: '5-fold or 10-fold cross-validation is standard. Use <strong>stratified</strong> K-fold for classification to maintain class proportions in each fold. Leave-one-out (K=N) is for tiny datasets.' },
 
@@ -1651,9 +1651,9 @@ print(f"Random: 27 trials, best={best_score:.2f}%, params={best_params}")` },
 
             { type: 'heading', level: 3, text: 'Key Takeaways', id: 'eval-takeaways' },
             { type: 'list', ordered: true, items: [
-              'Choose metrics based on your problem â€” accuracy is misleading with imbalanced data',
+              'Choose metrics based on your problem — accuracy is misleading with imbalanced data',
               'AUC-ROC is threshold-independent; F1 balances precision and recall at a specific threshold',
-              'Overfitting: low train error, high test error â€” fix with regularization or more data',
+              'Overfitting: low train error, high test error — fix with regularization or more data',
               'Cross-validation gives robust estimates by averaging over K different train/test splits',
               'Always compare training vs test performance to diagnose model health',
             ]},
@@ -1662,15 +1662,15 @@ print(f"Random: 27 trials, best={best_score:.2f}%, params={best_params}")` },
       ],
     },
 
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
-    // SECTION 5 â€” AI Agents & Multi-Agent Systems
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // SECTION 5 — AI Agents & Multi-Agent Systems
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     {
       title: 'AI Agents & Multi-Agent Systems',
       topics: [
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 16. What is an AI Agent?
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'what-is-ai-agent',
           title: 'What is an AI Agent?',
@@ -1680,7 +1680,7 @@ print(f"Random: 27 trials, best={best_score:.2f}%, params={best_params}")` },
           estimatedMinutes: 14,
           content: [
             { type: 'heading', level: 2, text: 'From Chatbots to Agents', id: 'chatbots-to-agents' },
-            { type: 'paragraph', html: 'A regular chatbot generates text responses. An <strong>AI Agent</strong> goes further â€” it can <em>observe</em> its environment, <em>reason</em> about what to do, <em>take actions</em> (call tools, write code, browse the web), and <em>learn from the results</em>. It\'s an LLM with hands and eyes.' },
+            { type: 'paragraph', html: 'A regular chatbot generates text responses. An <strong>AI Agent</strong> goes further — it can <em>observe</em> its environment, <em>reason</em> about what to do, <em>take actions</em> (call tools, write code, browse the web), and <em>learn from the results</em>. It\'s an LLM with hands and eyes.' },
             { type: 'callout', variant: 'tip', html: '<strong>Analogy:</strong> Think of an AI agent like a smart assistant with a toolbox. You say "book me a flight to Tokyo." The assistant thinks about what\'s needed (reasoning), checks flight APIs (tool use), compares options (observation), and books the best one (action). A chatbot would just tell you how to book a flight.' },
 
             { type: 'heading', level: 3, text: 'The Agent Loop', id: 'agent-loop' },
@@ -1698,7 +1698,7 @@ print(f"Random: 27 trials, best={best_score:.2f}%, params={best_params}")` },
             { type: 'code', language: 'python', title: 'react_loop.py', code: `# Simplified ReAct agent loop
 def react_agent(user_query: str, tools: dict, llm) -> str:
     """
-    ReAct loop: Thought â†’ Action â†’ Observation â†’ Thought â†’ ...
+    ReAct loop: Thought → Action → Observation → Thought → ...
     """
     messages = [{"role": "user", "content": user_query}]
     max_steps = 10
@@ -1733,27 +1733,27 @@ tools = {
 }` },
 
             { type: 'heading', level: 3, text: 'Tool Use Flow', id: 'tool-use-flow' },
-            { type: 'paragraph', html: 'When an agent needs to take action in the world, it uses <strong>tools</strong> â€” functions it can call to interact with external systems:' },
+            { type: 'paragraph', html: 'When an agent needs to take action in the world, it uses <strong>tools</strong> — functions it can call to interact with external systems:' },
             { type: 'flow', steps: [
               { label: 'User Request', desc: '"What\'s the weather in Tokyo?"', color: '#6366f1' },
               { label: 'Agent Thinks', desc: '"I need to check a weather API"', color: '#8b5cf6' },
               { label: 'Tool Call', desc: 'get_weather(city="Tokyo")', color: '#f59e0b' },
               { label: 'Tool Response', desc: '{"temp": 22, "condition": "sunny"}', color: '#22c55e' },
               { label: 'Agent Thinks', desc: '"Now I can answer the user"', color: '#a855f7' },
-              { label: 'Final Answer', desc: '"It\'s 22Â°C and sunny in Tokyo"', color: '#06b6d4' },
+              { label: 'Final Answer', desc: '"It\'s 22°C and sunny in Tokyo"', color: '#06b6d4' },
             ]},
 
             { type: 'heading', level: 3, text: 'Agent vs Chatbot', id: 'agent-vs-chatbot' },
             { type: 'comparison', left: { title: 'Chatbot (LLM)', color: '#6366f1', items: [
               'Generates text responses only',
               'No access to external systems',
-              'Single turn â€” no persistent state',
+              'Single turn — no persistent state',
               'Knowledge limited to training data',
               'Cannot take real-world actions',
             ]}, right: { title: 'AI Agent', color: '#f59e0b', items: [
               'Reasons, plans, and takes actions',
               'Uses tools (APIs, code, files, web)',
-              'Multi-step â€” maintains context across steps',
+              'Multi-step — maintains context across steps',
               'Can access live data via tools',
               'Executes real-world tasks autonomously',
             ]}},
@@ -1761,7 +1761,7 @@ tools = {
             { type: 'heading', level: 3, text: 'Real-World Agent Examples', id: 'agent-examples' },
             { type: 'list', ordered: false, items: [
               '<strong>Claude Code:</strong> Reads files, writes code, runs tests, makes git commits',
-              '<strong>Devin:</strong> Autonomous software engineer â€” plans, codes, debugs, deploys',
+              '<strong>Devin:</strong> Autonomous software engineer — plans, codes, debugs, deploys',
               '<strong>AutoGPT:</strong> General-purpose agent that breaks goals into sub-tasks',
               '<strong>Customer Support Agents:</strong> Look up orders, process refunds, escalate issues',
               '<strong>Research Agents:</strong> Search papers, summarize findings, generate reports',
@@ -1771,18 +1771,18 @@ tools = {
 
             { type: 'heading', level: 3, text: 'Key Takeaways', id: 'agent-takeaways' },
             { type: 'list', ordered: true, items: [
-              'An AI agent is an LLM that can observe, reason, and take actions â€” not just generate text',
+              'An AI agent is an LLM that can observe, reason, and take actions — not just generate text',
               'The ReAct pattern alternates between reasoning (thoughts) and acting (tool calls)',
-              'Tools give agents hands â€” search, code execution, file operations, API calls',
+              'Tools give agents hands — search, code execution, file operations, API calls',
               'The agent loop repeats until the goal is achieved or max steps are reached',
               'Always add guardrails for high-stakes agent actions',
             ]},
           ],
         },
 
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 17. Agent Architectures
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'agent-architectures',
           title: 'Agent Architectures',
@@ -1793,7 +1793,7 @@ tools = {
           prerequisites: ['what-is-ai-agent'],
           content: [
             { type: 'heading', level: 2, text: 'From Single to Multi-Agent Systems', id: 'single-to-multi' },
-            { type: 'paragraph', html: 'A single agent works well for simple tasks, but complex problems benefit from <strong>multiple specialized agents</strong> working together â€” just like how a company has different departments (engineering, design, marketing) rather than one person doing everything.' },
+            { type: 'paragraph', html: 'A single agent works well for simple tasks, but complex problems benefit from <strong>multiple specialized agents</strong> working together — just like how a company has different departments (engineering, design, marketing) rather than one person doing everything.' },
 
             { type: 'heading', level: 3, text: 'Architecture Patterns', id: 'arch-patterns' },
             { type: 'table', headers: ['Pattern', 'Description', 'Best For'], rows: [
@@ -1836,11 +1836,11 @@ class Orchestrator {
   }
 
   async handleRequest(userRequest: string): Promise<string> {
-    // Step 1: Plan â€” break request into sub-tasks
+    // Step 1: Plan — break request into sub-tasks
     const plan = await this.planTasks(userRequest);
     console.log("Plan:", plan.map(t => t.task));
 
-    // Step 2: Execute â€” delegate to workers
+    // Step 2: Execute — delegate to workers
     const results: AgentResult[] = [];
     const context: Record<string, string> = {};
 
@@ -1855,7 +1855,7 @@ class Orchestrator {
       context[step.agent] = result.output;
     }
 
-    // Step 3: Aggregate â€” combine worker outputs
+    // Step 3: Aggregate — combine worker outputs
     return this.aggregate(userRequest, results);
   }
 
@@ -1882,7 +1882,7 @@ class Orchestrator {
             ]},
 
             { type: 'heading', level: 3, text: 'Vector Database for Long-Term Memory', id: 'vector-db-memory' },
-            { type: 'paragraph', html: 'Long-term memory typically uses a <strong>vector database</strong>. Text is converted to embeddings (dense vectors), stored, and retrieved by semantic similarity â€” so the agent can recall relevant information even if the exact wording differs.' },
+            { type: 'paragraph', html: 'Long-term memory typically uses a <strong>vector database</strong>. Text is converted to embeddings (dense vectors), stored, and retrieved by semantic similarity — so the agent can recall relevant information even if the exact wording differs.' },
             { type: 'flow', steps: [
               { label: 'New Information', desc: 'Agent learns something worth remembering', color: '#6366f1' },
               { label: 'Embed', desc: 'Convert text to vector embedding', color: '#8b5cf6' },
@@ -1912,18 +1912,18 @@ class Orchestrator {
               'The orchestrator/worker pattern delegates sub-tasks to specialized agents',
               'Agent memory: short-term (context), working (scratchpad), long-term (vector DB)',
               'Vector databases enable semantic memory retrieval across sessions',
-              'Start simple â€” add agents only when complexity demands it',
+              'Start simple — add agents only when complexity demands it',
             ]},
           ],
         },
 
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 18. Swarm Intelligence
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'swarm-intelligence',
           title: 'Swarm Intelligence',
-          description: 'How agents communicate â€” message passing, shared state, blackboard architecture, and network topologies.',
+          description: 'How agents communicate — message passing, shared state, blackboard architecture, and network topologies.',
           keywords: ['swarm intelligence', 'message passing', 'blackboard architecture', 'multi-agent communication', 'topology'],
           difficulty: 'advanced',
           estimatedMinutes: 16,
@@ -1953,9 +1953,9 @@ class Orchestrator {
             { type: 'heading', level: 3, text: 'Network Topologies', id: 'topologies' },
             { type: 'paragraph', html: 'The topology defines how agents connect and communicate. Different topologies suit different problem structures:' },
             { type: 'table', headers: ['Topology', 'Structure', 'Communication', 'Best For'], rows: [
-              ['<strong>Mesh</strong>', 'Every agent connects to every other', 'O(nÂ²) connections', 'Small groups needing full collaboration'],
+              ['<strong>Mesh</strong>', 'Every agent connects to every other', 'O(n²) connections', 'Small groups needing full collaboration'],
               ['<strong>Star</strong>', 'All agents connect through a central hub', 'Hub routes all messages', 'Centralized coordination, orchestrator pattern'],
-              ['<strong>Hierarchical</strong>', 'Tree structure â€” managers and workers', 'Top-down delegation, bottom-up reporting', 'Large organizations, clear task decomposition'],
+              ['<strong>Hierarchical</strong>', 'Tree structure — managers and workers', 'Top-down delegation, bottom-up reporting', 'Large organizations, clear task decomposition'],
               ['<strong>Ring</strong>', 'Each agent connects to two neighbors', 'Messages pass around the ring', 'Sequential processing, consensus algorithms'],
             ]},
 
@@ -2020,8 +2020,8 @@ board.subscribe('analyst', (entry) => {
             { type: 'list', ordered: false, items: [
               '<strong>Ant Colony Optimization (ACO):</strong> Digital pheromone trails for path finding and routing problems',
               '<strong>Particle Swarm Optimization (PSO):</strong> Agents explore solution space, sharing best-found positions',
-              '<strong>Bee Algorithm:</strong> Scout bees explore, recruit others to promising areas â€” used for load balancing',
-              '<strong>Firefly Algorithm:</strong> Agents attracted to brighter (better) solutions â€” used for optimization',
+              '<strong>Bee Algorithm:</strong> Scout bees explore, recruit others to promising areas — used for load balancing',
+              '<strong>Firefly Algorithm:</strong> Agents attracted to brighter (better) solutions — used for optimization',
             ]},
 
             { type: 'heading', level: 3, text: 'Modern AI Swarms', id: 'modern-swarms' },
@@ -2052,27 +2052,27 @@ board.subscribe('analyst', (entry) => {
           ],
         },
 
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-        // 19. MCP Protocol â€” Complete Guide
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
+        // 19. MCP Protocol — Complete Guide
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'mcp-protocol',
-          title: 'Model Context Protocol (MCP) â€” Complete Guide',
+          title: 'Model Context Protocol (MCP) — Complete Guide',
           description: 'Master MCP from basics to production: architecture deep-dive, building servers and clients, transports, resources, prompts, security, debugging SOPs, and the MCP ecosystem.',
           keywords: ['mcp', 'model context protocol', 'mcp server', 'mcp client', 'tool use', 'claude code', 'ai tools', 'stdio transport', 'sse transport', 'mcp resources', 'mcp prompts', 'mcp debugging', 'mcp security', 'mcp ecosystem', 'build mcp server', 'claude desktop config'],
           difficulty: 'advanced',
           estimatedMinutes: 35,
           prerequisites: ['what-is-ai-agent'],
           content: [
-            // â”€â”€ Section 1: What is MCP and WHY â”€â”€
+            // ── Section 1: What is MCP and WHY ──
             { type: 'heading', level: 2, text: 'What is MCP and Why Does It Exist?', id: 'what-is-mcp' },
-            { type: 'paragraph', html: 'The <strong>Model Context Protocol (MCP)</strong> is an open standard created by Anthropic for connecting AI models to external tools, data sources, and services. Think of it as a <strong>USB-C for AI</strong> â€” a universal interface that lets any AI model talk to any tool through a single standardized protocol.' },
-            { type: 'paragraph', html: 'Before MCP, every AI application needed custom integration code for every tool it wanted to use. If you had <strong>N AI models</strong> and <strong>M tools</strong>, you needed <strong>N Ã— M</strong> custom integrations â€” an explosion of bespoke glue code. MCP reduces this to <strong>N + M</strong>: each model implements one MCP client, each tool implements one MCP server, and they all interoperate automatically.' },
+            { type: 'paragraph', html: 'The <strong>Model Context Protocol (MCP)</strong> is an open standard created by Anthropic for connecting AI models to external tools, data sources, and services. Think of it as a <strong>USB-C for AI</strong> — a universal interface that lets any AI model talk to any tool through a single standardized protocol.' },
+            { type: 'paragraph', html: 'Before MCP, every AI application needed custom integration code for every tool it wanted to use. If you had <strong>N AI models</strong> and <strong>M tools</strong>, you needed <strong>N × M</strong> custom integrations — an explosion of bespoke glue code. MCP reduces this to <strong>N + M</strong>: each model implements one MCP client, each tool implements one MCP server, and they all interoperate automatically.' },
 
-            { type: 'heading', level: 3, text: 'The NÃ—M Problem MCP Solves', id: 'nxm-problem' },
-            { type: 'comparison', left: { title: 'Before MCP (NÃ—M)', color: '#ef4444', items: [
-              'Custom integration for each tool Ã— each model',
-              '3 models Ã— 5 tools = 15 custom integrations',
+            { type: 'heading', level: 3, text: 'The N×M Problem MCP Solves', id: 'nxm-problem' },
+            { type: 'comparison', left: { title: 'Before MCP (N×M)', color: '#ef4444', items: [
+              'Custom integration for each tool × each model',
+              '3 models × 5 tools = 15 custom integrations',
               'Every new tool requires code in every AI app',
               'Duplicated auth, error handling, serialization',
               'Fragile, hard to maintain, vendor lock-in',
@@ -2089,15 +2089,15 @@ board.subscribe('analyst', (entry) => {
             { type: 'list', ordered: false, items: [
               '<strong>You have a tool or API</strong> you want AI models (Claude, GPT, etc.) to call directly',
               '<strong>You have private data</strong> (databases, filesystems, internal APIs) that should be queryable by AI',
-              '<strong>You want reusability</strong> â€” one implementation works across Claude Desktop, Claude Code, Cursor, and any MCP-compatible client',
-              '<strong>You need structured tool schemas</strong> â€” MCP enforces typed parameters with Zod/JSON Schema, reducing hallucinated arguments',
-              '<strong>You want composability</strong> â€” users can mix-and-match your MCP server with others in a single AI session',
+              '<strong>You want reusability</strong> — one implementation works across Claude Desktop, Claude Code, Cursor, and any MCP-compatible client',
+              '<strong>You need structured tool schemas</strong> — MCP enforces typed parameters with Zod/JSON Schema, reducing hallucinated arguments',
+              '<strong>You want composability</strong> — users can mix-and-match your MCP server with others in a single AI session',
             ]},
             { type: 'callout', variant: 'tip', html: '<strong>Rule of thumb:</strong> If you are building a REST API and want AI models to use it, wrap it in an MCP server. The server acts as a typed, discoverable bridge between your API and any AI model.' },
 
             { type: 'divider' },
 
-            // â”€â”€ Section 2: Architecture Deep-Dive â”€â”€
+            // ── Section 2: Architecture Deep-Dive ──
             { type: 'heading', level: 2, text: 'MCP Architecture Deep-Dive', id: 'mcp-architecture' },
             { type: 'paragraph', html: 'MCP follows a <strong>client-server architecture</strong> with four key components: <strong>Host</strong>, <strong>Client</strong>, <strong>Server</strong>, and <strong>Transport</strong>. Understanding each component is critical for building production MCP systems.' },
 
@@ -2111,15 +2111,15 @@ board.subscribe('analyst', (entry) => {
 
             { type: 'table', headers: ['Component', 'Role', 'Examples'], rows: [
               ['<strong>Host</strong>', 'The AI application that the user interacts with. Creates and manages MCP clients.', 'Claude Desktop, Claude Code, Cursor, Windsurf'],
-              ['<strong>Client</strong>', 'Protocol handler inside the host. Maintains 1:1 connection with a server. Handles initialization, capability negotiation, tool discovery.', 'Built into the host â€” one client per server connection'],
+              ['<strong>Client</strong>', 'Protocol handler inside the host. Maintains 1:1 connection with a server. Handles initialization, capability negotiation, tool discovery.', 'Built into the host — one client per server connection'],
               ['<strong>Server</strong>', 'Lightweight process that exposes capabilities (tools, resources, prompts) via the MCP protocol.', 'filesystem server, GitHub server, Postgres server'],
               ['<strong>Transport</strong>', 'Communication layer between client and server. Handles message serialization and delivery.', 'stdio (local), HTTP + SSE (remote), custom'],
             ]},
-            { type: 'callout', variant: 'note', html: '<strong>Key insight:</strong> A single Host can connect to <strong>multiple MCP servers simultaneously</strong>. Claude Desktop might connect to a filesystem server, a GitHub server, and a database server all at once â€” each through its own Client instance.' },
+            { type: 'callout', variant: 'note', html: '<strong>Key insight:</strong> A single Host can connect to <strong>multiple MCP servers simultaneously</strong>. Claude Desktop might connect to a filesystem server, a GitHub server, and a database server all at once — each through its own Client instance.' },
 
             { type: 'divider' },
 
-            // â”€â”€ Section 3: Protocol Lifecycle â”€â”€
+            // ── Section 3: Protocol Lifecycle ──
             { type: 'heading', level: 2, text: 'Protocol Lifecycle', id: 'protocol-lifecycle' },
             { type: 'paragraph', html: 'Every MCP session follows a structured lifecycle. Understanding this flow is essential for debugging connection issues and building reliable servers.' },
             { type: 'flow', steps: [
@@ -2132,7 +2132,7 @@ board.subscribe('analyst', (entry) => {
               { label: '7. AI Uses Result', desc: 'Model incorporates tool output into its response', color: '#06b6d4' },
             ]},
 
-            { type: 'code', language: 'typescript', title: 'protocol-messages.ts', code: `// 1. Initialize â€” Client â†’ Server
+            { type: 'code', language: 'typescript', title: 'protocol-messages.ts', code: `// 1. Initialize — Client → Server
 {
   jsonrpc: "2.0",
   method: "initialize",
@@ -2143,7 +2143,7 @@ board.subscribe('analyst', (entry) => {
   }
 }
 
-// 2. Initialize Response â€” Server â†’ Client
+// 2. Initialize Response — Server → Client
 {
   jsonrpc: "2.0",
   result: {
@@ -2156,10 +2156,10 @@ board.subscribe('analyst', (entry) => {
   }
 }
 
-// 3. List Tools â€” Client â†’ Server
+// 3. List Tools — Client → Server
 { jsonrpc: "2.0", method: "tools/list" }
 
-// 4. List Tools Response â€” Server â†’ Client
+// 4. List Tools Response — Server → Client
 {
   jsonrpc: "2.0",
   result: {
@@ -2178,7 +2178,7 @@ board.subscribe('analyst', (entry) => {
   }
 }
 
-// 5. Call Tool â€” Client â†’ Server
+// 5. Call Tool — Client → Server
 {
   jsonrpc: "2.0",
   method: "tools/call",
@@ -2188,7 +2188,7 @@ board.subscribe('analyst', (entry) => {
   }
 }
 
-// 6. Tool Result â€” Server â†’ Client
+// 6. Tool Result — Server → Client
 {
   jsonrpc: "2.0",
   result: {
@@ -2201,7 +2201,7 @@ board.subscribe('analyst', (entry) => {
 
             { type: 'divider' },
 
-            // â”€â”€ Section 4: Transport Types â”€â”€
+            // ── Section 4: Transport Types ──
             { type: 'heading', level: 2, text: 'Transport Types: stdio vs HTTP+SSE', id: 'transport-types' },
             { type: 'paragraph', html: 'MCP supports two transport mechanisms. Your choice depends on whether the server runs locally or remotely.' },
 
@@ -2210,7 +2210,7 @@ board.subscribe('analyst', (entry) => {
               'Communication via stdin/stdout pipes',
               'Zero network configuration needed',
               'Best for local tools: filesystem, git, local DB',
-              'Fastest â€” no HTTP overhead',
+              'Fastest — no HTTP overhead',
               'Server lifecycle managed by the host',
             ]}, right: { title: 'HTTP + SSE Transport (Remote)', color: '#f59e0b', items: [
               'Server runs as a standalone HTTP service',
@@ -2221,7 +2221,7 @@ board.subscribe('analyst', (entry) => {
               'Server lifecycle managed independently',
             ]}},
 
-            { type: 'code', language: 'typescript', title: 'transports.ts', code: `// â”€â”€ stdio transport (local server) â”€â”€
+            { type: 'code', language: 'typescript', title: 'transports.ts', code: `// ── stdio transport (local server) ──
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 
@@ -2230,10 +2230,10 @@ const server = new McpServer({ name: "local-server", version: "1.0.0" });
 
 const transport = new StdioServerTransport();
 await server.connect(transport);
-// Server communicates via stdin/stdout â€” host spawns this process
+// Server communicates via stdin/stdout — host spawns this process
 
 
-// â”€â”€ HTTP + SSE transport (remote server) â”€â”€
+// ── HTTP + SSE transport (remote server) ──
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 import express from "express";
@@ -2256,7 +2256,7 @@ app.listen(3001, () => console.log("MCP server on http://localhost:3001"));` },
 
             { type: 'divider' },
 
-            // â”€â”€ Section 5: MCP Capabilities â€” Tools, Resources, Prompts â”€â”€
+            // ── Section 5: MCP Capabilities — Tools, Resources, Prompts ──
             { type: 'heading', level: 2, text: 'MCP Capabilities: Tools, Resources, and Prompts', id: 'mcp-capabilities' },
             { type: 'paragraph', html: 'MCP servers can expose three types of capabilities. <strong>Tools</strong> are functions the AI can call. <strong>Resources</strong> are data the AI can read. <strong>Prompts</strong> are reusable prompt templates.' },
 
@@ -2266,7 +2266,7 @@ app.listen(3001, () => console.log("MCP server on http://localhost:3001"));` },
               ['<strong>Prompts</strong>', 'Reusable prompt templates', 'Stored procedures / macros', 'code-review, summarize-doc, debug-error'],
             ]},
 
-            { type: 'heading', level: 3, text: 'Tools â€” Functions the AI Can Call', id: 'mcp-tools' },
+            { type: 'heading', level: 3, text: 'Tools — Functions the AI Can Call', id: 'mcp-tools' },
             { type: 'code', language: 'typescript', title: 'mcp-tools-example.ts', code: `import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 
@@ -2282,7 +2282,7 @@ server.tool(
     active_only: z.boolean().default(true).describe("Only active users"),
   },
   async ({ query, limit, active_only }) => {
-    // Your logic here â€” call a database, API, etc.
+    // Your logic here — call a database, API, etc.
     const users = await db.users.search({ query, limit, active_only });
     return {
       content: [{
@@ -2313,8 +2313,8 @@ server.tool(
   }
 );` },
 
-            { type: 'heading', level: 3, text: 'Resources â€” Data the AI Can Read', id: 'mcp-resources' },
-            { type: 'paragraph', html: '<strong>Resources</strong> expose data sources that the AI model can read. Unlike tools (which perform actions), resources are read-only and represent data that exists â€” files, database records, API responses, etc.' },
+            { type: 'heading', level: 3, text: 'Resources — Data the AI Can Read', id: 'mcp-resources' },
+            { type: 'paragraph', html: '<strong>Resources</strong> expose data sources that the AI model can read. Unlike tools (which perform actions), resources are read-only and represent data that exists — files, database records, API responses, etc.' },
             { type: 'code', language: 'typescript', title: 'mcp-resources-example.ts', code: `// Expose a static resource
 server.resource(
   "config",                          // unique resource name
@@ -2347,7 +2347,7 @@ server.resource(
   }
 );` },
 
-            { type: 'heading', level: 3, text: 'Prompts â€” Reusable Prompt Templates', id: 'mcp-prompts' },
+            { type: 'heading', level: 3, text: 'Prompts — Reusable Prompt Templates', id: 'mcp-prompts' },
             { type: 'paragraph', html: '<strong>Prompts</strong> let MCP servers define reusable, parameterized prompt templates. When a user selects a prompt, the client fills in the parameters and sends the assembled messages to the AI model.' },
             { type: 'code', language: 'typescript', title: 'mcp-prompts-example.ts', code: `// Register a prompt template
 server.prompt(
@@ -2379,9 +2379,9 @@ Provide specific feedback with line references.\`,
 
             { type: 'divider' },
 
-            // â”€â”€ Section 6: Building a Complete MCP Server â”€â”€
+            // ── Section 6: Building a Complete MCP Server ──
             { type: 'heading', level: 2, text: 'Building a Complete MCP Server', id: 'building-mcp-server' },
-            { type: 'paragraph', html: 'Let us build a complete, production-ready MCP server step by step â€” a <strong>notes manager</strong> that Claude can use to create, search, and organize notes.' },
+            { type: 'paragraph', html: 'Let us build a complete, production-ready MCP server step by step — a <strong>notes manager</strong> that Claude can use to create, search, and organize notes.' },
 
             { type: 'code', language: 'typescript', title: 'notes-mcp-server.ts', code: `import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -2389,20 +2389,20 @@ import { z } from "zod";
 import fs from "fs/promises";
 import path from "path";
 
-// â”€â”€ Configuration â”€â”€
+// ── Configuration ──
 const NOTES_DIR = path.join(process.env.HOME || "~", ".notes");
 
 // Ensure notes directory exists
 await fs.mkdir(NOTES_DIR, { recursive: true });
 
-// â”€â”€ Create MCP Server â”€â”€
+// ── Create MCP Server ──
 const server = new McpServer({
   name: "notes-manager",
   version: "1.0.0",
-  description: "Manage personal notes â€” create, search, list, and delete.",
+  description: "Manage personal notes — create, search, list, and delete.",
 });
 
-// â”€â”€ Tool: Create a note â”€â”€
+// ── Tool: Create a note ──
 server.tool(
   "create_note",
   "Create a new note with a title and content",
@@ -2430,7 +2430,7 @@ created: \${new Date().toISOString()}
   }
 );
 
-// â”€â”€ Tool: Search notes â”€â”€
+// ── Tool: Search notes ──
 server.tool(
   "search_notes",
   "Search notes by keyword in title or content",
@@ -2467,7 +2467,7 @@ server.tool(
   }
 );
 
-// â”€â”€ Tool: List all notes â”€â”€
+// ── Tool: List all notes ──
 server.tool(
   "list_notes",
   "List all saved notes with their titles and tags",
@@ -2481,7 +2481,7 @@ server.tool(
   }
 );
 
-// â”€â”€ Resource: Read a specific note â”€â”€
+// ── Resource: Read a specific note ──
 server.resource(
   "note",
   "notes://{filename}",
@@ -2495,25 +2495,25 @@ server.resource(
   }
 );
 
-// â”€â”€ Start the server â”€â”€
+// ── Start the server ──
 const transport = new StdioServerTransport();
 await server.connect(transport);
 console.error("Notes MCP server running on stdio");` },
 
             { type: 'divider' },
 
-            // â”€â”€ Section 7: SOP for Building an MCP Server â”€â”€
+            // ── Section 7: SOP for Building an MCP Server ──
             { type: 'heading', level: 2, text: 'SOP: Building an MCP Server (Step-by-Step)', id: 'sop-building-mcp' },
-            { type: 'callout', variant: 'tip', html: '<strong>Standard Operating Procedure</strong> â€” Follow these steps in order to build and deploy any MCP server from scratch.' },
+            { type: 'callout', variant: 'tip', html: '<strong>Standard Operating Procedure</strong> — Follow these steps in order to build and deploy any MCP server from scratch.' },
             { type: 'list', ordered: true, items: [
-              '<strong>Step 1 â€” Define your tools:</strong> List the operations your server will expose. For each tool, define: name, description, input parameters (with types), and what it returns. Start with 2-3 tools maximum.',
-              '<strong>Step 2 â€” Choose your transport:</strong> Use <code>stdio</code> for local servers (filesystem, git, local DB). Use <code>HTTP+SSE</code> for remote/shared servers (cloud APIs, SaaS integrations). Most servers start with stdio.',
-              '<strong>Step 3 â€” Scaffold the project:</strong> Run <code>npm init -y && npm install @modelcontextprotocol/sdk zod</code>. Create your server file. Use TypeScript for type safety.',
-              '<strong>Step 4 â€” Implement tool handlers:</strong> Register each tool with <code>server.tool(name, description, schema, handler)</code>. Each handler receives validated arguments and returns <code>{ content: [{ type: "text", text: "..." }] }</code>.',
-              '<strong>Step 5 â€” Add error handling:</strong> Wrap handler logic in try/catch. Return user-friendly error messages. Use <code>isError: true</code> in the result to signal failures to the AI model.',
-              '<strong>Step 6 â€” Test locally:</strong> Run your server directly: <code>npx tsx server.ts</code>. Use the MCP Inspector tool (<code>npx @modelcontextprotocol/inspector</code>) to test tools interactively.',
-              '<strong>Step 7 â€” Register in Claude Desktop:</strong> Add your server to <code>claude_desktop_config.json</code> (see config example below). Restart Claude Desktop.',
-              '<strong>Step 8 â€” Test with Claude:</strong> Open Claude Desktop and ask it to use your tools. Verify tool discovery, argument passing, and result formatting work correctly.',
+              '<strong>Step 1 — Define your tools:</strong> List the operations your server will expose. For each tool, define: name, description, input parameters (with types), and what it returns. Start with 2-3 tools maximum.',
+              '<strong>Step 2 — Choose your transport:</strong> Use <code>stdio</code> for local servers (filesystem, git, local DB). Use <code>HTTP+SSE</code> for remote/shared servers (cloud APIs, SaaS integrations). Most servers start with stdio.',
+              '<strong>Step 3 — Scaffold the project:</strong> Run <code>npm init -y && npm install @modelcontextprotocol/sdk zod</code>. Create your server file. Use TypeScript for type safety.',
+              '<strong>Step 4 — Implement tool handlers:</strong> Register each tool with <code>server.tool(name, description, schema, handler)</code>. Each handler receives validated arguments and returns <code>{ content: [{ type: "text", text: "..." }] }</code>.',
+              '<strong>Step 5 — Add error handling:</strong> Wrap handler logic in try/catch. Return user-friendly error messages. Use <code>isError: true</code> in the result to signal failures to the AI model.',
+              '<strong>Step 6 — Test locally:</strong> Run your server directly: <code>npx tsx server.ts</code>. Use the MCP Inspector tool (<code>npx @modelcontextprotocol/inspector</code>) to test tools interactively.',
+              '<strong>Step 7 — Register in Claude Desktop:</strong> Add your server to <code>claude_desktop_config.json</code> (see config example below). Restart Claude Desktop.',
+              '<strong>Step 8 — Test with Claude:</strong> Open Claude Desktop and ask it to use your tools. Verify tool discovery, argument passing, and result formatting work correctly.',
             ]},
 
             { type: 'code', language: 'json', title: 'claude_desktop_config.json', code: `{
@@ -2544,7 +2544,7 @@ console.error("Notes MCP server running on stdio");` },
 
             { type: 'divider' },
 
-            // â”€â”€ Section 8: SOP for Debugging MCP â”€â”€
+            // ── Section 8: SOP for Debugging MCP ──
             { type: 'heading', level: 2, text: 'SOP: Debugging MCP Servers', id: 'sop-debugging-mcp' },
             { type: 'callout', variant: 'caution', html: '<strong>Debugging MCP</strong> can be tricky because the server runs as a subprocess. Use these systematic steps to diagnose and fix common issues.' },
 
@@ -2554,7 +2554,7 @@ console.error("Notes MCP server running on stdio");` },
               ['<strong>Timeout</strong>', 'Tool handler takes too long or hangs', 'Add timeouts to external API calls. Check for unresolved promises. Use <code>AbortController</code> for cancellation.'],
               ['<strong>Schema mismatch</strong>', 'AI sends arguments that do not match the Zod schema', 'Make parameter descriptions more specific. Add <code>.describe()</code> to every Zod field. Test with Inspector.'],
               ['<strong>Permission denied</strong>', 'Server process lacks access to files/APIs', 'Check file permissions. Verify environment variables (API keys, tokens) are set in the config.'],
-              ['<strong>Server crashes silently</strong>', 'Unhandled exception in tool handler', 'Wrap all handlers in try/catch. Log errors to stderr (<code>console.error</code>). Never throw from handlers â€” return error content.'],
+              ['<strong>Server crashes silently</strong>', 'Unhandled exception in tool handler', 'Wrap all handlers in try/catch. Log errors to stderr (<code>console.error</code>). Never throw from handlers — return error content.'],
             ]},
 
             { type: 'heading', level: 3, text: 'Debugging Workflow', id: 'debug-workflow' },
@@ -2595,7 +2595,7 @@ server.tool(
 
             { type: 'divider' },
 
-            // â”€â”€ Section 9: Advanced â€” Building an MCP Client â”€â”€
+            // ── Section 9: Advanced — Building an MCP Client ──
             { type: 'heading', level: 2, text: 'Advanced: Building an MCP Client', id: 'mcp-client' },
             { type: 'paragraph', html: 'Most developers build MCP <em>servers</em>. But if you are building an AI application (a Host), you need an MCP <em>client</em> to connect to servers and relay tool calls. Here is how to build one from scratch.' },
 
@@ -2641,14 +2641,14 @@ await client.close();` },
 
             { type: 'divider' },
 
-            // â”€â”€ Section 10: Advanced â€” Multi-Tool Servers & Middleware â”€â”€
+            // ── Section 10: Advanced — Multi-Tool Servers & Middleware ──
             { type: 'heading', level: 2, text: 'Advanced: Multi-Tool Servers and Middleware', id: 'advanced-patterns' },
-            { type: 'paragraph', html: 'Production MCP servers often need shared logic across multiple tools â€” authentication, logging, rate limiting, caching. Use middleware patterns to keep tool handlers clean.' },
+            { type: 'paragraph', html: 'Production MCP servers often need shared logic across multiple tools — authentication, logging, rate limiting, caching. Use middleware patterns to keep tool handlers clean.' },
 
             { type: 'code', language: 'typescript', title: 'middleware-pattern.ts', code: `// Middleware pattern for MCP tool handlers
 type ToolHandler = (args: Record<string, unknown>) => Promise<{ content: Array<{ type: string; text: string }> }>;
 
-// Logging middleware â€” wraps any tool handler
+// Logging middleware — wraps any tool handler
 function withLogging(toolName: string, handler: ToolHandler): ToolHandler {
   return async (args) => {
     const start = Date.now();
@@ -2696,7 +2696,7 @@ server.tool("expensive_query", "...", { sql: z.string() },
 
             { type: 'divider' },
 
-            // â”€â”€ Section 11: Security Considerations â”€â”€
+            // ── Section 11: Security Considerations ──
             { type: 'heading', level: 2, text: 'Security Considerations', id: 'mcp-security' },
             { type: 'callout', variant: 'caution', html: '<strong>MCP servers execute code on your machine.</strong> A malicious or poorly written server can read your files, make network requests, or execute arbitrary commands. Always review servers before installing them.' },
 
@@ -2711,7 +2711,7 @@ server.tool("expensive_query", "...", { sql: z.string() },
 
             { type: 'divider' },
 
-            // â”€â”€ Section 12: MCP Ecosystem â”€â”€
+            // ── Section 12: MCP Ecosystem ──
             { type: 'heading', level: 2, text: 'The MCP Ecosystem', id: 'mcp-ecosystem' },
             { type: 'paragraph', html: 'The MCP ecosystem is growing rapidly. Here are some popular, production-ready MCP servers you can use today:' },
 
@@ -2732,7 +2732,7 @@ server.tool("expensive_query", "...", { sql: z.string() },
 
             { type: 'divider' },
 
-            // â”€â”€ Section 13: MCP vs Direct API Integration â”€â”€
+            // ── Section 13: MCP vs Direct API Integration ──
             { type: 'heading', level: 2, text: 'MCP vs Direct API Integration', id: 'mcp-vs-direct' },
             { type: 'comparison', left: { title: 'Direct API Integration', color: '#ef4444', items: [
               'Custom code for each tool per AI model',
@@ -2752,26 +2752,26 @@ server.tool("expensive_query", "...", { sql: z.string() },
 
             { type: 'divider' },
 
-            // â”€â”€ Section 14: Key Takeaways â”€â”€
+            // ── Section 14: Key Takeaways ──
             { type: 'heading', level: 2, text: 'Key Takeaways', id: 'mcp-takeaways' },
             { type: 'list', ordered: true, items: [
-              'MCP is a universal open protocol that solves the NÃ—M integration problem â€” reducing it to N+M',
-              'Architecture: Host (AI app) â†’ Client (protocol handler) â†’ Transport (stdio/HTTP) â†’ Server (tools/resources/prompts) â†’ External Service',
+              'MCP is a universal open protocol that solves the N×M integration problem — reducing it to N+M',
+              'Architecture: Host (AI app) → Client (protocol handler) → Transport (stdio/HTTP) → Server (tools/resources/prompts) → External Service',
               'Three capability types: <strong>Tools</strong> (actions), <strong>Resources</strong> (data), <strong>Prompts</strong> (templates)',
               'Two transports: <strong>stdio</strong> for local servers, <strong>HTTP+SSE</strong> for remote/shared servers',
-              'Protocol lifecycle: initialize â†’ list tools â†’ call tool â†’ return result (JSON-RPC 2.0)',
+              'Protocol lifecycle: initialize → list tools → call tool → return result (JSON-RPC 2.0)',
               'Build servers with <code>@modelcontextprotocol/sdk</code>, validate inputs with Zod, handle errors gracefully',
               'Register servers in <code>claude_desktop_config.json</code> for Claude Desktop / Claude Code',
-              'Debug with <code>@modelcontextprotocol/inspector</code> â€” test tools interactively before deploying',
+              'Debug with <code>@modelcontextprotocol/inspector</code> — test tools interactively before deploying',
               'Security: sandbox untrusted servers, validate inputs, scope permissions, use env vars for secrets',
               'Growing ecosystem: 100+ community servers for filesystems, databases, APIs, and SaaS tools',
             ]},
           ],
         },
 
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         // 20. LangChain & LangGraph
-        // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ──────────────────────────────────────────────────────────
         {
           slug: 'langchain-langgraph',
           title: 'LangChain & LangGraph',
@@ -2782,7 +2782,7 @@ server.tool("expensive_query", "...", { sql: z.string() },
           prerequisites: ['what-is-ai-agent', 'agent-architectures'],
           content: [
             { type: 'heading', level: 2, text: 'Building AI Applications with LangChain', id: 'langchain-intro' },
-            { type: 'paragraph', html: '<strong>LangChain</strong> is a framework for building applications powered by LLMs. Its core concept is the <strong>chain</strong> â€” a sequence of steps where each step\'s output feeds into the next. Think of it as a pipeline: Prompt â†’ LLM â†’ Parser â†’ Action.' },
+            { type: 'paragraph', html: '<strong>LangChain</strong> is a framework for building applications powered by LLMs. Its core concept is the <strong>chain</strong> — a sequence of steps where each step\'s output feeds into the next. Think of it as a pipeline: Prompt → LLM → Parser → Action.' },
 
             { type: 'heading', level: 3, text: 'The Chain Concept', id: 'chain-concept' },
             { type: 'flow', steps: [
@@ -2806,7 +2806,7 @@ prompt = ChatPromptTemplate.from_messages([
 # Step 2: Initialize the LLM
 llm = ChatAnthropic(model="claude-sonnet-4-20250514")
 
-# Step 3: Create the chain (prompt â†’ llm â†’ parser)
+# Step 3: Create the chain (prompt → llm → parser)
 chain = prompt | llm | StrOutputParser()
 
 # Step 4: Run the chain
@@ -2819,7 +2819,7 @@ print(result)
 # --- Chaining multiple steps ---
 from langchain_core.runnables import RunnablePassthrough
 
-# Chain: generate code â†’ review code â†’ improve code
+# Chain: generate code → review code → improve code
 generate = ChatPromptTemplate.from_template(
     "Write a Python function that {task}"
 ) | llm | StrOutputParser()
@@ -2828,11 +2828,11 @@ review = ChatPromptTemplate.from_template(
     "Review this code for bugs and improvements:\\n{code}"
 ) | llm | StrOutputParser()
 
-# Compose: generate â†’ review
+# Compose: generate → review
 full_chain = generate | (lambda code: {"code": code}) | review
 result = full_chain.invoke({"task": "sorts a list using quicksort"})` },
 
-            { type: 'heading', level: 3, text: 'RAG â€” Retrieval Augmented Generation', id: 'rag-pipeline' },
+            { type: 'heading', level: 3, text: 'RAG — Retrieval Augmented Generation', id: 'rag-pipeline' },
             { type: 'paragraph', html: '<strong>RAG</strong> lets LLMs answer questions using your private data. Instead of relying solely on training knowledge, the model retrieves relevant documents from a <strong>vector database</strong> and uses them as context to generate accurate, grounded answers.' },
             { type: 'flow', steps: [
               { label: 'User Query', desc: '"How do I configure the API?"', color: '#6366f1' },
@@ -2887,14 +2887,14 @@ rag_chain = (
 answer = rag_chain.invoke("How do I authenticate with the API?")
 print(answer)  # Uses retrieved docs about Bearer tokens` },
 
-            { type: 'heading', level: 3, text: 'LangGraph â€” State Machines for Agents', id: 'langgraph-intro' },
-            { type: 'paragraph', html: '<strong>LangGraph</strong> extends LangChain with <strong>graph-based state machines</strong>. While LangChain chains are linear (A â†’ B â†’ C), LangGraph allows loops, conditional branching, and persistent state â€” essential for building agents that iterate until a task is complete.' },
+            { type: 'heading', level: 3, text: 'LangGraph — State Machines for Agents', id: 'langgraph-intro' },
+            { type: 'paragraph', html: '<strong>LangGraph</strong> extends LangChain with <strong>graph-based state machines</strong>. While LangChain chains are linear (A → B → C), LangGraph allows loops, conditional branching, and persistent state — essential for building agents that iterate until a task is complete.' },
             { type: 'comparison', left: { title: 'LangChain Chains', color: '#6366f1', items: [
-              'Linear pipeline: A â†’ B â†’ C',
+              'Linear pipeline: A → B → C',
               'Each step runs once',
               'No loops or conditional branching',
               'Good for simple, sequential workflows',
-              'Prompt â†’ LLM â†’ Parser â†’ Output',
+              'Prompt → LLM → Parser → Output',
             ]}, right: { title: 'LangGraph', color: '#f59e0b', items: [
               'Graph: nodes + edges with conditions',
               'Can loop back (agent cycles)',
@@ -2936,8 +2936,8 @@ def call_tools(state: AgentState) -> AgentState:
 # Routing function: decide next step
 def should_continue(state: AgentState) -> str:
     if state["next_action"] == "tool":
-        return "tools"     # â†’ call_tools node
-    return END             # â†’ finish
+        return "tools"     # → call_tools node
+    return END             # → finish
 
 # Build the graph
 graph = StateGraph(AgentState)
@@ -2952,7 +2952,7 @@ graph.add_conditional_edges("agent", should_continue, {
     "tools": "tools",
     END: END,
 })
-graph.add_edge("tools", "agent")  # after tools â†’ back to agent (loop!)
+graph.add_edge("tools", "agent")  # after tools → back to agent (loop!)
 
 # Compile and run
 app = graph.compile()
@@ -2963,9 +2963,9 @@ result = app.invoke({
 
             { type: 'heading', level: 3, text: 'When to Use Each Framework', id: 'when-to-use' },
             { type: 'table', headers: ['Use Case', 'Best Tool', 'Why'], rows: [
-              ['Simple prompt â†’ response', 'LangChain Chain', 'Linear, no loops needed'],
+              ['Simple prompt → response', 'LangChain Chain', 'Linear, no loops needed'],
               ['RAG (Q&A over documents)', 'LangChain + Vector DB', 'Well-supported retrieval pattern'],
-              ['Agent with tool use', 'LangGraph', 'Needs loops (tool â†’ observe â†’ decide)'],
+              ['Agent with tool use', 'LangGraph', 'Needs loops (tool → observe → decide)'],
               ['Multi-agent orchestration', 'LangGraph', 'Complex state + conditional routing'],
               ['Production agent deployment', 'LangGraph + LangSmith', 'Monitoring, tracing, evaluation'],
             ]},
@@ -2974,11 +2974,11 @@ result = app.invoke({
 
             { type: 'heading', level: 3, text: 'Key Takeaways', id: 'langchain-takeaways' },
             { type: 'list', ordered: true, items: [
-              'LangChain chains compose steps linearly: Prompt â†’ LLM â†’ Parser â†’ Action',
+              'LangChain chains compose steps linearly: Prompt → LLM → Parser → Action',
               'RAG retrieves relevant documents from a vector DB to augment LLM context',
-              'LangGraph adds graph-based state machines â€” loops, branches, persistent state',
+              'LangGraph adds graph-based state machines — loops, branches, persistent state',
               'Use LangChain for simple chains and RAG; LangGraph for agents with iterative behavior',
-              'The RAG pattern: embed query â†’ search vector DB â†’ retrieve docs â†’ augment prompt â†’ generate',
+              'The RAG pattern: embed query → search vector DB → retrieve docs → augment prompt → generate',
             ]},
           ],
         },

@@ -1,4 +1,4 @@
-﻿import type { TutorialCategory } from '../types';
+import type { TutorialCategory } from '../types';
 
 const category: TutorialCategory = {
   id: 'ai-speech',
@@ -7,9 +7,9 @@ const category: TutorialCategory = {
   color: '#f97316',
   description: 'Speech recognition with Whisper, TTS pipelines, and practical LLM Engineering: prompt engineering, evaluation, and production observability.',
   sections: [
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
-    // SECTION 11 â€” Speech Recognition
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // SECTION 11 — Speech Recognition
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     {
       title: 'Speech Recognition',
       topics: [
@@ -24,11 +24,11 @@ const category: TutorialCategory = {
             { type: 'heading', level: 2, text: 'What is Speech Recognition?', id: 'what-is-asr' },
             { type: 'paragraph', html: '<strong>Automatic Speech Recognition (ASR)</strong> converts spoken audio into text. It powers Siri, Google Assistant, live captions, medical dictation, and call center automation.' },
             { type: 'table', headers: ['Era', 'Technology', 'Notes'], rows: [
-              ['1950sâ€“1980s', 'Template matching, DTW', 'Digit recognition only, speaker-dependent'],
-              ['1990sâ€“2000s', 'Hidden Markov Models (HMM)', 'Statistical, vocabulary-limited'],
+              ['1950s–1980s', 'Template matching, DTW', 'Digit recognition only, speaker-dependent'],
+              ['1990s–2000s', 'Hidden Markov Models (HMM)', 'Statistical, vocabulary-limited'],
               ['2010s', 'Deep Neural Networks + HMM', 'Hybrid systems, major accuracy jump'],
               ['2014+', 'Seq2Seq with CTC', 'End-to-end, no HMM needed'],
-              ['2022+', 'Large self-supervised models', 'Whisper, wav2vec 2.0 â€” near-human accuracy'],
+              ['2022+', 'Large self-supervised models', 'Whisper, wav2vec 2.0 — near-human accuracy'],
             ]},
             { type: 'flow', steps: [
               { label: 'Audio', desc: 'Microphone input or WAV file', color: '#6366f1' },
@@ -48,14 +48,14 @@ const category: TutorialCategory = {
           estimatedMinutes: 14,
           content: [
             { type: 'heading', level: 2, text: 'The Physics of Sound', id: 'physics-of-sound' },
-            { type: 'paragraph', html: 'Sound is a mechanical wave â€” vibrations propagating through air. Key properties: <strong>frequency</strong> (pitch, Hz), <strong>amplitude</strong> (loudness, dB). Human hearing spans 20 Hz to 20 kHz; speech occupies 300 Hzâ€“3,400 Hz.' },
+            { type: 'paragraph', html: 'Sound is a mechanical wave — vibrations propagating through air. Key properties: <strong>frequency</strong> (pitch, Hz), <strong>amplitude</strong> (loudness, dB). Human hearing spans 20 Hz to 20 kHz; speech occupies 300 Hz–3,400 Hz.' },
             { type: 'table', headers: ['Property', 'Unit', 'Speech Range', 'Perception'], rows: [
-              ['Frequency', 'Hertz (Hz)', '80â€“300 Hz (fundamental)', 'Pitch â€” high vs. low'],
-              ['Amplitude', 'Decibels (dB)', '40â€“80 dB normal speech', 'Loudness'],
-              ['Duration', 'Milliseconds (ms)', '50â€“300 ms per phoneme', 'Rhythm, prosody'],
+              ['Frequency', 'Hertz (Hz)', '80–300 Hz (fundamental)', 'Pitch — high vs. low'],
+              ['Amplitude', 'Decibels (dB)', '40–80 dB normal speech', 'Loudness'],
+              ['Duration', 'Milliseconds (ms)', '50–300 ms per phoneme', 'Rhythm, prosody'],
               ['Sample Rate', 'Hz (samples/sec)', '16,000 Hz (ASR standard)', 'Audio quality'],
             ]},
-            { type: 'callout', variant: 'note', html: '<strong>Phonemes:</strong> English has ~44 phonemes â€” the smallest units of sound that distinguish meaning (e.g., /p/ vs /b/). ASR models ultimately map acoustic features to phoneme sequences, then to words.' },
+            { type: 'callout', variant: 'note', html: '<strong>Phonemes:</strong> English has ~44 phonemes — the smallest units of sound that distinguish meaning (e.g., /p/ vs /b/). ASR models ultimately map acoustic features to phoneme sequences, then to words.' },
           ],
         },
         {
@@ -89,14 +89,14 @@ sf.write("speech_16k.wav", audio_normalized, 16000, subtype='PCM_16')` },
         },
         {
           slug: 'audio-feature-extraction',
-          title: 'Audio Feature Extraction â€” FFT & MFCCs',
+          title: 'Audio Feature Extraction — FFT & MFCCs',
           description: 'FFT converts audio to frequency domain; MFCCs extract compact perceptually-motivated features that power classical ASR.',
           keywords: ['fft', 'mfcc', 'mel spectrogram', 'librosa', 'feature extraction'],
           difficulty: 'intermediate',
           estimatedMinutes: 20,
           content: [
             { type: 'heading', level: 2, text: 'From Waveform to Features', id: 'audio-features' },
-            { type: 'paragraph', html: 'Raw waveforms are hard to learn from. The pipeline: <em>waveform â†’ STFT â†’ Mel Spectrogram â†’ MFCCs</em>.' },
+            { type: 'paragraph', html: 'Raw waveforms are hard to learn from. The pipeline: <em>waveform → STFT → Mel Spectrogram → MFCCs</em>.' },
             { type: 'code', language: 'python', title: 'feature_extraction.py', code: `import librosa
 import numpy as np
 
@@ -109,7 +109,7 @@ mel_spec = librosa.feature.melspectrogram(
 mel_db = librosa.power_to_db(mel_spec, ref=np.max)
 print(f"Mel spectrogram shape: {mel_db.shape}")  # (80, time_frames)
 
-# 2. MFCCs â€” compact decorrelated features
+# 2. MFCCs — compact decorrelated features
 mfccs   = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=13, hop_length=160)
 delta   = librosa.feature.delta(mfccs)
 delta2  = librosa.feature.delta(mfccs, order=2)
@@ -126,7 +126,7 @@ print(f"MFCC feature shape: {features.shape}")  # (39, time_frames)` },
           difficulty: 'advanced',
           estimatedMinutes: 20,
           content: [
-            { type: 'heading', level: 2, text: 'CTC â€” Handling Variable-Length Alignment', id: 'ctc' },
+            { type: 'heading', level: 2, text: 'CTC — Handling Variable-Length Alignment', id: 'ctc' },
             { type: 'paragraph', html: 'CTC introduces a blank token and allows repeated emissions, then collapses the output. Training maximizes the probability of all CTC paths that produce the correct transcription.' },
             { type: 'code', language: 'python', title: 'ctc_decode.py', code: `def ctc_greedy_decode(emissions: list[str], blank: str = "<b>") -> str:
     """CTC greedy decoding: collapse repeated chars, remove blanks."""
@@ -213,7 +213,7 @@ def recognize_file(filepath: str) -> str:
     return recognizer.recognize_google(audio)
 
 recognize_microphone()` },
-            { type: 'code', language: 'javascript', title: 'web_speech.js', code: `// Web Speech API â€” Chrome/Edge
+            { type: 'code', language: 'javascript', title: 'web_speech.js', code: `// Web Speech API — Chrome/Edge
 const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 recognition.continuous = true;
 recognition.interimResults = true;
@@ -260,7 +260,7 @@ print(f"SNR improvement: {snr_improvement:.1f} dB")` },
         },
         {
           slug: 'openai-whisper',
-          title: 'OpenAI Whisper â€” State-of-the-Art ASR',
+          title: 'OpenAI Whisper — State-of-the-Art ASR',
           description: 'High-accuracy transcription, translation across 99 languages, and word-level timestamps with Whisper and Faster-Whisper.',
           keywords: ['whisper', 'openai whisper', 'faster-whisper', 'transcription', 'multilingual'],
           difficulty: 'intermediate',
@@ -268,11 +268,11 @@ print(f"SNR improvement: {snr_improvement:.1f} dB")` },
           content: [
             { type: 'heading', level: 2, text: 'OpenAI Whisper', id: 'whisper' },
             { type: 'table', headers: ['Model', 'Parameters', 'Speed', 'WER (EN)'], rows: [
-              ['tiny', '39M', '32Ã— realtime', '~14%'],
-              ['base', '74M', '16Ã— realtime', '~11%'],
-              ['small', '244M', '6Ã— realtime', '~9%'],
-              ['medium', '769M', '2Ã— realtime', '~7%'],
-              ['large-v3', '1550M', '1Ã— realtime', '~5%'],
+              ['tiny', '39M', '32× realtime', '~14%'],
+              ['base', '74M', '16× realtime', '~11%'],
+              ['small', '244M', '6× realtime', '~9%'],
+              ['medium', '769M', '2× realtime', '~7%'],
+              ['large-v3', '1550M', '1× realtime', '~5%'],
             ]},
             { type: 'code', language: 'python', title: 'whisper_transcribe.py', code: `import whisper
 
@@ -281,7 +281,7 @@ model = whisper.load_model("base")
 result = model.transcribe(
     "interview.mp3",
     language="en",
-    task="transcribe",    # or "translate" â†’ always outputs English
+    task="transcribe",    # or "translate" → always outputs English
     fp16=False,
     word_timestamps=True,
 )
@@ -290,10 +290,10 @@ print(f"Language: {result['language']}")
 print(f"Transcript:\\n{result['text']}")
 
 for segment in result["segments"]:
-    print(f"[{segment['start']:.2f}s â†’ {segment['end']:.2f}s] {segment['text']}")` },
+    print(f"[{segment['start']:.2f}s → {segment['end']:.2f}s] {segment['text']}")` },
             { type: 'code', language: 'python', title: 'faster_whisper.py', code: `from faster_whisper import WhisperModel
 
-# 4Ã— faster, less VRAM, same accuracy
+# 4× faster, less VRAM, same accuracy
 model = WhisperModel("large-v3", device="cpu", compute_type="int8")
 
 segments, info = model.transcribe(
@@ -307,13 +307,13 @@ segments, info = model.transcribe(
 print(f"Language: {info.language} ({info.language_probability:.2f})")
 for segment in segments:
     print(f"[{segment.start:.2f}s - {segment.end:.2f}s] {segment.text.strip()}")` },
-            { type: 'callout', variant: 'tip', html: '<strong>Production tip:</strong> Use <code>faster-whisper</code> with <code>compute_type="int8"</code> for CPU deployment. Runs Whisper large-v3 in real-time on modern CPUs â€” no GPU required.' },
+            { type: 'callout', variant: 'tip', html: '<strong>Production tip:</strong> Use <code>faster-whisper</code> with <code>compute_type="int8"</code> for CPU deployment. Runs Whisper large-v3 in real-time on modern CPUs — no GPU required.' },
           ],
         },
         {
           slug: 'voice-assistant-final',
           title: 'Building a Real-Time Voice Assistant',
-          description: 'End-to-end pipeline: microphone â†’ noise reduction â†’ Whisper â†’ LLM response â†’ text-to-speech output.',
+          description: 'End-to-end pipeline: microphone → noise reduction → Whisper → LLM response → text-to-speech output.',
           keywords: ['voice assistant', 'real-time asr', 'text to speech', 'voice pipeline'],
           difficulty: 'advanced',
           estimatedMinutes: 22,
@@ -349,7 +349,7 @@ history = [{"role": "system", "content": "You are a helpful voice assistant. Kee
 def capture():
     with sd.InputStream(samplerate=SAMPLE_RATE, channels=1, dtype='float32',
                         blocksize=CHUNK_SIZE, callback=lambda d, *_: audio_queue.put(d.copy())):
-        print("ðŸŽ¤ Listening...")
+        print("🎤 Listening...")
         threading.Event().wait()
 
 def process():
@@ -366,13 +366,13 @@ def process():
                 segs, _ = whisper.transcribe(audio, vad_filter=True)
                 text = " ".join(s.text.strip() for s in segs).strip()
                 if text and len(text) > 2:
-                    print(f"\\nðŸ‘¤ You: {text}")
+                    print(f"\\n👤 You: {text}")
                     history.append({"role": "user", "content": text})
                     resp = openai_client.chat.completions.create(
                         model="gpt-4o-mini", messages=history, max_tokens=150
                     ).choices[0].message.content
                     history.append({"role": "assistant", "content": resp})
-                    print(f"ðŸ¤– Assistant: {resp}")
+                    print(f"🤖 Assistant: {resp}")
                     tts.say(resp); tts.runAndWait()
                 buf, silent = [], 0
 
@@ -383,9 +383,9 @@ process()` },
       ],
     },
 
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
-    // SECTION 12 â€” LLM Engineering
-    // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // SECTION 12 — LLM Engineering
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     {
       title: 'LLM Engineering',
       topics: [
@@ -421,7 +421,7 @@ process()` },
         },
         {
           slug: 'planning-stage',
-          title: 'Planning Stage â€” Before You Write Code',
+          title: 'Planning Stage — Before You Write Code',
           description: 'How to scope an LLM project: define success criteria, choose the right model, identify failure modes, and build an evaluation dataset first.',
           keywords: ['llm planning', 'success criteria', 'evaluation dataset', 'cost estimation'],
           difficulty: 'intermediate',
@@ -430,11 +430,11 @@ process()` },
             { type: 'heading', level: 2, text: 'Planning Your LLM Application', id: 'llm-planning' },
             { type: 'list', ordered: true, items: [
               '<strong>Define the task precisely:</strong> e.g., "Summarize support tickets into one sentence with priority label HIGH/MEDIUM/LOW"',
-              '<strong>Write success criteria first:</strong> "95% of summaries rated â‰¥4/5 by human reviewer"',
-              '<strong>Build evaluation set before prompting:</strong> 50â€“200 examples with expected outputs',
-              '<strong>Estimate cost and latency:</strong> tokens Ã— price Ã— volume = monthly budget',
+              '<strong>Write success criteria first:</strong> "95% of summaries rated ≥4/5 by human reviewer"',
+              '<strong>Build evaluation set before prompting:</strong> 50–200 examples with expected outputs',
+              '<strong>Estimate cost and latency:</strong> tokens × price × volume = monthly budget',
               '<strong>Identify failure modes:</strong> What happens when model refuses? Gets priority wrong? Produces gibberish?',
-              '<strong>Choose the right model tier:</strong> Simple tasks â†’ gpt-4o-mini ($0.15/1M); complex â†’ gpt-4o ($5/1M)',
+              '<strong>Choose the right model tier:</strong> Simple tasks → gpt-4o-mini ($0.15/1M); complex → gpt-4o ($5/1M)',
             ]},
             { type: 'code', language: 'python', title: 'cost_estimator.py', code: `import tiktoken
 
@@ -473,7 +473,7 @@ print(estimate_monthly_cost(
             { type: 'heading', level: 2, text: 'Advanced Prompt Engineering', id: 'advanced-prompting' },
             { type: 'table', headers: ['Technique', 'When to Use', 'Example'], rows: [
               ['Zero-shot', 'Simple, well-defined tasks', '"Classify this email as spam or not spam."'],
-              ['Few-shot', 'Complex or domain-specific tasks', '3â€“5 examples of input â†’ expected output'],
+              ['Few-shot', 'Complex or domain-specific tasks', '3–5 examples of input → expected output'],
               ['Chain-of-Thought', 'Multi-step reasoning, math, logic', '"Think step by step before answering."'],
               ['Self-Consistency', 'Reduce reasoning errors', 'Generate 5 answers, take majority vote'],
               ['Structured Output', 'When output must be parsed by code', 'JSON schema + Pydantic parser'],
@@ -522,7 +522,7 @@ for name, prompt in prompts.items():
         {
           slug: 'streamlit-llm',
           title: 'Building LLM Prototypes with Streamlit',
-          description: 'Rapidly prototype LLM applications with Streamlit â€” chat interfaces, streaming responses, and session state.',
+          description: 'Rapidly prototype LLM applications with Streamlit — chat interfaces, streaming responses, and session state.',
           keywords: ['streamlit', 'llm prototype', 'chat interface', 'session state', 'streaming'],
           difficulty: 'intermediate',
           estimatedMinutes: 16,
@@ -531,8 +531,8 @@ for name, prompt in prompts.items():
             { type: 'code', language: 'python', title: 'llm_chatbot.py', code: `import streamlit as st
 from openai import OpenAI
 
-st.set_page_config(page_title="AI Assistant", page_icon="ðŸ¤–")
-st.title("ðŸ¤– AI Assistant")
+st.set_page_config(page_title="AI Assistant", page_icon="🤖")
+st.title("🤖 AI Assistant")
 client = OpenAI()
 
 if "messages" not in st.session_state:
@@ -562,7 +562,7 @@ if prompt := st.chat_input("Ask me anything..."):
         ):
             if chunk.choices[0].delta.content:
                 full += chunk.choices[0].delta.content
-                placeholder.markdown(full + "â–Œ")
+                placeholder.markdown(full + "▌")
         placeholder.markdown(full)
     st.session_state.messages.append({"role": "assistant", "content": full})` },
             { type: 'code', language: 'bash', title: 'run.sh', code: `pip install streamlit openai
@@ -630,7 +630,7 @@ async def process_batch(items: list[str], system: str) -> list[str]:
               ['Hallucination', 'Model invents plausible but false information', 'RAG, citations, fact-checking, constrained generation'],
               ['Evaluation at Scale', 'Human review doesn\'t scale', 'LLM-as-judge, automated metrics, sampling + human review'],
               ['Cost Explosion', 'Tokens add up fast', 'Caching, smaller models, prompt compression, batching'],
-              ['Latency', 'LLMs are slow (1â€“30 seconds)', 'Streaming, smaller models, speculative decoding'],
+              ['Latency', 'LLMs are slow (1–30 seconds)', 'Streaming, smaller models, speculative decoding'],
               ['Prompt Injection', 'Malicious instructions in user content', 'Input sanitization, sandboxed context, validation'],
             ]},
             { type: 'code', language: 'python', title: 'llm_judge.py', code: `from openai import OpenAI
@@ -664,11 +664,12 @@ test_cases = [
 for tc in test_cases:
     verdict = judge(tc["q"], tc["expected"], "Paris is the capital of France.")
     print(f"Score {verdict['score']}/5 | Passed: {verdict['passed']} | {verdict['reasoning']}")` },
-            { type: 'callout', variant: 'tip', html: '<strong>Observability:</strong> Use LangSmith or Weights & Biases Traces to log every LLM call â€” prompt, response, latency, token count, cost. You cannot improve what you cannot measure. Start logging from day 1.' },
+            { type: 'callout', variant: 'tip', html: '<strong>Observability:</strong> Use LangSmith or Weights & Biases Traces to log every LLM call — prompt, response, latency, token count, cost. You cannot improve what you cannot measure. Start logging from day 1.' },
           ],
         },
       ],
     },
+
   ],
 };
 
