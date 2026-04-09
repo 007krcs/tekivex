@@ -14,6 +14,7 @@ export function TutorialLayout({ categoryId, topicSlug }: TutorialLayoutProps) {
   const [category, setCategory] = useState<TutorialCategory | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [markdownContent, setMarkdownContent] = useState<string | null>(null);
   const { visited, markVisited } = useProgress();
 
   useEffect(() => {
@@ -45,6 +46,19 @@ export function TutorialLayout({ categoryId, topicSlug }: TutorialLayoutProps) {
       markVisited(category.id, activeTopic.slug);
     }
   }, [activeTopic?.slug, category?.id]);
+
+  // Fetch markdown content when topic has a contentFile
+  useEffect(() => {
+    if (activeTopic?.contentFile) {
+      setMarkdownContent(null);
+      fetch(`/tutorials/content/${activeTopic.contentFile}`)
+        .then(res => res.text())
+        .then(text => setMarkdownContent(text))
+        .catch(() => setMarkdownContent(null));
+    } else {
+      setMarkdownContent(null);
+    }
+  }, [activeTopic?.contentFile]);
 
   const navigate = (slug: string) => {
     window.location.hash = `/tutorials/${categoryId}/${slug}`;
@@ -104,6 +118,7 @@ export function TutorialLayout({ categoryId, topicSlug }: TutorialLayoutProps) {
         onNavigate={navigate}
         prev={prev}
         next={next}
+        markdownContent={markdownContent}
       />
     </div>
   );

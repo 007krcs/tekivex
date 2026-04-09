@@ -2,13 +2,14 @@ import React, { useCallback } from 'react';
 import type { ContentBlock, TutorialTopic, TutorialCategory } from './types';
 import { CodeBlock } from './CodeBlock';
 import { FlowDiagram, ComparisonCard } from './FlowDiagram';
+import { MarkdownRenderer } from './MarkdownRenderer';
 
 // ─── ContentBlock Renderer ───
 
 function RenderBlock({ block }: { block: ContentBlock }) {
   switch (block.type) {
     case 'heading': {
-      const Tag = `h${block.level}` as keyof JSX.IntrinsicElements;
+      const Tag = `h${block.level}` as keyof React.JSX.IntrinsicElements;
       return <Tag id={block.id}>{block.text}</Tag>;
     }
     case 'paragraph':
@@ -126,9 +127,10 @@ interface TutorialContentProps {
   onNavigate: (slug: string) => void;
   prev: TutorialTopic | null;
   next: TutorialTopic | null;
+  markdownContent?: string | null;
 }
 
-export function TutorialContent({ topic, category, onNavigate, prev, next }: TutorialContentProps) {
+export function TutorialContent({ topic, category, onNavigate, prev, next, markdownContent }: TutorialContentProps) {
   return (
     <div className="docs-main">
       <div className="tutorial-content-wrap">
@@ -153,10 +155,13 @@ export function TutorialContent({ topic, category, onNavigate, prev, next }: Tut
             <ShareButton categoryId={category.id} slug={topic.slug} />
           </div>
 
-          {/* Content Blocks */}
-          {topic.content.map((block, i) => (
-            <RenderBlock key={i} block={block} />
-          ))}
+          {/* Content Blocks or Markdown */}
+          {markdownContent != null
+            ? <MarkdownRenderer markdown={markdownContent} />
+            : (topic.content ?? []).map((block, i) => (
+                <RenderBlock key={i} block={block} />
+              ))
+          }
 
           {/* Prev / Next Navigation */}
           <div className="tutorial-prev-next">
@@ -178,7 +183,7 @@ export function TutorialContent({ topic, category, onNavigate, prev, next }: Tut
         </div>
 
         {/* Right-rail TOC */}
-        <TableOfContents content={topic.content} />
+        <TableOfContents content={topic.content ?? []} />
       </div>
     </div>
   );

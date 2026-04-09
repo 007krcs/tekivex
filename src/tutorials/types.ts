@@ -32,7 +32,8 @@ export interface TutorialTopic {
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   estimatedMinutes: number;
   prerequisites?: string[];
-  content: ContentBlock[];
+  content?: ContentBlock[];
+  contentFile?: string; // relative path like 'ai-ml-transformers/attention-mechanism.md'
 }
 
 export interface TutorialSection {
