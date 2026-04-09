@@ -26,6 +26,9 @@ export function TutorialLayout({ categoryId, topicSlug }: TutorialLayoutProps) {
         setError(`Category "${categoryId}" not found.`);
       }
       setLoading(false);
+    }).catch((err: unknown) => {
+      setError(`Failed to load category "${categoryId}": ${err instanceof Error ? err.message : String(err)}`);
+      setLoading(false);
     });
   }, [categoryId]);
 
