@@ -30,8 +30,6 @@ tekivex (this repo)            ← platform shell, product catalog, SEO
 |---|---|---|
 | **GridStorm** | ✅ GA | Open-source enterprise data grid — 35 plugins, 100K rows @ 60fps, WCAG 2.1 AA |
 | **PDF Toolkit** | 🔵 Beta | WASM/Rust PDF renderer — 13 annotation types, PII detection, AES-256 |
-| **NexaRecruit** | 🔜 Q2 2026 | ATS + Resume Builder — AI screening, Kanban pipeline, PDF export |
-| **NexaCare** | 🔜 Q3 2026 | HIPAA-compliant healthcare platform — HL7/FHIR, clinical workflow |
 | **Analytics Studio** | 🔜 Q3 2026 | Visual BI & dashboards — drag-and-drop, 20+ chart types, no SQL |
 | **DataFlow** | 🔜 Q4 2026 | Real-time streaming — WebSocket, Kafka, sub-10ms latency |
 
@@ -189,17 +187,6 @@ Static fallbacks in `index.html` serve crawlers that don't execute JavaScript.
 3. Build command: `npm run build`
 4. Output directory: `dist`
 5. Deploy — `vercel.json` serves all routes from `index.html`
-
----
-
-## GridStorm (linked product)
-
-GridStorm's source, docs, and demos live in a separate repo:
-
-- **Source:** [github.com/007krcs/grid-data](https://github.com/007krcs/grid-data)
-- **Live:** [grid-data-analytics-explorer.vercel.app](https://grid-data-analytics-explorer.vercel.app/)
-- **Docs:** [grid-data-analytics-explorer.vercel.app/#/docs](https://grid-data-analytics-explorer.vercel.app/#/docs/getting-started/introduction)
-- **Demos:** [grid-data-analytics-explorer.vercel.app/feature-showcase/](https://grid-data-analytics-explorer.vercel.app/feature-showcase/)
 
 ---
 
