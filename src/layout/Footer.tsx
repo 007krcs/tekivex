@@ -9,6 +9,7 @@ const FOOTER_COLS = [
     links: [
       { label: 'All Products',       href: '#/products' },
       { label: 'About Us',           href: '#/about' },
+      { label: 'Privacy Policy',     href: '#/privacy-policy' },
       { label: 'GridStorm',          href: '#/product/gridstorm' },
       { label: 'Analytics Studio',   href: '#/product/analytics-studio' },
       { label: 'PDF Toolkit',        href: '#/product/pdf-toolkit' },
@@ -121,6 +122,7 @@ export function Footer() {
         <div className="hub-footer-bottom-links">
           <a href="#/products" className="hub-footer-bottom-link">Products</a>
           <a href={`${GS}/#/docs/getting-started/introduction`} className="hub-footer-bottom-link" target="_blank" rel="noopener noreferrer">Docs</a>
+          <a href="#/privacy-policy" className="hub-footer-bottom-link">Privacy Policy</a>
           <a href="https://github.com/novaai0401-ui/tekivex-issue-report/issues" className="hub-footer-bottom-link" target="_blank" rel="noopener noreferrer">Report Issue</a>
         </div>
         <div className="hub-footer-social">

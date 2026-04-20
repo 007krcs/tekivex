@@ -12,6 +12,7 @@ import { getSeoForRoute } from './platform/seoConfig';
 
 import { TutorialLanding } from './tutorials/TutorialLanding';
 import { TutorialLayout } from './tutorials/TutorialLayout';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 
 function useHashRoute(): string {
   const [hash, setHash] = React.useState(window.location.hash.slice(1) || '/');
@@ -52,6 +53,8 @@ export function App() {
     page = <ProductHomePage productId={productId ?? ''} />;
   } else if (route === '/about') {
     page = <AboutPage />;
+  } else if (route === '/privacy-policy') {
+    page = <PrivacyPolicyPage />;
   } else {
     // Default: platform product launcher
     page = <PlatformPage />;

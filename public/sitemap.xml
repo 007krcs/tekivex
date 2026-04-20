@@ -23,7 +23,53 @@
   <!-- ── About ──────────────────────────────────────────────────────── -->
   <url>
     <loc>https://tekivex.com/#/about</loc>
-    <lastmod>2026-04-04</lastmod>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ── Privacy Policy ────────────────────────────────────────────── -->
+  <url>
+    <loc>https://tekivex.com/#/privacy-policy</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- ── Tutorials ─────────────────────────────────────────────────── -->
+  <url>
+    <loc>https://tekivex.com/#/tutorials</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tekivex.com/#/tutorials/ai-ml</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tekivex.com/#/tutorials/software-architecture</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tekivex.com/#/tutorials/system-design</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tekivex.com/#/tutorials/frontend-patterns</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tekivex.com/#/tutorials/backend-patterns</loc>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
