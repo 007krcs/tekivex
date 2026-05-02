@@ -11,6 +11,7 @@ interface ThemeContextValue {
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 const THEME_KEY = 'hub-theme';
+const THEME_RESET_KEY = 'hub-theme-reset-v2';
 const THEME_ORDER: HubTheme[] = ['light', 'dark', 'high-contrast'];
 
 function isValidTheme(value: string | null): value is HubTheme {
@@ -19,6 +20,17 @@ function isValidTheme(value: string | null): value is HubTheme {
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<HubTheme>(() => {
+    // One-time migration: prior visitors had 'dark' baked into localStorage
+    // because that used to be the default. Reset them to 'light' once so
+    // everyone sees the new professional light surface; subsequent toggles
+    // are respected.
+    try {
+      if (!localStorage.getItem(THEME_RESET_KEY)) {
+        localStorage.setItem(THEME_KEY, 'light');
+        localStorage.setItem(THEME_RESET_KEY, '1');
+        return 'light';
+      }
+    } catch {}
     const stored = localStorage.getItem(THEME_KEY);
     return isValidTheme(stored) ? stored : 'light';
   });
