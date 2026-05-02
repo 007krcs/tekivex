@@ -1,3 +1,4 @@
+import React from 'react';
 import { Icon } from '../icons/Icon';
 
 // GridStorm lives at this URL — all docs/demo links point here
@@ -7,13 +8,13 @@ const FOOTER_COLS = [
   {
     heading: 'Platform',
     links: [
-      { label: 'All Products',       href: '#/products' },
-      { label: 'About Us',           href: '#/about' },
-      { label: 'Privacy Policy',     href: '#/privacy-policy' },
-      { label: 'GridStorm',          href: '#/product/gridstorm' },
-      { label: 'Analytics Studio',   href: '#/product/analytics-studio' },
-      { label: 'PDF Toolkit',        href: '#/product/pdf-toolkit' },
-      { label: 'DataFlow',           href: '#/product/dataflow' },
+      { label: 'All Products',       href: '/products' },
+      { label: 'About Us',           href: '/about' },
+      { label: 'Privacy Policy',     href: '/privacy-policy' },
+      { label: 'GridStorm',          href: '/product/gridstorm' },
+      { label: 'Analytics Studio',   href: '/product/analytics-studio' },
+      { label: 'PDF Toolkit',        href: '/product/pdf-toolkit' },
+      { label: 'DataFlow',           href: '/product/dataflow' },
       { label: 'Report an Issue',     href: 'https://github.com/novaai0401-ui/tekivex-issue-report/issues' },
     ],
   },
@@ -61,8 +62,8 @@ const FOOTER_COLS = [
     heading: 'Community',
     links: [
       { label: 'Report an Issue', href: 'https://github.com/novaai0401-ui/tekivex-issue-report/issues' },
-      { label: 'Tutorials',       href: '#/tutorials' },
-      { label: 'About Us',        href: '#/about' },
+      { label: 'Tutorials',       href: '/tutorials' },
+      { label: 'About Us',        href: '/about' },
     ],
   },
 ];
@@ -119,11 +120,21 @@ export function Footer() {
         <div className="hub-footer-copy">
           &copy; {new Date().getFullYear()} Tekivex. All rights reserved.
         </div>
-        <div className="hub-footer-bottom-links">
-          <a href="/products" className="hub-footer-bottom-link">Products</a>
-          <a href={`${GS}/#/docs/getting-started/introduction`} className="hub-footer-bottom-link" target="_blank" rel="noopener noreferrer">Docs</a>
-          <a href="/privacy-policy" className="hub-footer-bottom-link">Privacy Policy</a>
-          <a href="https://github.com/novaai0401-ui/tekivex-issue-report/issues" className="hub-footer-bottom-link" target="_blank" rel="noopener noreferrer">Report Issue</a>
+        <div
+          className="hub-footer-bottom-links"
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '8px 24px',
+            alignItems: 'center',
+          }}
+        >
+          <a href="/products" className="hub-footer-bottom-link" style={footerLinkStyle}>Products</a>
+          <a href="https://ui.tekivex.com" className="hub-footer-bottom-link" style={footerLinkStyle} target="_blank" rel="noopener noreferrer">TekiVex UI</a>
+          <a href={`${GS}/#/docs/getting-started/introduction`} className="hub-footer-bottom-link" style={footerLinkStyle} target="_blank" rel="noopener noreferrer">Docs</a>
+          <a href="/about" className="hub-footer-bottom-link" style={footerLinkStyle}>About</a>
+          <a href="/privacy-policy" className="hub-footer-bottom-link" style={footerLinkStyle}>Privacy Policy</a>
+          <a href="https://github.com/novaai0401-ui/tekivex-issue-report/issues" className="hub-footer-bottom-link" style={footerLinkStyle} target="_blank" rel="noopener noreferrer">Report Issue</a>
         </div>
         <div className="hub-footer-social">
           <a
@@ -140,3 +151,11 @@ export function Footer() {
     </footer>
   );
 }
+
+const footerLinkStyle: React.CSSProperties = {
+  color: '#475569',
+  textDecoration: 'none',
+  fontSize: 13,
+  fontWeight: 500,
+  whiteSpace: 'nowrap',
+};

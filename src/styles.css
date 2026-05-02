@@ -2424,6 +2424,26 @@ body {
   color: var(--hub-text-muted);
 }
 
+.hub-footer-bottom-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  align-items: center;
+}
+
+.hub-footer-bottom-link {
+  color: var(--hub-text-muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+
+.hub-footer-bottom-link:hover {
+  color: var(--hub-accent, #3a86ff);
+}
+
 .hub-footer-social {
   display: flex;
   align-items: center;
