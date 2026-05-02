@@ -40,35 +40,10 @@
 
 /* ── 2. Theme Tokens ── */
 
-/* Dark (default) */
-:root, [data-hub-theme="dark"] {
-  --hub-bg: #09090b;
-  --hub-bg-pattern: rgba(255, 255, 255, 0.02);
-  --hub-bg-glow: rgba(59, 130, 246, 0.08);
-  --hub-surface: #111113;
-  --hub-surface-2: #18181b;
-  --hub-surface-hover: #1e1e22;
-  --hub-border: #27272a;
-  --hub-border-subtle: #1e1e22;
-  --hub-text: #fafafa;
-  --hub-text-secondary: #a1a1aa;
-  --hub-text-muted: #71717a;
-  --hub-accent: #3b82f6;
-  --hub-accent-light: #60a5fa;
-  --hub-accent-glow: rgba(59, 130, 246, 0.15);
-  --hub-green: #22c55e;
-  --hub-purple: #a855f7;
-  --hub-orange: #f97316;
-  --hub-pink: #ec4899;
-  --hub-cyan: #06b6d4;
-  --hub-red: #ef4444;
-  --hub-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  --hub-card-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.3);
-  --hub-gradient-text: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
-}
-
-/* Light */
-[data-hub-theme="light"] {
+/* Light (default — applies whenever no data-hub-theme attribute is set,
+   and explicitly when [data-hub-theme="light"]). Professional clean
+   surface for first-time visitors. */
+:root, [data-hub-theme="light"] {
   --hub-bg: #ffffff;
   --hub-bg-pattern: rgba(0, 0, 0, 0.03);
   --hub-bg-glow: rgba(59, 130, 246, 0.06);
@@ -93,6 +68,33 @@
   --hub-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   --hub-card-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.1);
   --hub-gradient-text: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #db2777 100%);
+}
+
+/* Dark (opt-in only via toggle) */
+[data-hub-theme="dark"] {
+  --hub-bg: #09090b;
+  --hub-bg-pattern: rgba(255, 255, 255, 0.02);
+  --hub-bg-glow: rgba(59, 130, 246, 0.08);
+  --hub-surface: #111113;
+  --hub-surface-2: #18181b;
+  --hub-surface-hover: #1e1e22;
+  --hub-border: #27272a;
+  --hub-border-subtle: #1e1e22;
+  --hub-text: #fafafa;
+  --hub-text-secondary: #a1a1aa;
+  --hub-text-muted: #71717a;
+  --hub-accent: #3b82f6;
+  --hub-accent-light: #60a5fa;
+  --hub-accent-glow: rgba(59, 130, 246, 0.15);
+  --hub-green: #22c55e;
+  --hub-purple: #a855f7;
+  --hub-orange: #f97316;
+  --hub-pink: #ec4899;
+  --hub-cyan: #06b6d4;
+  --hub-red: #ef4444;
+  --hub-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --hub-card-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.3);
+  --hub-gradient-text: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
 }
 
 /* High Contrast */
