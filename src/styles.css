@@ -5839,3 +5839,121 @@ body {
   color: var(--hub-text-primary);
   font-weight: 600;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   LIGHT-THEME OVERRIDES
+   The .tx-* product / hero / stats classes were authored when dark was the
+   only theme, so they hardcode navy-on-dark colors. When the document opts
+   into the light theme we flip the most visible surfaces to a clean
+   professional white-on-slate palette. Cards and stat tiles use semi-
+   transparent backgrounds that read well on either side; we still re-tint
+   borders so they stop disappearing on white.
+   ───────────────────────────────────────────────────────────────────────── */
+[data-hub-theme="light"] .tx-page {
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 60%, #f8fafc 100%);
+  color: #0f172a;
+}
+[data-hub-theme="light"] .bg-pattern {
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+}
+[data-hub-theme="light"] .bg-glow {
+  background: radial-gradient(ellipse, rgba(59, 130, 246, 0.06) 0%, transparent 70%);
+}
+[data-hub-theme="light"] .tx-hero-tagline { color: #475569; }
+[data-hub-theme="light"] .tx-hero-pill {
+  color: #1e293b;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+}
+[data-hub-theme="light"] .tx-hero-pill:hover {
+  background: #f1f5f9;
+  border-color: var(--pc, #cbd5e1);
+}
+[data-hub-theme="light"] .tx-hero-pill-soon em { background: rgba(100, 116, 139, 0.15); color: #64748b; }
+[data-hub-theme="light"] .tx-ghost-btn {
+  color: #1e293b;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+}
+[data-hub-theme="light"] .tx-ghost-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+[data-hub-theme="light"] .tx-eyebrow-pill {
+  color: #1d4ed8;
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+}
+[data-hub-theme="light"] .tx-stats-bar {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+}
+[data-hub-theme="light"] .tx-stats-item { border-right-color: #e2e8f0 !important; }
+[data-hub-theme="light"] .tx-stats-item:nth-child(odd) { border-right-color: #e2e8f0 !important; }
+[data-hub-theme="light"] .tx-stats-val { color: #0f172a; }
+[data-hub-theme="light"] .tx-stats-lbl { color: #64748b; }
+[data-hub-theme="light"] .tx-section,
+[data-hub-theme="light"] .tx-cta-section { color: #0f172a; }
+[data-hub-theme="light"] .tx-eyebrow { color: #1d4ed8; }
+[data-hub-theme="light"] .tx-section-title { color: #0f172a; }
+[data-hub-theme="light"] .tx-section-sub { color: #475569; }
+[data-hub-theme="light"] .tx-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+[data-hub-theme="light"] .tx-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+[data-hub-theme="light"] .tx-card-title { color: #0f172a; }
+[data-hub-theme="light"] .tx-card-sub,
+[data-hub-theme="light"] .tx-card-desc { color: #475569; }
+[data-hub-theme="light"] .tx-card-stats { border-top-color: #e2e8f0; border-bottom-color: #e2e8f0; }
+[data-hub-theme="light"] .tx-card-stat-val { color: #0f172a; }
+[data-hub-theme="light"] .tx-card-stat-lbl { color: #64748b; }
+[data-hub-theme="light"] .tx-tag {
+  color: #475569;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+}
+[data-hub-theme="light"] .tx-btn-demo {
+  color: #1e293b;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+}
+[data-hub-theme="light"] .tx-btn-demo:hover { background: #f1f5f9; }
+[data-hub-theme="light"] .tx-btn-soon {
+  color: #94a3b8;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+}
+[data-hub-theme="light"] .tx-quicklink { color: #2563eb; }
+[data-hub-theme="light"] .tx-quicklink:hover { color: #1d4ed8; }
+[data-hub-theme="light"] .tx-quicklink + .tx-quicklink::before { color: #cbd5e1; }
+[data-hub-theme="light"] .tx-cta-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+}
+[data-hub-theme="light"] .tx-cta-glow { opacity: 0.3; }
+[data-hub-theme="light"] .tx-cta-title { color: #0f172a; }
+[data-hub-theme="light"] .tx-cta-body { color: #475569; }
+[data-hub-theme="light"] .tx-inline-code {
+  color: #1d4ed8;
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.16);
+}
+
+/* Top nav + footer flip with the theme. The selectors target the dark
+   hardcoded surface; if a dark spec gets added back, we re-tint it here. */
+[data-hub-theme="light"] .top-nav,
+[data-hub-theme="light"] .hub-footer-enterprise,
+[data-hub-theme="light"] .hub-footer-bottom {
+  background: #ffffff;
+  border-color: #e2e8f0 !important;
+  color: #0f172a;
+}
