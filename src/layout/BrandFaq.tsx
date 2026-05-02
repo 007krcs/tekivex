@@ -83,7 +83,7 @@ export function BrandFaq() {
       }}
     >
       <header style={{ marginBottom: 40, textAlign: 'center' }}>
-        <div className="tx-eyebrow" style={{ marginBottom: 12 }}>
+        <div className="tx-eyebrow" style={{ marginBottom: 12, color: '#3a86ff', fontWeight: 700, fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
           About Tekivex
         </div>
         <h2
@@ -93,13 +93,14 @@ export function BrandFaq() {
             fontWeight: 800,
             letterSpacing: '-0.025em',
             lineHeight: 1.15,
+            color: '#0f172a',
           }}
         >
           What is Tekivex?
         </h2>
         <p
           style={{
-            color: 'var(--tx-muted, #475569)',
+            color: '#475569',
             fontSize: 'clamp(15px, 1.2vw, 17px)',
             lineHeight: 1.65,
             maxWidth: 760,
@@ -119,14 +120,15 @@ export function BrandFaq() {
       <div
         className="tx-brand-prose"
         style={{
-          background: 'var(--tx-surface, #ffffff)',
-          border: '1px solid var(--tx-border, #e6e8ef)',
+          background: '#ffffff',
+          border: '1px solid #e6e8ef',
           borderRadius: 16,
           padding: 'clamp(20px, 3vw, 32px)',
           marginBottom: 40,
           fontSize: 15,
           lineHeight: 1.75,
-          color: 'var(--tx-fg, #1a1f2e)',
+          color: '#1a1f2e',
+          boxShadow: '0 2px 12px rgba(15, 23, 42, 0.04)',
         }}
       >
         <p style={{ margin: 0 }}>
@@ -157,6 +159,7 @@ export function BrandFaq() {
           fontSize: 'clamp(1.3rem, 2.2vw, 1.7rem)',
           fontWeight: 800,
           letterSpacing: '-0.02em',
+          color: '#0f172a',
         }}
       >
         Frequently asked questions about Tekivex
@@ -169,12 +172,12 @@ export function BrandFaq() {
             <div
               key={f.question}
               style={{
-                background: 'var(--tx-surface, #ffffff)',
-                border: `1px solid ${open ? 'var(--tx-accent, #3a86ff)' : 'var(--tx-border, #e6e8ef)'}`,
+                background: '#ffffff',
+                border: `1px solid ${open ? '#3a86ff' : '#e6e8ef'}`,
                 borderRadius: 12,
                 overflow: 'hidden',
                 transition: 'border-color 0.2s, box-shadow 0.2s',
-                boxShadow: open ? '0 4px 16px rgba(58, 134, 255, 0.08)' : 'none',
+                boxShadow: open ? '0 4px 16px rgba(58, 134, 255, 0.12)' : '0 1px 3px rgba(15, 23, 42, 0.04)',
               }}
             >
               <button
@@ -183,10 +186,10 @@ export function BrandFaq() {
                 aria-expanded={open}
                 style={{
                   width: '100%',
-                  padding: '16px 20px',
+                  padding: '18px 22px',
                   background: 'transparent',
                   border: 'none',
-                  fontSize: 15,
+                  fontSize: 16,
                   fontWeight: 700,
                   textAlign: 'left',
                   cursor: 'pointer',
@@ -194,22 +197,22 @@ export function BrandFaq() {
                   justifyContent: 'space-between',
                   alignItems: 'center',
                   gap: 12,
-                  color: 'inherit',
+                  color: '#0f172a',
                   fontFamily: 'inherit',
                 }}
               >
                 <span>{f.question}</span>
-                <span style={{ color: 'var(--tx-accent, #3a86ff)', fontSize: 20, fontWeight: 400 }}>
+                <span style={{ color: '#3a86ff', fontSize: 22, fontWeight: 400 }}>
                   {open ? '−' : '+'}
                 </span>
               </button>
               {open && (
                 <div
                   style={{
-                    padding: '0 20px 18px',
-                    color: 'var(--tx-muted, #475569)',
-                    fontSize: 14.5,
-                    lineHeight: 1.7,
+                    padding: '0 22px 20px',
+                    color: '#334155',
+                    fontSize: 15,
+                    lineHeight: 1.75,
                   }}
                 >
                   {f.answer}
