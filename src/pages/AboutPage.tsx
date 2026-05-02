@@ -119,7 +119,7 @@ export function AboutPage() {
               <Icon name="github" size={16} />
               Report an Issue
             </a>
-            <a href="#/products" className="tx-ghost-btn">
+            <a href="/products" className="tx-ghost-btn">
               Explore Products
             </a>
           </div>
@@ -267,7 +267,7 @@ export function AboutPage() {
               <Icon name="message-circle" size={16} />
               Report an Issue
             </a>
-            <a href="#/products" className="tx-ghost-btn">
+            <a href="/products" className="tx-ghost-btn">
               Explore Products
             </a>
           </div>

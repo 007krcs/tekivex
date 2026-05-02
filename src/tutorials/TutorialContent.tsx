@@ -3,6 +3,7 @@ import type { ContentBlock, TutorialTopic, TutorialCategory } from './types';
 import { CodeBlock } from './CodeBlock';
 import { FlowDiagram, ComparisonCard } from './FlowDiagram';
 import { MarkdownRenderer } from './MarkdownRenderer';
+import { navigate } from '../App';
 
 // ─── ContentBlock Renderer ───
 
@@ -137,10 +138,10 @@ export function TutorialContent({ topic, category, onNavigate, prev, next, markd
         <div className="docs-content">
           {/* Breadcrumb */}
           <nav className="tutorial-breadcrumb">
-            <a href="#/tutorials" onClick={(e) => { e.preventDefault(); window.location.hash = '/tutorials'; }}>Tutorials</a>
+            <a href="/tutorials" onClick={(e) => { e.preventDefault(); navigate('/tutorials'); }}>Tutorials</a>
             <span className="tutorial-breadcrumb-sep">/</span>
-            <a href={`#/tutorials/${category.id}`}
-               onClick={(e) => { e.preventDefault(); window.location.hash = `/tutorials/${category.id}`; }}>
+            <a href={`/tutorials/${category.id}`}
+               onClick={(e) => { e.preventDefault(); navigate(`/tutorials/${category.id}`); }}>
               {category.title}
             </a>
             <span className="tutorial-breadcrumb-sep">/</span>

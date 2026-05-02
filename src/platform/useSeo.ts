@@ -67,7 +67,7 @@ export function seoFromManifest(
   baseUrl = 'https://tekivex.com',
   route = '/',
 ): SeoConfig {
-  const canonical = `${baseUrl}/#${route.startsWith('/') ? route : '/' + route}`;
+  const canonical = `${baseUrl}${route.startsWith('/') ? route : '/' + route}`;
   const ogImage = seo.ogImage
     ? seo.ogImage.startsWith('http')
       ? seo.ogImage

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { usePlatform } from '../platform/PlatformProvider';
 import { Icon } from '../icons/Icon';
 import type { ProductManifest, ProductStatus, ProductTier } from '../platform/types';
+import { BrandFaq } from '../layout/BrandFaq';
 
 const STATUS_CONFIG: Record<ProductStatus, { label: string; color: string; bg: string }> = {
   ga:            { label: 'GA',          color: '#4ade80', bg: 'rgba(74,222,128,0.14)' },
@@ -289,6 +290,8 @@ export function PlatformPage() {
           </div>
         </section>
       )}
+
+      <BrandFaq />
 
       {/* ── Integration CTA ── */}
       <section className="tx-cta-section">

@@ -14,22 +14,67 @@ import { TutorialLanding } from './tutorials/TutorialLanding';
 import { TutorialLayout } from './tutorials/TutorialLayout';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 
-function useHashRoute(): string {
-  const [hash, setHash] = React.useState(window.location.hash.slice(1) || '/');
+// History API routing — real URLs (not hash fragments) so Google indexes
+// every page as a distinct document. SPA fallback is configured in
+// vercel.json so any URL hits index.html and React resolves it client-side.
+function useHistoryRoute(): string {
+  const [path, setPath] = React.useState(
+    typeof window === 'undefined' ? '/' : window.location.pathname || '/',
+  );
   React.useEffect(() => {
-    const handler = () => setHash(window.location.hash.slice(1) || '/');
-    window.addEventListener('hashchange', handler);
-    return () => window.removeEventListener('hashchange', handler);
+    const handler = () => setPath(window.location.pathname || '/');
+    window.addEventListener('popstate', handler);
+    // Custom event so navigate() can notify subscribers without round-tripping
+    window.addEventListener('tekivex:navigate', handler);
+    return () => {
+      window.removeEventListener('popstate', handler);
+      window.removeEventListener('tekivex:navigate', handler);
+    };
   }, []);
-  return hash;
+  return path;
 }
 
 export function navigate(path: string) {
-  window.location.hash = path;
+  if (typeof window === 'undefined') return;
+  // External / absolute URLs — let the browser handle them.
+  if (/^https?:/.test(path)) {
+    window.location.href = path;
+    return;
+  }
+  if (window.location.pathname !== path) {
+    window.history.pushState(null, '', path);
+    window.dispatchEvent(new Event('tekivex:navigate'));
+  }
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+/**
+ * Internal SPA link. Behaves like <a> for crawlers and right-click but uses
+ * history.pushState for in-app navigation so the page does not reload.
+ */
+export function Link({
+  to,
+  children,
+  ...rest
+}: { to: string; children: React.ReactNode } & React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+  return (
+    <a
+      href={to}
+      onClick={(e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+        if (rest.target === '_blank') return;
+        e.preventDefault();
+        navigate(to);
+      }}
+      {...rest}
+    >
+      {children}
+    </a>
+  );
 }
 
 export function App() {
-  const route = useHashRoute();
+  const route = useHistoryRoute();
   const activeProductId = getActiveProductId(route);
 
   // Scroll to top on every route change
