@@ -120,9 +120,9 @@ export function Footer() {
           &copy; {new Date().getFullYear()} Tekivex. All rights reserved.
         </div>
         <div className="hub-footer-bottom-links">
-          <a href="#/products" className="hub-footer-bottom-link">Products</a>
+          <a href="/products" className="hub-footer-bottom-link">Products</a>
           <a href={`${GS}/#/docs/getting-started/introduction`} className="hub-footer-bottom-link" target="_blank" rel="noopener noreferrer">Docs</a>
-          <a href="#/privacy-policy" className="hub-footer-bottom-link">Privacy Policy</a>
+          <a href="/privacy-policy" className="hub-footer-bottom-link">Privacy Policy</a>
           <a href="https://github.com/novaai0401-ui/tekivex-issue-report/issues" className="hub-footer-bottom-link" target="_blank" rel="noopener noreferrer">Report Issue</a>
         </div>
         <div className="hub-footer-social">

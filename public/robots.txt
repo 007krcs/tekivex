@@ -3,7 +3,16 @@ Allow: /
 
 # Sitemaps
 Sitemap: https://tekivex.com/sitemap.xml
+Sitemap: https://tekivex.com/sitemap-index.xml
+Sitemap: https://ui.tekivex.com/sitemap.xml
 Sitemap: https://gridstorm.tekivex.com/sitemap.xml
+
+# AdSense crawlers — explicit allow
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
 
 # Allow Googlebot full access
 User-agent: Googlebot

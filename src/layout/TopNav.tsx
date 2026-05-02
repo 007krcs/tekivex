@@ -187,7 +187,7 @@ export function TopNav({ route }: TopNavProps) {
       <div className="top-nav-left">
         {/* Platform brand */}
         <a
-          href="#/products"
+          href="/products"
           className="top-nav-brand"
           onClick={(e) => { e.preventDefault(); navigate('/products'); }}
           title={config.name}
@@ -214,7 +214,7 @@ export function TopNav({ route }: TopNavProps) {
         <div className={`top-nav-links${mobileMenuOpen ? ' open' : ''}`}>
           {/* Platform home */}
           <a
-            href="#/products"
+            href="/products"
             className={`top-nav-link ${!activeProductId ? 'active' : ''}`}
             onClick={(e) => { e.preventDefault(); navigate('/products'); setMobileMenuOpen(false); }}
           >
@@ -223,7 +223,7 @@ export function TopNav({ route }: TopNavProps) {
 
           {/* Tutorials */}
           <a
-            href="#/tutorials"
+            href="/tutorials"
             className={`top-nav-link${route.startsWith('/tutorials') ? ' active' : ''}`}
             onClick={(e) => { e.preventDefault(); navigate('/tutorials'); setMobileMenuOpen(false); }}
           >
@@ -232,7 +232,7 @@ export function TopNav({ route }: TopNavProps) {
 
           {/* About */}
           <a
-            href="#/about"
+            href="/about"
             className={`top-nav-link${route === '/about' ? ' active' : ''}`}
             onClick={(e) => { e.preventDefault(); navigate('/about'); setMobileMenuOpen(false); }}
           >

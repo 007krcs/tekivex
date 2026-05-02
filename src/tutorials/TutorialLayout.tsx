@@ -4,6 +4,7 @@ import { loadCategory, findTopic, getFirstTopic, getAdjacentTopics } from './reg
 import { TutorialSidebar } from './TutorialSidebar';
 import { TutorialContent } from './TutorialContent';
 import { useProgress } from './useProgress';
+import { navigate } from '../App';
 
 interface TutorialLayoutProps {
   categoryId: string;
@@ -60,9 +61,8 @@ export function TutorialLayout({ categoryId, topicSlug }: TutorialLayoutProps) {
     }
   }, [activeTopic?.contentFile]);
 
-  const navigate = (slug: string) => {
-    window.location.hash = `/tutorials/${categoryId}/${slug}`;
-    window.scrollTo(0, 0);
+  const navigateTopic = (slug: string) => {
+    navigate(`/tutorials/${categoryId}/${slug}`);
   };
 
   if (loading) {
@@ -82,7 +82,7 @@ export function TutorialLayout({ categoryId, topicSlug }: TutorialLayoutProps) {
         <div className="docs-error">
           <h2>Tutorial Not Found</h2>
           <p>{error || 'Could not load this tutorial category.'}</p>
-          <a href="#/tutorials" className="btn-primary" style={{ marginTop: 16 }}>Back to Tutorials</a>
+          <a href="/tutorials" className="btn-primary" style={{ marginTop: 16 }}>Back to Tutorials</a>
         </div>
       </div>
     );
@@ -109,13 +109,13 @@ export function TutorialLayout({ categoryId, topicSlug }: TutorialLayoutProps) {
       <TutorialSidebar
         category={category}
         activeSlug={activeSlug}
-        onNavigate={navigate}
+        onNavigate={navigateTopic}
         visited={visited}
       />
       <TutorialContent
         topic={activeTopic}
         category={category}
-        onNavigate={navigate}
+        onNavigate={navigateTopic}
         prev={prev}
         next={next}
         markdownContent={markdownContent}

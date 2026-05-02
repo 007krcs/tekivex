@@ -1,167 +1,165 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-          http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-
-  <!-- ── tekivex.com — Platform home ───────────────────────────────── -->
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://tekivex.com/</loc>
-    <lastmod>2026-04-04</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/"/>
   </url>
-
-  <!-- ── Products launcher ──────────────────────────────────────────── -->
   <url>
-    <loc>https://tekivex.com/#/products</loc>
-    <lastmod>2026-04-04</lastmod>
+    <loc>https://tekivex.com/products</loc>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/products"/>
   </url>
-
-  <!-- ── About ──────────────────────────────────────────────────────── -->
   <url>
-    <loc>https://tekivex.com/#/about</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://tekivex.com/about</loc>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/about"/>
   </url>
-
-  <!-- ── Privacy Policy ────────────────────────────────────────────── -->
   <url>
-    <loc>https://tekivex.com/#/privacy-policy</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://tekivex.com/privacy-policy</loc>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <!-- ── Tutorials ─────────────────────────────────────────────────── -->
-  <url>
-    <loc>https://tekivex.com/#/tutorials</loc>
-    <lastmod>2026-04-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://tekivex.com/#/tutorials/ai-ml</loc>
-    <lastmod>2026-04-20</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/privacy-policy"/>
   </url>
   <url>
-    <loc>https://tekivex.com/#/tutorials/software-architecture</loc>
-    <lastmod>2026-04-20</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://tekivex.com/tutorials</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/tutorials"/>
   </url>
   <url>
-    <loc>https://tekivex.com/#/tutorials/system-design</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://tekivex.com/product/gridstorm</loc>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/product/gridstorm"/>
   </url>
   <url>
-    <loc>https://tekivex.com/#/tutorials/frontend-patterns</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://tekivex.com/product/analytics-studio</loc>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/product/analytics-studio"/>
   </url>
   <url>
-    <loc>https://tekivex.com/#/tutorials/backend-patterns</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://tekivex.com/product/pdf-toolkit</loc>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/product/pdf-toolkit"/>
   </url>
-
-  <!-- ── GridStorm (GA, v0.1.3) ─────────────────────────────────────── -->
   <url>
-    <loc>https://tekivex.com/#/product/gridstorm</loc>
-    <lastmod>2026-04-04</lastmod>
+    <loc>https://tekivex.com/product/dataflow</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/product/dataflow"/>
+  </url>
+  <url>
+    <loc>https://tekivex.com/product/tekivex-ui</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/product/tekivex-ui"/>
+  </url>
+  <url>
+    <loc>https://tekivex.com/tutorials/ai-ml</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/tutorials/ai-ml"/>
+  </url>
+  <url>
+    <loc>https://tekivex.com/tutorials/ai-ml-transformers</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/tutorials/ai-ml-transformers"/>
+  </url>
+  <url>
+    <loc>https://tekivex.com/tutorials/ai-ml-training</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/tutorials/ai-ml-training"/>
+  </url>
+  <url>
+    <loc>https://tekivex.com/tutorials/ai-ml-agents</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/tutorials/ai-ml-agents"/>
+  </url>
+  <url>
+    <loc>https://tekivex.com/tutorials/ai-nlp</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/tutorials/ai-nlp"/>
+  </url>
+  <url>
+    <loc>https://tekivex.com/tutorials/ai-langchain</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/tutorials/ai-langchain"/>
+  </url>
+  <url>
+    <loc>https://tekivex.com/tutorials/ai-speech</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/tutorials/ai-speech"/>
+  </url>
+  <url>
+    <loc>https://tekivex.com/tutorials/ai-ethics</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/tutorials/ai-ethics"/>
+  </url>
+  <url>
+    <loc>https://tekivex.com/tutorials/system-design</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/tutorials/system-design"/>
+  </url>
+  <url>
+    <loc>https://tekivex.com/tutorials/software-architecture</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/tutorials/software-architecture"/>
+  </url>
+  <url>
+    <loc>https://tekivex.com/tutorials/frontend-patterns</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/tutorials/frontend-patterns"/>
+  </url>
+  <url>
+    <loc>https://tekivex.com/tutorials/backend-patterns</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tekivex.com/tutorials/backend-patterns"/>
+  </url>
+  <url>
+    <loc>https://ui.tekivex.com/</loc>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.95</priority>
   </url>
-
-  <!-- ── Analytics Studio (Beta) ───────────────────────────────────── -->
-  <url>
-    <loc>https://tekivex.com/#/product/analytics-studio</loc>
-    <lastmod>2026-04-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- ── PDF Toolkit (Beta) ─────────────────────────────────────────── -->
-  <url>
-    <loc>https://tekivex.com/#/product/pdf-toolkit</loc>
-    <lastmod>2026-04-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- ── DataFlow (Beta) ────────────────────────────────────────────── -->
-  <url>
-    <loc>https://tekivex.com/#/product/dataflow</loc>
-    <lastmod>2026-04-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- ── GridStorm Hub ──────────────────────────────────────────────── -->
-  <url>
-    <loc>https://gridstorm.tekivex.com/</loc>
-    <lastmod>2026-04-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- ── GridStorm Example Apps ─────────────────────────────────────── -->
-  <url>
-    <loc>https://gridstorm.tekivex.com/react-demo/</loc>
-    <lastmod>2026-04-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://gridstorm.tekivex.com/analytics-explorer/</loc>
-    <lastmod>2026-04-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://gridstorm.tekivex.com/financial-trading/</loc>
-    <lastmod>2026-04-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://gridstorm.tekivex.com/feature-showcase/</loc>
-    <lastmod>2026-04-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://gridstorm.tekivex.com/cookbook/</loc>
-    <lastmod>2026-04-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://gridstorm.tekivex.com/spreadsheet/</loc>
-    <lastmod>2026-04-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://gridstorm.tekivex.com/playground/</loc>
-    <lastmod>2026-04-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://gridstorm.tekivex.com/pdf-viewer/</loc>
-    <lastmod>2026-04-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
 </urlset>

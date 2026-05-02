@@ -1,0 +1,16 @@
+/* TEAM */
+  Project: Tekivex
+  Site:    https://tekivex.com
+  Docs:    https://ui.tekivex.com
+
+/* PRODUCTS */
+  GridStorm        — high-performance React data grid
+  Analytics Studio — drag-and-drop BI with 26+ charts
+  DataFlow         — real-time streaming engine
+  PDF Toolkit      — WASM-based PDF renderer
+  TekiVex UI       — React component library (113 components)
+
+/* SITE */
+  Last update: 2026-05-02
+  Standards: HTML5, CSS3, ES2022, WCAG 2.1 AAA
+  License: MIT
