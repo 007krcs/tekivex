@@ -42,9 +42,8 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
 
-  <!-- ── Google AdSense ───────────────────────────────────────────────── -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4630229006617891" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-4630229006617891" />
+  <!-- Google AdSense intentionally not loaded — re-enable after site has
+       sufficient original editorial content and approval is granted. -->
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-C65SFGKM00"></script>
@@ -194,77 +193,21 @@
   </script>
 </head>
 <body>
-  <div id="root"></div>
-
-  <!--
-    ── Static pre-rendered content for search engine and AdSense crawlers ──
-    Bots that don't execute JavaScript read this. React replaces on client.
-  -->
-  <div id="tkx-static-content" style="display:none" aria-hidden="true">
-    <header>
+  <noscript>
+    <div style="max-width:720px;margin:40px auto;padding:24px;font-family:Inter,system-ui,sans-serif;color:#0f172a;">
       <h1>Tekivex — Enterprise Developer Tools Platform</h1>
       <p>Tekivex builds open-source enterprise developer tools: GridStorm (high-performance data grid), Analytics Studio (BI platform), DataFlow (real-time streaming engine), and PDF Toolkit (WASM renderer). All MIT-licensed and free forever.</p>
-      <nav>
-        <ul>
-          <li><a href="#/products">All Products</a></li>
-          <li><a href="#/product/gridstorm">GridStorm</a></li>
-          <li><a href="#/product/analytics-studio">Analytics Studio</a></li>
-          <li><a href="#/product/pdf-toolkit">PDF Toolkit</a></li>
-          <li><a href="#/product/dataflow">DataFlow</a></li>
-          <li><a href="#/tutorials">Tutorials</a></li>
-          <li><a href="#/about">About</a></li>
-          <li><a href="#/privacy-policy">Privacy Policy</a></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <section>
-        <h2>What is Tekivex?</h2>
-        <p>Tekivex is an open-source enterprise software platform that builds production-quality developer tools. Every product is MIT-licensed, TypeScript-native, and designed with zero-dependency architecture to minimise bundle size and attack surface. Tekivex products are used by developers and engineering teams building high-performance, data-intensive web applications.</p>
-        <p>The Tekivex platform includes five products: GridStorm (enterprise data grid), Analytics Studio (business intelligence dashboard), PDF Toolkit (WASM PDF processor), DataFlow (real-time streaming engine), and TekiVex UI (accessible React component library). All products are free for personal and commercial use.</p>
-      </section>
-      <section>
-        <h2>GridStorm — Enterprise Data Grid</h2>
-        <p>GridStorm is an open-source headless enterprise data grid that handles 100,000 rows at 60fps with virtual scrolling. It ships 57 packages and 35 composable plugins: column pinning, row grouping, tree data, master-detail, cell editing, inline validation, CSV/Excel export, and more. GridStorm supports React, Vue, Angular, Svelte, and Vanilla JS. It is a free open-source alternative to AG Grid and Handsontable. WCAG 2.1 AA accessible. Core package is under 50KB gzipped with zero production runtime dependencies.</p>
-      </section>
-      <section>
-        <h2>Analytics Studio — Business Intelligence Platform</h2>
-        <p>Analytics Studio is an open-source drag-and-drop BI platform with 26+ chart types, an in-browser DuckDB SQL engine, pivot tables, KPI dashboards, cross-filtering, calculated fields, conditional formatting, and PDF/PNG export. It is a free alternative to Tableau, Power BI, and Looker for embedded analytics.</p>
-      </section>
-      <section>
-        <h2>PDF Toolkit — WASM PDF Processing</h2>
-        <p>PDF Toolkit is a Rust/WebAssembly PDF processor that runs entirely in the browser. It supports 13 annotation types, digital signatures, AES-256 encryption, AcroForm filling, PII redaction, page reordering, and text extraction — without uploading documents to a server. Free open-source alternative to PSPDFKit and Apryse WebViewer.</p>
-      </section>
-      <section>
-        <h2>DataFlow — Real-Time Streaming Engine</h2>
-        <p>DataFlow is a zero-dependency streaming engine supporting WebSocket, Server-Sent Events, and HTTP polling. Features include anomaly detection, time-travel replay, automatic reconnection, message deduplication, and back-pressure handling. Framework-agnostic. Integrates with GridStorm and Analytics Studio for live data.</p>
-      </section>
-      <section>
-        <h2>TekiVex UI — Accessible React Component Library</h2>
-        <p>TekiVex UI is a production-ready React component library with 78 components targeting WCAG 2.1 AAA accessibility. Includes AI components, real-time components, and seven page templates. MIT-licensed and free. See ui.tekivex.com.</p>
-      </section>
-      <section>
-        <h2>Tutorials</h2>
-        <p>In-depth tutorials covering: AI and machine learning, transformers, NLP, LangChain agents, software architecture, system design, frontend patterns, and backend patterns.</p>
-      </section>
-      <section>
-        <h2>Open Source and MIT License</h2>
-        <p>All Tekivex products are MIT-licensed — free for personal and commercial use with no fees or attribution required. Source at github.com/007krcs. Packages on npm.</p>
-      </section>
-    </main>
-    <footer>
-      <p>Tekivex — Enterprise Developer Tools. MIT License. Copyright 2026 Tekivex.</p>
-      <nav>
-        <ul>
-          <li><a href="#/products">Products</a></li>
-          <li><a href="#/tutorials">Tutorials</a></li>
-          <li><a href="#/about">About</a></li>
-          <li><a href="#/privacy-policy">Privacy Policy</a></li>
-          <li><a href="https://github.com/007krcs">GitHub</a></li>
-        </ul>
-      </nav>
-    </footer>
-  </div>
+      <p>This site requires JavaScript to load the full experience. Please enable JavaScript in your browser, or visit one of our product subdomains directly:</p>
+      <ul>
+        <li><a href="https://gridstorm.tekivex.com">GridStorm</a></li>
+        <li><a href="https://analytics.tekivex.com">Analytics Studio</a></li>
+        <li><a href="https://dataflow.tekivex.com">DataFlow</a></li>
+        <li><a href="https://ui.tekivex.com">TekiVex UI</a></li>
+      </ul>
+    </div>
+  </noscript>
+
+  <div id="root"></div>
 
   <script type="module" src="/src/main.tsx"></script>
 </body>

@@ -1,15 +1,17 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // tekivex.com prerender — for every real route in the site, emit a static
 // HTML file with route-specific <title>, meta description, canonical, and a
-// clean light-theme pre-hydration shell. Crawlers and AdSense see content
+// clean light-theme pre-hydration shell. Crawlers see content
 // instantly; React then hydrates over it.
 //
 // We deliberately avoid trying to SSR the full React tree because some
 // product pages load WebGL / AI runtimes that don't exist in Node.
 // ─────────────────────────────────────────────────────────────────────────────
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import esbuild from 'esbuild';
+import { marked } from 'marked';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -85,7 +87,7 @@ const routes = [
       'How Tekivex collects, uses, and protects information about visitors to tekivex.com and users of the open-source Tekivex products.',
     h1: 'Privacy Policy',
     body:
-      'How Tekivex handles information about visitors to tekivex.com. Plain language, no dark patterns, no third-party tracking beyond what AdSense requires.',
+      'How Tekivex handles information about visitors to tekivex.com. Plain language, no dark patterns, only the third-party analytics needed to operate the site.',
   },
   {
     path: '/tutorials',
@@ -202,6 +204,193 @@ for (const route of routes) {
   count++;
 }
 
+// ─── Per-topic tutorial prerendering ──────────────────────────────────────
+// Tutorial topic markdown lives in public/tutorials/content/<cat>/<slug>.md
+// and topic metadata lives in src/tutorials/data/<cat>.ts. We compile the .ts
+// files via esbuild, import them, then emit a fully rendered HTML page for
+// every topic so crawlers see the actual editorial content, not just a SPA
+// shell with a category landing page.
+const DATA_DIR = join(ROOT, 'src', 'tutorials', 'data');
+const TUTORIAL_CONTENT = join(ROOT, 'public', 'tutorials', 'content');
+const TMP_DIR = join(DIST, '.prerender-tmp');
+if (!existsSync(TMP_DIR)) mkdirSync(TMP_DIR, { recursive: true });
+
+// Source of truth: only the categories actually wired into the live registry
+// (src/tutorials/registry.ts). Legacy/orphan .ts files in the data folder use
+// an older inline-content format and are not surfaced in the app — skip them.
+const REGISTERED_CATEGORIES = [
+  'system-design',
+  'software-architecture',
+  'frontend-patterns',
+  'backend-patterns',
+  'ai-ml',
+  'ai-ml-transformers',
+  'ai-ml-training',
+  'ai-ml-agents',
+  'ai-nlp',
+  'ai-langchain',
+  'ai-speech',
+  'ai-ethics',
+];
+const categoryIds = REGISTERED_CATEGORIES.filter((id) =>
+  existsSync(join(DATA_DIR, `${id}.ts`)),
+);
+
+async function loadCategoryData(catId) {
+  const srcPath = join(DATA_DIR, `${catId}.ts`);
+  const src = readFileSync(srcPath, 'utf8');
+  // Strip the `import type` line — it has no runtime effect and references a
+  // path that won't resolve from the temp file's location.
+  const cleaned = src.replace(/^\s*import\s+type[^;]+;\s*$/m, '');
+  const transformed = esbuild.transformSync(cleaned, {
+    loader: 'ts',
+    format: 'esm',
+    target: 'esnext',
+  }).code;
+  const outPath = join(TMP_DIR, `${catId}.mjs`);
+  writeFileSync(outPath, transformed, 'utf8');
+  const mod = await import(pathToFileURL(outPath).href);
+  return mod.default;
+}
+
+function topicHtml({ category, section, topic, contentHtml }) {
+  const path = `/tutorials/${category.id}/${topic.slug}`;
+  const url = `${ORIGIN}${path}`;
+  const title = `${topic.title} — ${category.title} | Tekivex tutorials`;
+  const description = topic.description;
+
+  let html = baseHtml;
+  html = html.replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(title)}</title>`);
+  html = html.replace(
+    /<meta\s+name="description"\s+content="[^"]*"\s*\/?>/,
+    `<meta name="description" content="${escapeHtml(description)}" />`,
+  );
+  if (/<link\s+rel="canonical"/i.test(html)) {
+    html = html.replace(
+      /<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/i,
+      `<link rel="canonical" href="${url}" />`,
+    );
+  } else {
+    html = html.replace('</head>', `  <link rel="canonical" href="${url}" />\n</head>`);
+  }
+  html = html.replace(
+    /<meta\s+property="og:title"\s+content="[^"]*"\s*\/?>/,
+    `<meta property="og:title" content="${escapeHtml(title)}" />`,
+  );
+  html = html.replace(
+    /<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/,
+    `<meta property="og:url" content="${url}" />`,
+  );
+  html = html.replace(
+    /<meta\s+property="og:description"\s+content="[^"]*"\s*\/?>/,
+    `<meta property="og:description" content="${escapeHtml(description)}" />`,
+  );
+  html = html.replace(
+    /<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/?>/,
+    `<meta name="twitter:title" content="${escapeHtml(title)}" />`,
+  );
+  html = html.replace(
+    /<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/?>/,
+    `<meta name="twitter:description" content="${escapeHtml(description)}" />`,
+  );
+
+  const articleLd = {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: topic.title,
+    description: topic.description,
+    url,
+    keywords: (topic.keywords || []).join(', '),
+    inLanguage: 'en',
+    isPartOf: { '@type': 'CreativeWorkSeries', name: category.title, url: `${ORIGIN}/tutorials/${category.id}` },
+    publisher: { '@type': 'Organization', name: 'Tekivex', url: ORIGIN },
+    datePublished: TODAY,
+    dateModified: TODAY,
+  };
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Tekivex', item: ORIGIN },
+      { '@type': 'ListItem', position: 2, name: 'Tutorials', item: `${ORIGIN}/tutorials` },
+      { '@type': 'ListItem', position: 3, name: category.title, item: `${ORIGIN}/tutorials/${category.id}` },
+      { '@type': 'ListItem', position: 4, name: topic.title, item: url },
+    ],
+  };
+  html = html.replace(
+    '</head>',
+    `    <script type="application/ld+json">${JSON.stringify(articleLd)}</script>\n` +
+    `    <script type="application/ld+json">${JSON.stringify(breadcrumbLd)}</script>\n  </head>`,
+  );
+
+  const meta = [
+    topic.difficulty ? `${topic.difficulty[0].toUpperCase()}${topic.difficulty.slice(1)}` : null,
+    topic.estimatedMinutes ? `${topic.estimatedMinutes} min read` : null,
+  ].filter(Boolean).join(' · ');
+
+  const ssr = `
+    <article style="max-width:780px;margin:0 auto;padding:56px 24px 96px;color:#1a1f2e;font:16px/1.7 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif">
+      <nav aria-label="Breadcrumb" style="font-size:13px;color:#64748b;margin-bottom:20px">
+        <a href="/" style="color:#3a86ff;text-decoration:none">Tekivex</a>
+        &nbsp;›&nbsp;
+        <a href="/tutorials" style="color:#3a86ff;text-decoration:none">Tutorials</a>
+        &nbsp;›&nbsp;
+        <a href="/tutorials/${escapeHtml(category.id)}" style="color:#3a86ff;text-decoration:none">${escapeHtml(category.title)}</a>
+      </nav>
+      <h1 style="font-size:2.2rem;font-weight:800;letter-spacing:-0.02em;color:#0a0f1f;margin:0 0 8px;line-height:1.2">${escapeHtml(topic.title)}</h1>
+      <p style="color:#475569;font-size:17px;line-height:1.55;margin:0 0 8px">${escapeHtml(topic.description)}</p>
+      ${meta ? `<p style="color:#94a3b8;font-size:13px;margin:0 0 28px">${escapeHtml(meta)}</p>` : ''}
+      <div class="tkx-article-body" style="font-size:16px;line-height:1.75;color:#1f2937">
+        ${contentHtml}
+      </div>
+      <hr style="margin:48px 0 24px;border:none;border-top:1px solid #e6e8ef" />
+      <p style="color:#64748b;font-size:13px">
+        Part of the <a href="/tutorials/${escapeHtml(category.id)}" style="color:#3a86ff;text-decoration:none">${escapeHtml(category.title)}</a> series on Tekivex.
+        Browse all <a href="/tutorials" style="color:#3a86ff;text-decoration:none">tutorials</a> or
+        explore our <a href="/products" style="color:#3a86ff;text-decoration:none">open-source products</a>.
+      </p>
+    </article>`;
+  html = html.replace(/<div id="root">[\s\S]*?<\/div>/, `<div id="root">${ssr}</div>`);
+  return html;
+}
+
+const topicRoutes = [];
+let topicCount = 0;
+let topicSkipped = 0;
+for (const catId of categoryIds) {
+  const category = await loadCategoryData(catId);
+  for (const section of category.sections || []) {
+    for (const topic of section.topics || []) {
+      if (!topic.contentFile) {
+        console.warn(`  ⚠ topic without contentFile: ${category.id}/${topic.slug}`);
+        topicSkipped++;
+        continue;
+      }
+      const mdPath = join(TUTORIAL_CONTENT, topic.contentFile);
+      if (!existsSync(mdPath)) {
+        console.warn(`  ⚠ missing markdown: ${topic.contentFile}`);
+        topicSkipped++;
+        continue;
+      }
+      const md = readFileSync(mdPath, 'utf8');
+      const contentHtml = marked.parse(md);
+      const html = topicHtml({ category, section, topic, contentHtml });
+      const dir = join(DIST, 'tutorials', category.id, topic.slug);
+      if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+      writeFileSync(join(dir, 'index.html'), html, 'utf8');
+      topicRoutes.push({
+        path: `/tutorials/${category.id}/${topic.slug}`,
+        priority: '0.7',
+        changefreq: 'monthly',
+      });
+      topicCount++;
+    }
+  }
+}
+
+// Clean up the tmp dir used for compiled TS data modules.
+try { rmSync(TMP_DIR, { recursive: true, force: true }); } catch {}
+
 // ─── Sitemap (real URLs, hreflang, image extension) ──────────────────────
 const sitemapXml =
   `<?xml version="1.0" encoding="UTF-8"?>\n` +
@@ -214,6 +403,13 @@ const sitemapXml =
       const priority = r.path === '/' ? '1.0' : r.path.startsWith('/product/') ? '0.85' : r.path.startsWith('/tutorials/') ? '0.75' : '0.7';
       const changefreq = r.path === '/' || r.path === '/products' || r.path === '/tutorials' ? 'weekly' : r.path === '/privacy-policy' ? 'yearly' : 'monthly';
       return `  <url>\n    <loc>${url}</loc>\n    <lastmod>${TODAY}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n    <xhtml:link rel="alternate" hreflang="en" href="${url}"/>\n  </url>`;
+    })
+    .join('\n') +
+  '\n' +
+  topicRoutes
+    .map((r) => {
+      const url = `${ORIGIN}${r.path}`;
+      return `  <url>\n    <loc>${url}</loc>\n    <lastmod>${TODAY}</lastmod>\n    <changefreq>${r.changefreq}</changefreq>\n    <priority>${r.priority}</priority>\n    <xhtml:link rel="alternate" hreflang="en" href="${url}"/>\n  </url>`;
     })
     .join('\n') +
   `\n  <url>\n    <loc>https://ui.tekivex.com/</loc>\n    <lastmod>${TODAY}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.95</priority>\n  </url>` +
@@ -258,4 +454,9 @@ if (existsSync(pub)) {
   writeFileSync(join(pub, 'humans.txt'), humans, 'utf8');
 }
 
-console.log(`✓ ${count} routes prerendered, sitemap.xml (${routes.length + 1} URLs), sitemap-index.xml, humans.txt`);
+const totalSitemapUrls = routes.length + topicRoutes.length + 1;
+console.log(
+  `✓ ${count} static routes + ${topicCount} tutorial topics prerendered` +
+  (topicSkipped ? ` (${topicSkipped} skipped — markdown missing)` : '') +
+  `, sitemap.xml (${totalSitemapUrls} URLs), sitemap-index.xml, humans.txt`,
+);
