@@ -74,7 +74,6 @@ export function PrivacyPolicyPage() {
             'Essential cookies — required for the site to function correctly.',
             'Preference cookies — remember your theme or settings.',
             'Analytics cookies — help us understand how visitors use our sites (Google Analytics 4).',
-            'Advertising cookies — used by Google AdSense to serve relevant advertisements.',
           ].map(t => <li key={t} style={li}>{t}</li>)}
         </ul>
         <p style={prose}>
@@ -96,7 +95,6 @@ export function PrivacyPolicyPage() {
             'Operate and maintain our websites and open-source products.',
             'Understand and analyse how visitors use our sites (Google Analytics 4).',
             'Improve and develop new features and products.',
-            'Serve relevant advertisements via Google AdSense.',
             'Detect and address technical issues and security threats.',
             'Comply with applicable legal obligations.',
           ].map(t => <li key={t} style={li}>{t}</li>)}
@@ -125,25 +123,9 @@ export function PrivacyPolicyPage() {
       </Section>
 
       {/* 4 */}
-      <Section title="4. Google AdSense and Advertising">
+      <Section title="4. Advertising">
         <p style={prose}>
-          We use <strong style={{ color: '#f1f5f9' }}>Google AdSense</strong> to display advertisements. Google AdSense uses cookies to serve ads based on your prior visits to our website or other websites. Google's use of advertising cookies enables it and its partners to serve ads based on your visit to our site and other sites on the Internet.
-        </p>
-        <p style={prose}>
-          AdSense Publisher ID:{' '}
-          <code style={{ background: 'rgba(15,23,42,0.8)', padding: '2px 7px', borderRadius: '4px', fontSize: '13px' }}>ca-pub-4630229006617891</code>
-        </p>
-        <ul style={{ paddingLeft: '24px', margin: '0 0 14px' }}>
-          {[
-            'You may opt out of personalised advertising by visiting Google\'s Ads Settings.',
-            'You can also opt out via the Network Advertising Initiative at networkadvertising.org.',
-            'We do not control the content of advertisements served by Google.',
-          ].map(t => <li key={t} style={li}>{t}</li>)}
-        </ul>
-        <p style={prose}>
-          <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" style={{ color: '#3b82f6' }}>
-            Manage your Google ad preferences →
-          </a>
+          Tekivex does not currently display advertisements on this site. If we begin serving ads in the future, this section will be updated to disclose the provider, the cookies set, and your opt-out options before any ads are loaded.
         </p>
       </Section>
 
@@ -152,7 +134,6 @@ export function PrivacyPolicyPage() {
         <ul style={{ paddingLeft: '24px', margin: '0 0 14px' }}>
           {[
             'Google Analytics 4 — analytics (privacy.google.com)',
-            'Google AdSense — advertising (policies.google.com/technologies/ads)',
             'GitHub — code hosting and issue tracking',
             'npm / npmjs.com — package registry for open-source packages',
             'Vercel / Render — web hosting',
@@ -174,7 +155,7 @@ export function PrivacyPolicyPage() {
       {/* 7 */}
       <Section title="7. Data Retention">
         <p style={prose}>
-          Analytics data is retained for 26 months in line with Google Analytics 4's default data retention settings. We do not store personal data beyond what is aggregated anonymously by our analytics and advertising providers.
+          Analytics data is retained for 26 months in line with Google Analytics 4's default data retention settings. We do not store personal data beyond what is aggregated anonymously by our analytics provider.
         </p>
       </Section>
 
@@ -250,7 +231,7 @@ export function PrivacyPolicyPage() {
         background: 'rgba(59,130,246,0.06)', border: '1px solid rgba(59,130,246,0.18)',
       }}>
         <p style={{ ...prose, margin: 0, fontSize: '13px', color: '#64748b' }}>
-          This Privacy Policy was drafted to comply with the EU General Data Protection Regulation (GDPR), the California Consumer Privacy Act (CCPA), and the Google AdSense Programme Policies (including the requirement to disclose use of cookies and data collection to site visitors). We are committed to handling your data transparently and responsibly.
+          This Privacy Policy was drafted to comply with the EU General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA), and to meet the cookie-and-data-collection disclosure obligations of any third-party services we integrate (currently Google Analytics 4). We are committed to handling your data transparently and responsibly.
         </p>
       </div>
     </main>

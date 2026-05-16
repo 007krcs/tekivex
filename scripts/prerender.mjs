@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // tekivex.com prerender — for every real route in the site, emit a static
 // HTML file with route-specific <title>, meta description, canonical, and a
-// clean light-theme pre-hydration shell. Crawlers and AdSense see content
+// clean light-theme pre-hydration shell. Crawlers see content
 // instantly; React then hydrates over it.
 //
 // We deliberately avoid trying to SSR the full React tree because some
@@ -85,7 +85,7 @@ const routes = [
       'How Tekivex collects, uses, and protects information about visitors to tekivex.com and users of the open-source Tekivex products.',
     h1: 'Privacy Policy',
     body:
-      'How Tekivex handles information about visitors to tekivex.com. Plain language, no dark patterns, no third-party tracking beyond what AdSense requires.',
+      'How Tekivex handles information about visitors to tekivex.com. Plain language, no dark patterns, only the third-party analytics needed to operate the site.',
   },
   {
     path: '/tutorials',
